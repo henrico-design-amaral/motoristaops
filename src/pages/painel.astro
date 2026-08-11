@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="MotoristaOps · Painel financeiro e estratégico">
+  <main class="redirect-shell">
+    <p class="eyebrow">MotoristaOps</p>
+    <h1>Painel operacional</h1>
+    <p>O dashboard continua preservado no projeto. Esta rota prepara a separação entre a página pública do motorista e o ambiente MotoristaOps.</p>
+    <a class="button button--gold" href="/?motoristaops=1">Abrir dashboard atual</a>
+  </main>
+  <style>.redirect-shell{max-width:760px;margin:10vh auto;padding:32px}.redirect-shell h1{font-size:clamp(2rem,6vw,4rem)}.redirect-shell p{max-width:60ch;line-height:1.7}</style>
+</BaseLayout>
