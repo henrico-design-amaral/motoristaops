@@ -1,4 +1,4 @@
-name: Validate MotoristaOps
+name: Validate and Deploy MotoristaOps Pages
 
 on:
   push:
@@ -8,6 +8,12 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   quality:
@@ -36,19 +42,36 @@ jobs:
       - name: Build Astro
         run: npm run build
         env:
-          SITE_URL: https://motoristaops.henrico.works
+          SITE_URL: https://henrico-design-amaral.github.io/motoristaops
 
       - name: Verify build output
         run: |
           test -d dist
           test -f dist/index.html
+          test -f dist/motorista/index.html
           test -f dist/importar-uber/index.html
           test -f dist/historico-importacoes/index.html
           grep -q "MotoristaOps" dist/index.html
+          grep -q "Levando pessoas, cuidando de histórias" dist/motorista/index.html
 
-      - name: Upload static build
-        uses: actions/upload-artifact@v4
+      - name: Configure Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: motoristaops-dist
           path: dist
-          if-no-files-found: error
+
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
