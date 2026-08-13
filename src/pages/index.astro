@@ -31,6 +31,12 @@ const latest = closings[0];
 const monthLabel = new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(`${currentMonth}-01T00:00:00Z`));
 const chartRows = [...monthRows].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
 const chartMax = Math.max(1,...chartRows.map((r:any)=>Number(r.grossRevenue??0)));
+const chartData = chartRows.map((row:any)=>({
+  ...row,
+  chartHeight: Math.max(8,Number(row.grossRevenue??0)/chartMax*100),
+  chartTitle: `${row.dateBR ?? row.date} · ${money.format(Number(row.grossRevenue??0))}`,
+  chartDay: String(row.date).slice(8)
+}));
 ---
 <BaseLayout title="MotoristaOps · Painel financeiro e estratégico">
   <div class="app-shell app-shell--open">
@@ -65,7 +71,7 @@ const chartMax = Math.max(1,...chartRows.map((r:any)=>Number(r.grossRevenue??0))
         </div>
 
         <div class="dashboard-grid">
-          <article class="panel"><div class="panel-head"><div><span>Evolução</span><h2>Receita por fechamento</h2></div></div><div class="daily-chart">{chartRows.map((row:any)=>{const height=Math.max(8,Number(row.grossRevenue??0)/chartMax*100);return <div class="chart-bar" title={`${row.dateBR ?? row.date} · ${money.format(Number(row.grossRevenue??0))}`}><span style={`height:${height}%`}></span><small>{String(row.date).slice(8)}</small></div>})}</div></article>
+          <article class="panel"><div class="panel-head"><div><span>Evolução</span><h2>Receita por fechamento</h2></div></div><div class="daily-chart">{chartData.map((row:any)=><div class="chart-bar" title={row.chartTitle}><span style={`height:${row.chartHeight}%`}></span><small>{row.chartDay}</small></div>)}</div></article>
           <article class="panel"><div class="panel-head"><div><span>Último fechamento</span><h2>{latest?.dateBR ?? latest?.date}</h2></div></div><div class="latest-summary"><strong>{money.format(Number(latest?.grossRevenue??0))}</strong><span>{latest?.platform ?? '—'} · {latest?.shift ?? '—'}</span><b>{Number(latest?.tripsTotal??0)} viagens</b><small>{number.format(Number(latest?.hoursOnline??0))}h · {number.format(Number(latest?.kmTotal??0))} km · lucro {money.format(Number(latest?.operationalProfit??0))}</small></div></article>
         </div>
 
