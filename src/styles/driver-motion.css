@@ -1,1 +1,12 @@
-.driver-page h2{font-size:3rem}
+.driver-page{font-size:1rem}
+.driver-page h2,.driver-quick-head h2,.driver-section-head h2,.driver-flow-intro h2,.driver-trust-lead h2,.driver-about h2,.driver-cta h2{font-size:3rem}
+.driver-page .driver-kicker{color:var(--driver-gold);letter-spacing:.1rem;text-transform:uppercase;margin:0;font-size:.61rem;font-weight:800}
+.driver-button,.driver-footer-inner,.driver-profile-links a{font-size:1rem}
+.driver-quick-head>p{max-width:100%;color:var(--driver-muted);margin:0;font-size:1rem;line-height:1.62;text-align:right}
+.driver-section-head>p{color:#71685f;max-width:100%;margin:0;font-size:1rem;line-height:1.66;text-align:right}
+.driver-flow-intro>p:last-child{max-width:46ch;color:var(--driver-muted);margin:20px 0 0;font-size:1rem;line-height:1.65}
+.driver-flow-steps article{border-bottom:1px solid var(--driver-line);grid-template-columns:1fr;gap:0;padding:21px 0;display:grid;text-align:right}
+.driver-flow-steps p,.driver-trust-cards p{font-size:1rem}
+.driver-trust-lead>p:last-child{max-width:50ch;color:var(--driver-paper-soft);margin:20px 0 0;font-size:1rem;line-height:1.68}
+.driver-trust-cards article{border-bottom:1px solid var(--driver-line);padding:18px 20px}
+.driver-trust-cards article:nth-child(odd){border-right:1px solid var(--driver-line);margin-right:0}
