@@ -1,106 +1,117 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import legacy from '../data/motoristaops.json';
+import { currentClosings, currentVehicleExpenses, currentFuelings, personalMonthlyExpenses, vehicleProfile } from '../data/current-ops';
+
+const money = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
+const number = new Intl.NumberFormat('pt-BR',{maximumFractionDigits:2});
+const base = import.meta.env.BASE_URL || '/';
+const importUrl = `${base}importar-uber`;
+
+const legacyDaily = Array.isArray((legacy as any).daily) ? (legacy as any).daily : [];
+const mergedMap = new Map<string, any>();
+legacyDaily.forEach((row:any)=>mergedMap.set(row.date,row));
+currentClosings.forEach((row:any)=>mergedMap.set(row.date,row));
+const closings = [...mergedMap.values()].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+const currentMonth = closings[0]?.date?.slice(0,7) ?? '2026-08';
+const monthRows = closings.filter((row:any)=>row.date?.startsWith(currentMonth));
+const sum = (rows:any[],key:string)=>rows.reduce((total,row)=>total+Number(row[key]??0),0);
+const monthRevenue = sum(monthRows,'grossRevenue');
+const monthProfit = sum(monthRows,'operationalProfit');
+const monthHours = sum(monthRows,'hoursOnline');
+const monthKm = sum(monthRows,'kmTotal');
+const monthTrips = sum(monthRows,'tripsTotal');
+const historicRevenue = sum(closings,'grossRevenue');
+const historicTrips = sum(closings,'tripsTotal');
+const historicDays = closings.filter((r:any)=>Number(r.grossRevenue??0)>0).length;
+const personalMonthlyTotal = personalMonthlyExpenses.reduce((t,item)=>t+item[1],0);
+const maintenanceTotal = currentVehicleExpenses.filter(item=>item.category.includes('Manutenção')).reduce((t,item)=>t+item.value,0);
+const recentFuelPaid = currentFuelings.reduce((t,item)=>t+item.totalPaid,0);
+const latest = closings[0];
+const monthLabel = new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(`${currentMonth}-01T00:00:00Z`));
+const chartRows = [...monthRows].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+const chartMax = Math.max(1,...chartRows.map((r:any)=>Number(r.grossRevenue??0)));
 ---
 <BaseLayout title="MotoristaOps · Painel financeiro e estratégico">
-  <div id="toast" class="toast" hidden></div>
-  <main id="auth-view" class="auth-shell" hidden>
-    <section class="auth-card">
-      <p class="eyebrow">MotoristaOps</p>
-      <h1>Seu painel financeiro e estratégico diário.</h1>
-      <p>Entre com seu e-mail para receber um link seguro de acesso.</p>
-      <form id="login-form" class="stack-form">
-        <label>E-mail<input type="email" name="email" required autocomplete="email" /></label>
-        <button class="button button--gold" type="submit">Enviar link de acesso</button>
-      </form>
-    </section>
-  </main>
-
-  <div id="app-view" class="app-shell" hidden>
+  <div class="app-shell app-shell--open">
     <aside class="sidebar">
       <div class="sidebar-brand"><span>MO</span><div><strong>MotoristaOps</strong><small>Financeiro & Estratégia</small></div></div>
       <nav>
         <button class="nav-item active" data-section="overview">Visão geral</button>
         <button class="nav-item" data-section="closings">Fechamentos</button>
-        <button class="nav-item" data-section="expenses">Despesas</button>
+        <button class="nav-item" data-section="expenses">Despesas mensais</button>
+        <button class="nav-item" data-section="maintenance">Manutenção</button>
         <button class="nav-item" data-section="fuelings">Abastecimentos</button>
-        <button class="nav-item" data-section="vehicles">Veículos</button>
-        <button class="nav-item" data-section="goals">Metas</button>
-        <button class="nav-item" data-section="imports">Importar / exportar</button>
+        <button class="nav-item" data-section="vehicle">Veículo</button>
       </nav>
-      <button id="logout" class="nav-item nav-item--logout">Sair</button>
+      <a class="nav-item nav-link" href={`${base}motorista/`}>Landing Page</a>
     </aside>
 
     <section class="workspace">
       <header class="workspace-header">
-        <div><p class="eyebrow">MotoristaOps</p><h1>Painel diário</h1><p>Receita, lucro, custos, metas e eficiência em uma única leitura.</p></div>
-        <div class="header-actions"><a class="button button--gold" href="/importar-uber">Importar vídeo Uber</a><label class="button button--ghost">Importar Excel<input id="excel-file" type="file" accept=".xlsx" hidden /></label><button id="export-data" class="button">Exportar CSV</button></div>
+        <div><p class="eyebrow">MotoristaOps</p><h1>Painel diário</h1><p>Seu histórico real de trabalho, custos, veículo e compromissos financeiros em uma única leitura.</p></div>
+        <div class="header-actions"><a class="button button--gold" href={importUrl}>Importar vídeo Uber</a><a class="button button--ghost" href={`${base}motorista/`}>Ver perfil público</a></div>
       </header>
 
       <section id="overview" class="workspace-section">
+        <div class="section-title"><div><span>{monthLabel}</span><h2>Operação atual</h2></div><p>Dados consolidados da planilha MotoristaOps e dos fechamentos já registrados.</p></div>
         <div class="metric-grid">
-          <article class="metric-card"><span>Receita do mês</span><strong id="metric-revenue">—</strong><small>Faturamento bruto</small></article>
-          <article class="metric-card"><span>Lucro operacional</span><strong id="metric-profit">—</strong><small>Após custos operacionais</small></article>
-          <article class="metric-card metric-card--signal"><span>Saldo real</span><strong id="metric-balance">—</strong><small>Lucro menos despesas lançadas</small></article>
-          <article class="metric-card"><span>Horas</span><strong id="metric-hours">—</strong><small id="metric-revenue-hour">—</small></article>
-          <article class="metric-card"><span>Km</span><strong id="metric-km">—</strong><small id="metric-profit-hour">—</small></article>
-          <article class="metric-card"><span>Viagens</span><strong id="metric-trips">—</strong><small>Total no mês</small></article>
+          <article class="metric-card"><span>Receita do mês</span><strong>{money.format(monthRevenue)}</strong><small>{monthRows.length} fechamentos registrados</small></article>
+          <article class="metric-card"><span>Lucro operacional</span><strong>{money.format(monthProfit)}</strong><small>Antes das despesas pessoais</small></article>
+          <article class="metric-card metric-card--signal"><span>Despesas pessoais / mês</span><strong>{money.format(personalMonthlyTotal)}</strong><small>Compromissos mensais cadastrados</small></article>
+          <article class="metric-card"><span>Horas no mês</span><strong>{number.format(monthHours)}h</strong><small>{monthHours ? `${money.format(monthRevenue/monthHours)}/h bruto` : '—'}</small></article>
+          <article class="metric-card"><span>Km no mês</span><strong>{number.format(monthKm)} km</strong><small>{monthKm ? `${money.format(monthRevenue/monthKm)}/km bruto` : '—'}</small></article>
+          <article class="metric-card"><span>Viagens no mês</span><strong>{number.format(monthTrips)}</strong><small>Uber + 99 + particulares</small></article>
         </div>
+
         <div class="dashboard-grid">
-          <article class="panel"><div class="panel-head"><div><span>Evolução</span><h2>Receita diária</h2></div></div><div id="daily-chart" class="daily-chart"></div></article>
-          <article class="panel"><div class="panel-head"><div><span>Último fechamento</span><h2>Resumo operacional</h2></div></div><div id="latest-summary" class="latest-summary"></div></article>
+          <article class="panel"><div class="panel-head"><div><span>Evolução</span><h2>Receita por fechamento</h2></div></div><div class="daily-chart">{chartRows.map((row:any)=>{const height=Math.max(8,Number(row.grossRevenue??0)/chartMax*100);return <div class="chart-bar" title={`${row.dateBR ?? row.date} · ${money.format(Number(row.grossRevenue??0))}`}><span style={`height:${height}%`}></span><small>{String(row.date).slice(8)}</small></div>})}</div></article>
+          <article class="panel"><div class="panel-head"><div><span>Último fechamento</span><h2>{latest?.dateBR ?? latest?.date}</h2></div></div><div class="latest-summary"><strong>{money.format(Number(latest?.grossRevenue??0))}</strong><span>{latest?.platform ?? '—'} · {latest?.shift ?? '—'}</span><b>{Number(latest?.tripsTotal??0)} viagens</b><small>{number.format(Number(latest?.hoursOnline??0))}h · {number.format(Number(latest?.kmTotal??0))} km · lucro {money.format(Number(latest?.operationalProfit??0))}</small></div></article>
         </div>
+
         <div class="dashboard-grid dashboard-grid--balanced">
-          <article class="panel"><span>Meta mensal</span><h2>Progresso</h2><div class="progress"><span id="goal-progress"></span></div><p id="goal-progress-text" class="muted">Defina uma meta mensal</p></article>
-          <article class="panel strategic-card"><span>Leitura estratégica</span><h2>Painel transacional.</h2><p>Fechamentos, despesas, abastecimentos, veículos e metas são persistidos. O Excel segue como entrada e portabilidade.</p></article>
+          <article class="panel strategic-card"><span>Histórico consolidado</span><h2>{historicDays} dias com receita.</h2><p>{money.format(historicRevenue)} de receita registrada e {number.format(historicTrips)} viagens no histórico já incorporado ao MotoristaOps.</p></article>
+          <article class="panel strategic-card"><span>Carro</span><h2>{vehicleProfile.vehicle}</h2><p>Odômetro recente: {number.format(vehicleProfile.recentOdometerKm)} km · referência particular {money.format(vehicleProfile.privateRatePerKm)}/km · combustível padrão {vehicleProfile.fuel}.</p></article>
         </div>
       </section>
 
       <section id="closings" class="workspace-section" hidden>
-        <div class="section-title"><div><span>CRUD</span><h2>Fechamentos diários</h2></div></div>
-        <form id="closing-form" class="panel form-grid">
-          <input type="hidden" name="id"/>
-          <label>Data<input type="date" name="operation_date" required/></label><label>Turno<select name="shift"><option>Misto</option><option>Manhã</option><option>Tarde</option><option>Noite</option></select></label><label>Plataforma<input name="primary_platform" placeholder="Uber + 99"/></label><label>Horas online<input type="number" step="0.01" name="hours_online"/></label><label>Horas em corrida<input type="number" step="0.01" name="hours_in_ride"/></label><label>Km total<input type="number" step="0.1" name="km_total"/></label><label>Km passageiro<input type="number" step="0.1" name="km_passenger"/></label><label>Viagens Uber<input type="number" name="trips_uber"/></label><label>Viagens 99<input type="number" name="trips_99"/></label><label>Viagens particulares<input type="number" name="trips_private"/></label><label>Receita Uber<input type="number" step="0.01" name="revenue_uber"/></label><label>Receita 99<input type="number" step="0.01" name="revenue_99"/></label><label>Receita particular<input type="number" step="0.01" name="revenue_private"/></label><label>Gorjetas<input type="number" step="0.01" name="tips_extras"/></label><label>Combustível<input type="number" step="0.01" name="fuel_cost"/></label><label>Alimentação<input type="number" step="0.01" name="food_cost"/></label><label>Lavagem<input type="number" step="0.01" name="wash_cost"/></label><label>Outros custos<input type="number" step="0.01" name="other_operational_cost"/></label><label>Consumo km/L<input type="number" step="0.1" name="fuel_efficiency_km_l"/></label><label>Preço combustível<input type="number" step="0.01" name="fuel_price_reference"/></label><label class="field-wide">Observações<textarea name="notes"></textarea></label>
-          <div class="field-wide form-actions"><button class="button button--gold" type="submit">Salvar fechamento</button><button class="button" type="reset">Limpar</button></div>
-        </form>
-        <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Plataforma</th><th>Receita</th><th>Lucro</th><th>Horas</th><th>Km</th><th>Viagens</th><th>Ações</th></tr></thead><tbody id="closing-rows"></tbody></table></div>
+        <div class="section-title"><div><span>Histórico operacional</span><h2>Fechamentos</h2></div><p>Todos os fechamentos já disponíveis no snapshot do projeto, com os registros mais recentes corrigindo versões antigas da mesma data.</p></div>
+        <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Plataforma</th><th>Receita</th><th>Lucro</th><th>Horas</th><th>Km</th><th>Viagens</th></tr></thead><tbody>{closings.map((row:any)=><tr><td>{row.dateBR ?? row.date}</td><td>{row.platform ?? row.platformMix ?? '—'}</td><td>{money.format(Number(row.grossRevenue??0))}</td><td>{money.format(Number(row.operationalProfit??0))}</td><td>{row.hoursOnline==null?'—':`${number.format(Number(row.hoursOnline))}h`}</td><td>{row.kmTotal==null?'—':number.format(Number(row.kmTotal))}</td><td>{number.format(Number(row.tripsTotal??0))}</td></tr>)}</tbody></table></div>
       </section>
 
       <section id="expenses" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Financeiro</span><h2>Despesas</h2></div></div>
-        <form id="expense-form" class="panel form-grid"><input type="hidden" name="id"/><label>Data<input type="date" name="expense_date" required/></label><label>Categoria<input name="category" required/></label><label>Descrição<input name="description" required/></label><label>Valor<input type="number" step="0.01" name="amount" required/></label><label>Escopo<select name="scope"><option value="operational">Operacional</option><option value="personal">Pessoal</option><option value="vehicle">Veículo</option><option value="tax">Imposto</option><option value="subscription">Assinatura</option><option value="other">Outro</option></select></label><label class="checkbox"><input type="checkbox" name="recurring"/> Recorrente</label><label class="field-wide">Observações<textarea name="notes"></textarea></label><div class="field-wide form-actions"><button class="button button--gold" type="submit">Salvar despesa</button><button class="button" type="reset">Limpar</button></div></form>
-        <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Categoria</th><th>Descrição</th><th>Valor</th><th>Ações</th></tr></thead><tbody id="expense-rows"></tbody></table></div>
+        <div class="section-title"><div><span>Vida financeira</span><h2>Despesas pessoais mensais</h2></div><p>Total recorrente atual: <strong>{money.format(personalMonthlyTotal)}</strong>. Mantido separado do lucro operacional do carro.</p></div>
+        <div class="metric-grid metric-grid--compact"><article class="metric-card metric-card--signal"><span>Total mensal</span><strong>{money.format(personalMonthlyTotal)}</strong><small>Base atual cadastrada</small></article><article class="metric-card"><span>Lucro operacional no mês</span><strong>{money.format(monthProfit)}</strong><small>Referência para cobertura dos compromissos</small></article><article class="metric-card"><span>Gap atual</span><strong>{money.format(monthProfit-personalMonthlyTotal)}</strong><small>Lucro operacional menos despesas pessoais</small></article></div>
+        <div class="panel table-panel"><table><thead><tr><th>Despesa</th><th>Valor mensal</th></tr></thead><tbody>{personalMonthlyExpenses.map(item=><tr><td>{item[0]}</td><td>{money.format(item[1])}</td></tr>)}</tbody></table></div>
+      </section>
+
+      <section id="maintenance" class="workspace-section" hidden>
+        <div class="section-title"><div><span>Veículo</span><h2>Manutenção e cuidados</h2></div><p>Investimentos recentes registrados separadamente para não distorcer o lucro operacional diário.</p></div>
+        <div class="metric-grid metric-grid--compact"><article class="metric-card"><span>Manutenção recente</span><strong>{money.format(maintenanceTotal)}</strong><small>Itens registrados em 11/08</small></article><article class="metric-card"><span>Odômetro recente</span><strong>{number.format(vehicleProfile.recentOdometerKm)} km</strong><small>Último registro conhecido</small></article><article class="metric-card"><span>Abastecimentos pagos recentes</span><strong>{money.format(recentFuelPaid)}</strong><small>Inclui somente saída real de caixa</small></article></div>
+        <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Categoria</th><th>Descrição</th><th>Valor</th></tr></thead><tbody>{currentVehicleExpenses.map(item=><tr><td>{item.dateBR}</td><td>{item.category}</td><td>{item.description}</td><td>{money.format(item.value)}</td></tr>)}</tbody></table></div>
       </section>
 
       <section id="fuelings" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Veículo</span><h2>Abastecimentos</h2></div></div>
-        <form id="fueling-form" class="panel form-grid"><input type="hidden" name="id"/><label>Data<input type="date" name="fueling_date" required/></label><label>Combustível<select name="fuel_type"><option>Etanol</option><option>Gasolina</option></select></label><label>Litros<input type="number" step="0.001" name="liters" required/></label><label>Preço/L<input type="number" step="0.001" name="price_per_liter" required/></label><label>Total<input type="number" step="0.01" name="total_paid"/></label><label>Odômetro<input type="number" step="0.1" name="odometer_km"/></label><label>Posto<input name="station"/></label><label class="field-wide">Observações<textarea name="notes"></textarea></label><div class="field-wide form-actions"><button class="button button--gold" type="submit">Salvar abastecimento</button><button class="button" type="reset">Limpar</button></div></form>
-        <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Combustível</th><th>Litros</th><th>Preço/L</th><th>Total</th><th>Ações</th></tr></thead><tbody id="fueling-rows"></tbody></table></div>
+        <div class="section-title"><div><span>Combustível</span><h2>Abastecimentos</h2></div><p>Histórico recente com cortesia separada de desembolso real.</p></div>
+        <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Combustível</th><th>Litros</th><th>Preço/L</th><th>Total pago</th><th>Observação</th></tr></thead><tbody>{currentFuelings.map(item=><tr><td>{item.dateBR}</td><td>{item.fuel}</td><td>{number.format(item.liters)} L</td><td>{money.format(item.pricePerLiter)}</td><td>{money.format(item.totalPaid)}</td><td>{item.notes}</td></tr>)}</tbody></table></div>
       </section>
 
-      <section id="vehicles" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Frota</span><h2>Veículos</h2></div><p>Cadastre o carro ativo e preserve o histórico operacional.</p></div>
-        <form id="vehicle-form" class="panel form-grid"><input type="hidden" name="id"/><label>Apelido<input name="nickname" placeholder="HB20 principal"/></label><label>Marca<input name="make" required/></label><label>Modelo<input name="model" required/></label><label>Ano<input type="number" min="1980" max="2100" name="model_year"/></label><label>Placa<input name="plate" maxlength="10"/></label><label>Combustível<input name="fuel_type" placeholder="Flex"/></label><label>Odômetro inicial<input type="number" step="0.1" name="initial_odometer_km"/></label><label class="checkbox"><input type="checkbox" name="active" checked/> Ativo</label><label class="field-wide">Observações<textarea name="notes"></textarea></label><div class="field-wide form-actions"><button class="button button--gold" type="submit">Salvar veículo</button><button class="button" type="reset">Limpar</button></div></form>
-        <div class="panel table-panel"><table><thead><tr><th>Veículo</th><th>Ano</th><th>Placa</th><th>Combustível</th><th>Status</th><th>Ações</th></tr></thead><tbody id="vehicle-rows"></tbody></table></div>
-      </section>
-
-      <section id="goals" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Estratégia</span><h2>Metas</h2></div></div>
-        <form id="goal-form" class="panel form-grid"><input type="hidden" name="id"/><label>Período<select name="period_type"><option value="monthly">Mensal</option><option value="weekly">Semanal</option><option value="daily">Diário</option><option value="yearly">Anual</option></select></label><label>Início<input type="date" name="period_start" required/></label><label>Fim<input type="date" name="period_end" required/></label><label>Meta receita<input type="number" step="0.01" name="revenue_target"/></label><label>Meta lucro<input type="number" step="0.01" name="profit_target"/></label><label>Meta horas<input type="number" step="0.1" name="hours_target"/></label><label>Meta km<input type="number" step="0.1" name="km_target"/></label><label>Meta viagens<input type="number" name="trips_target"/></label><label class="field-wide">Observações<textarea name="notes"></textarea></label><div class="field-wide form-actions"><button class="button button--gold" type="submit">Salvar meta</button><button class="button" type="reset">Limpar</button></div></form>
-        <div class="panel table-panel"><table><thead><tr><th>Período</th><th>Intervalo</th><th>Receita</th><th>Lucro</th><th>Horas</th><th>Ações</th></tr></thead><tbody id="goal-rows"></tbody></table></div>
-      </section>
-
-      <section id="imports" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Dados</span><h2>Importar e exportar</h2></div></div>
-        <div class="dashboard-grid dashboard-grid--balanced">
-          <article class="panel import-card"><h3>Importar gravação da Uber</h3><p>Envie uma gravação de tela, extraia os dados por OCR e revise tudo antes de salvar.</p><a class="button button--gold" href="/importar-uber">Abrir importador de vídeo</a></article>
-          <article class="panel import-card"><h3>Importar Excel</h3><p>Use a planilha MotoristaOps; a aba Operação Diária será conciliada pela data.</p><label class="button">Selecionar XLSX<input id="excel-file-secondary" type="file" accept=".xlsx" hidden/></label></article>
-        </div>
-        <div class="dashboard-grid dashboard-grid--balanced"><article class="panel import-card"><h3>Exportar histórico</h3><p>Gere uma cópia CSV dos fechamentos persistidos.</p><button id="export-data-secondary" class="button">Exportar CSV</button></article><article class="panel import-card"><h3>Fluxo recomendado</h3><p>Grave a tela rolando devagar, importe, revise datas e valores e complete horas, quilômetros e custos no fechamento diário.</p></article></div>
+      <section id="vehicle" class="workspace-section" hidden>
+        <div class="section-title"><div><span>Frota</span><h2>{vehicleProfile.vehicle}</h2></div><p>Veículo principal atualmente associado à operação MotoristaOps.</p></div>
+        <div class="dashboard-grid dashboard-grid--balanced"><article class="panel"><span>Combustível</span><h2>{vehicleProfile.fuel}</h2><p>Preço recente usado nos fechamentos de agosto: aproximadamente {money.format(vehicleProfile.referenceFuelPrice)}/L.</p></article><article class="panel"><span>Corrida particular</span><h2>{money.format(vehicleProfile.privateRatePerKm)}/km</h2><p>Referência atual para orçamentos particulares.</p></article></div>
       </section>
     </section>
   </div>
 
-  <script>
-    import '../scripts/dashboard.ts';
+  <script is:inline>
+    document.addEventListener('click',(event)=>{
+      const target=event.target.closest('[data-section]');
+      if(!target)return;
+      const section=target.dataset.section;
+      document.querySelectorAll('.workspace-section').forEach(node=>node.hidden=node.id!==section);
+      document.querySelectorAll('.nav-item[data-section]').forEach(node=>node.classList.toggle('active',node.dataset.section===section));
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
   </script>
 </BaseLayout>
