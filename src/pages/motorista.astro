@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/driver.css';
 import { driverProfile as profile } from '../data/driver-profile';
+const portrait = 'https://meuairgo.com.br/assets/uploads/images/users/image-05-06-2026-17-50.webp';
 ---
 <BaseLayout title={`${profile.name} · Motorista particular em São Paulo`}>
   <main class="driver-page">
@@ -38,10 +39,11 @@ import { driverProfile as profile } from '../data/driver-profile';
           <p class="driver-signature">{profile.slogan}</p>
         </div>
 
-        <aside class="driver-hero-panel" aria-label="Resumo da experiência">
+        <aside class="driver-hero-panel driver-portrait-panel" aria-label={`Retrato de ${profile.name}`}>
+          <img class="driver-portrait" src={portrait} alt={`Henrico Amaral, motorista particular`} loading="eager" decoding="async" />
+          <div class="driver-portrait-shade" aria-hidden="true"></div>
           <div class="driver-panel-top"><span>Atendimento direto</span><span>São Paulo</span></div>
-          <div class="driver-route" aria-hidden="true"><span class="driver-route-line"></span></div>
-          <div class="driver-panel-card"><small>Do primeiro contato ao destino</small><strong>Clareza, presença e cuidado.</strong><span>Sem intermediários para combinar sua corrida.</span></div>
+          <div class="driver-panel-card"><small>{profile.ratingLabel}</small><strong>{profile.name}</strong><span>Segurança, conforto e atendimento pessoal, do primeiro contato ao destino.</span></div>
         </aside>
       </div>
     </section>
