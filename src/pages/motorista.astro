@@ -7,13 +7,12 @@ const portrait = 'https://meuairgo.com.br/assets/uploads/images/users/image-05-0
 <BaseLayout title={`${profile.name} · Motorista particular em São Paulo`}>
   <main class="driver-page">
     <nav class="driver-nav" aria-label="Navegação principal">
-      <div class="driver-nav-inner">
-        <a class="driver-brand" href="#inicio" aria-label="Henrico Motorista">
+      <div class="driver-shell driver-nav-inner">
+        <a class="driver-brand" href="#inicio" aria-label="Henrico Amaral — início">
           <span class="driver-brand-mark">HA</span>
-          <span class="driver-brand-copy"><strong>{profile.name}</strong><span>{profile.role}</span></span>
+          <span class="driver-brand-copy"><strong>{profile.name}</strong><span>Motorista particular</span></span>
         </a>
-        <div class="driver-nav-links">
-          <a href="#servicos">Serviços</a>
+        <div class="driver-nav-links" aria-label="Canais principais">
           <a href={profile.instagram} target="_blank" rel="noreferrer">Instagram</a>
           <a href={profile.google} target="_blank" rel="noreferrer">Google</a>
           <a class="driver-nav-cta" href={profile.whatsapp}>WhatsApp</a>
@@ -23,42 +22,56 @@ const portrait = 'https://meuairgo.com.br/assets/uploads/images/users/image-05-0
 
     <section id="inicio" class="driver-hero">
       <div class="driver-shell driver-hero-grid">
-        <div>
+        <div class="driver-hero-copy">
           <p class="driver-kicker">{profile.role} · {profile.location}</p>
-          <h1>Seu caminho merece <em>mais cuidado.</em></h1>
-          <p class="driver-lead">Corridas particulares, aeroportos, reuniões, eventos e viagens com atendimento direto, pontualidade e atenção em cada etapa.</p>
+          <h1>Um motorista para quando <em>chegar bem</em> importa.</h1>
+          <p class="driver-lead">Corridas particulares, aeroportos, reuniões, eventos e deslocamentos do dia a dia com contato direto, pontualidade e cuidado em cada etapa.</p>
           <div class="driver-actions">
-            <a class="driver-button driver-button-primary" href={profile.whatsapp}>Chamar no WhatsApp <span>↗</span></a>
-            <a class="driver-button driver-button-secondary" href={profile.google} target="_blank" rel="noreferrer">Ver avaliações no Google</a>
+            <a class="driver-button driver-button-primary" href={profile.whatsapp}>Falar no WhatsApp <span>↗</span></a>
+            <a class="driver-button driver-button-secondary" href={profile.google} target="_blank" rel="noreferrer">Ver avaliações</a>
           </div>
-          <div class="driver-trust-row" aria-label="Canais e prova social">
-            <span>{profile.ratingLabel}</span>
-            <a href={profile.instagram} target="_blank" rel="noreferrer">{profile.instagramHandle}</a>
-            <a href={profile.airgo} target="_blank" rel="noreferrer">Todos os links</a>
+          <div class="driver-proof" aria-label="Informações de confiança">
+            <div><strong>4,96</strong><span>avaliação na Uber</span></div>
+            <div><strong>SP</strong><span>São Paulo e região</span></div>
+            <div><strong>Direto</strong><span>sem intermediários</span></div>
           </div>
           <p class="driver-signature">{profile.slogan}</p>
         </div>
 
-        <aside class="driver-hero-panel driver-portrait-panel" aria-label={`Retrato de ${profile.name}`}>
-          <img class="driver-portrait" src={portrait} alt={`Henrico Amaral, motorista particular`} loading="eager" decoding="async" />
-          <div class="driver-portrait-shade" aria-hidden="true"></div>
-          <div class="driver-panel-top"><span>Atendimento direto</span><span>São Paulo</span></div>
-          <div class="driver-panel-card"><small>{profile.ratingLabel}</small><strong>{profile.name}</strong><span>Segurança, conforto e atendimento pessoal, do primeiro contato ao destino.</span></div>
-        </aside>
+        <figure class="driver-portrait-panel">
+          <img class="driver-portrait" src={portrait} alt="Henrico Amaral, motorista particular" loading="eager" decoding="async" />
+          <figcaption>
+            <span>{profile.name}</span>
+            <small>Segurança, conforto e atendimento pessoal.</small>
+          </figcaption>
+        </figure>
       </div>
     </section>
 
-    <section id="servicos" class="driver-section">
+    <section class="driver-contact-strip" aria-label="Canais de contato">
+      <div class="driver-shell driver-contact-grid">
+        <a class="driver-contact-card driver-contact-card--primary" href={profile.whatsapp}>
+          <span>01 · Falar comigo</span><strong>WhatsApp</strong><small>{profile.phoneDisplay}</small><b>↗</b>
+        </a>
+        <a class="driver-contact-card" href={profile.instagram} target="_blank" rel="noreferrer">
+          <span>02 · Acompanhar</span><strong>Instagram</strong><small>{profile.instagramHandle}</small><b>↗</b>
+        </a>
+        <a class="driver-contact-card" href={profile.google} target="_blank" rel="noreferrer">
+          <span>03 · Conferir</span><strong>Google</strong><small>Avaliações e presença local</small><b>↗</b>
+        </a>
+      </div>
+    </section>
+
+    <section id="servicos" class="driver-section driver-services-section">
       <div class="driver-shell">
         <div class="driver-section-head">
-          <p class="driver-kicker">Como posso ajudar</p>
-          <h2>Mobilidade para a vida real.</h2>
-          <p>Do compromisso do dia a dia à viagem que precisa acontecer no horário certo.</p>
+          <div><p class="driver-kicker">Serviços</p><h2>Mobilidade para a vida real.</h2></div>
+          <p>Você me chama, combina o trajeto e sabe quem vai dirigir. Simples assim.</p>
         </div>
         <div class="driver-services">
-          <article class="driver-service"><span>01</span><h3>Corridas particulares</h3><p>Deslocamentos sob demanda com contato direto e atendimento pessoal.</p></article>
-          <article class="driver-service"><span>02</span><h3>Aeroportos e rodoviárias</h3><p>Saídas programadas, acompanhamento de horário e margem para imprevistos.</p></article>
-          <article class="driver-service"><span>03</span><h3>Compromissos agendados</h3><p>Consultas, reuniões, eventos e trajetos que pedem previsibilidade.</p></article>
+          <article class="driver-service"><span>01</span><h3>Corridas particulares</h3><p>Deslocamentos sob demanda com atendimento pessoal.</p></article>
+          <article class="driver-service"><span>02</span><h3>Aeroportos e rodoviárias</h3><p>Saídas programadas com margem para imprevistos.</p></article>
+          <article class="driver-service"><span>03</span><h3>Agenda e compromissos</h3><p>Consultas, reuniões, eventos e horários que pedem previsibilidade.</p></article>
           <article class="driver-service"><span>04</span><h3>Aplicativos</h3><p>Experiência diária nas ruas também como motorista de aplicativo.</p></article>
         </div>
       </div>
@@ -66,38 +79,41 @@ const portrait = 'https://meuairgo.com.br/assets/uploads/images/users/image-05-0
 
     <section id="experiencia" class="driver-experience">
       <div class="driver-shell driver-experience-grid">
-        <div><p class="driver-kicker">A experiência</p><h2>Menos promessa.<br/>Mais presença.</h2></div>
+        <div class="driver-experience-intro"><p class="driver-kicker">A experiência</p><h2>Menos ruído.<br/>Mais presença.</h2></div>
         <div class="driver-experience-copy">
-          <p>Um bom deslocamento não é só chegar. É saber quem vai te buscar, combinar diretamente, entrar em um carro cuidado e seguir viagem com tranquilidade.</p>
-          <ul class="driver-experience-list">
-            <li><span>01</span>Contato direto pelo WhatsApp</li>
-            <li><span>02</span>Horário e trajeto combinados com clareza</li>
-            <li><span>03</span>Carro limpo e cuidado</li>
-            <li><span>04</span>Atendimento discreto e respeitoso</li>
-          </ul>
+          <p>Não quero transformar uma corrida em uma promessa exagerada. O que eu entrego é uma experiência clara: contato direto, carro cuidado, respeito ao seu tempo e atenção ao caminho.</p>
+          <div class="driver-principles">
+            <div><span>01</span><strong>Contato direto</strong><p>Você fala comigo antes da corrida e combina o que precisa.</p></div>
+            <div><span>02</span><strong>Pontualidade</strong><p>Horário e trajeto tratados com clareza e antecedência.</p></div>
+            <div><span>03</span><strong>Cuidado</strong><p>Carro limpo, condução tranquila e ambiente respeitoso.</p></div>
+            <div><span>04</span><strong>Discrição</strong><p>Uma viagem confortável também depende de saber respeitar o espaço.</p></div>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="driver-about">
       <div class="driver-shell driver-about-card">
-        <div class="driver-monogram" aria-hidden="true">HA</div>
-        <div class="driver-about-copy"><p class="driver-kicker">Quem dirige</p><h2>{profile.name}.</h2><p>{profile.role}. Um serviço construído na prática, corrida após corrida, com atenção ao que realmente importa para quem está do outro lado: segurança, respeito, conforto e confiança.</p><div class="driver-profile-links"><a href={profile.instagram} target="_blank" rel="noreferrer">Instagram</a><a href={profile.google} target="_blank" rel="noreferrer">Avaliações no Google</a><a href={profile.airgo} target="_blank" rel="noreferrer">Perfil completo</a></div></div>
+        <div class="driver-about-label"><span>HA</span><small>Quem dirige</small></div>
+        <div class="driver-about-copy">
+          <p class="driver-kicker">Henrico Amaral</p>
+          <h2>Motorista particular e de aplicativo.</h2>
+          <p>Esse serviço foi sendo construído na prática, corrida após corrida, prestando atenção no que realmente muda a experiência de quem entra no carro: segurança, respeito, conforto, conversa na medida certa e confiança.</p>
+          <div class="driver-profile-links"><a href={profile.whatsapp}>WhatsApp ↗</a><a href={profile.instagram} target="_blank" rel="noreferrer">Instagram ↗</a><a href={profile.google} target="_blank" rel="noreferrer">Google ↗</a></div>
+        </div>
       </div>
     </section>
 
     <section class="driver-cta">
-      <div class="driver-shell">
-        <p class="driver-kicker">Precisa ir?</p>
-        <h2>Me diga para onde.</h2>
-        <p>Envie origem, destino, dia e horário. Eu retorno pelo WhatsApp para combinarmos a corrida.</p>
-        <a class="driver-button driver-button-primary" href={profile.whatsapp}>Falar com Henrico no WhatsApp <span>↗</span></a>
+      <div class="driver-shell driver-cta-inner">
+        <div><p class="driver-kicker">Precisa ir?</p><h2>Me diga para onde.</h2></div>
+        <div><p>Envie origem, destino, dia e horário. Eu retorno pelo WhatsApp para combinarmos a corrida.</p><a class="driver-button driver-button-dark" href={profile.whatsapp}>Falar com Henrico <span>↗</span></a></div>
       </div>
     </section>
 
     <footer class="driver-footer">
       <div class="driver-shell driver-footer-inner">
-        <div class="driver-brand"><span class="driver-brand-mark">HA</span><span class="driver-brand-copy"><strong>{profile.name}</strong><span>{profile.role}</span></span></div>
+        <div class="driver-brand"><span class="driver-brand-mark">HA</span><span class="driver-brand-copy"><strong>{profile.name}</strong><span>Motorista particular</span></span></div>
         <p>{profile.slogan}</p>
         <div class="driver-footer-links"><a href={profile.whatsapp}>WhatsApp</a><a href={profile.instagram} target="_blank" rel="noreferrer">Instagram</a><a href={profile.google} target="_blank" rel="noreferrer">Google</a></div>
       </div>
