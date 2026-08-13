@@ -50,17 +50,17 @@ const services = [
             </a>
           </div>
 
-          <div class="driver-proof" aria-label="Informações de confiança">
-            <div><strong>4,96</strong><span>Avaliação na Uber</span></div>
-            <div><strong>{profile.phoneDisplay}</strong><span>WhatsApp direto</span></div>
-            <div><strong>HB20</strong><span>Veículo cuidado</span></div>
+          <div class="driver-proof" aria-label="Prova social">
+            <div><strong>{profile.uberRating}</strong><span>Avaliação na Uber</span></div>
+            <div><strong>Instagram</strong><span>{profile.instagramProof}</span></div>
+            <div><strong>Google</strong><span>{profile.googleProof}</span></div>
           </div>
           <p class="driver-signature">{profile.slogan}</p>
         </div>
 
         <figure class="driver-portrait-panel">
           <img class="driver-portrait" src={portrait} alt="Henrico Amaral, motorista particular" loading="eager" decoding="async" />
-          <div class="driver-portrait-badge driver-portrait-badge--rating"><span>Uber</span><strong>4,96</strong></div>
+          <div class="driver-portrait-badge driver-portrait-badge--rating"><span>Uber</span><strong>{profile.uberRating}</strong></div>
           <div class="driver-portrait-badge driver-portrait-badge--service"><span>Atendimento</span><strong>Direto</strong></div>
           <figcaption>
             <strong>{profile.name}</strong>
