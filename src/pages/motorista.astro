@@ -1,21 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/driver.css';
-
-const whatsapp = 'https://wa.me/5511953970704?text=Olá%2C%20Henrico.%20Gostaria%20de%20falar%20sobre%20uma%20corrida%20particular.';
+import { driverProfile as profile } from '../data/driver-profile';
+const portrait = 'https://meuairgo.com.br/assets/uploads/images/users/image-05-06-2026-17-50.webp';
 ---
-<BaseLayout title="Henrico Amaral · Motorista particular em São Paulo">
+<BaseLayout title={`${profile.name} · Motorista particular em São Paulo`}>
   <main class="driver-page">
     <nav class="driver-nav" aria-label="Navegação principal">
       <div class="driver-nav-inner">
         <a class="driver-brand" href="#inicio" aria-label="Henrico Motorista">
           <span class="driver-brand-mark">HA</span>
-          <span class="driver-brand-copy"><strong>Henrico Amaral</strong><span>Motorista particular</span></span>
+          <span class="driver-brand-copy"><strong>{profile.name}</strong><span>{profile.role}</span></span>
         </a>
         <div class="driver-nav-links">
           <a href="#servicos">Serviços</a>
-          <a href="#experiencia">Experiência</a>
-          <a class="driver-nav-cta" href={whatsapp}>WhatsApp</a>
+          <a href={profile.instagram} target="_blank" rel="noreferrer">Instagram</a>
+          <a href={profile.google} target="_blank" rel="noreferrer">Google</a>
+          <a class="driver-nav-cta" href={profile.whatsapp}>WhatsApp</a>
         </div>
       </div>
     </nav>
@@ -23,20 +24,26 @@ const whatsapp = 'https://wa.me/5511953970704?text=Olá%2C%20Henrico.%20Gostaria
     <section id="inicio" class="driver-hero">
       <div class="driver-shell driver-hero-grid">
         <div>
-          <p class="driver-kicker">Motorista particular · São Paulo e região</p>
+          <p class="driver-kicker">{profile.role} · {profile.location}</p>
           <h1>Seu caminho merece <em>mais cuidado.</em></h1>
           <p class="driver-lead">Corridas particulares, aeroportos, reuniões, eventos e viagens com atendimento direto, pontualidade e atenção em cada etapa.</p>
           <div class="driver-actions">
-            <a class="driver-button driver-button-primary" href={whatsapp}>Chamar no WhatsApp <span>↗</span></a>
-            <a class="driver-button driver-button-secondary" href="#servicos">Conhecer o serviço</a>
+            <a class="driver-button driver-button-primary" href={profile.whatsapp}>Chamar no WhatsApp <span>↗</span></a>
+            <a class="driver-button driver-button-secondary" href={profile.google} target="_blank" rel="noreferrer">Ver avaliações no Google</a>
           </div>
-          <p class="driver-signature">Levando pessoas, cuidando de histórias.</p>
+          <div class="driver-trust-row" aria-label="Canais e prova social">
+            <span>{profile.ratingLabel}</span>
+            <a href={profile.instagram} target="_blank" rel="noreferrer">{profile.instagramHandle}</a>
+            <a href={profile.airgo} target="_blank" rel="noreferrer">Todos os links</a>
+          </div>
+          <p class="driver-signature">{profile.slogan}</p>
         </div>
 
-        <aside class="driver-hero-panel" aria-label="Resumo da experiência">
+        <aside class="driver-hero-panel driver-portrait-panel" aria-label={`Retrato de ${profile.name}`}>
+          <img class="driver-portrait" src={portrait} alt={`Henrico Amaral, motorista particular`} loading="eager" decoding="async" />
+          <div class="driver-portrait-shade" aria-hidden="true"></div>
           <div class="driver-panel-top"><span>Atendimento direto</span><span>São Paulo</span></div>
-          <div class="driver-route" aria-hidden="true"><span class="driver-route-line"></span></div>
-          <div class="driver-panel-card"><small>Do primeiro contato ao destino</small><strong>Clareza, presença e cuidado.</strong><span>Sem intermediários para combinar sua corrida.</span></div>
+          <div class="driver-panel-card"><small>{profile.ratingLabel}</small><strong>{profile.name}</strong><span>Segurança, conforto e atendimento pessoal, do primeiro contato ao destino.</span></div>
         </aside>
       </div>
     </section>
@@ -75,7 +82,7 @@ const whatsapp = 'https://wa.me/5511953970704?text=Olá%2C%20Henrico.%20Gostaria
     <section class="driver-about">
       <div class="driver-shell driver-about-card">
         <div class="driver-monogram" aria-hidden="true">HA</div>
-        <div class="driver-about-copy"><p class="driver-kicker">Quem dirige</p><h2>Henrico Amaral.</h2><p>Motorista particular e de aplicativo. Um serviço construído na prática, corrida após corrida, com atenção ao que realmente importa para quem está do outro lado: segurança, respeito, conforto e confiança.</p></div>
+        <div class="driver-about-copy"><p class="driver-kicker">Quem dirige</p><h2>{profile.name}.</h2><p>{profile.role}. Um serviço construído na prática, corrida após corrida, com atenção ao que realmente importa para quem está do outro lado: segurança, respeito, conforto e confiança.</p><div class="driver-profile-links"><a href={profile.instagram} target="_blank" rel="noreferrer">Instagram</a><a href={profile.google} target="_blank" rel="noreferrer">Avaliações no Google</a><a href={profile.airgo} target="_blank" rel="noreferrer">Perfil completo</a></div></div>
       </div>
     </section>
 
@@ -84,18 +91,18 @@ const whatsapp = 'https://wa.me/5511953970704?text=Olá%2C%20Henrico.%20Gostaria
         <p class="driver-kicker">Precisa ir?</p>
         <h2>Me diga para onde.</h2>
         <p>Envie origem, destino, dia e horário. Eu retorno pelo WhatsApp para combinarmos a corrida.</p>
-        <a class="driver-button driver-button-primary" href={whatsapp}>Falar com Henrico no WhatsApp <span>↗</span></a>
+        <a class="driver-button driver-button-primary" href={profile.whatsapp}>Falar com Henrico no WhatsApp <span>↗</span></a>
       </div>
     </section>
 
     <footer class="driver-footer">
       <div class="driver-shell driver-footer-inner">
-        <div class="driver-brand"><span class="driver-brand-mark">HA</span><span class="driver-brand-copy"><strong>Henrico Amaral</strong><span>Motorista particular</span></span></div>
-        <p>Levando pessoas, cuidando de histórias.</p>
-        <a href={whatsapp}>WhatsApp ↗</a>
+        <div class="driver-brand"><span class="driver-brand-mark">HA</span><span class="driver-brand-copy"><strong>{profile.name}</strong><span>{profile.role}</span></span></div>
+        <p>{profile.slogan}</p>
+        <div class="driver-footer-links"><a href={profile.whatsapp}>WhatsApp</a><a href={profile.instagram} target="_blank" rel="noreferrer">Instagram</a><a href={profile.google} target="_blank" rel="noreferrer">Google</a></div>
       </div>
     </footer>
 
-    <a class="driver-floating" href={whatsapp} aria-label="Falar com Henrico pelo WhatsApp">WhatsApp</a>
+    <a class="driver-floating" href={profile.whatsapp} aria-label="Falar com Henrico pelo WhatsApp">WhatsApp</a>
   </main>
 </BaseLayout>
