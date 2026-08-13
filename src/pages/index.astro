@@ -5,6 +5,7 @@ import { currentClosings, currentVehicleExpenses, currentFuelings, personalMonth
 
 const money = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
 const number = new Intl.NumberFormat('pt-BR',{maximumFractionDigits:2});
+const percent = new Intl.NumberFormat('pt-BR',{style:'percent',maximumFractionDigits:0});
 const base = import.meta.env.BASE_URL || '/';
 const importUrl = `${base}importar-uber`;
 
@@ -21,28 +22,46 @@ const monthProfit = sum(monthRows,'operationalProfit');
 const monthHours = sum(monthRows,'hoursOnline');
 const monthKm = sum(monthRows,'kmTotal');
 const monthTrips = sum(monthRows,'tripsTotal');
+const monthUber = sum(monthRows,'revenueUber');
+const month99 = sum(monthRows,'revenue99');
+const monthPrivate = sum(monthRows,'revenuePrivate');
 const historicRevenue = sum(closings,'grossRevenue');
 const historicTrips = sum(closings,'tripsTotal');
 const historicDays = closings.filter((r:any)=>Number(r.grossRevenue??0)>0).length;
 const personalMonthlyTotal = personalMonthlyExpenses.reduce((t,item)=>t+item[1],0);
 const maintenanceTotal = currentVehicleExpenses.filter(item=>item.category.includes('Manutenção')).reduce((t,item)=>t+item.value,0);
 const recentFuelPaid = currentFuelings.reduce((t,item)=>t+item.totalPaid,0);
+const latestFuelEfficiency = [...currentFuelings].reverse().find(item=>item.consumptionKmL)?.consumptionKmL ?? null;
 const latest = closings[0];
 const monthLabel = new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(`${currentMonth}-01T00:00:00Z`));
 const chartRows = [...monthRows].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
 const chartMax = Math.max(1,...chartRows.map((r:any)=>Number(r.grossRevenue??0)));
 const chartData = chartRows.map((row:any)=>({
   ...row,
-  chartHeight: Math.max(8,Number(row.grossRevenue??0)/chartMax*100),
-  chartTitle: `${row.dateBR ?? row.date} · ${money.format(Number(row.grossRevenue??0))}`,
-  chartDay: String(row.date).slice(8)
+  chartHeight:Math.max(8,Number(row.grossRevenue??0)/chartMax*100),
+  chartTitle:`${row.dateBR ?? row.date} · ${money.format(Number(row.grossRevenue??0))}`,
+  chartDay:String(row.date).slice(8)
 }));
+const monthDays = Math.max(1,monthRows.filter((r:any)=>Number(r.grossRevenue??0)>0).length);
+const avgRevenueDay = monthRevenue/monthDays;
+const avgTripsDay = monthTrips/monthDays;
+const avgTicket = monthTrips ? monthRevenue/monthTrips : 0;
+const coverage = personalMonthlyTotal ? monthProfit/personalMonthlyTotal : 0;
+const netAfterPersonal = monthProfit-personalMonthlyTotal;
+const operatingMargin = monthRevenue ? monthProfit/monthRevenue : 0;
+const latestProfitPerHour = Number(latest?.hoursOnline??0) ? Number(latest?.operationalProfit??0)/Number(latest?.hoursOnline??0) : 0;
+const platformTotal = Math.max(1,monthUber+month99+monthPrivate);
+const platformMix = [
+  {name:'Uber',value:monthUber,share:monthUber/platformTotal},
+  {name:'99',value:month99,share:month99/platformTotal},
+  {name:'Particular',value:monthPrivate,share:monthPrivate/platformTotal}
+];
 ---
-<BaseLayout title="MotoristaOps · Painel financeiro e estratégico">
+<BaseLayout title="MotoristaOps · Painel de controle da operação">
   <div class="app-shell app-shell--open">
     <aside class="sidebar">
-      <div class="sidebar-brand"><span>MO</span><div><strong>MotoristaOps</strong><small>Financeiro & Estratégia</small></div></div>
-      <nav>
+      <div class="sidebar-brand"><span>MO</span><div><strong>MotoristaOps</strong><small>Controle da operação</small></div></div>
+      <nav aria-label="Navegação do painel">
         <button class="nav-item active" data-section="overview">Visão geral</button>
         <button class="nav-item" data-section="closings">Fechamentos</button>
         <button class="nav-item" data-section="expenses">Despesas mensais</button>
@@ -50,74 +69,99 @@ const chartData = chartRows.map((row:any)=>({
         <button class="nav-item" data-section="fuelings">Abastecimentos</button>
         <button class="nav-item" data-section="vehicle">Veículo</button>
       </nav>
-      <a class="nav-item nav-link" href={`${base}motorista/`}>Landing Page</a>
+      <div class="sidebar-bottom">
+        <span class="sidebar-status"><i></i> operação ativa</span>
+        <a class="nav-item nav-link" href={`${base}motorista/`}>Landing Page ↗</a>
+      </div>
     </aside>
 
     <section class="workspace">
-      <header class="workspace-header">
-        <div><p class="eyebrow">MotoristaOps</p><h1>Painel diário</h1><p>Seu histórico real de trabalho, custos, veículo e compromissos financeiros em uma única leitura.</p></div>
-        <div class="header-actions"><a class="button button--gold" href={importUrl}>Importar vídeo Uber</a><a class="button button--ghost" href={`${base}motorista/`}>Ver perfil público</a></div>
+      <header class="workspace-header workspace-header--control">
+        <div>
+          <div class="workspace-live"><span><i></i> MotoristaOps ao vivo</span><time id="live-clock" aria-label="Horário atual">--:--</time></div>
+          <p class="eyebrow">Painel de controle</p>
+          <h1>Sua operação,<br/>sem ruído.</h1>
+          <p>Receita, ritmo, custos, carro e compromissos financeiros em uma leitura única, com o histórico real já incorporado.</p>
+        </div>
+        <div class="header-actions"><a class="button button--gold" href={importUrl}>Importar corridas</a><a class="button button--ghost" href={`${base}motorista/`}>Perfil público</a></div>
       </header>
 
       <section id="overview" class="workspace-section">
-        <div class="section-title"><div><span>{monthLabel}</span><h2>Operação atual</h2></div><p>Dados consolidados da planilha MotoristaOps e dos fechamentos já registrados.</p></div>
-        <div class="metric-grid">
-          <article class="metric-card"><span>Receita do mês</span><strong>{money.format(monthRevenue)}</strong><small>{monthRows.length} fechamentos registrados</small></article>
-          <article class="metric-card"><span>Lucro operacional</span><strong>{money.format(monthProfit)}</strong><small>Antes das despesas pessoais</small></article>
-          <article class="metric-card metric-card--signal"><span>Despesas pessoais / mês</span><strong>{money.format(personalMonthlyTotal)}</strong><small>Compromissos mensais cadastrados</small></article>
-          <article class="metric-card"><span>Horas no mês</span><strong>{number.format(monthHours)}h</strong><small>{monthHours ? `${money.format(monthRevenue/monthHours)}/h bruto` : '—'}</small></article>
-          <article class="metric-card"><span>Km no mês</span><strong>{number.format(monthKm)} km</strong><small>{monthKm ? `${money.format(monthRevenue/monthKm)}/km bruto` : '—'}</small></article>
-          <article class="metric-card"><span>Viagens no mês</span><strong>{number.format(monthTrips)}</strong><small>Uber + 99 + particulares</small></article>
+        <div class="control-strip">
+          <article><span>Snapshot</span><strong>{latest?.dateBR ?? latest?.date}</strong><small>último fechamento</small></article>
+          <article class={coverage>=1?'control-positive':'control-alert'}><span>Cobertura pessoal</span><strong>{percent.format(coverage)}</strong><small>lucro operacional / despesas mensais</small></article>
+          <article><span>Consumo recente</span><strong>{latestFuelEfficiency ? `${number.format(latestFuelEfficiency)} km/L` : '—'}</strong><small>{vehicleProfile.fuel}</small></article>
+          <article><span>Particular</span><strong>{money.format(monthPrivate)}</strong><small>{money.format(vehicleProfile.privateRatePerKm)}/km referência</small></article>
         </div>
 
-        <div class="dashboard-grid">
-          <article class="panel"><div class="panel-head"><div><span>Evolução</span><h2>Receita por fechamento</h2></div></div><div class="daily-chart">{chartData.map((row:any)=><div class="chart-bar" title={row.chartTitle}><span style={`height:${row.chartHeight}%`}></span><small>{row.chartDay}</small></div>)}</div></article>
-          <article class="panel"><div class="panel-head"><div><span>Último fechamento</span><h2>{latest?.dateBR ?? latest?.date}</h2></div></div><div class="latest-summary"><strong>{money.format(Number(latest?.grossRevenue??0))}</strong><span>{latest?.platform ?? '—'} · {latest?.shift ?? '—'}</span><b>{Number(latest?.tripsTotal??0)} viagens</b><small>{number.format(Number(latest?.hoursOnline??0))}h · {number.format(Number(latest?.kmTotal??0))} km · lucro {money.format(Number(latest?.operationalProfit??0))}</small></div></article>
+        <div class="section-title"><div><span>{monthLabel}</span><h2>Pulso da operação</h2></div><p>Leitura consolidada dos fechamentos já registrados.</p></div>
+        <div class="metric-grid">
+          <article class="metric-card metric-card--signal"><span>Receita do mês</span><strong>{money.format(monthRevenue)}</strong><small>{money.format(avgRevenueDay)} / dia trabalhado</small></article>
+          <article class="metric-card"><span>Lucro operacional</span><strong>{money.format(monthProfit)}</strong><small>{percent.format(operatingMargin)} de margem operacional</small></article>
+          <article class="metric-card" data-state={netAfterPersonal>=0?'positive':'negative'}><span>Após despesas pessoais</span><strong>{money.format(netAfterPersonal)}</strong><small>{money.format(personalMonthlyTotal)} de compromissos / mês</small></article>
+          <article class="metric-card"><span>Horas</span><strong>{number.format(monthHours)}h</strong><small>{monthHours ? `${money.format(monthRevenue/monthHours)}/h bruto` : '—'}</small></article>
+          <article class="metric-card"><span>Km</span><strong>{number.format(monthKm)} km</strong><small>{monthKm ? `${money.format(monthRevenue/monthKm)}/km bruto` : '—'}</small></article>
+          <article class="metric-card"><span>Viagens</span><strong>{number.format(monthTrips)}</strong><small>{number.format(avgTripsDay)} / dia · ticket {money.format(avgTicket)}</small></article>
+        </div>
+
+        <div class="dashboard-grid dashboard-grid--command">
+          <article class="panel panel--chart"><div class="panel-head"><div><span>Ritmo</span><h2>Receita por fechamento</h2></div><small>{monthRows.length} registros</small></div><div class="daily-chart">{chartData.map((row:any)=><div class="chart-bar" title={row.chartTitle}><span style={`height:${row.chartHeight}%`}></span><small>{row.chartDay}</small></div>)}</div></article>
+          <article class="panel latest-card"><div class="panel-head"><div><span>Último fechamento</span><h2>{latest?.dateBR ?? latest?.date}</h2></div><span class="status-pill">consolidado</span></div><div class="latest-summary"><strong>{money.format(Number(latest?.grossRevenue??0))}</strong><span>{latest?.platform ?? '—'} · {latest?.shift ?? '—'}</span><div class="latest-grid"><div><b>{Number(latest?.tripsTotal??0)}</b><small>viagens</small></div><div><b>{number.format(Number(latest?.hoursOnline??0))}h</b><small>trabalho</small></div><div><b>{number.format(Number(latest?.kmTotal??0))}</b><small>km</small></div><div><b>{money.format(latestProfitPerHour)}</b><small>lucro/h</small></div></div></div></article>
         </div>
 
         <div class="dashboard-grid dashboard-grid--balanced">
-          <article class="panel strategic-card"><span>Histórico consolidado</span><h2>{historicDays} dias com receita.</h2><p>{money.format(historicRevenue)} de receita registrada e {number.format(historicTrips)} viagens no histórico já incorporado ao MotoristaOps.</p></article>
-          <article class="panel strategic-card"><span>Carro</span><h2>{vehicleProfile.vehicle}</h2><p>Odômetro recente: {number.format(vehicleProfile.recentOdometerKm)} km · referência particular {money.format(vehicleProfile.privateRatePerKm)}/km · combustível padrão {vehicleProfile.fuel}.</p></article>
+          <article class="panel mix-card"><div class="panel-head"><div><span>Composição</span><h2>De onde vem a receita</h2></div></div><div class="mix-list">{platformMix.map(item=><div class="mix-row"><div><strong>{item.name}</strong><span>{money.format(item.value)}</span></div><div class="mix-track"><i style={`width:${Math.max(2,item.share*100)}%`}></i></div><small>{percent.format(item.share)}</small></div>)}</div></article>
+          <article class="panel action-card"><div class="panel-head"><div><span>Agora</span><h2>Centro de decisão</h2></div></div><div class="action-list"><a href={importUrl}><span>Importar novo fechamento</span><b>Adicionar corridas e revisar dados</b><i>↗</i></a><button data-section="maintenance"><span>Manutenção recente</span><b>{money.format(maintenanceTotal)} registrados</b><i>→</i></button><button data-section="expenses"><span>Compromissos mensais</span><b>{money.format(personalMonthlyTotal)} / mês</b><i>→</i></button><button data-section="fuelings"><span>Combustível</span><b>{money.format(recentFuelPaid)} pagos no histórico recente</b><i>→</i></button></div></article>
+        </div>
+
+        <div class="dashboard-grid dashboard-grid--balanced dashboard-grid--quiet">
+          <article class="panel strategic-card"><span>Histórico consolidado</span><h2>{historicDays} dias com receita.</h2><p>{money.format(historicRevenue)} registrados e {number.format(historicTrips)} viagens incorporadas ao MotoristaOps.</p></article>
+          <article class="panel strategic-card"><span>Carro em operação</span><h2>{vehicleProfile.vehicle}</h2><p>{number.format(vehicleProfile.recentOdometerKm)} km no odômetro recente · {vehicleProfile.fuel} · corrida particular em {money.format(vehicleProfile.privateRatePerKm)}/km.</p></article>
         </div>
       </section>
 
       <section id="closings" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Histórico operacional</span><h2>Fechamentos</h2></div><p>Todos os fechamentos já disponíveis no snapshot do projeto, com os registros mais recentes corrigindo versões antigas da mesma data.</p></div>
+        <div class="section-title"><div><span>Histórico operacional</span><h2>Fechamentos</h2></div><p>Os registros mais recentes substituem versões antigas da mesma data.</p></div>
         <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Plataforma</th><th>Receita</th><th>Lucro</th><th>Horas</th><th>Km</th><th>Viagens</th></tr></thead><tbody>{closings.map((row:any)=><tr><td>{row.dateBR ?? row.date}</td><td>{row.platform ?? row.platformMix ?? '—'}</td><td>{money.format(Number(row.grossRevenue??0))}</td><td>{money.format(Number(row.operationalProfit??0))}</td><td>{row.hoursOnline==null?'—':`${number.format(Number(row.hoursOnline))}h`}</td><td>{row.kmTotal==null?'—':number.format(Number(row.kmTotal))}</td><td>{number.format(Number(row.tripsTotal??0))}</td></tr>)}</tbody></table></div>
       </section>
 
       <section id="expenses" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Vida financeira</span><h2>Despesas pessoais mensais</h2></div><p>Total recorrente atual: <strong>{money.format(personalMonthlyTotal)}</strong>. Mantido separado do lucro operacional do carro.</p></div>
-        <div class="metric-grid metric-grid--compact"><article class="metric-card metric-card--signal"><span>Total mensal</span><strong>{money.format(personalMonthlyTotal)}</strong><small>Base atual cadastrada</small></article><article class="metric-card"><span>Lucro operacional no mês</span><strong>{money.format(monthProfit)}</strong><small>Referência para cobertura dos compromissos</small></article><article class="metric-card"><span>Gap atual</span><strong>{money.format(monthProfit-personalMonthlyTotal)}</strong><small>Lucro operacional menos despesas pessoais</small></article></div>
+        <div class="section-title"><div><span>Vida financeira</span><h2>Despesas pessoais mensais</h2></div><p>Total recorrente: <strong>{money.format(personalMonthlyTotal)}</strong>. Mantido separado do custo operacional do carro.</p></div>
+        <div class="metric-grid metric-grid--compact"><article class="metric-card metric-card--signal"><span>Total mensal</span><strong>{money.format(personalMonthlyTotal)}</strong><small>base atual cadastrada</small></article><article class="metric-card"><span>Lucro operacional no mês</span><strong>{money.format(monthProfit)}</strong><small>referência de cobertura</small></article><article class="metric-card" data-state={netAfterPersonal>=0?'positive':'negative'}><span>Gap atual</span><strong>{money.format(netAfterPersonal)}</strong><small>lucro operacional menos despesas pessoais</small></article></div>
         <div class="panel table-panel"><table><thead><tr><th>Despesa</th><th>Valor mensal</th></tr></thead><tbody>{personalMonthlyExpenses.map(item=><tr><td>{item[0]}</td><td>{money.format(item[1])}</td></tr>)}</tbody></table></div>
       </section>
 
       <section id="maintenance" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Veículo</span><h2>Manutenção e cuidados</h2></div><p>Investimentos recentes registrados separadamente para não distorcer o lucro operacional diário.</p></div>
-        <div class="metric-grid metric-grid--compact"><article class="metric-card"><span>Manutenção recente</span><strong>{money.format(maintenanceTotal)}</strong><small>Itens registrados em 11/08</small></article><article class="metric-card"><span>Odômetro recente</span><strong>{number.format(vehicleProfile.recentOdometerKm)} km</strong><small>Último registro conhecido</small></article><article class="metric-card"><span>Abastecimentos pagos recentes</span><strong>{money.format(recentFuelPaid)}</strong><small>Inclui somente saída real de caixa</small></article></div>
+        <div class="section-title"><div><span>Veículo</span><h2>Manutenção e cuidados</h2></div><p>Investimentos separados para não distorcer o lucro operacional diário.</p></div>
+        <div class="metric-grid metric-grid--compact"><article class="metric-card"><span>Manutenção recente</span><strong>{money.format(maintenanceTotal)}</strong><small>itens registrados</small></article><article class="metric-card"><span>Odômetro recente</span><strong>{number.format(vehicleProfile.recentOdometerKm)} km</strong><small>último registro conhecido</small></article><article class="metric-card"><span>Abastecimentos pagos</span><strong>{money.format(recentFuelPaid)}</strong><small>saída real de caixa recente</small></article></div>
         <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Categoria</th><th>Descrição</th><th>Valor</th></tr></thead><tbody>{currentVehicleExpenses.map(item=><tr><td>{item.dateBR}</td><td>{item.category}</td><td>{item.description}</td><td>{money.format(item.value)}</td></tr>)}</tbody></table></div>
       </section>
 
       <section id="fuelings" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Combustível</span><h2>Abastecimentos</h2></div><p>Histórico recente com cortesia separada de desembolso real.</p></div>
+        <div class="section-title"><div><span>Combustível</span><h2>Abastecimentos</h2></div><p>Cortesia separada de desembolso real.</p></div>
         <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Combustível</th><th>Litros</th><th>Preço/L</th><th>Total pago</th><th>Observação</th></tr></thead><tbody>{currentFuelings.map(item=><tr><td>{item.dateBR}</td><td>{item.fuel}</td><td>{number.format(item.liters)} L</td><td>{money.format(item.pricePerLiter)}</td><td>{money.format(item.totalPaid)}</td><td>{item.notes}</td></tr>)}</tbody></table></div>
       </section>
 
       <section id="vehicle" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Frota</span><h2>{vehicleProfile.vehicle}</h2></div><p>Veículo principal atualmente associado à operação MotoristaOps.</p></div>
-        <div class="dashboard-grid dashboard-grid--balanced"><article class="panel"><span>Combustível</span><h2>{vehicleProfile.fuel}</h2><p>Preço recente usado nos fechamentos de agosto: aproximadamente {money.format(vehicleProfile.referenceFuelPrice)}/L.</p></article><article class="panel"><span>Corrida particular</span><h2>{money.format(vehicleProfile.privateRatePerKm)}/km</h2><p>Referência atual para orçamentos particulares.</p></article></div>
+        <div class="section-title"><div><span>Frota</span><h2>{vehicleProfile.vehicle}</h2></div><p>Veículo principal associado à operação.</p></div>
+        <div class="dashboard-grid dashboard-grid--balanced"><article class="panel"><span>Combustível</span><h2>{vehicleProfile.fuel}</h2><p>Preço recente usado nos fechamentos: aproximadamente {money.format(vehicleProfile.referenceFuelPrice)}/L.</p></article><article class="panel"><span>Corrida particular</span><h2>{money.format(vehicleProfile.privateRatePerKm)}/km</h2><p>Referência atual para orçamentos particulares.</p></article></div>
       </section>
     </section>
   </div>
 
   <script is:inline>
-    document.addEventListener('click',(event)=>{
-      const target=event.target.closest('[data-section]');
-      if(!target)return;
-      const section=target.dataset.section;
+    const setSection=(section)=>{
       document.querySelectorAll('.workspace-section').forEach(node=>node.hidden=node.id!==section);
       document.querySelectorAll('.nav-item[data-section]').forEach(node=>node.classList.toggle('active',node.dataset.section===section));
       window.scrollTo({top:0,behavior:'smooth'});
+    };
+    document.addEventListener('click',(event)=>{
+      const target=event.target.closest('[data-section]');
+      if(!target)return;
+      setSection(target.dataset.section);
     });
+    const clock=document.getElementById('live-clock');
+    const tick=()=>{if(clock)clock.textContent=new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(new Date())};
+    tick();setInterval(tick,1000);
   </script>
 </BaseLayout>
