@@ -7,7 +7,6 @@ export const driverProfile = {
   instagramHandle: '@henrico.driver.amaral',
   instagram: 'https://instagram.com/henrico.driver.amaral',
   google: 'https://maps.app.goo.gl/aCAXYqSYsQDSt7teA',
-  airgo: 'https://airgo.bio/henrico.driver.amaral',
   ratingLabel: '4,96 na Uber',
   slogan: 'Levando pessoas, cuidando de histórias.'
 } as const;
