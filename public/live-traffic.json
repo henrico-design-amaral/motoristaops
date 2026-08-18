@@ -6,19 +6,50 @@
     "url": "https://www.cetsp.com.br/",
     "kind": "official"
   },
-  "fetchedAt": null,
-  "sourceObservedAt": null,
-  "status": "pending",
+  "fetchedAt": "2026-08-18T23:20:46.521Z",
+  "sourceObservedAt": "18 de agosto de 2026",
+  "status": "live",
   "expectedRefreshMinutes": 5,
   "zones": [
-    {"name":"Norte","slowKm":null,"sharePct":null},
-    {"name":"Oeste","slowKm":null,"sharePct":null},
-    {"name":"Centro","slowKm":null,"sharePct":null},
-    {"name":"Leste","slowKm":null,"sharePct":null},
-    {"name":"Sul","slowKm":null,"sharePct":null}
+    {
+      "name": "Norte",
+      "slowKm": 32,
+      "sharePct": 9
+    },
+    {
+      "name": "Oeste",
+      "slowKm": 122,
+      "sharePct": 36
+    },
+    {
+      "name": "Centro",
+      "slowKm": 32,
+      "sharePct": 9
+    },
+    {
+      "name": "Leste",
+      "slowKm": 48,
+      "sharePct": 14
+    },
+    {
+      "name": "Sul",
+      "slowKm": 123,
+      "sharePct": 36
+    }
   ],
-  "busCorridorSpeed": {"bairroCentroKmh":null,"centroBairroKmh":null},
-  "derived": {"totalSlowKm":0,"worstZone":null,"pressure":"indisponível"},
-  "notes": ["Snapshot inicial. O coletor agendado substituirá este arquivo após a primeira execução."],
+  "busCorridorSpeed": {
+    "bairroCentroKmh": 22,
+    "centroBairroKmh": 21
+  },
+  "derived": {
+    "totalSlowKm": 357,
+    "worstZone": "Sul",
+    "pressure": "muito alto"
+  },
+  "notes": [
+    "Leitura automatizada da página pública Trânsito Agora da CET-SP.",
+    "Os valores regionais representam quilômetros de lentidão publicados pela CET no momento da coleta.",
+    "A coleta pode atrasar se o agendamento do GitHub Actions sofrer fila."
+  ],
   "error": null
 }
