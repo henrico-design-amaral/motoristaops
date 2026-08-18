@@ -62,7 +62,9 @@ jobs:
               { name: 'landing-desktop', url: `${base}/motorista/`, viewport: { width: 1440, height: 1000 }, fullPage: true },
               { name: 'landing-mobile', url: `${base}/motorista/`, viewport: { width: 390, height: 844 }, fullPage: true },
               { name: 'dashboard-desktop', url: `${base}/`, viewport: { width: 1440, height: 1000 }, fullPage: true },
-              { name: 'dashboard-mobile', url: `${base}/`, viewport: { width: 390, height: 844 }, fullPage: true }
+              { name: 'dashboard-mobile', url: `${base}/`, viewport: { width: 390, height: 844 }, fullPage: true },
+              { name: 'traffic-desktop', url: `${base}/transito/`, viewport: { width: 1440, height: 1000 }, fullPage: true },
+              { name: 'traffic-mobile', url: `${base}/transito/`, viewport: { width: 390, height: 844 }, fullPage: true }
             ];
             const browser = await chromium.launch({ headless: true });
             for (const shot of shots) {
