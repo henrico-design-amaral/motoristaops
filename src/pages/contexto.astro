@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { predictiveIntelligence } from '../data/strategic-intelligence-v2';
+const brl=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
+const n=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:1});
+const pct=new Intl.NumberFormat('pt-BR',{style:'percent',maximumFractionDigits:0});
+const signed=(value:number|null)=>value===null?'amostra insuficiente':`${value>=0?'+':''}${pct.format(value)}`;
+const top= predictiveIntelligence.bestContextualWindows.slice(0,12);
+---
+<BaseLayout title="MotoristaOPS · Contexto operacional">
+<main class="ctx-shell">
+  <header class="hero">
+    <div><p class="eyebrow">MotoristaOPS · contexto v1</p><h1>O que estava acontecendo enquanto você dirigia?</h1><p>A matriz conecta data, faixa, região e rota a sinais externos e operacionais. O objetivo é medir associação com eficiência antes de transformar qualquer correlação em recomendação.</p></div>
+    <div class="links"><a href="/inteligencia">← Inteligência</a><a href="/previsao">Previsão →</a></div>
+  </header>
+
+  <section class="stats">
+    <article><span>Janelas analisadas</span><strong>{predictiveIntelligence.contextCoverage.totalSignals ? predictiveIntelligence.sample.contextualWindows : 0}</strong><small>data × faixa × rota</small></article>
+    <article><span>Sinais externos</span><strong>{predictiveIntelligence.contextCoverage.totalSignals}</strong><small>{predictiveIntelligence.contextCoverage.confirmed} confirmados · {predictiveIntelligence.contextCoverage.pending} pendentes</small></article>
+    <article><span>Não localizados</span><strong>{predictiveIntelligence.contextCoverage.notLocated}</strong><small>mantidos como desconhecidos</small></article>
+    <article><span>Modelo</span><strong>v1</strong><small>score exploratório, não calibrado</small></article>
+  </section>
+
+  <section class="section">
+    <div class="head"><div><p class="eyebrow">01 · janela boa</p><h2>Probabilidade proxy por janela</h2></div><p>Combina R$/h em corrida, ocupação proxy, R$/km e incidência de dinâmica. Não é probabilidade estatística calibrada.</p></div>
+    <div class="window-grid">
+      {top.map((row,i)=><article class="window-card">
+        <div class="rank">#{i+1}</div><div class="prob">{pct.format(row.goodWindowProbabilityProxy)}</div>
+        <h3>{row.originRegion} → {row.destinationRegion}</h3>
+        <p>{row.date.slice(8,10)}/{row.date.slice(5,7)} · {row.hourBand}</p>
+        <dl>
+          <div><dt>R$/h corrida</dt><dd>{brl.format(row.revenuePerRideHour)}</dd></div>
+          <div><dt>Velocidade</dt><dd>{n.format(row.speedKmh)} km/h</dd></div>
+          <div><dt>Ocupação proxy</dt><dd>{pct.format(row.occupancyProxy)}</dd></div>
+          <div><dt>Dinâmica</dt><dd>{row.surgeRides}/{row.rides} corrida(s)</dd></div>
+        </dl>
+        <div class="signals">{row.activeSignals.length?row.activeSignals.map(s=><span>{s}</span>):<span>sem sinal externo confirmado</span>}</div>
+      </article>)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="head"><div><p class="eyebrow">02 · impacto observado</p><h2>Sinal × desempenho</h2></div><p>O delta compara janelas afetadas a janelas da mesma faixa horária em outros dias sem sinal confirmado.</p></div>
+    <div class="impact-list">
+      {predictiveIntelligence.contextSignalImpact.map(row=><article class="impact-card">
+        <div><span class="kind">{row.kind}</span><h3>{row.label}</h3><p>{row.date.slice(8,10)}/{row.date.slice(5,7)} · {row.region}{row.timeWindow?` · ${row.timeWindow}`:''}</p></div>
+        <dl><div><dt>Janelas afetadas</dt><dd>{row.affectedWindows}</dd></div><div><dt>Δ R$/h</dt><dd>{signed(row.deltaRevenuePerRideHour)}</dd></div><div><dt>Δ velocidade</dt><dd>{signed(row.deltaSpeed)}</dd></div><div><dt>Δ ocupação</dt><dd>{signed(row.deltaOccupancy)}</dd></div></dl>
+        <p class="interpretation">{row.interpretation}</p>
+      </article>)}
+    </div>
+  </section>
+
+  <section class="section dynamic">
+    <div><p class="eyebrow">03 · dinâmica</p><h2>Preço dinâmico já é um sinal mensurável.</h2><p>{predictiveIntelligence.dynamicPricingImpact.note}</p></div>
+    <dl>
+      <div><dt>Janelas com dinâmica</dt><dd>{predictiveIntelligence.dynamicPricingImpact.surgeWindows}</dd></div>
+      <div><dt>Δ R$/h</dt><dd>{signed(predictiveIntelligence.dynamicPricingImpact.deltaRevenuePerRideHour)}</dd></div>
+      <div><dt>Δ R$/km</dt><dd>{signed(predictiveIntelligence.dynamicPricingImpact.deltaRevenuePerKm)}</dd></div>
+      <div><dt>R$/h com dinâmica</dt><dd>{brl.format(predictiveIntelligence.dynamicPricingImpact.surgeRevenuePerRideHour)}</dd></div>
+    </dl>
+  </section>
+
+  <section class="section coverage">
+    <div class="head"><div><p class="eyebrow">04 · cobertura</p><h2>O que sabemos e o que ainda não sabemos.</h2></div></div>
+    <div class="coverage-grid">
+      {predictiveIntelligence.contextCoverage.kinds.map(kind=><article><strong>{kind}</strong><span class={predictiveIntelligence.contextCoverage.populatedKinds.includes(kind)?'ok':'pending'}>{predictiveIntelligence.contextCoverage.populatedKinds.includes(kind)?'evidência confirmada':'a reconciliar'}</span></article>)}
+    </div>
+    <p class="note">{predictiveIntelligence.contextCoverage.note}</p>
+  </section>
+
+  <section class="warning"><strong>Governança do modelo</strong><p>{predictiveIntelligence.contextualModelMeta.probability}</p><p>{predictiveIntelligence.contextualModelMeta.impact}</p><p>{predictiveIntelligence.contextualModelMeta.occupancy}</p></section>
+</main>
+<style>
+.ctx-shell{max-width:1500px;margin:auto;padding:42px 34px 80px}.hero{display:flex;justify-content:space-between;gap:42px;align-items:flex-start;padding:40px 0 48px;border-bottom:1px solid var(--mo-line)}.hero h1{font-size:clamp(3rem,7vw,7rem);line-height:.92;letter-spacing:-.065em;max-width:12ch}.hero p:not(.eyebrow){max-width:68ch;color:var(--mo-muted);line-height:1.7}.eyebrow{font-size:.62rem;text-transform:uppercase;letter-spacing:.14em;color:var(--mo-gold-soft);font-weight:800}.links{display:flex;gap:8px;flex-wrap:wrap}.links a{color:var(--mo-paper);text-decoration:none;border:1px solid var(--mo-line);padding:12px 16px;border-radius:999px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--mo-line);border:1px solid var(--mo-line);border-radius:18px;overflow:hidden;margin:28px 0}.stats article{background:var(--mo-bg);padding:22px}.stats span,.stats small{display:block;color:var(--mo-muted);font-size:.68rem}.stats strong{display:block;font-size:1.8rem;margin:8px 0}.section{margin-top:62px}.head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:22px}.head h2,.dynamic h2{font-size:clamp(2.2rem,4vw,4.5rem);letter-spacing:-.055em}.head>p{max-width:52ch;color:var(--mo-muted);line-height:1.6}.window-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.window-card{position:relative;border:1px solid var(--mo-line);border-radius:16px;padding:20px;background:linear-gradient(150deg,rgba(42,36,31,.82),rgba(18,17,16,.94))}.rank{font-size:.65rem;color:var(--mo-muted)}.prob{position:absolute;right:18px;top:16px;font-size:1.35rem;color:var(--mo-gold-soft);font-weight:800}.window-card h3{font-size:1.05rem;margin:24px 70px 4px 0}.window-card>p{color:var(--mo-muted);font-size:.7rem}.window-card dl,.dynamic dl{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--mo-line);margin-top:16px}.window-card dl div,.dynamic dl div{background:var(--mo-bg-deep);padding:11px}.window-card dt,.dynamic dt,.impact-card dt{font-size:.56rem;text-transform:uppercase;color:var(--mo-muted);letter-spacing:.08em}.window-card dd,.dynamic dd,.impact-card dd{margin:5px 0 0;font-size:.76rem}.signals{display:flex;gap:5px;flex-wrap:wrap;margin-top:12px}.signals span,.kind{font-size:.56rem;text-transform:uppercase;letter-spacing:.07em;padding:5px 7px;border:1px solid var(--mo-line);border-radius:999px;color:var(--mo-muted)}.impact-list{display:grid;gap:10px}.impact-card{display:grid;grid-template-columns:minmax(260px,1.2fr) 1fr minmax(240px,.8fr);gap:22px;align-items:center;border:1px solid var(--mo-line);border-radius:15px;padding:20px}.impact-card h3{margin:8px 0 4px}.impact-card>div>p,.interpretation{color:var(--mo-muted);font-size:.7rem;line-height:1.55}.impact-card dl{display:grid;grid-template-columns:1fr 1fr;gap:12px}.dynamic{display:grid;grid-template-columns:1.1fr 1fr;gap:35px;padding:30px;border:1px solid var(--mo-line);border-radius:18px;background:rgba(66,52,36,.24)}.dynamic p{color:var(--mo-muted);line-height:1.65}.coverage-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}.coverage-grid article{border:1px solid var(--mo-line);border-radius:12px;padding:14px}.coverage-grid strong{display:block;text-transform:uppercase;font-size:.68rem}.coverage-grid span{display:block;font-size:.58rem;margin-top:6px}.coverage-grid .ok{color:var(--mo-gold-soft)}.coverage-grid .pending{color:var(--mo-muted)}.note{color:var(--mo-muted);font-size:.72rem;line-height:1.6}.warning{margin-top:28px;padding:22px;border-left:3px solid var(--mo-gold);background:rgba(66,52,36,.25)}.warning p{color:var(--mo-muted);margin:7px 0;line-height:1.55}
+@media(max-width:1050px){.window-grid{grid-template-columns:1fr 1fr}.coverage-grid{grid-template-columns:repeat(4,1fr)}.impact-card{grid-template-columns:1fr 1fr}.interpretation{grid-column:1/-1}}@media(max-width:760px){.ctx-shell{padding:24px 16px 60px}.hero,.head{display:grid}.stats,.window-grid,.dynamic{grid-template-columns:1fr}.impact-card{grid-template-columns:1fr}.coverage-grid{grid-template-columns:1fr 1fr}}@media(max-width:430px){.coverage-grid{grid-template-columns:1fr}}
+</style>
+</BaseLayout>
