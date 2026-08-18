@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "id": "cet-home",
+    "label": "CET-SP · Trânsito Agora",
+    "url": "https://www.cetsp.com.br/",
+    "kind": "official"
+  },
+  "fetchedAt": null,
+  "sourceObservedAt": null,
+  "status": "pending",
+  "expectedRefreshMinutes": 5,
+  "zones": [
+    {"name":"Norte","slowKm":null,"sharePct":null},
+    {"name":"Oeste","slowKm":null,"sharePct":null},
+    {"name":"Centro","slowKm":null,"sharePct":null},
+    {"name":"Leste","slowKm":null,"sharePct":null},
+    {"name":"Sul","slowKm":null,"sharePct":null}
+  ],
+  "busCorridorSpeed": {"bairroCentroKmh":null,"centroBairroKmh":null},
+  "derived": {"totalSlowKm":0,"worstZone":null,"pressure":"indisponível"},
+  "notes": ["Snapshot inicial. O coletor agendado substituirá este arquivo após a primeira execução."],
+  "error": null
+}
