@@ -1,0 +1,66 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { regionScores, hourScores, weekdayScores } from '../data/predictive-engine-v3';
+const topRegions=regionScores.slice(0,6);
+const topHours=hourScores.slice(0,4);
+const topDays=weekdayScores.slice(0,4);
+---
+<BaseLayout title="MotoristaOPS · Trânsito ao vivo">
+<main class="traffic-shell">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">MotoristaOPS · trânsito vivo</p>
+      <h1>A cidade agora, antes da próxima corrida.</h1>
+      <p>Leitura operacional da CET-SP com atualização automática. A página mantém trânsito atual separado do histórico de ganho para evitar misturar congestionamento presente com causalidade passada.</p>
+    </div>
+    <nav><a href="/">Dashboard</a><a href="/inteligencia">Inteligência</a><a href="/previsao">Previsão</a></nav>
+  </header>
+
+  <section class="live-strip" aria-live="polite">
+    <div><span>Status</span><strong id="live-status">carregando</strong><small id="live-age">aguardando snapshot</small></div>
+    <div><span>Lentidão total</span><strong id="live-total">—</strong><small>km publicados pela CET</small></div>
+    <div><span>Região mais pressionada</span><strong id="live-worst">—</strong><small id="live-pressure">pressão indisponível</small></div>
+    <div><span>Corredor ônibus</span><strong id="live-bus">—</strong><small>Centro/Bairro · Bairro/Centro</small></div>
+  </section>
+
+  <section class="section">
+    <div class="head"><div><p class="eyebrow">01 · cidade</p><h2>Trânsito por região</h2></div><p>Atualização esperada a cada cinco minutos. O agendador pode atrasar em períodos de fila; a idade do dado fica sempre visível.</p></div>
+    <div id="zone-grid" class="zone-grid">
+      {['Norte','Oeste','Centro','Leste','Sul'].map(name=><article data-zone={name}><span>{name}</span><strong>—</strong><small>aguardando</small><i></i></article>)}
+    </div>
+  </section>
+
+  <section class="section two-col">
+    <article class="panel">
+      <div class="head compact"><div><p class="eyebrow">02 · histórico</p><h2>Regiões com melhor eficiência</h2></div></div>
+      {topRegions.map((x,i)=><div class="rank"><b>{i+1}</b><span><strong>{x.key}</strong><small>{x.rides} corridas · confiança {x.confidence}</small></span><em>{x.score}/100</em></div>)}
+    </article>
+    <article class="panel">
+      <div class="head compact"><div><p class="eyebrow">03 · timing</p><h2>Quando o histórico rende melhor</h2></div></div>
+      {topDays.map((x,i)=><div class="rank"><b>{i+1}</b><span><strong>{x.label}</strong><small>{x.days} dia(s) · confiança {x.confidence}</small></span><em>{x.score}/100</em></div>)}
+      <div class="divider"></div>
+      {topHours.map((x,i)=><div class="rank"><b>{i+1}</b><span><strong>{x.key}</strong><small>{x.rides} corridas · confiança {x.confidence}</small></span><em>{x.score}/100</em></div>)}
+    </article>
+  </section>
+
+  <section class="section decision-box">
+    <div><p class="eyebrow">04 · decisão</p><h2>Trânsito ao vivo não decide sozinho.</h2><p>Uma região congestionada pode pagar melhor por dinâmica; uma região fluida pode estar sem demanda. O MotoristaOPS usa o trânsito como uma variável da decisão e cruza, progressivamente, com R$/h, R$/km, ocupação, dinâmica, dia, horário, eventos, clima e aeroporto.</p></div>
+    <div class="decision-list"><span>Agora: CET regional em atualização contínua</span><span>Próximo: velocidade por corredor via Olho Vivo/SPTrans</span><span>Próximo: incidentes Waze for Cities quando houver acesso de parceiro</span><span>Próximo: recomendação live × histórico por região</span></div>
+  </section>
+
+  <section class="source-box"><strong>Fonte operacional</strong><p>CET-SP · Trânsito Agora. O snapshot é coletado por GitHub Actions e publicado como JSON. A página consulta o arquivo do branch principal diretamente para não depender de um novo deploy a cada atualização.</p><p id="source-time">Última coleta: —</p><a href="https://www.cetsp.com.br/" target="_blank" rel="noreferrer">Abrir CET-SP ↗</a></section>
+</main>
+<script is:inline>
+const RAW='https://raw.githubusercontent.com/henrico-design-amaral/motoristaops/main/public/live-traffic.json';
+const fallback='/motoristaops/live-traffic.json';
+const fmt=n=>Number.isFinite(Number(n))?new Intl.NumberFormat('pt-BR',{maximumFractionDigits:1}).format(Number(n)):'—';
+const ageText=iso=>{if(!iso)return 'sem coleta';const m=Math.max(0,Math.round((Date.now()-new Date(iso).getTime())/60000));return m<1?'atualizado agora':`atualizado há ${m} min`;};
+async function getData(){for(const url of [`${RAW}?t=${Date.now()}`,`${fallback}?t=${Date.now()}`]){try{const r=await fetch(url,{cache:'no-store'});if(r.ok)return await r.json();}catch{}}throw new Error('snapshot indisponível');}
+function render(d){const stale=!d.fetchedAt||Date.now()-new Date(d.fetchedAt).getTime()>20*60000;document.querySelector('#live-status').textContent=d.status==='live'&&!stale?'ao vivo':d.status==='stale'||stale?'atrasado':'pendente';document.querySelector('#live-age').textContent=ageText(d.fetchedAt);document.querySelector('#live-total').textContent=`${fmt(d.derived?.totalSlowKm)} km`;document.querySelector('#live-worst').textContent=d.derived?.worstZone??'—';document.querySelector('#live-pressure').textContent=`pressão ${d.derived?.pressure??'indisponível'}`;const cb=d.busCorridorSpeed?.centroBairroKmh,bc=d.busCorridorSpeed?.bairroCentroKmh;document.querySelector('#live-bus').textContent=(cb||bc)?`${fmt(cb)} · ${fmt(bc)} km/h`:'—';document.querySelector('#source-time').textContent=`Última coleta: ${d.fetchedAt?new Date(d.fetchedAt).toLocaleString('pt-BR'):'—'}`;(d.zones??[]).forEach(z=>{const el=document.querySelector(`[data-zone="${z.name}"]`);if(!el)return;el.querySelector('strong').textContent=`${fmt(z.slowKm)} km`;el.querySelector('small').textContent=z.sharePct===null||z.sharePct===undefined?'participação indisponível':`${fmt(z.sharePct)}% da lentidão`;el.querySelector('i').style.width=`${Math.max(0,Math.min(100,Number(z.sharePct)||0))}%`;});}
+async function refresh(){try{render(await getData());}catch{document.querySelector('#live-status').textContent='indisponível';document.querySelector('#live-age').textContent='não foi possível carregar o snapshot';}}
+refresh();setInterval(refresh,60000);
+</script>
+<style>
+.traffic-shell{max-width:1500px;margin:auto;padding:42px 34px 80px}.hero{display:flex;justify-content:space-between;gap:40px;align-items:flex-start;padding:40px 0 48px;border-bottom:1px solid var(--mo-line)}.hero h1{font-size:clamp(3rem,7vw,7rem);line-height:.9;letter-spacing:-.07em;max-width:10ch}.hero p:not(.eyebrow){max-width:70ch;line-height:1.7;color:var(--mo-muted)}.eyebrow{font-size:.62rem;text-transform:uppercase;letter-spacing:.14em;color:var(--mo-gold-soft);font-weight:800}nav{display:flex;gap:8px;flex-wrap:wrap}nav a,.source-box a{color:var(--mo-paper);text-decoration:none;border:1px solid var(--mo-line);padding:11px 14px;border-radius:999px}.live-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--mo-line);border:1px solid var(--mo-line);border-radius:18px;overflow:hidden;margin:28px 0}.live-strip>div{background:var(--mo-bg);padding:20px}.live-strip span,.live-strip small{display:block;color:var(--mo-muted);font-size:.66rem}.live-strip strong{display:block;font-size:1.65rem;margin:8px 0}.section{margin-top:60px}.head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:20px}.head h2{font-size:clamp(2rem,4vw,4rem);letter-spacing:-.05em}.head>p{max-width:50ch;color:var(--mo-muted)}.zone-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.zone-grid article{border:1px solid var(--mo-line);border-radius:15px;padding:18px;overflow:hidden}.zone-grid span,.zone-grid small{display:block;color:var(--mo-muted);font-size:.66rem}.zone-grid strong{display:block;font-size:2rem;margin:10px 0}.zone-grid i{display:block;height:4px;background:var(--mo-gold-soft);margin-top:14px;width:0;transition:width .35s ease}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{border:1px solid var(--mo-line);border-radius:16px;padding:22px}.head.compact h2{font-size:2rem}.rank{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--mo-line)}.rank>b{color:var(--mo-gold-soft)}.rank span{display:grid}.rank small{font-size:.63rem;color:var(--mo-muted)}.rank em{font-style:normal;font-weight:700}.divider{height:1px;background:var(--mo-line);margin:16px 0}.decision-box{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:30px;border:1px solid var(--mo-line);border-radius:18px;background:linear-gradient(145deg,rgba(66,52,36,.55),rgba(25,22,20,.85))}.decision-box h2{font-size:clamp(2.2rem,4vw,4rem);letter-spacing:-.05em}.decision-box p{color:var(--mo-muted);line-height:1.7}.decision-list{display:grid;align-content:center;gap:10px}.decision-list span{padding:12px 0;border-bottom:1px solid var(--mo-line)}.source-box{margin-top:24px;padding:22px;border-left:3px solid var(--mo-gold);background:rgba(66,52,36,.23)}.source-box p{color:var(--mo-muted);line-height:1.6}.source-box a{display:inline-block;margin-top:8px}@media(max-width:1000px){.zone-grid{grid-template-columns:repeat(3,1fr)}.live-strip{grid-template-columns:1fr 1fr}}@media(max-width:760px){.traffic-shell{padding:24px 16px 60px}.hero,.head,.two-col,.decision-box{display:grid;grid-template-columns:1fr}.zone-grid{grid-template-columns:1fr 1fr}}@media(max-width:460px){.live-strip,.zone-grid{grid-template-columns:1fr}.rank{grid-template-columns:24px 1fr}.rank em{grid-column:2}}
+</style>
+</BaseLayout>
