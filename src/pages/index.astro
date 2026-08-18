@@ -1,167 +1,325 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import legacy from '../data/motoristaops.json';
-import { currentClosings, currentVehicleExpenses, currentFuelings, personalMonthlyExpenses, vehicleProfile } from '../data/current-ops';
+import {
+  currentClosings,
+  currentVehicleExpenses,
+  currentFuelings,
+  personalMonthlyExpenses,
+  vehicleProfile
+} from '../data/current-ops';
+import { evidenceDays, privatePricingPolicy, privatePipeline, dataHealth } from '../data/dashboard-refresh';
 
-const money = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
-const number = new Intl.NumberFormat('pt-BR',{maximumFractionDigits:2});
-const percent = new Intl.NumberFormat('pt-BR',{style:'percent',maximumFractionDigits:0});
-const base = import.meta.env.BASE_URL || '/';
-const importUrl = `${base}importar-uber`;
+const brl = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+const num = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 1 });
+const pct = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
 
-const legacyDaily = Array.isArray((legacy as any).daily) ? (legacy as any).daily : [];
-const mergedMap = new Map<string, any>();
-legacyDaily.forEach((row:any)=>mergedMap.set(row.date,row));
-currentClosings.forEach((row:any)=>mergedMap.set(row.date,row));
-const closings = [...mergedMap.values()].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
-const currentMonth = closings[0]?.date?.slice(0,7) ?? '2026-08';
-const monthRows = closings.filter((row:any)=>row.date?.startsWith(currentMonth));
-const sum = (rows:any[],key:string)=>rows.reduce((total,row)=>total+Number(row[key]??0),0);
-const monthRevenue = sum(monthRows,'grossRevenue');
-const monthProfit = sum(monthRows,'operationalProfit');
-const monthHours = sum(monthRows,'hoursOnline');
-const monthKm = sum(monthRows,'kmTotal');
-const monthTrips = sum(monthRows,'tripsTotal');
-const monthUber = sum(monthRows,'revenueUber');
-const month99 = sum(monthRows,'revenue99');
-const monthPrivate = sum(monthRows,'revenuePrivate');
-const historicRevenue = sum(closings,'grossRevenue');
-const historicTrips = sum(closings,'tripsTotal');
-const historicDays = closings.filter((r:any)=>Number(r.grossRevenue??0)>0).length;
-const personalMonthlyTotal = personalMonthlyExpenses.reduce((t,item)=>t+item[1],0);
-const maintenanceTotal = currentVehicleExpenses.filter(item=>item.category.includes('Manutenção')).reduce((t,item)=>t+item.value,0);
-const recentFuelPaid = currentFuelings.reduce((t,item)=>t+item.totalPaid,0);
-const latestFuelEfficiency = [...currentFuelings].reverse().find(item=>item.consumptionKmL)?.consumptionKmL ?? null;
-const latest = closings[0];
-const monthLabel = new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(`${currentMonth}-01T00:00:00Z`));
-const chartRows = [...monthRows].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
-const chartMax = Math.max(1,...chartRows.map((r:any)=>Number(r.grossRevenue??0)));
-const chartData = chartRows.map((row:any)=>({
-  ...row,
-  chartHeight:Math.max(8,Number(row.grossRevenue??0)/chartMax*100),
-  chartTitle:`${row.dateBR ?? row.date} · ${money.format(Number(row.grossRevenue??0))}`,
-  chartDay:String(row.date).slice(8)
-}));
-const monthDays = Math.max(1,monthRows.filter((r:any)=>Number(r.grossRevenue??0)>0).length);
-const avgRevenueDay = monthRevenue/monthDays;
-const avgTripsDay = monthTrips/monthDays;
-const avgTicket = monthTrips ? monthRevenue/monthTrips : 0;
-const coverage = personalMonthlyTotal ? monthProfit/personalMonthlyTotal : 0;
-const netAfterPersonal = monthProfit-personalMonthlyTotal;
-const operatingMargin = monthRevenue ? monthProfit/monthRevenue : 0;
-const latestProfitPerHour = Number(latest?.hoursOnline??0) ? Number(latest?.operationalProfit??0)/Number(latest?.hoursOnline??0) : 0;
-const platformTotal = Math.max(1,monthUber+month99+monthPrivate);
-const platformMix = [
-  {name:'Uber',value:monthUber,share:monthUber/platformTotal},
-  {name:'99',value:month99,share:month99/platformTotal},
-  {name:'Particular',value:monthPrivate,share:monthPrivate/platformTotal}
+const completeAugust = currentClosings.filter((item) => item.date.startsWith('2026-08'));
+const sum = (items: readonly any[], key: string) => items.reduce((total, item) => total + (Number(item[key]) || 0), 0);
+const consolidatedRevenue = sum(completeAugust, 'grossRevenue');
+const consolidatedProfit = sum(completeAugust, 'operationalProfit');
+const consolidatedHours = sum(completeAugust, 'hoursOnline');
+const consolidatedKm = sum(completeAugust, 'kmTotal');
+const consolidatedTrips = sum(completeAugust, 'tripsTotal');
+const evidenceRevenue = evidenceDays.filter((item) => item.status === 'evidence-only').reduce((total, item) => total + (item.platformRevenue || 0), 0);
+const observedRevenue = consolidatedRevenue + evidenceRevenue;
+const personalExpenseTotal = personalMonthlyExpenses.reduce((total, item) => total + Number(item[1]), 0);
+const maintenanceTotal = currentVehicleExpenses.reduce((total, item) => total + item.value, 0);
+const fuelingPaidTotal = currentFuelings.filter((item) => item.date.startsWith('2026-08')).reduce((total, item) => total + item.totalPaid, 0);
+const latestComplete = completeAugust.at(-1)!;
+const latestEvidence = evidenceDays.at(-1)!;
+const privatePipelineTotal = privatePipeline.reduce((total, item) => total + item.quotedValue, 0);
+const completeAvgPerHour = consolidatedHours ? consolidatedRevenue / consolidatedHours : 0;
+const completeProfitPerHour = consolidatedHours ? consolidatedProfit / consolidatedHours : 0;
+const completeRevenuePerKm = consolidatedKm ? consolidatedRevenue / consolidatedKm : 0;
+const personalCoverage = personalExpenseTotal ? consolidatedProfit / personalExpenseTotal * 100 : 0;
+const chartRows = [
+  ...completeAugust.map((item) => ({ dateBR: item.dateBR.slice(0, 5), value: item.grossRevenue, quality: 'complete' as const })),
+  ...evidenceDays.filter((item) => item.status === 'evidence-only').map((item) => ({ dateBR: item.dateBR.slice(0, 5), value: item.platformRevenue || 0, quality: 'evidence' as const }))
 ];
+const chartMax = Math.max(...chartRows.map((item) => item.value), 1);
+const lastFueling = currentFuelings.at(-1);
 ---
-<BaseLayout title="MotoristaOps · Painel de controle da operação">
-  <div class="app-shell app-shell--open">
-    <aside class="sidebar">
-      <div class="sidebar-brand"><span>MO</span><div><strong>MotoristaOps</strong><small>Controle da operação</small></div></div>
-      <nav aria-label="Navegação do painel">
-        <button class="nav-item active" data-section="overview">Visão geral</button>
-        <button class="nav-item" data-section="closings">Fechamentos</button>
-        <button class="nav-item" data-section="expenses">Despesas mensais</button>
-        <button class="nav-item" data-section="maintenance">Manutenção</button>
-        <button class="nav-item" data-section="fuelings">Abastecimentos</button>
-        <button class="nav-item" data-section="vehicle">Veículo</button>
+
+<BaseLayout title="MotoristaOPS — Controle operacional">
+  <div class="shell">
+    <aside class="rail">
+      <a class="brand" href="#agora" aria-label="Motorista Ops — início">
+        <span class="brand-mark">MO</span>
+        <span><strong>MOTORISTA OPS</strong><small>controle operacional</small></span>
+      </a>
+
+      <nav aria-label="Seções do dashboard">
+        <a href="#agora" class="active">Agora</a>
+        <a href="#fechamentos">Fechamentos</a>
+        <a href="#evidencias">Qualidade dos dados</a>
+        <a href="#particular">Particular</a>
+        <a href="#caixa">Caixa</a>
+        <a href="#veiculo">Veículo</a>
+        <a href="#dados">Dados & importação</a>
       </nav>
-      <div class="sidebar-bottom">
-        <span class="sidebar-status"><i></i> operação ativa</span>
-        <a class="nav-item nav-link" href={`${base}motorista/`}>Landing Page ↗</a>
+
+      <div class="rail-status">
+        <span class="pulse"></span>
+        <div><strong>Supabase saudável</strong><small>estrutura ativa · dados ainda em reconciliação</small></div>
       </div>
     </aside>
 
-    <section class="workspace">
-      <header class="workspace-header workspace-header--control">
-        <div>
-          <div class="workspace-live"><span><i></i> MotoristaOps ao vivo</span><time id="live-clock" aria-label="Horário atual">--:--</time></div>
-          <p class="eyebrow">Painel de controle</p>
-          <h1>Sua operação,<br/>sem ruído.</h1>
-          <p>Receita, ritmo, custos, carro e compromissos financeiros em uma leitura única, com o histórico real já incorporado.</p>
-        </div>
-        <div class="header-actions"><a class="button button--gold" href={importUrl}>Importar corridas</a><a class="button button--ghost" href={`${base}motorista/`}>Perfil público</a></div>
-      </header>
-
-      <section id="overview" class="workspace-section">
-        <div class="control-strip">
-          <article><span>Snapshot</span><strong>{latest?.dateBR ?? latest?.date}</strong><small>último fechamento</small></article>
-          <article class={coverage>=1?'control-positive':'control-alert'}><span>Cobertura pessoal</span><strong>{percent.format(coverage)}</strong><small>lucro operacional / despesas mensais</small></article>
-          <article><span>Consumo recente</span><strong>{latestFuelEfficiency ? `${number.format(latestFuelEfficiency)} km/L` : '—'}</strong><small>{vehicleProfile.fuel}</small></article>
-          <article><span>Particular</span><strong>{money.format(monthPrivate)}</strong><small>{money.format(vehicleProfile.privateRatePerKm)}/km referência</small></article>
-        </div>
-
-        <div class="section-title"><div><span>{monthLabel}</span><h2>Pulso da operação</h2></div><p>Leitura consolidada dos fechamentos já registrados.</p></div>
-        <div class="metric-grid">
-          <article class="metric-card metric-card--signal"><span>Receita do mês</span><strong>{money.format(monthRevenue)}</strong><small>{money.format(avgRevenueDay)} / dia trabalhado</small></article>
-          <article class="metric-card"><span>Lucro operacional</span><strong>{money.format(monthProfit)}</strong><small>{percent.format(operatingMargin)} de margem operacional</small></article>
-          <article class="metric-card" data-state={netAfterPersonal>=0?'positive':'negative'}><span>Após despesas pessoais</span><strong>{money.format(netAfterPersonal)}</strong><small>{money.format(personalMonthlyTotal)} de compromissos / mês</small></article>
-          <article class="metric-card"><span>Horas</span><strong>{number.format(monthHours)}h</strong><small>{monthHours ? `${money.format(monthRevenue/monthHours)}/h bruto` : '—'}</small></article>
-          <article class="metric-card"><span>Km</span><strong>{number.format(monthKm)} km</strong><small>{monthKm ? `${money.format(monthRevenue/monthKm)}/km bruto` : '—'}</small></article>
-          <article class="metric-card"><span>Viagens</span><strong>{number.format(monthTrips)}</strong><small>{number.format(avgTripsDay)} / dia · ticket {money.format(avgTicket)}</small></article>
-        </div>
-
-        <div class="dashboard-grid dashboard-grid--command">
-          <article class="panel panel--chart"><div class="panel-head"><div><span>Ritmo</span><h2>Receita por fechamento</h2></div><small>{monthRows.length} registros</small></div><div class="daily-chart">{chartData.map((row:any)=><div class="chart-bar" title={row.chartTitle}><span style={`height:${row.chartHeight}%`}></span><small>{row.chartDay}</small></div>)}</div></article>
-          <article class="panel latest-card"><div class="panel-head"><div><span>Último fechamento</span><h2>{latest?.dateBR ?? latest?.date}</h2></div><span class="status-pill">consolidado</span></div><div class="latest-summary"><strong>{money.format(Number(latest?.grossRevenue??0))}</strong><span>{latest?.platform ?? '—'} · {latest?.shift ?? '—'}</span><div class="latest-grid"><div><b>{Number(latest?.tripsTotal??0)}</b><small>viagens</small></div><div><b>{number.format(Number(latest?.hoursOnline??0))}h</b><small>trabalho</small></div><div><b>{number.format(Number(latest?.kmTotal??0))}</b><small>km</small></div><div><b>{money.format(latestProfitPerHour)}</b><small>lucro/h</small></div></div></div></article>
-        </div>
-
-        <div class="dashboard-grid dashboard-grid--balanced">
-          <article class="panel mix-card"><div class="panel-head"><div><span>Composição</span><h2>De onde vem a receita</h2></div></div><div class="mix-list">{platformMix.map(item=><div class="mix-row"><div><strong>{item.name}</strong><span>{money.format(item.value)}</span></div><div class="mix-track"><i style={`width:${Math.max(2,item.share*100)}%`}></i></div><small>{percent.format(item.share)}</small></div>)}</div></article>
-          <article class="panel action-card"><div class="panel-head"><div><span>Agora</span><h2>Centro de decisão</h2></div></div><div class="action-list"><a href={importUrl}><span>Importar novo fechamento</span><b>Adicionar corridas e revisar dados</b><i>↗</i></a><button data-section="maintenance"><span>Manutenção recente</span><b>{money.format(maintenanceTotal)} registrados</b><i>→</i></button><button data-section="expenses"><span>Compromissos mensais</span><b>{money.format(personalMonthlyTotal)} / mês</b><i>→</i></button><button data-section="fuelings"><span>Combustível</span><b>{money.format(recentFuelPaid)} pagos no histórico recente</b><i>→</i></button></div></article>
-        </div>
-
-        <div class="dashboard-grid dashboard-grid--balanced dashboard-grid--quiet">
-          <article class="panel strategic-card"><span>Histórico consolidado</span><h2>{historicDays} dias com receita.</h2><p>{money.format(historicRevenue)} registrados e {number.format(historicTrips)} viagens incorporadas ao MotoristaOps.</p></article>
-          <article class="panel strategic-card"><span>Carro em operação</span><h2>{vehicleProfile.vehicle}</h2><p>{number.format(vehicleProfile.recentOdometerKm)} km no odômetro recente · {vehicleProfile.fuel} · corrida particular em {money.format(vehicleProfile.privateRatePerKm)}/km.</p></article>
+    <main>
+      <section id="agora" class="hero">
+        <div class="eyebrow"><span>17 AGO 2026</span><i></i><span>snapshot operacional</span></div>
+        <div class="hero-grid">
+          <div>
+            <h1>O dashboard volta a mostrar o que está acontecendo <em>agora.</em></h1>
+            <p class="lead">Separando fechamento completo, evidência de app e dado ausente. Sem transformar print parcial em lucro, km ou custo inventado.</p>
+            <div class="hero-actions">
+              <a class="button primary" href="./importar-uber">Importar corridas</a>
+              <a class="button" href="./historico-importacoes">Histórico de importações</a>
+              <a class="button ghost" href="./motorista">Perfil público</a>
+            </div>
+          </div>
+          <div class="today-card">
+            <div class="today-head"><span>Ganhos observados hoje</span><span class="badge warning">aguarda fechamento operacional</span></div>
+            <strong>{brl.format(latestEvidence.platformRevenue || 0)}</strong>
+            <p>{latestEvidence.completedTrips} corridas concluídas · {latestEvidence.paidCancellations} cancelamento pago · {latestEvidence.unpaidCancellations} sem pagamento</p>
+            <div class="today-foot"><span>Fonte: sequência de prints do app</span><span>até “Fim das atividades”</span></div>
+          </div>
         </div>
       </section>
 
-      <section id="closings" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Histórico operacional</span><h2>Fechamentos</h2></div><p>Os registros mais recentes substituem versões antigas da mesma data.</p></div>
-        <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Plataforma</th><th>Receita</th><th>Lucro</th><th>Horas</th><th>Km</th><th>Viagens</th></tr></thead><tbody>{closings.map((row:any)=><tr><td>{row.dateBR ?? row.date}</td><td>{row.platform ?? row.platformMix ?? '—'}</td><td>{money.format(Number(row.grossRevenue??0))}</td><td>{money.format(Number(row.operationalProfit??0))}</td><td>{row.hoursOnline==null?'—':`${number.format(Number(row.hoursOnline))}h`}</td><td>{row.kmTotal==null?'—':number.format(Number(row.kmTotal))}</td><td>{number.format(Number(row.tripsTotal??0))}</td></tr>)}</tbody></table></div>
+      <section class="kpis" aria-label="Indicadores principais">
+        <article class="kpi featured">
+          <span>Receita consolidada · agosto</span>
+          <strong>{brl.format(consolidatedRevenue)}</strong>
+          <small>{completeAugust.length} fechamentos completos até {latestComplete.dateBR}</small>
+        </article>
+        <article class="kpi evidence-kpi">
+          <span>Receita observada · pendente</span>
+          <strong>+ {brl.format(evidenceRevenue)}</strong>
+          <small>12, 13, 16 e 17/08 · não entra no lucro ainda</small>
+        </article>
+        <article class="kpi">
+          <span>Lucro operacional consolidado</span>
+          <strong>{brl.format(consolidatedProfit)}</strong>
+          <small>{brl.format(completeProfitPerHour)}/h nos fechamentos completos</small>
+        </article>
+        <article class="kpi">
+          <span>Horas consolidadas</span>
+          <strong>{num.format(consolidatedHours)} h</strong>
+          <small>{brl.format(completeAvgPerHour)}/h de receita bruta</small>
+        </article>
+        <article class="kpi">
+          <span>Quilometragem consolidada</span>
+          <strong>{num.format(consolidatedKm)} km</strong>
+          <small>{brl.format(completeRevenuePerKm)}/km de receita</small>
+        </article>
+        <article class="kpi danger-kpi">
+          <span>Lacunas explícitas</span>
+          <strong>{dataHealth.missingClosingDates.length} dias</strong>
+          <small>14 e 15/08 sem evidência localizada</small>
+        </article>
       </section>
 
-      <section id="expenses" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Vida financeira</span><h2>Despesas pessoais mensais</h2></div><p>Total recorrente: <strong>{money.format(personalMonthlyTotal)}</strong>. Mantido separado do custo operacional do carro.</p></div>
-        <div class="metric-grid metric-grid--compact"><article class="metric-card metric-card--signal"><span>Total mensal</span><strong>{money.format(personalMonthlyTotal)}</strong><small>base atual cadastrada</small></article><article class="metric-card"><span>Lucro operacional no mês</span><strong>{money.format(monthProfit)}</strong><small>referência de cobertura</small></article><article class="metric-card" data-state={netAfterPersonal>=0?'positive':'negative'}><span>Gap atual</span><strong>{money.format(netAfterPersonal)}</strong><small>lucro operacional menos despesas pessoais</small></article></div>
-        <div class="panel table-panel"><table><thead><tr><th>Despesa</th><th>Valor mensal</th></tr></thead><tbody>{personalMonthlyExpenses.map(item=><tr><td>{item[0]}</td><td>{money.format(item[1])}</td></tr>)}</tbody></table></div>
+      <section class="grid-2 section-block">
+        <article class="panel" id="fechamentos">
+          <div class="panel-title">
+            <div><span class="section-code">01</span><h2>Evolução de receita</h2></div>
+            <div class="legend"><span><i class="dot complete"></i> completo</span><span><i class="dot evidence"></i> evidência</span></div>
+          </div>
+          <p class="panel-intro">A barra cheia é fechamento operacional. A barra tracejada mostra apenas ganho confirmado no app, ainda sem custo, horas e km totais.</p>
+          <div class="bars">
+            {chartRows.map((item) => (
+              <div class="bar-row">
+                <span>{item.dateBR}</span>
+                <div class={`bar-track ${item.quality}`}><i style={`width:${Math.max(4, item.value / chartMax * 100)}%`}></i></div>
+                <strong>{brl.format(item.value)}</strong>
+              </div>
+            ))}
+          </div>
+          <div class="panel-callout">
+            <span>Receita observada no período coberto</span>
+            <strong>{brl.format(observedRevenue)}</strong>
+            <small>Não é “receita fechada do mês”: inclui {brl.format(evidenceRevenue)} ainda em reconciliação.</small>
+          </div>
+        </article>
+
+        <article class="panel decision">
+          <div class="panel-title"><div><span class="section-code">02</span><h2>Centro de decisão</h2></div></div>
+          <div class="decision-list">
+            <div class="decision-item priority">
+              <span class="decision-icon">!</span>
+              <div><strong>Fechar 17/08 operacionalmente</strong><p>Ganhos do app já estão completos, mas faltam horas totais, km, combustível e qualquer receita fora da Uber.</p></div>
+            </div>
+            <div class="decision-item">
+              <span class="decision-icon">↻</span>
+              <div><strong>Reconciliar 12 e 13/08</strong><p>13/08 tem sequência completa do app. 12/08 tem apenas o fim do histórico; não pode virar total do dia.</p></div>
+            </div>
+            <div class="decision-item">
+              <span class="decision-icon">?</span>
+              <div><strong>Resolver 14 e 15/08</strong><p>Nenhum fechamento foi localizado. Confirmar folga ou recuperar os registros.</p></div>
+            </div>
+            <div class="decision-item good">
+              <span class="decision-icon">✓</span>
+              <div><strong>Banco voltou ao ar</strong><p>Supabase está ACTIVE_HEALTHY e a arquitetura de fechamento, metas, custos, importações e manutenção existe.</p></div>
+            </div>
+          </div>
+        </article>
       </section>
 
-      <section id="maintenance" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Veículo</span><h2>Manutenção e cuidados</h2></div><p>Investimentos separados para não distorcer o lucro operacional diário.</p></div>
-        <div class="metric-grid metric-grid--compact"><article class="metric-card"><span>Manutenção recente</span><strong>{money.format(maintenanceTotal)}</strong><small>itens registrados</small></article><article class="metric-card"><span>Odômetro recente</span><strong>{number.format(vehicleProfile.recentOdometerKm)} km</strong><small>último registro conhecido</small></article><article class="metric-card"><span>Abastecimentos pagos</span><strong>{money.format(recentFuelPaid)}</strong><small>saída real de caixa recente</small></article></div>
-        <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Categoria</th><th>Descrição</th><th>Valor</th></tr></thead><tbody>{currentVehicleExpenses.map(item=><tr><td>{item.dateBR}</td><td>{item.category}</td><td>{item.description}</td><td>{money.format(item.value)}</td></tr>)}</tbody></table></div>
+      <section id="evidencias" class="section-block">
+        <div class="section-heading">
+          <div><span class="section-code">03</span><h2>Qualidade dos dados</h2></div>
+          <p>O estado de cada dia agora é uma informação de primeira classe do produto.</p>
+        </div>
+        <div class="quality-grid">
+          {evidenceDays.map((item) => (
+            <article class={`quality-card ${item.status}`}>
+              <div class="quality-head"><strong>{item.dateBR}</strong><span>{item.label}</span></div>
+              <span class="quality-status">{item.status === 'missing' ? 'sem dado' : item.observedMinimum ? 'mínimo observado' : 'evidência do app'}</span>
+              {item.platformRevenue !== undefined && <strong class="quality-value">{item.observedMinimum ? '≥ ' : ''}{brl.format(item.platformRevenue)}</strong>}
+              {item.paidEntries !== undefined && <small>{item.paidEntries} lançamentos com valor</small>}
+              <p>{item.note}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
-      <section id="fuelings" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Combustível</span><h2>Abastecimentos</h2></div><p>Cortesia separada de desembolso real.</p></div>
-        <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Combustível</th><th>Litros</th><th>Preço/L</th><th>Total pago</th><th>Observação</th></tr></thead><tbody>{currentFuelings.map(item=><tr><td>{item.dateBR}</td><td>{item.fuel}</td><td>{number.format(item.liters)} L</td><td>{money.format(item.pricePerLiter)}</td><td>{money.format(item.totalPaid)}</td><td>{item.notes}</td></tr>)}</tbody></table></div>
+      <section id="particular" class="section-block">
+        <div class="section-heading">
+          <div><span class="section-code">04</span><h2>Operação particular</h2></div>
+          <p>Precificação virou regra operacional; orçamento futuro não entra como receita realizada.</p>
+        </div>
+
+        <div class="grid-2 private-grid">
+          <article class="panel pricing-card">
+            <div class="pricing-hero"><span>Política {privatePricingPolicy.version}</span><strong>{brl.format(privatePricingPolicy.basePerKm)}<small>/km</small></strong><p>base de referência para particular</p></div>
+            <div class="rules">
+              <div><span>Mínimo agendado</span><strong>{brl.format(privatePricingPolicy.scheduledMinimum)}</strong></div>
+              <div><span>Reserva / agendamento</span><strong>{brl.format(privatePricingPolicy.reservationFee)}</strong></div>
+              <div><span>Espera</span><strong>{privatePricingPolicy.waitingToleranceMin} min + {brl.format(privatePricingPolicy.waitingPerMin)}/min</strong></div>
+              <div><span>Parada adicional</span><strong>+ {brl.format(privatePricingPolicy.additionalScheduledStop)}</strong></div>
+              <div><span>Horário especial</span><strong>{privatePricingPolicy.specialHours} · +{privatePricingPolicy.specialHoursSurchargePct}%</strong></div>
+              <div><span>Pedágio / estacionamento</span><strong>{privatePricingPolicy.tollsAndParking}</strong></div>
+            </div>
+            <p class="fineprint">Alteração relevante de rota exige recálculo. No-show pode chegar a 100% do serviço. Retorno vazio não é somado quando a operação continua após o desembarque.</p>
+          </article>
+
+          <article class="panel pipeline-card">
+            <div class="panel-title"><div><h3>Orçamentos em radar</h3><small>{brl.format(privatePipelineTotal)} cotados · não realizados</small></div></div>
+            {privatePipeline.map((item) => (
+              <div class="service-row">
+                <div class="service-date"><strong>{item.serviceDate.slice(8,10)}</strong><span>SET</span></div>
+                <div class="service-main">
+                  <div><strong>{item.label}</strong><span class="badge neutral">{item.status}</span></div>
+                  <p>Compromisso {item.appointment} · retirada provisória {item.provisionalPickup}</p>
+                  <small>{item.destination} · {item.informedDistanceKm} km informados</small>
+                  <small>Revisar trânsito por volta de {item.trafficReviewAround}</small>
+                </div>
+                <strong class="service-value">{brl.format(item.quotedValue)}</strong>
+              </div>
+            ))}
+          </article>
+        </div>
       </section>
 
-      <section id="vehicle" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Frota</span><h2>{vehicleProfile.vehicle}</h2></div><p>Veículo principal associado à operação.</p></div>
-        <div class="dashboard-grid dashboard-grid--balanced"><article class="panel"><span>Combustível</span><h2>{vehicleProfile.fuel}</h2><p>Preço recente usado nos fechamentos: aproximadamente {money.format(vehicleProfile.referenceFuelPrice)}/L.</p></article><article class="panel"><span>Corrida particular</span><h2>{money.format(vehicleProfile.privateRatePerKm)}/km</h2><p>Referência atual para orçamentos particulares.</p></article></div>
+      <section id="caixa" class="section-block">
+        <div class="section-heading">
+          <div><span class="section-code">05</span><h2>Caixa e obrigações</h2></div>
+          <p>Operação do carro e vida pessoal continuam separadas para não mascarar desempenho.</p>
+        </div>
+        <div class="kpis compact">
+          <article class="kpi"><span>Despesas pessoais mensais</span><strong>{brl.format(personalExpenseTotal)}</strong><small>{personalMonthlyExpenses.length} itens recorrentes mapeados</small></article>
+          <article class="kpi"><span>Cobertura pelo lucro consolidado</span><strong>{pct.format(personalCoverage)}%</strong><small>com fechamentos completos de agosto até 11/08</small></article>
+          <article class="kpi"><span>Manutenção registrada</span><strong>{brl.format(maintenanceTotal)}</strong><small>investimento separado do lucro operacional diário</small></article>
+          <article class="kpi"><span>Abastecimentos pagos · agosto</span><strong>{brl.format(fuelingPaidTotal)}</strong><small>sem contar cortesia de 03/08</small></article>
+        </div>
+        <div class="obligations">
+          {personalMonthlyExpenses.map(([label, value]) => (
+            <div><span>{label}</span><strong>{brl.format(Number(value))}</strong></div>
+          ))}
+        </div>
       </section>
-    </section>
+
+      <section id="veiculo" class="section-block grid-2">
+        <article class="panel vehicle-card">
+          <div class="panel-title"><div><span class="section-code">06</span><h2>Veículo</h2></div></div>
+          <div class="vehicle-name"><span>Operação atual</span><strong>{vehicleProfile.vehicle}</strong></div>
+          <div class="vehicle-stats">
+            <div><span>Combustível</span><strong>{vehicleProfile.fuel}</strong></div>
+            <div><span>Odômetro recente</span><strong>{num.format(vehicleProfile.recentOdometerKm)} km</strong></div>
+            <div><span>Último abastecimento</span><strong>{lastFueling ? brl.format(lastFueling.pricePerLiter) + '/L' : '—'}</strong></div>
+            <div><span>Consumo recente</span><strong>{lastFueling?.consumptionKmL ? num.format(lastFueling.consumptionKmL) + ' km/L' : '—'}</strong></div>
+          </div>
+          <h3>Manutenção registrada</h3>
+          <div class="maintenance-list">
+            {currentVehicleExpenses.map((item) => (
+              <div><span>{item.dateBR}<small>{item.description}</small></span><strong>{brl.format(item.value)}</strong></div>
+            ))}
+          </div>
+        </article>
+
+        <article class="panel fueling-card">
+          <div class="panel-title"><div><h2>Abastecimentos</h2><small>histórico recente</small></div></div>
+          <div class="fueling-list">
+            {[...currentFuelings].reverse().map((item) => (
+              <div class="fuel-row">
+                <span>{item.dateBR}</span>
+                <div><strong>{num.format(item.liters)} L</strong><small>{brl.format(item.pricePerLiter)}/L</small></div>
+                <div><strong>{brl.format(item.totalPaid)}</strong><small>{item.totalPaid === 0 ? 'cortesia' : 'pago'}</small></div>
+              </div>
+            ))}
+          </div>
+        </article>
+      </section>
+
+      <section id="dados" class="section-block data-section">
+        <div class="section-heading">
+          <div><span class="section-code">07</span><h2>Dados & reconciliação</h2></div>
+          <p>O próximo estado do produto é banco como fonte operacional, importação como entrada e evidência como fila de revisão.</p>
+        </div>
+        <div class="data-grid">
+          <article><span class="status-dot good"></span><div><strong>Supabase</strong><p>ACTIVE_HEALTHY · tabelas de fechamento, métricas, snapshots, despesas, metas, combustível, manutenção, anexos e imports disponíveis.</p></div></article>
+          <article><span class="status-dot warning"></span><div><strong>Banco operacional</strong><p>Último fechamento hoje no banco: {dataHealth.supabaseCompleteThrough.split('-').reverse().join('/')}. Precisa receber os fechamentos completos já existentes no frontend.</p></div></article>
+          <article><span class="status-dot warning"></span><div><strong>Frontend consolidado</strong><p>Fechamentos completos chegam até {dataHealth.lastCompleteClosing.split('-').reverse().join('/')}; evidências chegam até {dataHealth.latestEvidenceDate.split('-').reverse().join('/')}.</p></div></article>
+          <article><span class="status-dot danger"></span><div><strong>Fila de revisão</strong><p>12 e 13/08 precisam virar fechamento operacional; 14 e 15/08 precisam ser confirmados; 16 e 17/08 precisam de horas, km e custos.</p></div></article>
+        </div>
+        <div class="data-actions">
+          <a class="button primary" href="./importar-uber">Abrir importador</a>
+          <a class="button" href="./historico-importacoes">Ver histórico</a>
+        </div>
+      </section>
+
+      <footer>
+        <span>MOTORISTA OPS <small>por HENRICO AMARAL</small></span>
+        <p>Mobilidade particular com método, presença e cuidado humano.</p>
+        <small>Snapshot reorganizado em 17/08/2026 · dados incompletos permanecem explicitamente incompletos.</small>
+      </footer>
+    </main>
   </div>
-
-  <script is:inline>
-    const setSection=(section)=>{
-      document.querySelectorAll('.workspace-section').forEach(node=>node.hidden=node.id!==section);
-      document.querySelectorAll('.nav-item[data-section]').forEach(node=>node.classList.toggle('active',node.dataset.section===section));
-      window.scrollTo({top:0,behavior:'smooth'});
-    };
-    document.addEventListener('click',(event)=>{
-      const target=event.target.closest('[data-section]');
-      if(!target)return;
-      setSection(target.dataset.section);
-    });
-    const clock=document.getElementById('live-clock');
-    const tick=()=>{if(clock)clock.textContent=new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(new Date())};
-    tick();setInterval(tick,1000);
-  </script>
 </BaseLayout>
+
+<style>
+  :global(html){scroll-behavior:smooth;background:#0b0c0d}
+  :global(body){margin:0;background:#0b0c0d;color:#f2efe9;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  :global(*){box-sizing:border-box}
+  :global(a){color:inherit}
+  .shell{min-height:100vh;display:grid;grid-template-columns:240px minmax(0,1fr)}
+  .rail{position:sticky;top:0;height:100vh;padding:28px 20px;border-right:1px solid #2b2e32;background:#0b0c0d;display:flex;flex-direction:column;z-index:10}
+  .brand{display:flex;align-items:center;gap:12px;text-decoration:none;margin-bottom:42px}.brand-mark{width:38px;height:38px;border:1px solid #c8a96b;border-radius:50%;display:grid;place-items:center;color:#c8a96b;font-size:11px;font-weight:800;letter-spacing:.08em}.brand strong{font-size:12px;letter-spacing:.12em}.brand small{display:block;color:#777b80;font-size:10px;margin-top:3px;letter-spacing:.08em;text-transform:uppercase}
+  nav{display:grid;gap:5px}nav a{padding:10px 12px;text-decoration:none;color:#8f9398;font-size:13px;border-radius:8px;transition:.2s}nav a:hover,nav a.active{background:#181a1d;color:#f2efe9}nav a.active{border-left:2px solid #c8a96b}
+  .rail-status{margin-top:auto;padding:14px 12px;border:1px solid #2b2e32;border-radius:10px;background:#131416;display:flex;gap:10px;align-items:flex-start}.pulse{width:8px;height:8px;border-radius:50%;background:#79a982;margin-top:4px;box-shadow:0 0 0 4px rgba(121,169,130,.08)}.rail-status strong{font-size:11px}.rail-status small{display:block;color:#73777c;font-size:9px;line-height:1.5;margin-top:3px}
+  main{min-width:0;padding:0 46px 54px;max-width:1540px;width:100%;margin:0 auto}
+  .hero{padding:56px 0 30px;border-bottom:1px solid #2b2e32}.eyebrow{display:flex;align-items:center;gap:12px;color:#96999d;font-size:10px;letter-spacing:.16em;text-transform:uppercase}.eyebrow i{width:44px;height:1px;background:#c8a96b}.hero-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(320px,.75fr);gap:54px;align-items:end;margin-top:30px}.hero h1{max-width:830px;font-size:clamp(34px,4vw,62px);line-height:1.02;letter-spacing:-.045em;margin:0;font-weight:650}.hero h1 em{font-style:normal;color:#c8a96b}.lead{max-width:740px;color:#989b9f;line-height:1.7;font-size:15px;margin:24px 0 0}.hero-actions,.data-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:28px}.button{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border:1px solid #35383c;border-radius:7px;text-decoration:none;font-size:11px;font-weight:650;letter-spacing:.03em;background:#181a1d;color:#d9d5cf}.button.primary{background:#c8a96b;color:#0b0c0d;border-color:#c8a96b}.button.ghost{background:transparent}
+  .today-card{border:1px solid #34373a;border-radius:16px;padding:22px;background:linear-gradient(145deg,#181a1d,#101113)}.today-head{display:flex;justify-content:space-between;gap:12px;align-items:center;color:#9fa2a6;font-size:10px;text-transform:uppercase;letter-spacing:.08em}.badge{display:inline-flex;padding:5px 7px;border-radius:999px;font-size:8px;letter-spacing:.05em;text-transform:uppercase}.badge.warning{background:rgba(200,169,107,.12);color:#d8bd86}.badge.neutral{background:#26292d;color:#aeb1b5}.today-card>strong{display:block;font-size:44px;letter-spacing:-.04em;margin-top:30px}.today-card p{color:#b3b5b7;font-size:12px;line-height:1.6}.today-foot{display:flex;justify-content:space-between;gap:8px;color:#6f7377;font-size:9px;border-top:1px solid #2b2e32;padding-top:14px;margin-top:22px}
+  .kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-bottom:1px solid #2b2e32}.kpi{padding:22px 18px;border-right:1px solid #2b2e32;min-width:0}.kpi:first-child{padding-left:0}.kpi:last-child{border-right:0}.kpi span{display:block;color:#81858a;text-transform:uppercase;letter-spacing:.08em;font-size:9px;line-height:1.4}.kpi strong{display:block;font-size:24px;letter-spacing:-.03em;margin:9px 0 6px;white-space:nowrap}.kpi small{color:#6f7378;font-size:9px;line-height:1.4}.kpi.featured strong{color:#f2efe9}.evidence-kpi strong{color:#d8bd86}.danger-kpi strong{color:#c98b7b}.kpis.compact{grid-template-columns:repeat(4,1fr);border:1px solid #2b2e32;border-radius:12px;overflow:hidden}.kpis.compact .kpi{padding:20px}
+  .section-block{padding:46px 0;border-bottom:1px solid #2b2e32;scroll-margin-top:30px}.grid-2{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,.75fr);gap:18px}.panel{border:1px solid #2b2e32;background:#111214;border-radius:14px;padding:24px}.panel-title,.section-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:22px}.panel-title>div:first-child,.section-heading>div:first-child{display:flex;gap:12px;align-items:baseline}.panel-title h2,.section-heading h2,.panel-title h3{margin:0;font-size:17px;letter-spacing:-.02em}.section-code{font-family:ui-monospace,monospace;color:#c8a96b;font-size:9px;letter-spacing:.1em}.section-heading{margin-bottom:22px}.section-heading p,.panel-intro{margin:0;color:#777b80;font-size:11px;line-height:1.6;max-width:520px}.panel-intro{margin:12px 0 22px}.legend{display:flex!important;gap:12px!important;color:#777b80;font-size:9px}.dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px}.dot.complete{background:#c8a96b}.dot.evidence{border:1px solid #c8a96b}
+  .bars{display:grid;gap:10px}.bar-row{display:grid;grid-template-columns:40px minmax(80px,1fr) 86px;gap:10px;align-items:center;font-size:10px;color:#7c8084}.bar-row strong{text-align:right;color:#c7c3bd;font-weight:550}.bar-track{height:7px;background:#202226;border-radius:999px;overflow:hidden}.bar-track i{display:block;height:100%;background:#c8a96b;border-radius:999px}.bar-track.evidence{border:1px dashed #5e5544;background:transparent;height:8px}.bar-track.evidence i{background:#6d6048}.panel-callout{margin-top:24px;padding-top:18px;border-top:1px solid #2b2e32}.panel-callout span,.panel-callout small{display:block;color:#777b80;font-size:9px}.panel-callout strong{display:block;font-size:28px;margin:6px 0}.decision-list{display:grid;margin-top:4px}.decision-item{display:grid;grid-template-columns:26px 1fr;gap:10px;padding:15px 0;border-bottom:1px solid #24262a}.decision-item:last-child{border-bottom:0}.decision-icon{width:22px;height:22px;border-radius:50%;border:1px solid #3c3f43;display:grid;place-items:center;color:#aaa;font-size:10px}.decision-item.priority .decision-icon{color:#d8bd86;border-color:#6d6048}.decision-item.good .decision-icon{color:#8fb698;border-color:#47624d}.decision-item strong{font-size:11px}.decision-item p{margin:4px 0 0;color:#73777b;font-size:9.5px;line-height:1.55}
+  .quality-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.quality-card{min-height:250px;border:1px solid #2b2e32;border-radius:12px;padding:16px;background:#111214;display:flex;flex-direction:column}.quality-card.evidence-only{border-top-color:#8e784d}.quality-card.missing{border-top-color:#754b45}.quality-head{display:flex;justify-content:space-between;color:#85898d;font-size:9px}.quality-head strong{color:#d5d1cb;font-size:11px}.quality-status{margin:14px 0 8px;text-transform:uppercase;letter-spacing:.07em;color:#b39b6f;font-size:8px}.quality-card.missing .quality-status{color:#b77b6f}.quality-value{font-size:22px;margin-bottom:4px}.quality-card>small{color:#686c70;font-size:8.5px}.quality-card p{margin:auto 0 0;color:#74787c;font-size:9px;line-height:1.55}
+  .private-grid{grid-template-columns:.85fr 1.15fr}.pricing-hero{padding-bottom:20px;border-bottom:1px solid #2b2e32}.pricing-hero>span{text-transform:uppercase;color:#9a8359;font-size:9px;letter-spacing:.1em}.pricing-hero>strong{display:block;font-size:39px;margin:8px 0 2px}.pricing-hero>strong small{font-size:12px;color:#777;font-weight:500}.pricing-hero p{margin:0;color:#707479;font-size:9px}.rules{display:grid;grid-template-columns:1fr 1fr;gap:0 18px;margin-top:12px}.rules div{padding:12px 0;border-bottom:1px solid #25272a}.rules span{display:block;color:#777b80;font-size:8.5px}.rules strong{display:block;font-size:10.5px;margin-top:4px}.fineprint{color:#6f7377;font-size:8.5px;line-height:1.6;margin:16px 0 0}.pipeline-card .panel-title>div{display:block!important}.pipeline-card .panel-title small{color:#777;font-size:9px}.service-row{display:grid;grid-template-columns:42px 1fr auto;gap:12px;padding:19px 0;border-bottom:1px solid #282a2d;align-items:start}.service-row:last-child{border-bottom:0}.service-date{width:40px;height:48px;border:1px solid #3a3d40;border-radius:8px;display:grid;place-items:center;align-content:center}.service-date strong{font-size:16px}.service-date span{font-size:7px;color:#c8a96b;letter-spacing:.12em}.service-main>div{display:flex;align-items:center;gap:8px}.service-main strong{font-size:11px}.service-main p{margin:5px 0;color:#a3a6a9;font-size:9.5px}.service-main small{display:block;color:#6d7175;font-size:8.5px;margin-top:3px}.service-value{font-size:13px}
+  .obligations{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid #2b2e32;border-radius:12px;margin-top:14px;overflow:hidden}.obligations div{padding:14px 12px;border-right:1px solid #2b2e32;border-bottom:1px solid #2b2e32}.obligations span{display:block;color:#74787c;font-size:8px;min-height:20px}.obligations strong{display:block;font-size:10px;margin-top:4px}
+  .vehicle-name{padding:10px 0 20px}.vehicle-name span{display:block;color:#777;font-size:9px;text-transform:uppercase}.vehicle-name strong{display:block;font-size:24px;margin-top:5px}.vehicle-stats{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid #2b2e32;border-radius:10px;overflow:hidden}.vehicle-stats div{padding:13px;border-right:1px solid #2b2e32;border-bottom:1px solid #2b2e32}.vehicle-stats span{display:block;color:#777;font-size:8px}.vehicle-stats strong{display:block;margin-top:4px;font-size:11px}.vehicle-card h3{font-size:11px;margin:20px 0 8px}.maintenance-list div,.fuel-row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:10px 0;border-bottom:1px solid #25272a;font-size:9px}.maintenance-list span{color:#888}.maintenance-list span small{display:block;color:#666;margin-top:3px}.fueling-list{margin-top:6px}.fuel-row{grid-template-columns:70px 1fr 1fr}.fuel-row>span{color:#777}.fuel-row div{display:flex;justify-content:space-between;gap:8px}.fuel-row small{color:#6d7175}
+  .data-section{border-bottom:0}.data-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #2b2e32;border-radius:12px;overflow:hidden}.data-grid article{padding:18px;display:grid;grid-template-columns:8px 1fr;gap:10px;border-right:1px solid #2b2e32}.data-grid strong{font-size:10px}.data-grid p{margin:5px 0 0;color:#73777b;font-size:9px;line-height:1.55}.status-dot{width:7px;height:7px;border-radius:50%;margin-top:2px}.status-dot.good{background:#79a982}.status-dot.warning{background:#c8a96b}.status-dot.danger{background:#b56f62}
+  footer{margin-top:34px;padding-top:22px;border-top:1px solid #2b2e32;display:grid;grid-template-columns:1fr 1fr auto;gap:20px;align-items:center;color:#6f7377;font-size:9px}footer>span{color:#bdb9b3;font-size:10px;font-weight:700;letter-spacing:.08em}footer>span small{display:block;font-size:7px;color:#887a62;margin-top:3px}footer p{margin:0;text-align:center}
+  @media(max-width:1180px){.shell{grid-template-columns:190px}.rail{padding:24px 14px}main{padding:0 28px 44px}.kpis{grid-template-columns:repeat(3,1fr)}.kpi:nth-child(3){border-right:0}.quality-grid{grid-template-columns:repeat(3,1fr)}.obligations{grid-template-columns:repeat(4,1fr)}.data-grid{grid-template-columns:repeat(2,1fr)}.data-grid article{border-bottom:1px solid #2b2e32}.data-grid article:nth-child(2n){border-right:0}}
+  @media(max-width:820px){.shell{display:block}.rail{position:sticky;height:auto;padding:12px 16px;display:flex;flex-direction:row;align-items:center;border-right:0;border-bottom:1px solid #2b2e32;overflow:auto}.brand{margin:0;min-width:max-content}.brand-mark{width:30px;height:30px}.rail nav{display:flex;margin-left:20px;gap:2px}.rail nav a{white-space:nowrap;padding:8px 9px}.rail-status{display:none}main{padding:0 16px 36px}.hero{padding-top:34px}.hero-grid,.grid-2,.private-grid{grid-template-columns:1fr}.hero-grid{gap:24px}.hero h1{font-size:38px}.today-card>strong{font-size:38px}.kpis{grid-template-columns:repeat(2,1fr)}.kpi:nth-child(n){border-right:1px solid #2b2e32;padding:18px 12px}.kpi:nth-child(2n){border-right:0}.quality-grid{display:flex;overflow-x:auto;padding-bottom:6px}.quality-card{min-width:230px}.kpis.compact{grid-template-columns:1fr 1fr}.obligations{grid-template-columns:repeat(2,1fr)}.data-grid{grid-template-columns:1fr}.data-grid article{border-right:0}.section-heading{display:block}.section-heading p{margin-top:10px}.service-row{grid-template-columns:42px 1fr}.service-value{grid-column:2}.footer,footer{grid-template-columns:1fr;text-align:left}footer p{text-align:left}}
+  @media(max-width:480px){.hero h1{font-size:32px}.kpis{grid-template-columns:1fr}.kpi:nth-child(n){border-right:0;border-bottom:1px solid #2b2e32}.kpis.compact{grid-template-columns:1fr}.rules{grid-template-columns:1fr}.today-head,.today-foot{align-items:flex-start;flex-direction:column}.data-actions,.hero-actions{display:grid}.button{width:100%}}
+</style>
