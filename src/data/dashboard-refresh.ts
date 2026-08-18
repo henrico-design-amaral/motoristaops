@@ -123,6 +123,6 @@ export const dataHealth = {
   lastCompleteClosing: '2026-08-11',
   latestEvidenceDate: '2026-08-17',
   supabaseStatus: 'ACTIVE_HEALTHY',
-  supabaseCompleteThrough: '2026-07-30',
+  supabaseCompleteThrough: '2026-08-11',
   missingClosingDates: ['2026-08-14', '2026-08-15']
 } as const;
