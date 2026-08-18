@@ -1,0 +1,43 @@
+name: Refresh live traffic
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: motoristaops-live-traffic
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Collect CET live traffic
+        run: node scripts/update-live-traffic.mjs
+
+      - name: Commit snapshot when changed
+        run: |
+          if git diff --quiet -- public/live-traffic.json; then
+            echo "No traffic snapshot change."
+            exit 0
+          fi
+          git config user.name "motoristaops-traffic-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/live-traffic.json
+          git commit -m "data: refresh live traffic snapshot"
+          git push origin HEAD:main
