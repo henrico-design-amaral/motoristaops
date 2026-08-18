@@ -6,7 +6,7 @@
     "url": "https://www.cetsp.com.br/",
     "kind": "official"
   },
-  "fetchedAt": "2026-08-18T23:41:46.927Z",
+  "fetchedAt": "2026-08-18T23:58:19.469Z",
   "sourceObservedAt": "18 de agosto de 2026",
   "status": "live",
   "expectedRefreshMinutes": 5,
@@ -39,7 +39,7 @@
   ],
   "busCorridorSpeed": {
     "bairroCentroKmh": 24,
-    "centroBairroKmh": 22
+    "centroBairroKmh": 23
   },
   "derived": {
     "totalSlowKm": 151,
