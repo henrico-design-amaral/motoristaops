@@ -6,45 +6,45 @@
     "url": "https://www.cetsp.com.br/",
     "kind": "official"
   },
-  "fetchedAt": "2026-08-18T23:20:46.521Z",
+  "fetchedAt": "2026-08-18T23:41:46.927Z",
   "sourceObservedAt": "18 de agosto de 2026",
   "status": "live",
   "expectedRefreshMinutes": 5,
   "zones": [
     {
       "name": "Norte",
-      "slowKm": 32,
-      "sharePct": 9
+      "slowKm": 14,
+      "sharePct": 10
     },
     {
       "name": "Oeste",
-      "slowKm": 122,
-      "sharePct": 36
+      "slowKm": 64,
+      "sharePct": 44
     },
     {
       "name": "Centro",
-      "slowKm": 32,
-      "sharePct": 9
+      "slowKm": 14,
+      "sharePct": 10
     },
     {
       "name": "Leste",
-      "slowKm": 48,
-      "sharePct": 14
+      "slowKm": 12,
+      "sharePct": 9
     },
     {
       "name": "Sul",
-      "slowKm": 123,
-      "sharePct": 36
+      "slowKm": 47,
+      "sharePct": 33
     }
   ],
   "busCorridorSpeed": {
-    "bairroCentroKmh": 22,
-    "centroBairroKmh": 21
+    "bairroCentroKmh": 24,
+    "centroBairroKmh": 22
   },
   "derived": {
-    "totalSlowKm": 357,
-    "worstZone": "Sul",
-    "pressure": "muito alto"
+    "totalSlowKm": 151,
+    "worstZone": "Oeste",
+    "pressure": "moderado"
   },
   "notes": [
     "Leitura automatizada da página pública Trânsito Agora da CET-SP.",
