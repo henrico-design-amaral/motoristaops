@@ -8,6 +8,8 @@ export type EvidenceDay = {
   completedTrips?: number;
   paidCancellations?: number;
   unpaidCancellations?: number;
+  observedRideKm?: number;
+  observedRideHours?: number;
   observedMinimum?: boolean;
   note: string;
 };
@@ -22,33 +24,37 @@ export const evidenceDays: EvidenceDay[] = [
     paidEntries: 2,
     completedTrips: 2,
     unpaidCancellations: 0,
+    observedRideKm: 11.25,
+    observedRideHours: 0.52,
     observedMinimum: true,
-    note: 'Evidência parcial: o print final confirma pelo menos R$ 34,96 em duas corridas visíveis (R$ 15,64 e R$ 19,32), mas há uma corrida anterior cortada no topo. Não tratar como fechamento diário completo.'
+    note: 'Evidência mínima confirmada no fim do histórico: pelo menos R$ 34,96, 2 corridas, 11,25 km em corrida e 31min12s em viagem. Existe uma corrida anterior cortada no topo do print; por isso estes números continuam sendo mínimos observados e não fechamento integral.'
   },
   {
     date: '2026-08-13',
     dateBR: '13/08/2026',
     label: 'Qui',
     status: 'evidence-only',
-    platformRevenue: 237.23,
-    paidEntries: 10,
-    completedTrips: 10,
-    unpaidCancellations: 1,
-    note: 'Sequência de prints de 04:01 a 10:49 fecha a lista do dia: dez corridas pagas somando R$ 237,23 e um cancelamento sem pagamento. Horas totais, km rodados do veículo, particular e custos ainda não foram confirmados.'
+    platformRevenue: 274.42,
+    paidEntries: 13,
+    completedTrips: 13,
+    unpaidCancellations: 2,
+    observedRideKm: 112.34,
+    observedRideHours: 4.8733,
+    note: 'Sequência completa de prints de 04:01 a 12:09, encerrada em “Fim das atividades”: 13 corridas pagas somando R$ 274,42, 112,34 km em corrida e 4h52min24s em viagem, além de 2 cancelamentos sem pagamento. Quilometragem total do carro, horas online, 99, particular e custos só entram quando houver fechamento operacional inequívoco.'
   },
   {
     date: '2026-08-14',
     dateBR: '14/08/2026',
     label: 'Sex',
     status: 'missing',
-    note: 'Nenhum fechamento ou sequência de ganhos confirmada foi localizada. O painel deve mostrar a lacuna, não assumir zero.'
+    note: 'Nenhum fechamento inequívoco ou sequência de ganhos confirmada foi localizada. O painel mantém a lacuna em vez de assumir zero.'
   },
   {
     date: '2026-08-15',
     dateBR: '15/08/2026',
     label: 'Sáb',
     status: 'missing',
-    note: 'Nenhum fechamento ou sequência de ganhos confirmada foi localizada. O painel deve mostrar a lacuna, não assumir zero.'
+    note: 'Nenhum fechamento inequívoco ou sequência de ganhos confirmada foi localizada. O painel mantém a lacuna em vez de assumir zero.'
   },
   {
     date: '2026-08-16',
@@ -60,7 +66,9 @@ export const evidenceDays: EvidenceDay[] = [
     completedTrips: 19,
     paidCancellations: 1,
     unpaidCancellations: 1,
-    note: 'Sequência completa de prints encerra em “Fim das atividades”: 19 corridas concluídas, uma taxa de cancelamento paga de R$ 3,91 e um cancelamento sem pagamento. Total observado no app: R$ 418,03. Falta consolidar horas, km totais e custos.'
+    observedRideKm: 188.07,
+    observedRideHours: 5.7025,
+    note: 'Sequência completa de prints encerra em “Fim das atividades”: 19 corridas concluídas somando R$ 414,12, mais R$ 3,91 de cancelamento pago, total de R$ 418,03 no app; 188,07 km em corridas e 5h42min09s em viagem. Há também 1 cancelamento sem pagamento. Horas online, km totais do veículo e custos ainda não foram confirmados.'
   },
   {
     date: '2026-08-17',
@@ -72,7 +80,9 @@ export const evidenceDays: EvidenceDay[] = [
     completedTrips: 24,
     paidCancellations: 1,
     unpaidCancellations: 1,
-    note: 'Fechamento de ganhos localizado até “Fim das atividades”: 24 corridas concluídas, uma taxa de cancelamento paga de R$ 4,19 e um cancelamento sem pagamento. Total observado no app: R$ 437,41. Ainda falta o fechamento operacional com horas, km, combustível e demais receitas/custos.'
+    observedRideKm: 170.70,
+    observedRideHours: 8.3039,
+    note: 'Sequência completa de 17/08 até “Fim das atividades”: 24 corridas concluídas somando R$ 433,22, mais R$ 4,19 de cancelamento pago, total observado de R$ 437,41; 170,70 km em corridas e 8h18min14s em viagem. Há 1 cancelamento sem pagamento. Faltam apenas km totais do veículo, horas online, combustível e eventuais receitas fora da Uber para o fechamento operacional completo.'
   }
 ];
 
@@ -119,7 +129,7 @@ export const privatePipeline = [
 ] as const;
 
 export const dataHealth = {
-  refreshedAt: '2026-08-17T21:40:00-03:00',
+  refreshedAt: '2026-08-17T22:00:00-03:00',
   lastCompleteClosing: '2026-08-11',
   latestEvidenceDate: '2026-08-17',
   supabaseStatus: 'ACTIVE_HEALTHY',
