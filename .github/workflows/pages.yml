@@ -50,10 +50,19 @@ jobs:
           test -d dist
           test -f dist/index.html
           test -f dist/motorista/index.html
+          test -f dist/transito/index.html
+          test -f dist/previsao/index.html
+          test -f dist/inteligencia/index.html
+          test -f dist/contexto/index.html
+          test -f dist/fechamento/index.html
           test -f dist/importar-uber/index.html
-          test -f dist/historico-importacoes/index.html
+          test -f dist/copiloto/index.html
+          test -f dist/fontes-contexto/index.html
           grep -q "MotoristaOps" dist/index.html
+          grep -q "Plano operacional" dist/index.html
           grep -q "Levando pessoas, cuidando de histórias" dist/motorista/index.html
+          grep -q "Fechamento do dia" dist/fechamento/index.html
+          grep -q "Copiloto operacional" dist/copiloto/index.html
           grep -q '/motoristaops/_astro/' dist/index.html
           grep -q '/motoristaops/_astro/' dist/motorista/index.html
 
