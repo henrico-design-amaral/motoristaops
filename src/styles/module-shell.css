@@ -1,0 +1,43 @@
+/* Unified module shell */
+.app-operational{background:#0B0C0D;color:#F2EFE9}
+.app-operational .traffic-shell,.app-operational .pred-shell,.app-operational .intel-shell,.app-operational .context-shell,.app-operational .sources-shell{max-width:1480px;margin:auto;padding:28px 30px 72px}
+.app-operational .traffic-shell>.hero,.app-operational .pred-shell>header,.app-operational .intel-hero,.app-operational .context-shell>.hero,.app-operational .sources-shell>header{display:grid!important;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end;padding:22px 0 24px!important;border-bottom:1px solid #2B2E32}
+.app-operational .traffic-shell>.hero nav,.app-operational .pred-shell>header nav,.app-operational .intel-hero .hero-links,.app-operational .context-shell>.hero .links,.app-operational .sources-shell>header nav{display:none!important}
+.app-operational .traffic-shell>.hero h1,.app-operational .pred-shell>header h1,.app-operational .intel-hero h1,.app-operational .context-shell>.hero h1,.app-operational .sources-shell>header h1{max-width:none!important;margin:4px 0 0!important;font-family:Manrope,Inter,sans-serif!important;font-size:clamp(1.65rem,3vw,2.6rem)!important;line-height:1.02!important;letter-spacing:-.035em!important}
+.app-operational .traffic-shell>.hero p:not(.eyebrow),.app-operational .pred-shell>header p:not(.eyebrow),.app-operational .intel-hero p:not(.eyebrow),.app-operational .context-shell>.hero p:not(.eyebrow),.app-operational .sources-shell>header p:not(.eyebrow){max-width:76ch!important;margin:9px 0 0!important;font-size:.86rem!important;line-height:1.55!important;color:#9da1a6!important}
+.app-operational .eyebrow{font-size:.68rem!important;letter-spacing:.11em!important;color:#C8A96B!important}
+.app-operational .section h2,.app-operational .section-head h2,.app-operational .head h2,.app-operational .learning-box h2,.app-operational .model-box h2{font-family:Manrope,Inter,sans-serif;font-size:clamp(1.35rem,2.3vw,2rem)!important;line-height:1.08;letter-spacing:-.035em!important}
+.app-operational .section{margin-top:42px!important}
+.app-operational .head,.app-operational .section-head{align-items:end!important;margin-bottom:16px!important}
+.app-operational .head>p,.app-operational .section-head>p{font-size:.82rem;line-height:1.55}
+.app-operational .live-strip{margin:18px 0 0!important;border-radius:12px!important}
+.app-operational .panel,.app-operational .sequence-card,.app-operational .review-card,.app-operational .zone-grid article,.app-operational .adaptive-grid article,.app-operational .readiness article,.app-operational .windows article,.app-operational .source-list article{border-radius:12px!important}
+.app-operational .summary-grid,.app-operational .metrics,.app-operational .stats{margin:18px 0!important;border-radius:12px!important}
+.app-operational :is(.summary-grid,.live-strip,.metrics,.stats) strong{font-variant-numeric:tabular-nums}
+
+/* JS-rendered traffic recommendation cards need global styles; scoped Astro CSS cannot reach them. */
+.app-operational .adaptive-grid article{border:1px solid #2B2E32!important;padding:16px!important;background:#181A1D!important;min-width:0}
+.app-operational .adaptive-grid article>b,.app-operational .adaptive-grid article>span,.app-operational .adaptive-grid article>small{display:block!important;color:#8f949a!important;font:600 10px/1.35 Inter,sans-serif!important}
+.app-operational .adaptive-grid article>strong{display:block!important;margin:8px 0 5px!important;color:#F2EFE9!important;font:700 15px/1.2 Inter,sans-serif!important}
+.app-operational .adaptive-grid article>em{display:block!important;margin:0 0 5px!important;color:#C8A96B!important;font:800 22px/1 Inter,sans-serif!important;font-style:normal!important}
+
+/* The global tab bar owns module navigation; keep dashboard sidebar focused on page sections. */
+.app-operational .product-sidebar{top:58px!important;height:calc(100vh - 58px)!important}
+.app-operational .product-modules{display:none!important}
+
+/* Keep operational pages compact and product-like. */
+.app-operational .uber-import-header{padding:18px 0 20px!important;margin-bottom:18px!important;border-bottom:1px solid #2B2E32}
+.app-operational .uber-import-header h1{max-width:none!important;margin:4px 0 0!important;font-family:Manrope,Inter,sans-serif!important;font-size:clamp(1.65rem,3vw,2.55rem)!important;line-height:1.02!important;letter-spacing:-.035em!important}
+.app-operational .uber-import-header p:not(.eyebrow){max-width:76ch!important;margin:9px 0 0!important;font-size:.86rem!important;line-height:1.55!important;color:#9da1a6!important}
+
+@media(max-width:760px){
+  .app-operational .traffic-shell,.app-operational .pred-shell,.app-operational .intel-shell,.app-operational .context-shell,.app-operational .sources-shell{padding:20px 15px 56px}
+  .app-operational .traffic-shell>.hero,.app-operational .pred-shell>header,.app-operational .intel-hero,.app-operational .context-shell>.hero,.app-operational .sources-shell>header{grid-template-columns:1fr;padding:14px 0 18px!important}
+  .app-operational .traffic-shell>.hero h1,.app-operational .pred-shell>header h1,.app-operational .intel-hero h1,.app-operational .context-shell>.hero h1,.app-operational .sources-shell>header h1{font-size:1.75rem!important}
+  .app-operational .traffic-shell>.hero p:not(.eyebrow),.app-operational .pred-shell>header p:not(.eyebrow),.app-operational .intel-hero p:not(.eyebrow),.app-operational .context-shell>.hero p:not(.eyebrow),.app-operational .sources-shell>header p:not(.eyebrow){font-size:.875rem!important}
+  .app-operational .section{margin-top:34px!important}
+  .app-operational .product-sidebar{top:50px!important;height:calc(100vh - 50px)!important}
+  .app-operational .uber-import-header h1{font-size:1.75rem!important}
+  .app-operational .uber-import-header p:not(.eyebrow){font-size:.875rem!important}
+  .app-operational .close-shell .form-actions{position:static!important;background:transparent!important;padding:4px 0 0!important}
+}

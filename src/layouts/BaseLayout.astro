@@ -4,7 +4,14 @@ import '../styles/dashboard-control.css';
 import '../styles/dashboard-mobile.css';
 import '../styles/dashboard-visual-v2.css';
 import '../styles/dashboard-visual-v2-mobile.css';
+import '../styles/module-shell.css';
+import AppTabs from '../components/AppTabs.astro';
 const { title = 'MotoristaOps' } = Astro.props;
+const base = import.meta.env.BASE_URL || '/';
+const relativePath = Astro.url.pathname.startsWith(base) ? Astro.url.pathname.slice(base.length) : Astro.url.pathname.replace(/^\//,'');
+const firstSegment = relativePath.split('/').filter(Boolean)[0] || '';
+const operationalRoutes = new Set(['','painel','transito','previsao','inteligencia','contexto','fontes-contexto','importar-uber','historico-importacoes','fechamento','copiloto']);
+const isOperational = operationalRoutes.has(firstSegment);
 ---
 <!doctype html>
 <html lang="pt-BR">
@@ -18,7 +25,17 @@ const { title = 'MotoristaOps' } = Astro.props;
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
     <title>{title}</title>
   </head>
-  <body>
+  <body class:list={{'app-operational':isOperational}}>
+    {isOperational && <AppTabs />}
     <slot />
+    <script is:inline define:vars={{base}}>
+      if(base!=='/'){
+        document.querySelectorAll('a[href^="/"]').forEach(anchor=>{
+          const href=anchor.getAttribute('href');
+          if(!href||href.startsWith(base)||href.startsWith('//'))return;
+          anchor.setAttribute('href',`${base.replace(/\/$/,'')}${href}`);
+        });
+      }
+    </script>
   </body>
 </html>
