@@ -2,6 +2,7 @@ const workspace=document.getElementById('import-workspace');
 const authWarning=document.getElementById('import-auth-warning');
 const log=document.getElementById('import-log');
 const base=import.meta.env.BASE_URL||'/';
+const draftKey='motoristaops:closing-draft';
 const keepWorkspaceOpen=()=>{if(workspace)workspace.hidden=false;if(authWarning)authWarning.hidden=true;};
 keepWorkspaceOpen();
 if(workspace)new MutationObserver(keepWorkspaceOpen).observe(workspace,{attributes:true,attributeFilter:['hidden']});
@@ -18,6 +19,6 @@ document.getElementById('prepare-closing-draft')?.addEventListener('click',()=>{
   const revenue=row.querySelector<HTMLInputElement>('input[data-field="revenue_uber"]')?.value||'';
   const trips=row.querySelector<HTMLInputElement>('input[data-field="trips_uber"]')?.value||'';
   if(!date||!revenue){show('Informe pelo menos data e receita antes de continuar.','error');return;}
-  sessionStorage.setItem('motoristaops:closing-draft',JSON.stringify({operation_date:date,primary_platform:'Uber',revenue_uber:revenue,trips_uber:trips||0,notes:'Rascunho criado a partir de gravação Uber/OCR. Confirmar horas, km e custos antes do fechamento.'}));
+  localStorage.setItem(draftKey,JSON.stringify({operation_date:date,primary_platform:'Uber',revenue_uber:revenue,trips_uber:trips||0,notes:'Rascunho criado a partir de gravação Uber/OCR. Confirmar horas, km e custos antes do fechamento.',createdAt:new Date().toISOString()}));
   window.location.href=`${base}${base.endsWith('/')?'':'/'}fechamento/`.replace(/\/+/g,'/');
 });
