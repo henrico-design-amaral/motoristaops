@@ -28,5 +28,14 @@ const isOperational = operationalRoutes.has(firstSegment);
   <body class:list={{'app-operational':isOperational}}>
     {isOperational && <AppTabs />}
     <slot />
+    <script is:inline define:vars={{base}}>
+      if(base!=='/'){
+        document.querySelectorAll('a[href^="/"]').forEach(anchor=>{
+          const href=anchor.getAttribute('href');
+          if(!href||href.startsWith(base)||href.startsWith('//'))return;
+          anchor.setAttribute('href',`${base.replace(/\/$/,'')}${href}`);
+        });
+      }
+    </script>
   </body>
 </html>
