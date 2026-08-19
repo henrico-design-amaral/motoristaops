@@ -6,6 +6,8 @@ on:
       - 'src/pages/**'
       - 'src/styles/**'
       - 'src/layouts/**'
+      - 'src/components/**'
+      - 'src/scripts/**'
       - 'src/data/driver-profile.ts'
   workflow_dispatch:
 
@@ -51,6 +53,31 @@ jobs:
           echo $! > /tmp/motoristaops-visual-server.pid
           sleep 2
 
+      - name: Validate module routes and tabs
+        run: |
+          node <<'NODE'
+          const { chromium } = require('playwright');
+          (async () => {
+            const base = 'http://127.0.0.1:4173/motoristaops';
+            const routes = ['', 'transito/', 'previsao/', 'inteligencia/', 'contexto/', 'fechamento/', 'importar-uber/', 'copiloto/', 'fontes-contexto/'];
+            const browser = await chromium.launch({ headless: true });
+            const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+            for (const route of routes) {
+              const response = await page.goto(`${base}/${route}`, { waitUntil: 'networkidle' });
+              if (!response || response.status() >= 400) throw new Error(`Route failed: ${route} status=${response?.status()}`);
+              const tabs = await page.locator('.app-tabs a').count();
+              if (tabs < 8) throw new Error(`Unified tabs missing on ${route}`);
+              const active = await page.locator('.app-tabs a[aria-current="page"]').count();
+              if (active !== 1) throw new Error(`Expected one active tab on ${route}, found ${active}`);
+            }
+            await page.goto(`${base}/importar-uber/`, { waitUntil: 'networkidle' });
+            if (!(await page.locator('#import-workspace').isVisible())) throw new Error('Uber import workspace should be available before authentication.');
+            if (await page.locator('#import-reviewed-data').count()) throw new Error('Unsafe direct import action still exists.');
+            if (!(await page.locator('#prepare-closing-draft').count())) throw new Error('Closing draft handoff action missing.');
+            await browser.close();
+          })().catch((error) => { console.error(error); process.exit(1); });
+          NODE
+
       - name: Capture desktop and mobile views
         run: |
           mkdir -p visual-qa
@@ -60,29 +87,24 @@ jobs:
             const base = 'http://127.0.0.1:4173/motoristaops';
             const shots = [
               { name: 'landing-desktop', url: `${base}/motorista/`, viewport: { width: 1440, height: 1000 }, fullPage: true },
-              { name: 'landing-mobile', url: `${base}/motorista/`, viewport: { width: 390, height: 844 }, fullPage: true },
               { name: 'dashboard-desktop', url: `${base}/`, viewport: { width: 1440, height: 1000 }, fullPage: true },
               { name: 'dashboard-mobile', url: `${base}/`, viewport: { width: 390, height: 844 }, fullPage: true },
               { name: 'traffic-desktop', url: `${base}/transito/`, viewport: { width: 1440, height: 1000 }, fullPage: true },
-              { name: 'traffic-mobile', url: `${base}/transito/`, viewport: { width: 390, height: 844 }, fullPage: true }
+              { name: 'traffic-mobile', url: `${base}/transito/`, viewport: { width: 390, height: 844 }, fullPage: true },
+              { name: 'closing-desktop', url: `${base}/fechamento/`, viewport: { width: 1440, height: 1000 }, fullPage: true },
+              { name: 'closing-mobile', url: `${base}/fechamento/`, viewport: { width: 390, height: 844 }, fullPage: true },
+              { name: 'copilot-desktop', url: `${base}/copiloto/`, viewport: { width: 1440, height: 1000 }, fullPage: true },
+              { name: 'import-desktop', url: `${base}/importar-uber/`, viewport: { width: 1440, height: 1000 }, fullPage: true }
             ];
             const browser = await chromium.launch({ headless: true });
             for (const shot of shots) {
               const page = await browser.newPage({ viewport: shot.viewport, deviceScaleFactor: 1 });
               await page.goto(shot.url, { waitUntil: 'networkidle' });
               await page.screenshot({ path: `visual-qa/${shot.name}.png`, fullPage: shot.fullPage });
-              if (shot.name === 'landing-desktop') {
-                await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight * 0.55));
-                await page.waitForTimeout(350);
-                await page.screenshot({ path: 'visual-qa/landing-midscroll-progress.png', fullPage: false });
-              }
               await page.close();
             }
             await browser.close();
-          })().catch((error) => {
-            console.error(error);
-            process.exit(1);
-          });
+          })().catch((error) => { console.error(error); process.exit(1); });
           NODE
 
       - name: Upload visual QA
