@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/dashboard-product-v3.css';
 import { currentClosings, currentVehicleExpenses, currentFuelings, personalMonthlyExpenses, vehicleProfile } from '../data/current-ops';
 import { evidenceDays, privatePipeline, privatePricingPolicy, dataHealth } from '../data/dashboard-refresh';
 import { predictiveSummary, weekdayScores, hourScores, regionScores, routeScores, recommendedWindows } from '../data/predictive-engine-v3';
@@ -15,7 +16,8 @@ const profit=sum(completeAugust,'operationalProfit');
 const hours=sum(completeAugust,'hoursOnline');
 const km=sum(completeAugust,'kmTotal');
 const trips=sum(completeAugust,'tripsTotal');
-const evidenceRevenue=evidenceDays.filter(x=>x.status==='evidence-only').reduce((s,x)=>s+(x.platformRevenue??0),0);
+const evidenceOnly=evidenceDays.filter(x=>x.status==='evidence-only');
+const evidenceRevenue=evidenceOnly.reduce((s,x)=>s+(x.platformRevenue??0),0);
 const latestEvidence=evidenceDays.at(-1)!;
 const personalTotal=personalMonthlyExpenses.reduce((s,x)=>s+Number(x[1]),0);
 const maintenanceTotal=currentVehicleExpenses.reduce((s,x)=>s+x.value,0);
@@ -23,44 +25,178 @@ const fuelTotal=currentFuelings.filter(x=>x.date.startsWith('2026-08')).reduce((
 const pipelineTotal=privatePipeline.reduce((s,x)=>s+x.quotedValue,0);
 const contextReady=contextReadiness.filter(x=>x.coverage>0).slice(0,5);
 const usableSignals=signalImpactMatrix.filter(x=>x.usableForRecommendation);
+const revenuePerHour=hours?revenue/hours:0;
+const profitPerHour=hours?profit/hours:0;
+const revenuePerKm=km?revenue/km:0;
+const revenuePerTrip=trips?revenue/trips:0;
+const tripsPerHour=hours?trips/hours:0;
+const fuelPerKm=km?fuelTotal/km:0;
+const observedRevenue=revenue+evidenceRevenue;
+const trend=[
+  ...completeAugust.map(x=>({date:x.date,dateBR:x.dateBR,value:x.grossRevenue,kind:'closed' as const,label:`${x.tripsTotal} corridas`})),
+  ...evidenceOnly.map(x=>({date:x.date,dateBR:x.date.split('-').reverse().join('/'),value:x.platformRevenue??0,kind:'evidence' as const,label:`${x.completedTrips??0} corridas observadas`}))
+].sort((a,b)=>a.date.localeCompare(b.date));
+const trendMax=Math.max(...trend.map(x=>x.value),1);
+const recentActivity=[...trend].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,6);
+const actionItems=[
+  ...(dataHealth.missingClosingDates.length?[{tone:'warn',title:`Fechar ${dataHealth.missingClosingDates.length} dia(s) sem fechamento`,detail:dataHealth.missingClosingDates.map(x=>x.slice(8,10)+'/08').join(' · '),href:'#dados'}]:[]),
+  ...(evidenceOnly.length?[{tone:'warn',title:`Reconciliar ${brl.format(evidenceRevenue)} em evidências`,detail:`${evidenceOnly.length} dias observados ainda fora do consolidado`,href:'#atividade'}]:[]),
+  {tone:'signal',title:`Testar ${predictiveSummary.bestRegion?.key??'melhor região'} na próxima janela`,detail:`${predictiveSummary.bestWindow?.weekday??'—'} · ${predictiveSummary.bestWindow?.hourBand??'—'} · score ${predictiveSummary.bestWindow?.score??0}/100`,href:'./previsao'},
+  ...(usableSignals.length===0?[{tone:'neutral',title:'Aumentar amostra contextual',detail:'Trânsito e clima ainda têm efeito limitado na recomendação',href:'./contexto'}]:[])
+].slice(0,4);
+const quickLinks=[
+  ['Trânsito ao vivo','CET + contexto da cidade','./transito'],
+  ['Previsão','Dias, horários, regiões e rotas','./previsao'],
+  ['Inteligência','Corridas, reviews e padrões','./inteligencia'],
+  ['Contexto','Clima, eventos e sinais externos','./contexto'],
+  ['Importar','Adicionar histórico Uber','./importar-uber'],
+  ['Fontes','Cobertura e confiabilidade','./fontes-contexto']
+] as const;
 ---
-<BaseLayout title="MotoristaOPS · Cockpit operacional">
-<div class="app-shell">
-  <aside class="rail">
-    <a class="brand" href="#top"><span>MO</span><div><strong>MOTORISTA OPS</strong><small>cockpit operacional</small></div></a>
-    <nav><a href="#top">Agora</a><a href="#previsao">Previsão</a><a href="#transito">Trânsito</a><a href="#financeiro">Financeiro</a><a href="#review">Review diário</a><a href="#particular">Particular</a><a href="#veiculo">Veículo</a><a href="#dados">Dados</a></nav>
-    <div class="deep-links"><a href="./transito">Trânsito ao vivo ↗</a><a href="./previsao">Previsão ↗</a><a href="./inteligencia">Inteligência ↗</a><a href="./contexto">Contexto ↗</a><a href="./fontes-contexto">Fontes ↗</a></div>
-    <div class="rail-foot"><i></i><span>Supabase ativo</span></div>
+<BaseLayout title="MotoristaOPS · Dashboard">
+<div class="product-shell">
+  <aside class="product-sidebar">
+    <a class="product-brand" href="#overview" aria-label="Motorista Ops — visão geral">
+      <span>MO</span><div><strong>MOTORISTA OPS</strong><small>operations intelligence</small></div>
+    </a>
+    <nav aria-label="Navegação do dashboard">
+      <a class="is-active" href="#overview">Visão geral</a>
+      <a href="#plano">Plano operacional</a>
+      <a href="#performance">Performance</a>
+      <a href="#atividade">Atividade</a>
+      <a href="#particular">Particular</a>
+      <a href="#veiculo">Veículo</a>
+      <a href="#dados">Dados</a>
+    </nav>
+    <div class="product-modules">
+      <span>Módulos</span>
+      <a href="./transito">Trânsito <b>↗</b></a>
+      <a href="./previsao">Previsão <b>↗</b></a>
+      <a href="./inteligencia">Inteligência <b>↗</b></a>
+      <a href="./contexto">Contexto <b>↗</b></a>
+    </div>
+    <div class="product-system-status"><i></i><div><strong>Operação conectada</strong><small>Supabase {dataHealth.supabaseStatus}</small></div></div>
   </aside>
 
-  <main id="top">
-    <section class="hero">
-      <div class="hero-copy"><p class="eyebrow">18 AGO 2026 · cockpit de decisão</p><h1>Onde trabalhar, quando sair e se o dia está <em>valendo a pena.</em></h1><p>O MotoristaOPS reúne caixa, operação, histórico, trânsito, contexto e previsão num mesmo cockpit. Dado confirmado vira decisão; lacuna continua visível.</p><div class="actions"><a class="btn primary" href="./transito">Ver trânsito agora</a><a class="btn" href="./previsao">Abrir previsão</a><a class="btn" href="./importar-uber">Importar corridas</a></div></div>
-      <article class="now-card"><div class="card-top"><span>Última operação observada</span><b>17/08</b></div><strong>{brl.format(latestEvidence.platformRevenue??0)}</strong><p>{latestEvidence.completedTrips} corridas concluídas · {num.format(latestEvidence.observedRideKm??0)} km em corrida · {num.format(latestEvidence.observedRideHours??0)} h em viagem</p><div class="status-line"><i></i><span>aguarda fechamento completo</span></div></article>
+  <main class="product-main" id="overview">
+    <header class="product-topbar">
+      <div>
+        <p class="product-kicker">Dashboard operacional</p>
+        <h1>Visão geral</h1>
+      </div>
+      <div class="topbar-meta">
+        <span>Agosto 2026</span>
+        <span class="topbar-status"><i></i> dados até {dataHealth.latestEvidenceDate.split('-').reverse().join('/')}</span>
+        <a href="./importar-uber">+ Importar corridas</a>
+      </div>
+    </header>
+
+    <section class="product-kpis" aria-label="Indicadores principais">
+      <article class="kpi-primary"><span>Receita consolidada</span><strong>{brl.format(revenue)}</strong><small>{completeAugust.length} fechamentos completos</small></article>
+      <article class="kpi-primary"><span>Lucro operacional</span><strong>{brl.format(profit)}</strong><small>{revenue?num.format((profit/revenue)*100):'—'}% da receita</small></article>
+      <article><span>Receita / hora</span><strong>{brl.format(revenuePerHour)}</strong><small>{num.format(hours)} h online</small></article>
+      <article><span>Receita / km</span><strong>{brl.format(revenuePerKm)}</strong><small>{num.format(km)} km totais</small></article>
+      <article><span>Corridas</span><strong>{trips}</strong><small>{num.format(tripsPerHour)} por hora</small></article>
+      <article><span>Receita observada</span><strong>{brl.format(observedRevenue)}</strong><small>inclui {brl.format(evidenceRevenue)} pendentes</small></article>
     </section>
 
-    <section class="decision-strip"><article><span>Receita consolidada</span><strong>{brl.format(revenue)}</strong><small>agosto · fechamentos completos</small></article><article><span>Lucro operacional</span><strong>{brl.format(profit)}</strong><small>{hours?brl.format(profit/hours):'—'}/h</small></article><article><span>Receita pendente</span><strong>+ {brl.format(evidenceRevenue)}</strong><small>evidência ainda não fechada</small></article><article><span>Melhor janela</span><strong>{predictiveSummary.bestWindow?.weekday??'—'} · {predictiveSummary.bestWindow?.hourBand??'—'}</strong><small>score {predictiveSummary.bestWindow?.score??0}/100</small></article><article><span>Melhor região</span><strong>{predictiveSummary.bestRegion?.key??'—'}</strong><small>confiança {predictiveSummary.bestRegion?.confidence??'baixa'}</small></article></section>
+    <section class="product-command-grid" id="plano">
+      <article class="operating-plan">
+        <div class="panel-heading"><div><span>Próxima melhor decisão</span><h2>Plano operacional</h2></div><a href="./previsao">Abrir previsão →</a></div>
+        <div class="plan-main">
+          <div class="plan-score"><strong>{predictiveSummary.bestWindow?.score??0}</strong><small>/100</small><span>score histórico</span></div>
+          <div class="plan-copy">
+            <span>Melhor janela mapeada</span>
+            <h3>{predictiveSummary.bestWindow?.weekday??'—'} · {predictiveSummary.bestWindow?.hourBand??'—'}</h3>
+            <p>{predictiveSummary.bestWindow?.rationale}</p>
+          </div>
+        </div>
+        <div class="plan-facts">
+          <div><span>Região</span><strong>{predictiveSummary.bestRegion?.key??'—'}</strong><small>{predictiveSummary.bestRegion?.confidence??'baixa'} confiança</small></div>
+          <div><span>Rota</span><strong>{predictiveSummary.bestRoute?.key??'—'}</strong><small>score {predictiveSummary.bestRoute?.score??0}/100</small></div>
+          <div><span>Próxima alternativa</span><strong>{recommendedWindows[1]?.weekday??'—'} · {recommendedWindows[1]?.hourBand??'—'}</strong><small>score {recommendedWindows[1]?.score??0}/100</small></div>
+        </div>
+      </article>
 
-    <section id="previsao" class="section-block"><div class="section-head"><div><p class="eyebrow">01 · previsão operacional</p><h2>Onde a próxima hora tende a render melhor?</h2></div><a href="./previsao">ver análise completa →</a></div><div class="prediction-grid"><article class="best-window"><span>Melhor combinação histórica atual</span><strong>{predictiveSummary.bestWindow?.weekday??'—'}</strong><b>{predictiveSummary.bestWindow?.hourBand??'—'}</b><p>{predictiveSummary.bestWindow?.rationale}</p><div class="score"><i style={`width:${predictiveSummary.bestWindow?.score??0}%`}></i></div><small>score {predictiveSummary.bestWindow?.score??0}/100 · confiança {predictiveSummary.bestWindow?.confidence??'baixa'}</small></article><div class="rank-panel"><h3>Próximas janelas priorizadas</h3>{recommendedWindows.slice(0,5).map((x,i)=><div class="rank-row"><b>0{i+1}</b><span><strong>{x.weekday} · {x.hourBand}</strong><small>{x.confidence}</small></span><em>{x.score}</em></div>)}</div></div><div class="four-grid compact-cards"><article><span>Melhores dias</span>{weekdayScores.slice(0,3).map(x=><p><b>{x.label}</b><em>{brl.format(x.profitPerHour)}/h</em></p>)}</article><article><span>Melhores horários</span>{hourScores.slice(0,3).map(x=><p><b>{x.key}</b><em>{brl.format(x.revenuePerRideHour)}/h</em></p>)}</article><article><span>Melhores regiões</span>{regionScores.slice(0,3).map(x=><p><b>{x.key}</b><em>{x.score}/100</em></p>)}</article><article><span>Rotas recorrentes</span>{routeScores.slice(0,3).map(x=><p><b>{x.key}</b><em>{x.score}/100</em></p>)}</article></div></section>
+      <aside class="action-center">
+        <div class="panel-heading"><div><span>Pendências e próximos passos</span><h2>Action Center</h2></div><b>{actionItems.length}</b></div>
+        <div class="action-items">
+          {actionItems.map((item,i)=><a href={item.href} data-tone={item.tone}><span>0{i+1}</span><div><strong>{item.title}</strong><small>{item.detail}</small></div><b>→</b></a>)}
+        </div>
+      </aside>
+    </section>
 
-    <section id="transito" class="section-block live-section"><div class="section-head"><div><p class="eyebrow">02 · cidade agora</p><h2>Trânsito quase em tempo real.</h2></div><a href="./transito">abrir painel operacional →</a></div><div class="live-grid"><article class="live-primary"><div class="live-title"><span id="live-status">carregando CET…</span><small id="live-age">—</small></div><strong id="live-total">—</strong><p>lentidão total observada</p><div class="live-regions" id="live-regions"><span>aguardando snapshot</span></div></article><article class="live-pressure"><span>Região mais pressionada</span><strong id="live-region">—</strong><small id="live-region-value">—</small><p>Esse dado ainda não altera a previsão automaticamente. Primeiro acumulamos histórico de trânsito × desempenho.</p></article><article class="live-intel"><span>Como usar agora</span><ul><li>Compare a região historicamente eficiente com a pressão atual.</li><li>Evite tratar lentidão alta como perda automática: dinâmica pode compensar.</li><li>Use contexto + previsão antes de mudar de zona.</li></ul></article></div></section>
+    <section class="product-section live-section" id="cidade">
+      <div class="section-heading"><div><span>Cidade agora</span><h2>Contexto live</h2></div><a href="./transito">Painel de trânsito →</a></div>
+      <div class="live-grid product-live-grid">
+        <article class="live-primary"><div class="live-title"><span id="live-status">carregando CET…</span><small id="live-age">—</small></div><strong id="live-total">—</strong><p>lentidão total observada</p><div class="live-regions" id="live-regions"><span>aguardando snapshot</span></div></article>
+        <article class="live-pressure"><span>Região mais pressionada</span><strong id="live-region">—</strong><small id="live-region-value">—</small><p>Compare pressão atual com as regiões historicamente eficientes antes de mudar de zona.</p></article>
+      </div>
+    </section>
 
-    <section id="financeiro" class="section-block"><div class="section-head"><div><p class="eyebrow">03 · resultado</p><h2>O que virou dinheiro de verdade.</h2></div><span>{trips} corridas · {num.format(hours)} h · {num.format(km)} km</span></div><div class="finance-grid"><article><span>Receita / h</span><strong>{hours?brl.format(revenue/hours):'—'}</strong></article><article><span>Lucro / h</span><strong>{hours?brl.format(profit/hours):'—'}</strong></article><article><span>Receita / km</span><strong>{km?brl.format(revenue/km):'—'}</strong></article><article><span>Combustível pago</span><strong>{brl.format(fuelTotal)}</strong></article><article><span>Manutenção</span><strong>{brl.format(maintenanceTotal)}</strong></article><article><span>Obrigações pessoais</span><strong>{brl.format(personalTotal)}</strong></article></div><div class="closing-grid">{completeAugust.map(x=><article><div><strong>{x.dateBR}</strong><span>{x.day}</span></div><b>{brl.format(x.grossRevenue)}</b><small>{num.format(x.hoursOnline)} h · {num.format(x.kmTotal)} km · {x.tripsTotal} corridas</small><em>{brl.format(x.operationalProfit)} lucro</em></article>)}</div></section>
+    <section class="product-section" id="performance">
+      <div class="section-heading"><div><span>Performance</span><h2>Eficiência e tendência</h2></div><span>{trips} corridas · {num.format(hours)} h · {num.format(km)} km</span></div>
+      <div class="performance-grid">
+        <article class="trend-panel">
+          <div class="subheading"><div><span>Receita por dia</span><strong>{brl.format(observedRevenue)}</strong></div><small>sólido = fechado · contorno = evidência</small></div>
+          <div class="trend-chart" role="img" aria-label="Receita observada por dia em agosto">
+            {trend.map(x=><div class="trend-column" title={`${x.dateBR}: ${brl.format(x.value)} · ${x.label}`}><span class:list={['trend-bar',x.kind==='evidence'&&'is-evidence']} style={`height:${Math.max(10,(x.value/trendMax)*100)}%`}><i>{brl.format(x.value)}</i></span><small>{x.date.slice(8,10)}</small></div>)}
+          </div>
+        </article>
+        <article class="economics-panel">
+          <div class="subheading"><div><span>Unit economics</span><strong>Por turno consolidado</strong></div></div>
+          <dl>
+            <div><dt>Lucro / hora</dt><dd>{brl.format(profitPerHour)}</dd></div>
+            <div><dt>Receita / viagem</dt><dd>{brl.format(revenuePerTrip)}</dd></div>
+            <div><dt>Viagens / hora</dt><dd>{num.format(tripsPerHour)}</dd></div>
+            <div><dt>Combustível / km</dt><dd>{brl.format(fuelPerKm)}</dd></div>
+            <div><dt>Combustível pago</dt><dd>{brl.format(fuelTotal)}</dd></div>
+            <div><dt>Manutenção registrada</dt><dd>{brl.format(maintenanceTotal)}</dd></div>
+          </dl>
+        </article>
+      </div>
+      <div class="market-rankings">
+        <article><span>Melhores dias</span>{weekdayScores.slice(0,4).map((x,i)=><div><b>{i+1}</b><strong>{x.label}</strong><em>{brl.format(x.profitPerHour)}/h</em></div>)}</article>
+        <article><span>Melhores horários</span>{hourScores.slice(0,4).map((x,i)=><div><b>{i+1}</b><strong>{x.key}</strong><em>{brl.format(x.revenuePerRideHour)}/h</em></div>)}</article>
+        <article><span>Melhores regiões</span>{regionScores.slice(0,4).map((x,i)=><div><b>{i+1}</b><strong>{x.key}</strong><em>{x.score}/100</em></div>)}</article>
+      </div>
+    </section>
 
-    <section id="review" class="section-block"><div class="section-head"><div><p class="eyebrow">04 · review diário</p><h2>Resultado + tempo + região + contexto.</h2></div><a href="./inteligencia">ver inteligência completa →</a></div><div class="review-grid">{dailyContextReviews.slice(-4).map(x=><article><div class="review-date"><strong>{x.date.slice(8,10)}</strong><span>{x.date.slice(5,7)}/26</span></div><div><span class="tag">{x.status}</span><h3>{x.operational}</h3><p>{x.review}</p><small>{x.trafficStatus}</small></div></article>)}</div><div class="context-row"><div><span>Contexto já mapeado</span><strong>{contextReady.length} tipos com cobertura</strong></div><div><span>Sinais aptos a alterar recomendação</span><strong>{usableSignals.length}</strong><small>trava mínima: 3 janelas afetadas + 3 baseline</small></div><a href="./contexto">Auditar contexto →</a></div></section>
+    <section class="product-section" id="atividade">
+      <div class="section-heading"><div><span>Histórico</span><h2>Atividade recente</h2></div><a href="./inteligencia">Analisar corridas →</a></div>
+      <div class="activity-layout">
+        <div class="activity-list">
+          {recentActivity.map(x=><article><time datetime={x.date}>{x.dateBR}</time><div><strong>{x.kind==='closed'?'Fechamento completo':'Evidência operacional'}</strong><small>{x.label}</small></div><b>{brl.format(x.value)}</b><span class:list={['activity-status',x.kind==='closed'?'is-closed':'is-pending']}>{x.kind==='closed'?'fechado':'reconciliar'}</span></article>)}
+        </div>
+        <article class="latest-operation">
+          <span>Última operação observada</span>
+          <strong>{brl.format(latestEvidence.platformRevenue??0)}</strong>
+          <p>{latestEvidence.completedTrips} corridas · {num.format(latestEvidence.observedRideKm??0)} km em corrida · {num.format(latestEvidence.observedRideHours??0)} h em viagem</p>
+          <small>{latestEvidence.note}</small>
+        </article>
+      </div>
+    </section>
 
-    <section id="particular" class="section-block"><div class="section-head"><div><p class="eyebrow">05 · particular</p><h2>Receita fora dos apps, com regra própria.</h2></div><span>{brl.format(pipelineTotal)} em orçamentos futuros</span></div><div class="private-grid"><article class="policy"><span>Política {privatePricingPolicy.version}</span><strong>{brl.format(privatePricingPolicy.basePerKm)}<small>/km</small></strong><div><p>Mínimo agendado <b>{brl.format(privatePricingPolicy.scheduledMinimum)}</b></p><p>Reserva <b>{brl.format(privatePricingPolicy.reservationFee)}</b></p><p>Espera <b>{privatePricingPolicy.waitingToleranceMin} min + {brl.format(privatePricingPolicy.waitingPerMin)}/min</b></p><p>Horário especial <b>+{privatePricingPolicy.specialHoursSurchargePct}%</b></p></div></article><div class="pipeline">{privatePipeline.map(x=><article><div><strong>{x.serviceDate.slice(8,10)}/09</strong><span>{x.label}</span></div><b>{brl.format(x.quotedValue)}</b><p>{x.appointment} compromisso · retirada {x.provisionalPickup}</p><small>revisar trânsito: {x.trafficReviewAround}</small></article>)}</div></div></section>
+    <section class="product-section split-business" id="particular">
+      <div class="business-summary">
+        <div class="section-heading"><div><span>Receita própria</span><h2>Particular</h2></div><span>{brl.format(pipelineTotal)} em pipeline</span></div>
+        <div class="business-kpis"><div><span>Preço base</span><strong>{brl.format(privatePricingPolicy.basePerKm)}/km</strong></div><div><span>Mínimo agendado</span><strong>{brl.format(privatePricingPolicy.scheduledMinimum)}</strong></div><div><span>Reserva</span><strong>{brl.format(privatePricingPolicy.reservationFee)}</strong></div></div>
+      </div>
+      <div class="pipeline-list">{privatePipeline.map(x=><article><time>{x.serviceDate.slice(8,10)}/09</time><div><strong>{x.label}</strong><small>{x.appointment} · retirada {x.provisionalPickup}</small></div><b>{brl.format(x.quotedValue)}</b></article>)}</div>
+    </section>
 
-    <section id="veiculo" class="section-block"><div class="section-head"><div><p class="eyebrow">06 · veículo</p><h2>{vehicleProfile.vehicle}</h2></div><span>{vehicleProfile.fuel}</span></div><div class="vehicle-grid"><article><span>Odômetro recente</span><strong>{num.format(vehicleProfile.recentOdometerKm)} km</strong></article><article><span>Abastecimentos registrados</span><strong>{currentFuelings.length}</strong></article><article><span>Manutenções registradas</span><strong>{currentVehicleExpenses.length}</strong></article><article><span>Combustível em agosto</span><strong>{brl.format(fuelTotal)}</strong></article></div></section>
+    <section class="product-section vehicle-data-grid" id="veiculo">
+      <article><div class="section-heading"><div><span>Ativo operacional</span><h2>{vehicleProfile.vehicle}</h2></div><span>{vehicleProfile.fuel}</span></div><dl><div><dt>Odômetro recente</dt><dd>{num.format(vehicleProfile.recentOdometerKm)} km</dd></div><div><dt>Abastecimentos</dt><dd>{currentFuelings.length}</dd></div><div><dt>Manutenções</dt><dd>{currentVehicleExpenses.length}</dd></div><div><dt>Custo combustível ago.</dt><dd>{brl.format(fuelTotal)}</dd></div></dl></article>
+      <article id="dados"><div class="section-heading"><div><span>Qualidade</span><h2>Dados</h2></div><a href="./fontes-contexto">Auditar fontes →</a></div><dl><div><dt>Supabase</dt><dd>{dataHealth.supabaseStatus}</dd></div><div><dt>Último fechamento</dt><dd>{dataHealth.supabaseCompleteThrough.split('-').reverse().join('/')}</dd></div><div><dt>Lacunas</dt><dd>{dataHealth.missingClosingDates.length}</dd></div><div><dt>Corridas detalhadas</dt><dd>{predictiveIntelligence.sample.detailedRides}</dd></div></dl></article>
+    </section>
 
-    <section id="dados" class="section-block data-health"><div class="section-head"><div><p class="eyebrow">07 · confiança</p><h2>Saúde dos dados e próximas lacunas.</h2></div><a href="./fontes-contexto">fontes externas →</a></div><div class="health-grid"><article class="ok"><span>Supabase</span><strong>{dataHealth.supabaseStatus}</strong><small>fechamentos completos até {dataHealth.supabaseCompleteThrough.split('-').reverse().join('/')}</small></article><article class="warn"><span>Evidência mais recente</span><strong>{dataHealth.latestEvidenceDate.split('-').reverse().join('/')}</strong><small>ainda há dias pendentes de fechamento</small></article><article class="warn"><span>Lacunas</span><strong>{dataHealth.missingClosingDates.length}</strong><small>{dataHealth.missingClosingDates.map(x=>x.slice(8,10)+'/08').join(' · ')}</small></article><article><span>Modelo preditivo</span><strong>{predictiveSummary.model}</strong><small>{predictiveIntelligence.sample.detailedRides} corridas detalhadas no motor</small></article></div></section>
+    <section class="product-section quick-links-section">
+      <div class="section-heading"><div><span>Explorar</span><h2>Módulos operacionais</h2></div></div>
+      <div class="quick-links">{quickLinks.map(([title,detail,href])=><a href={href}><div><strong>{title}</strong><small>{detail}</small></div><b>↗</b></a>)}</div>
+    </section>
 
-    <footer><strong>MOTORISTA OPS</strong><span>controle financeiro + inteligência operacional + contexto + previsão</span><small>Observado, inferido e desconhecido continuam separados.</small></footer>
+    <footer class="product-footer"><strong>MOTORISTA OPS</strong><span>Performance · decisão · contexto · operação</span><small>Confirmado, estimado e desconhecido continuam separados.</small></footer>
   </main>
 </div>
 <script>import '../scripts/dashboard-live.ts';</script>
 </BaseLayout>
-
-<style>
-:global(html){scroll-behavior:smooth;background:#0a0b0c}:global(body){margin:0;background:#0a0b0c;color:#f1eee8;font-family:Inter,system-ui,sans-serif}:global(*){box-sizing:border-box}:global(a){color:inherit}.app-shell{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:100vh}.rail{position:sticky;top:0;height:100vh;padding:28px 18px;border-right:1px solid #292c2f;background:#0b0c0d;display:flex;flex-direction:column}.brand{display:flex;gap:11px;align-items:center;text-decoration:none}.brand>span{width:38px;height:38px;border:1px solid #c7a66a;border-radius:50%;display:grid;place-items:center;color:#c7a66a;font-size:11px;font-weight:800}.brand strong{font-size:11px;letter-spacing:.12em}.brand small{display:block;color:#71757a;font-size:8px;text-transform:uppercase;margin-top:3px}.rail nav{display:grid;gap:4px;margin-top:40px}.rail nav a,.deep-links a{padding:9px 10px;text-decoration:none;color:#8b8f93;font-size:11px;border-radius:7px}.rail nav a:hover,.deep-links a:hover{background:#17191b;color:#f1eee8}.deep-links{display:grid;margin-top:24px;padding-top:18px;border-top:1px solid #24272a}.deep-links a{color:#b7a17a}.rail-foot{margin-top:auto;display:flex;gap:8px;align-items:center;color:#7d8185;font-size:9px}.rail-foot i{width:7px;height:7px;border-radius:50%;background:#7da987}main{min-width:0;max-width:1540px;width:100%;margin:auto;padding:0 44px 52px}.hero{padding:58px 0 34px;border-bottom:1px solid #292c2f;display:grid;grid-template-columns:1.35fr .65fr;gap:46px;align-items:end}.eyebrow{color:#9d875d;font-size:9px;text-transform:uppercase;letter-spacing:.13em}.hero h1{font-size:clamp(38px,5vw,68px);line-height:.95;letter-spacing:-.055em;margin:14px 0 20px;max-width:900px}.hero h1 em{font-style:normal;color:#c7a66a}.hero-copy>p:not(.eyebrow){max-width:760px;color:#91959a;line-height:1.7;font-size:14px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}.btn{padding:10px 13px;border:1px solid #34373a;border-radius:8px;text-decoration:none;font-size:10px;background:#17191b}.btn.primary{background:#c7a66a;color:#0a0b0c;border-color:#c7a66a}.now-card,.best-window,.rank-panel,.live-primary,.live-pressure,.live-intel,.policy,.pipeline article,.review-grid article{border:1px solid #303337;border-radius:15px;background:#111315}.now-card{padding:22px}.card-top,.live-title{display:flex;justify-content:space-between;color:#7f8387;font-size:9px;text-transform:uppercase}.now-card>strong{display:block;font-size:42px;margin:24px 0 8px}.now-card p{color:#96999c;font-size:11px;line-height:1.55}.status-line{display:flex;gap:7px;align-items:center;color:#b9a174;font-size:9px;margin-top:18px}.status-line i{width:7px;height:7px;background:#c7a66a;border-radius:50%}.decision-strip{display:grid;grid-template-columns:repeat(5,1fr);border-bottom:1px solid #292c2f}.decision-strip article{padding:20px 16px;border-right:1px solid #292c2f}.decision-strip article:first-child{padding-left:0}.decision-strip span,.finance-grid span,.vehicle-grid span,.health-grid span,.compact-cards>article>span{display:block;color:#7e8286;font-size:8px;text-transform:uppercase;letter-spacing:.08em}.decision-strip strong{display:block;margin:8px 0 5px;font-size:18px}.decision-strip small,.finance-grid small,.health-grid small{color:#696d71;font-size:8px}.section-block{padding:48px 0;border-bottom:1px solid #292c2f;scroll-margin-top:20px}.section-head{display:flex;justify-content:space-between;gap:25px;align-items:end;margin-bottom:22px}.section-head h2{font-size:clamp(28px,4vw,48px);letter-spacing:-.045em;margin:7px 0 0}.section-head>a,.section-head>span{color:#888c90;font-size:10px;text-decoration:none}.prediction-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.best-window,.rank-panel{padding:22px}.best-window>span{color:#7c8084;font-size:9px;text-transform:uppercase}.best-window>strong{display:block;font-size:32px;margin-top:14px}.best-window>b{display:block;color:#c7a66a;font-size:38px;margin-top:2px}.best-window p{color:#878b90;font-size:11px;line-height:1.6}.score{height:7px;border-radius:999px;background:#25282b;overflow:hidden;margin:18px 0 7px}.score i{display:block;height:100%;background:#c7a66a}.best-window small{color:#6e7276;font-size:8px}.rank-panel h3{margin:0 0 10px;font-size:13px}.rank-row{display:grid;grid-template-columns:28px 1fr auto;gap:10px;padding:11px 0;border-top:1px solid #282b2e;align-items:center}.rank-row>b{color:#9b8356;font-size:9px}.rank-row span{display:grid}.rank-row span strong{font-size:10px}.rank-row span small{font-size:8px;color:#707479}.rank-row em{font-style:normal;color:#c7a66a;font-weight:700}.four-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.compact-cards>article{border:1px solid #2e3134;border-radius:12px;padding:15px}.compact-cards p{display:flex;justify-content:space-between;gap:10px;margin:11px 0 0;font-size:9px}.compact-cards p b{font-weight:600}.compact-cards p em{font-style:normal;color:#9c8761}.live-section{background:linear-gradient(90deg,rgba(61,51,34,.15),transparent)}.live-grid{display:grid;grid-template-columns:1.1fr .65fr .8fr;gap:12px}.live-primary,.live-pressure,.live-intel{padding:20px}.live-primary>strong{display:block;font-size:46px;margin:22px 0 2px}.live-primary>p,.live-pressure>p{color:#777b80;font-size:9px}.live-regions{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:18px}.live-regions div{padding:9px;border:1px solid #292c2f;border-radius:8px}.live-regions span,.live-regions strong{display:block;font-size:8px}.live-regions strong{margin-top:3px}.live-pressure>span,.live-intel>span{color:#7f8387;font-size:8px;text-transform:uppercase}.live-pressure>strong{display:block;font-size:28px;margin:18px 0 3px;color:#d5b878}.live-pressure>small{color:#8b8f93}.live-intel ul{padding-left:18px;margin-top:18px;color:#94989c;font-size:10px;line-height:1.7}.finance-grid{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid #292c2f;border-radius:12px;overflow:hidden}.finance-grid article{padding:16px;border-right:1px solid #292c2f}.finance-grid strong,.vehicle-grid strong,.health-grid strong{display:block;font-size:17px;margin-top:7px}.closing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.closing-grid article{padding:14px;border:1px solid #292c2f;border-radius:10px}.closing-grid article>div{display:flex;justify-content:space-between;color:#767a7e;font-size:8px}.closing-grid article>b{display:block;font-size:18px;margin:10px 0 3px}.closing-grid article small,.closing-grid article em{display:block;color:#73777b;font-size:8px}.closing-grid article em{color:#8faa93;font-style:normal;margin-top:5px}.review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.review-grid article{padding:18px;display:grid;grid-template-columns:52px 1fr;gap:14px}.review-date strong{display:block;font-size:28px;color:#c7a66a}.review-date span{font-size:8px;color:#71757a}.tag{font-size:7px;text-transform:uppercase;color:#a89268}.review-grid h3{font-size:11px;margin:7px 0}.review-grid p{color:#81858a;font-size:9px;line-height:1.6}.review-grid small{color:#666b70}.context-row{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-top:12px}.context-row>div,.context-row>a{padding:14px;border:1px solid #292c2f;border-radius:10px;text-decoration:none}.context-row span,.context-row small{display:block;color:#777b80;font-size:8px}.context-row strong{display:block;margin-top:5px;font-size:12px}.context-row a{font-size:9px;color:#c7a66a;display:grid;place-items:center}.private-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:12px}.policy{padding:20px}.policy>span{color:#9d875d;font-size:8px;text-transform:uppercase}.policy>strong{display:block;font-size:40px;margin:10px 0 18px}.policy>strong small{font-size:11px;color:#777}.policy p{display:flex;justify-content:space-between;font-size:9px;border-top:1px solid #292c2f;padding-top:10px}.pipeline{display:grid;gap:8px}.pipeline article{padding:15px;display:grid;grid-template-columns:1fr auto;gap:5px}.pipeline article>div{display:flex;gap:10px}.pipeline article>div span{color:#aaa}.pipeline article b{grid-row:1/3;grid-column:2}.pipeline article p,.pipeline article small{margin:0;color:#777b80;font-size:8px}.vehicle-grid,.health-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.vehicle-grid article,.health-grid article{padding:16px;border:1px solid #292c2f;border-radius:11px}.health-grid .ok{border-top-color:#638469}.health-grid .warn{border-top-color:#927a50}.data-health{padding-bottom:34px}footer{padding:30px 0 0;display:flex;align-items:center;gap:14px;color:#6f7377;font-size:8px}footer strong{color:#a68f65}footer small{margin-left:auto}@media(max-width:1100px){.app-shell{grid-template-columns:1fr}.rail{position:static;height:auto;border-right:0;border-bottom:1px solid #292c2f}.rail nav,.deep-links{display:flex;flex-wrap:wrap;margin-top:18px}.rail-foot{display:none}main{padding:0 24px 40px}.hero{grid-template-columns:1fr}.decision-strip{grid-template-columns:repeat(3,1fr)}.four-grid,.finance-grid{grid-template-columns:repeat(3,1fr)}.live-grid{grid-template-columns:1fr 1fr}.live-intel{grid-column:1/-1}}@media(max-width:700px){main{padding:0 15px 32px}.hero{padding-top:36px}.decision-strip{grid-template-columns:1fr 1fr}.prediction-grid,.private-grid,.review-grid,.live-grid{grid-template-columns:1fr}.four-grid,.finance-grid,.vehicle-grid,.health-grid,.closing-grid{grid-template-columns:1fr 1fr}.live-intel{grid-column:auto}.live-regions{grid-template-columns:1fr 1fr}.context-row{grid-template-columns:1fr}.section-head{display:grid;align-items:start}footer{display:grid}footer small{margin-left:0}}@media(max-width:430px){.decision-strip,.four-grid,.finance-grid,.vehicle-grid,.health-grid,.closing-grid{grid-template-columns:1fr}.decision-strip article{border-right:0;border-bottom:1px solid #292c2f;padding-left:0}.hero h1{font-size:38px}}
-</style>
