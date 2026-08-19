@@ -74,6 +74,7 @@ jobs:
             if (!(await page.locator('#import-workspace').isVisible())) throw new Error('Uber import workspace should be available before authentication.');
             if (await page.locator('#import-reviewed-data').count()) throw new Error('Unsafe direct import action still exists.');
             if (!(await page.locator('#prepare-closing-draft').count())) throw new Error('Closing draft handoff action missing.');
+            await page.locator('#review-section').evaluate((section) => { section.hidden = false; });
             await page.locator('#uber-review-rows').evaluate((tbody) => {
               tbody.innerHTML = '<tr data-index="0"><td><input type="checkbox" data-field="selected" checked></td><td><input type="date" data-field="operation_date" value="2026-08-19"></td><td><input type="number" data-field="revenue_uber" value="123.45"></td><td><input type="number" data-field="trips_uber" value="7"></td><td></td><td></td></tr>';
             });
