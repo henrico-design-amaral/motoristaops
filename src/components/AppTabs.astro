@@ -3,32 +3,30 @@ const base = import.meta.env.BASE_URL || '/';
 const current = Astro.url.pathname;
 const cleanBase = base.endsWith('/') ? base : `${base}/`;
 const hrefFor = (path='') => `${cleanBase}${path}`.replace(/\/+/g,'/');
+const relative = current.startsWith(cleanBase) ? current.slice(cleanBase.length) : current.replace(/^\//,'');
+const segment = relative.split('/').filter(Boolean)[0] || '';
 const tabs = [
-  ['','Visão geral'],
-  ['transito/','Trânsito'],
-  ['previsao/','Previsão'],
-  ['inteligencia/','Inteligência'],
-  ['contexto/','Contexto'],
-  ['fechamento/','Fechamento'],
-  ['importar-uber/','Importar'],
-  ['copiloto/','Copiloto'],
-  ['fontes-contexto/','Fontes']
+  {path:'',label:'Visão geral',segments:['','painel']},
+  {path:'transito/',label:'Trânsito',segments:['transito']},
+  {path:'previsao/',label:'Previsão',segments:['previsao']},
+  {path:'inteligencia/',label:'Inteligência',segments:['inteligencia']},
+  {path:'contexto/',label:'Contexto',segments:['contexto']},
+  {path:'fechamento/',label:'Fechamento',segments:['fechamento']},
+  {path:'importar-uber/',label:'Importar',segments:['importar-uber','historico-importacoes']},
+  {path:'copiloto/',label:'Copiloto',segments:['copiloto']},
+  {path:'fontes-contexto/',label:'Fontes',segments:['fontes-contexto']}
 ];
-const activeFor=(path:string)=>{
-  const target=hrefFor(path);
-  if(path==='') return current===cleanBase || current===cleanBase.slice(0,-1);
-  return current===target || current.startsWith(target);
-};
+const activeFor=(segments:string[])=>segments.includes(segment);
 ---
 <div class="app-tabs-wrap" aria-label="Módulos Motorista Ops">
-  <div class="app-tabs-brand"><span>MO</span><div><strong>MOTORISTA OPS</strong><small>operação</small></div></div>
+  <a class="app-tabs-brand" href={hrefFor('')} aria-label="Motorista Ops — visão geral"><span>MO</span><div><strong>MOTORISTA OPS</strong><small>operação</small></div></a>
   <nav class="app-tabs">
-    {tabs.map(([path,label]) => <a class:list={{active:activeFor(path)}} href={hrefFor(path)} aria-current={activeFor(path)?'page':undefined}>{label}</a>)}
+    {tabs.map(tab => <a class:list={{active:activeFor(tab.segments)}} href={hrefFor(tab.path)} aria-current={activeFor(tab.segments)?'page':undefined}>{tab.label}</a>)}
   </nav>
 </div>
 <style>
 .app-tabs-wrap{position:sticky;top:0;z-index:80;display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:20px;min-height:58px;padding:0 22px;border-bottom:1px solid #2B2E32;background:rgba(11,12,13,.96);backdrop-filter:blur(16px)}
-.app-tabs-brand{display:flex;align-items:center;gap:9px;white-space:nowrap}.app-tabs-brand>span{width:28px;height:28px;border:1px solid #C8A96B;border-radius:50%;display:grid;place-items:center;font:700 9px Inter,sans-serif;color:#C8A96B}.app-tabs-brand strong{display:block;font:700 10px Inter,sans-serif;letter-spacing:.12em;color:#F2EFE9}.app-tabs-brand small{display:block;margin-top:1px;font:500 9px Inter,sans-serif;color:#7d8186;text-transform:uppercase;letter-spacing:.08em}
-.app-tabs{display:flex;align-items:stretch;gap:2px;min-width:0;overflow-x:auto;scrollbar-width:none}.app-tabs::-webkit-scrollbar{display:none}.app-tabs a{position:relative;display:flex;align-items:center;min-height:57px;padding:0 12px;text-decoration:none;white-space:nowrap;font:600 12px Inter,sans-serif;color:#90959b}.app-tabs a:hover,.app-tabs a:focus-visible{color:#F2EFE9}.app-tabs a.active{color:#F2EFE9}.app-tabs a.active::after{content:'';position:absolute;left:12px;right:12px;bottom:0;height:2px;background:#C8A96B}.app-tabs a:focus-visible{outline:2px solid #C8A96B;outline-offset:-3px}
+.app-tabs-brand{display:flex;align-items:center;gap:9px;white-space:nowrap;text-decoration:none}.app-tabs-brand>span{width:28px;height:28px;border:1px solid #C8A96B;border-radius:50%;display:grid;place-items:center;font:700 9px Inter,sans-serif;color:#C8A96B}.app-tabs-brand strong{display:block;font:700 10px Inter,sans-serif;letter-spacing:.12em;color:#F2EFE9}.app-tabs-brand small{display:block;margin-top:1px;font:500 9px Inter,sans-serif;color:#7d8186;text-transform:uppercase;letter-spacing:.08em}
+.app-tabs{display:flex;align-items:stretch;gap:2px;min-width:0;overflow-x:auto;scrollbar-width:none}.app-tabs::-webkit-scrollbar{display:none}.app-tabs a{position:relative;display:flex;align-items:center;min-height:57px;padding:0 12px;text-decoration:none;white-space:nowrap;font:600 12px Inter,sans-serif;color:#90959b}.app-tabs a:hover,.app-tabs a:focus-visible{color:#F2EFE9}.app-tabs a.active{color:#F2EFE9}.app-tabs a.active::after{content:'';position:absolute;left:12px;right:12px;bottom:0;height:2px;background:#C8A96B}.app-tabs a:focus-visible,.app-tabs-brand:focus-visible{outline:2px solid #C8A96B;outline-offset:-3px}
 @media(max-width:760px){.app-tabs-wrap{grid-template-columns:1fr;padding:0;gap:0}.app-tabs-brand{display:none}.app-tabs a{min-height:50px;padding:0 11px;font-size:11px}.app-tabs a.active::after{left:11px;right:11px}}
 </style>
