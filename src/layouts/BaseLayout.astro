@@ -3,6 +3,7 @@ import '../styles/global.css';
 import '../styles/dashboard-control.css';
 import '../styles/dashboard-mobile.css';
 import '../styles/dashboard-visual-v2.css';
+import '../styles/dashboard-visual-v2-mobile.css';
 const { title = 'MotoristaOps' } = Astro.props;
 ---
 <!doctype html>
@@ -12,6 +13,9 @@ const { title = 'MotoristaOps' } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="MotoristaOps: presença pública e painel de controle da operação de motorista." />
     <meta name="theme-color" content="#0B0C0D" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
     <title>{title}</title>
   </head>
   <body>
