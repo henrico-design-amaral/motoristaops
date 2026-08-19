@@ -1,4 +1,4 @@
-name: Refresh live traffic
+name: Refresh live context
 
 on:
   schedule:
@@ -9,35 +9,46 @@ permissions:
   contents: write
 
 concurrency:
-  group: motoristaops-live-traffic
+  group: motoristaops-live-context
   cancel-in-progress: true
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 4
+    timeout-minutes: 5
     steps:
-      - name: Checkout main
+      - name: Checkout application
         uses: actions/checkout@v4
         with:
           ref: main
+          path: app
+
+      - name: Checkout live data branch
+        uses: actions/checkout@v4
+        with:
+          ref: live-data
+          path: live-data
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      - name: Collect CET live traffic
-        run: node scripts/update-live-traffic.mjs
-
-      - name: Commit snapshot when changed
+      - name: Collect live traffic weather and airport source health
         run: |
-          if git diff --quiet -- public/live-traffic.json; then
-            echo "No traffic snapshot change."
+          node app/scripts/update-live-context.mjs \
+            live-data/public/live-context.json \
+            live-data/public/live-context-history.jsonl
+
+      - name: Commit live snapshots when changed
+        run: |
+          cd live-data
+          if git diff --quiet -- public/live-context.json public/live-context-history.jsonl; then
+            echo "No live context change."
             exit 0
           fi
-          git config user.name "motoristaops-traffic-bot"
+          git config user.name "motoristaops-live-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/live-traffic.json
-          git commit -m "data: refresh live traffic snapshot"
-          git push origin HEAD:main
+          git add public/live-context.json public/live-context-history.jsonl
+          git commit -m "data: refresh live context"
+          git push origin HEAD:live-data
