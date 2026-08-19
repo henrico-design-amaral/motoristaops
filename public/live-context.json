@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 2,
+  "collectedAt": null,
+  "expectedRefreshMinutes": 5,
+  "status": "pending",
+  "traffic": {
+    "status": "pending",
+    "zones": [],
+    "derived": { "totalSlowKm": null, "worstZone": null, "pressure": "indisponível" }
+  },
+  "weather": {
+    "status": "pending",
+    "temperatureC": null,
+    "humidityPct": null,
+    "precipitationMm": null,
+    "raining": null
+  },
+  "airport": {
+    "status": "pending",
+    "operationalSignal": null
+  },
+  "governance": {
+    "trafficCanAdjustLivePriority": true,
+    "weatherCanAdjustLivePriority": false,
+    "airportCanAdjustLivePriority": false
+  }
+}
