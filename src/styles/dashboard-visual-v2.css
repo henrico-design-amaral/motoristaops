@@ -1,0 +1,217 @@
+/* MotoristaOPS Dashboard Visual System v2
+   Scoped to the unified cockpit home. The component keeps its semantic markup;
+   this layer controls hierarchy, density, typography and brand fidelity. */
+
+.app-shell:has(> .rail){
+  --dash-bg:#0B0C0D;
+  --dash-surface:#181A1D;
+  --dash-surface-raised:#1D2023;
+  --dash-line:#2B2E32;
+  --dash-line-soft:rgba(222,210,188,.11);
+  --dash-gold:#C8A96B;
+  --dash-sand:#DED2BC;
+  --dash-ivory:#F2EFE9;
+  --dash-muted:#9B9994;
+  --dash-success:#8EAA95;
+  --dash-danger:#C88478;
+  --dash-info:#8D9EAD;
+  --dash-radius-sm:10px;
+  --dash-radius-md:14px;
+  --dash-radius-lg:18px;
+  --dash-shadow:0 18px 60px rgba(0,0,0,.16);
+  --dash-content:1480px;
+  background:var(--dash-bg);
+  color:var(--dash-ivory);
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+.app-shell:has(> .rail) *{box-sizing:border-box}
+.app-shell:has(> .rail) :where(strong,b,em){font-variant-numeric:tabular-nums lining-nums}
+
+/* Shell */
+.app-shell:has(> .rail){grid-template-columns:244px minmax(0,1fr);min-height:100vh}
+.app-shell > .rail{
+  width:auto;
+  padding:24px 16px 20px;
+  border-right:1px solid var(--dash-line);
+  background:rgba(11,12,13,.97);
+  box-shadow:none;
+}
+.app-shell > .rail .brand{min-height:48px;padding:0 8px 22px;border-bottom:1px solid var(--dash-line-soft)}
+.app-shell > .rail .brand>span{width:40px;height:40px;border-color:rgba(200,169,107,.55);color:var(--dash-gold);background:transparent;font-size:.72rem}
+.app-shell > .rail .brand strong{font-family:Manrope,Inter,sans-serif;font-size:.73rem;letter-spacing:.12em;font-weight:750;color:var(--dash-ivory)}
+.app-shell > .rail .brand small{font-size:.68rem;color:var(--dash-muted);letter-spacing:.03em;text-transform:none}
+.app-shell > .rail nav{gap:3px;margin-top:22px}
+.app-shell > .rail nav a{min-height:40px;display:flex;align-items:center;padding:0 11px;border:1px solid transparent;border-radius:9px;color:#aaa8a3;font-size:.77rem;font-weight:600;letter-spacing:-.01em;transition:background .18s ease,border-color .18s ease,color .18s ease}
+.app-shell > .rail nav a:first-child{background:var(--dash-surface);border-color:var(--dash-line);color:var(--dash-ivory);box-shadow:inset 2px 0 0 var(--dash-gold)}
+.app-shell > .rail nav a:hover{background:var(--dash-surface);border-color:var(--dash-line);color:var(--dash-ivory)}
+.app-shell > .rail .deep-links{margin-top:20px;padding-top:16px;border-top:1px solid var(--dash-line-soft)}
+.app-shell > .rail .deep-links a{min-height:34px;padding:7px 11px;color:#898883;font-size:.7rem;border-radius:8px}
+.app-shell > .rail .deep-links a:hover{color:var(--dash-sand);background:rgba(255,255,255,.025)}
+.app-shell > .rail .rail-foot{color:#8f938f;font-size:.68rem}
+.app-shell > .rail .rail-foot i{background:var(--dash-success);box-shadow:0 0 0 4px rgba(142,170,149,.08)}
+
+.app-shell > .rail + main#top{max-width:var(--dash-content);width:100%;margin:0 auto;padding:0 40px 64px;min-width:0;background:var(--dash-bg)}
+
+/* Typography */
+.app-shell > .rail + main#top .eyebrow{margin:0 0 10px;color:var(--dash-gold);font-size:.7rem;line-height:1.25;letter-spacing:.14em;font-weight:750}
+.app-shell > .rail + main#top :where(.hero h1,.section-head h2){font-family:Manrope,Inter,ui-sans-serif,sans-serif;color:var(--dash-ivory)}
+.app-shell > .rail + main#top .hero h1{max-width:12ch;margin:0;font-size:clamp(2.9rem,5.35vw,5.35rem);line-height:.94;letter-spacing:-.06em;font-weight:720;text-wrap:balance}
+.app-shell > .rail + main#top .hero h1 em{color:var(--dash-gold);font-style:normal}
+.app-shell > .rail + main#top .section-head h2{margin:5px 0 0;font-size:clamp(1.9rem,3vw,2.9rem);line-height:1.02;letter-spacing:-.047em;font-weight:690;text-wrap:balance}
+.app-shell > .rail + main#top h3{font-size:1rem;line-height:1.3}
+.app-shell > .rail + main#top :where(p,li){font-size:.875rem;line-height:1.62}
+.app-shell > .rail + main#top :where(small,.tag){font-size:.7rem;line-height:1.45}
+
+/* Hero = one dominant decision */
+.app-shell > .rail + main#top .hero{min-height:560px;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.55fr);gap:clamp(36px,6vw,92px);align-items:center;padding:64px 0 52px;border-bottom:1px solid var(--dash-line)}
+.app-shell > .rail + main#top .hero-copy>p:not(.eyebrow){max-width:65ch;margin:22px 0 0;color:#a8a6a1;font-size:.94rem;line-height:1.72}
+.app-shell > .rail + main#top .actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:28px}
+.app-shell > .rail + main#top .btn{min-height:42px;display:inline-flex;align-items:center;padding:0 15px;border:1px solid var(--dash-line);border-radius:9px;background:transparent;color:var(--dash-sand);font-size:.73rem;font-weight:700;text-decoration:none;transition:background .18s ease,border-color .18s ease,color .18s ease,transform .18s ease}
+.app-shell > .rail + main#top .btn:hover{transform:translateY(-1px);background:var(--dash-surface);border-color:#44484d;color:var(--dash-ivory)}
+.app-shell > .rail + main#top .btn.primary{background:var(--dash-gold);border-color:var(--dash-gold);color:#111214}
+.app-shell > .rail + main#top .btn.primary:hover{background:#d2b579;border-color:#d2b579;color:#0b0c0d}
+
+.app-shell > .rail + main#top .now-card{min-height:260px;padding:24px;border:1px solid var(--dash-line);border-top-color:rgba(200,169,107,.6);border-radius:var(--dash-radius-lg);background:var(--dash-surface);box-shadow:var(--dash-shadow);display:flex;flex-direction:column;justify-content:space-between}
+.app-shell > .rail + main#top .now-card::before{content:"DECISÃO / ÚLTIMO SINAL";display:block;margin-bottom:22px;color:var(--dash-gold);font-size:.64rem;letter-spacing:.13em;font-weight:800}
+.app-shell > .rail + main#top .now-card .card-top{font-size:.7rem;color:var(--dash-muted)}
+.app-shell > .rail + main#top .now-card>strong{font-family:Manrope,Inter,sans-serif;font-size:clamp(2.25rem,4vw,3.75rem);line-height:1;letter-spacing:-.055em;color:var(--dash-ivory)}
+.app-shell > .rail + main#top .now-card p{margin:10px 0 18px;color:#aaa8a3;font-size:.78rem}
+.app-shell > .rail + main#top .status-line{padding-top:14px;border-top:1px solid var(--dash-line-soft);font-size:.68rem;color:var(--dash-sand)}
+
+/* Executive strip: remove card noise */
+.app-shell > .rail + main#top .decision-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin:0;border-bottom:1px solid var(--dash-line);background:transparent}
+.app-shell > .rail + main#top .decision-strip article{min-height:118px;padding:22px 18px;border-right:1px solid var(--dash-line);background:transparent;border-radius:0}
+.app-shell > .rail + main#top .decision-strip article:first-child{padding-left:0}
+.app-shell > .rail + main#top .decision-strip article:last-child{border-right:0}
+.app-shell > .rail + main#top .decision-strip span{font-size:.68rem;line-height:1.3;color:var(--dash-muted);text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+.app-shell > .rail + main#top .decision-strip strong{display:block;margin:12px 0 6px;font-size:clamp(1.15rem,1.6vw,1.55rem);line-height:1.12;letter-spacing:-.03em;color:var(--dash-ivory);white-space:normal}
+.app-shell > .rail + main#top .decision-strip article:nth-child(4) strong,.app-shell > .rail + main#top .decision-strip article:nth-child(5) strong{color:var(--dash-gold)}
+.app-shell > .rail + main#top .decision-strip small{color:#7f7f7b}
+
+/* Section rhythm */
+.app-shell > .rail + main#top .section-block{padding:72px 0;border-bottom:1px solid var(--dash-line);scroll-margin-top:28px}
+.app-shell > .rail + main#top .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:26px}
+.app-shell > .rail + main#top .section-head>a{flex:0 0 auto;color:#aaa8a2;font-size:.72rem;text-decoration:none}
+.app-shell > .rail + main#top .section-head>a:hover{color:var(--dash-gold)}
+.app-shell > .rail + main#top .section-head>span{font-size:.72rem;color:var(--dash-muted)}
+
+/* Surfaces */
+.app-shell > .rail + main#top :where(.best-window,.rank-panel,.live-primary,.live-pressure,.live-intel,.finance-grid article,.closing-grid article,.review-grid article,.policy,.pipeline article,.vehicle-grid article,.health-grid article){border-color:var(--dash-line);background:var(--dash-surface);box-shadow:none}
+.app-shell > .rail + main#top :where(.best-window,.live-primary){border-top-color:rgba(200,169,107,.62)}
+.app-shell > .rail + main#top :where(.best-window,.rank-panel,.live-primary,.live-pressure,.live-intel,.policy){border-radius:var(--dash-radius-md)}
+
+/* Prediction */
+.app-shell > .rail + main#top .prediction-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(330px,.8fr);gap:14px;align-items:stretch}
+.app-shell > .rail + main#top .best-window{padding:26px}
+.app-shell > .rail + main#top .best-window>span{color:var(--dash-muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em}
+.app-shell > .rail + main#top .best-window>strong{display:block;margin-top:28px;font-family:Manrope,Inter,sans-serif;font-size:clamp(2rem,3vw,3rem);letter-spacing:-.05em}
+.app-shell > .rail + main#top .best-window>b{display:block;color:var(--dash-gold);font-size:clamp(1.75rem,3vw,2.75rem);line-height:1.05}
+.app-shell > .rail + main#top .best-window p{max-width:64ch;color:#9d9b96;font-size:.79rem}
+.app-shell > .rail + main#top .score{height:5px;margin:24px 0 8px;background:#25282b;border-radius:999px;overflow:hidden}
+.app-shell > .rail + main#top .score i{display:block;height:100%;background:var(--dash-gold)}
+.app-shell > .rail + main#top .rank-panel{padding:22px}
+.app-shell > .rail + main#top .rank-panel h3{margin:0 0 8px;font-family:Manrope,Inter,sans-serif}
+.app-shell > .rail + main#top .rank-row{min-height:54px;padding:10px 0;border-bottom:1px solid var(--dash-line-soft);display:grid;grid-template-columns:34px 1fr 40px;gap:10px;align-items:center}
+.app-shell > .rail + main#top .rank-row:last-child{border-bottom:0}
+.app-shell > .rail + main#top .rank-row>b{color:var(--dash-gold);font-size:.68rem}
+.app-shell > .rail + main#top .rank-row span strong{font-size:.78rem;font-weight:650}
+.app-shell > .rail + main#top .rank-row span small{display:block;color:#777a7c;font-size:.66rem}
+.app-shell > .rail + main#top .rank-row em{font-style:normal;text-align:right;font-size:.86rem;color:var(--dash-sand)}
+
+.app-shell > .rail + main#top .four-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:10px}
+.app-shell > .rail + main#top .compact-cards article{padding:16px;border:1px solid var(--dash-line-soft);border-radius:var(--dash-radius-sm);background:transparent}
+.app-shell > .rail + main#top .compact-cards article>span{font-size:.67rem;text-transform:uppercase;letter-spacing:.09em;color:var(--dash-muted)}
+.app-shell > .rail + main#top .compact-cards p{display:flex;justify-content:space-between;gap:8px;margin:12px 0 0;padding-top:10px;border-top:1px solid var(--dash-line-soft);font-size:.72rem}
+.app-shell > .rail + main#top .compact-cards p b{font-weight:600;color:#c8c5bf}.app-shell > .rail + main#top .compact-cards p em{font-style:normal;color:var(--dash-gold);white-space:nowrap}
+
+/* Live context */
+.app-shell > .rail + main#top .live-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(220px,.55fr) minmax(270px,.7fr);gap:12px;align-items:stretch}
+.app-shell > .rail + main#top .live-grid>article{padding:22px;min-height:220px}
+.app-shell > .rail + main#top .live-title{display:flex;justify-content:space-between;gap:16px;color:var(--dash-muted);font-size:.68rem}
+.app-shell > .rail + main#top .live-primary>strong{display:block;margin-top:30px;font-size:clamp(2.4rem,4vw,4rem);letter-spacing:-.05em}
+.app-shell > .rail + main#top .live-primary>p,.app-shell > .rail + main#top .live-pressure p,.app-shell > .rail + main#top .live-intel li{color:#92918c;font-size:.76rem}
+.app-shell > .rail + main#top .live-regions{margin-top:24px;padding-top:14px;border-top:1px solid var(--dash-line-soft)}
+.app-shell > .rail + main#top .live-pressure>span,.app-shell > .rail + main#top .live-intel>span{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--dash-muted)}
+.app-shell > .rail + main#top .live-pressure>strong{display:block;margin:30px 0 6px;font-family:Manrope,Inter,sans-serif;font-size:2rem;color:var(--dash-gold)}
+.app-shell > .rail + main#top .live-intel ul{margin:22px 0 0;padding-left:18px}
+
+/* Financial: overview first, archive second */
+.app-shell > .rail + main#top .finance-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;border:1px solid var(--dash-line);border-radius:var(--dash-radius-md);overflow:hidden;background:var(--dash-line)}
+.app-shell > .rail + main#top .finance-grid article{min-height:108px;padding:18px;border:0;border-right:1px solid var(--dash-line);border-radius:0}
+.app-shell > .rail + main#top .finance-grid article:last-child{border-right:0}
+.app-shell > .rail + main#top .finance-grid span,.app-shell > .rail + main#top .vehicle-grid span,.app-shell > .rail + main#top .health-grid span{display:block;color:var(--dash-muted);font-size:.66rem;text-transform:uppercase;letter-spacing:.09em}
+.app-shell > .rail + main#top .finance-grid strong{display:block;margin-top:14px;font-size:1.2rem;letter-spacing:-.025em}
+.app-shell > .rail + main#top .closing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.app-shell > .rail + main#top .closing-grid article{min-height:128px;padding:16px;border-radius:var(--dash-radius-sm)}
+.app-shell > .rail + main#top .closing-grid article>b{font-size:1.1rem}.app-shell > .rail + main#top .closing-grid article small{color:#82817d}.app-shell > .rail + main#top .closing-grid article em{color:var(--dash-success);font-style:normal;font-size:.7rem}
+
+/* Daily review: date anchors, quieter text */
+.app-shell > .rail + main#top .review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.app-shell > .rail + main#top .review-grid article{padding:20px;border-radius:var(--dash-radius-md);display:grid;grid-template-columns:68px 1fr;gap:18px}
+.app-shell > .rail + main#top .review-date{border-right:1px solid var(--dash-line);padding-right:16px}
+.app-shell > .rail + main#top .review-date strong{display:block;font-family:Manrope,Inter,sans-serif;font-size:2rem;line-height:1;color:var(--dash-gold)}
+.app-shell > .rail + main#top .review-date span{color:var(--dash-muted);font-size:.68rem}
+.app-shell > .rail + main#top .review-grid h3{margin:8px 0;font-size:.85rem;line-height:1.4}
+.app-shell > .rail + main#top .review-grid p{margin:0;color:#979590;font-size:.75rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.app-shell > .rail + main#top .review-grid small{display:block;margin-top:10px;color:#777a7c}
+.app-shell > .rail + main#top .tag{color:var(--dash-sand);background:transparent;border:0;padding:0;text-transform:uppercase;letter-spacing:.1em}
+.app-shell > .rail + main#top .context-row{margin-top:12px;border-color:var(--dash-line);background:transparent}
+
+/* Particular / vehicle / data */
+.app-shell > .rail + main#top .private-grid{display:grid;grid-template-columns:minmax(280px,.65fr) minmax(0,1.35fr);gap:12px}
+.app-shell > .rail + main#top .policy{padding:22px}.app-shell > .rail + main#top .policy>strong{display:block;margin:22px 0;font-family:Manrope,Inter,sans-serif;font-size:2.6rem;letter-spacing:-.05em;color:var(--dash-ivory)}
+.app-shell > .rail + main#top .policy>strong small{font-size:.75rem;color:var(--dash-muted)}
+.app-shell > .rail + main#top .policy p{font-size:.73rem;border-color:var(--dash-line-soft)}
+.app-shell > .rail + main#top .pipeline{display:grid;gap:10px}.app-shell > .rail + main#top .pipeline article{padding:18px;border-radius:var(--dash-radius-md)}
+.app-shell > .rail + main#top .vehicle-grid,.app-shell > .rail + main#top .health-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.app-shell > .rail + main#top .vehicle-grid article,.app-shell > .rail + main#top .health-grid article{min-height:112px;padding:18px;border-radius:var(--dash-radius-sm)}
+.app-shell > .rail + main#top .vehicle-grid strong,.app-shell > .rail + main#top .health-grid strong{display:block;margin-top:14px;font-size:1.08rem;line-height:1.25}
+.app-shell > .rail + main#top .health-grid .ok strong{color:var(--dash-success)}.app-shell > .rail + main#top .health-grid .warn strong{color:var(--dash-gold)}
+
+.app-shell > .rail + main#top footer{padding:28px 0 8px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;color:#777a7c;font-size:.68rem}
+.app-shell > .rail + main#top footer strong{font-family:Manrope,Inter,sans-serif;color:var(--dash-sand);letter-spacing:.1em}
+
+/* Focus and motion */
+.app-shell:has(> .rail) :where(a,button):focus-visible{outline:2px solid var(--dash-gold);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){.app-shell:has(> .rail) *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+/* Tablet */
+@media(max-width:1180px){
+  .app-shell:has(> .rail){grid-template-columns:86px minmax(0,1fr)}
+  .app-shell > .rail{padding-inline:10px}.app-shell > .rail .brand div,.app-shell > .rail .deep-links,.app-shell > .rail .rail-foot span{display:none}.app-shell > .rail .brand{justify-content:center;padding-inline:0}.app-shell > .rail nav a{justify-content:center;padding-inline:5px;font-size:0}.app-shell > .rail nav a::first-letter{font-size:.75rem}
+  .app-shell > .rail + main#top{padding-inline:28px}
+  .app-shell > .rail + main#top .hero{grid-template-columns:1fr minmax(280px,.52fr);gap:34px}
+  .app-shell > .rail + main#top .decision-strip{grid-template-columns:repeat(3,1fr)}.app-shell > .rail + main#top .decision-strip article{border-bottom:1px solid var(--dash-line)}
+  .app-shell > .rail + main#top .four-grid{grid-template-columns:repeat(2,1fr)}
+  .app-shell > .rail + main#top .finance-grid{grid-template-columns:repeat(3,1fr)}.app-shell > .rail + main#top .finance-grid article{border-bottom:1px solid var(--dash-line)}
+}
+
+/* Mobile: decision first, progressive detail */
+@media(max-width:780px){
+  .app-shell:has(> .rail){display:block}
+  .app-shell > .rail{position:sticky;top:0;z-index:50;width:100%;height:auto;display:flex;flex-direction:row;align-items:center;padding:8px 12px;border-right:0;border-bottom:1px solid var(--dash-line);overflow-x:auto;background:rgba(11,12,13,.97);backdrop-filter:blur(14px)}
+  .app-shell > .rail .brand{flex:0 0 auto;min-height:auto;margin:0 8px 0 0;padding:0 12px 0 0;border-bottom:0;border-right:1px solid var(--dash-line)}.app-shell > .rail .brand>span{width:32px;height:32px;font-size:.62rem}.app-shell > .rail .brand div{display:none}
+  .app-shell > .rail nav{display:flex;gap:3px;margin:0}.app-shell > .rail nav a{min-height:34px;white-space:nowrap;font-size:.7rem!important;padding:0 10px;justify-content:center}.app-shell > .rail nav a::first-letter{font-size:inherit}.app-shell > .rail .deep-links,.app-shell > .rail .rail-foot{display:none}
+  .app-shell > .rail + main#top{padding:0 16px 48px}
+  .app-shell > .rail + main#top .hero{min-height:0;display:grid;grid-template-columns:1fr;gap:28px;padding:42px 0 34px}
+  .app-shell > .rail + main#top .hero h1{font-size:clamp(2.15rem,10.3vw,3.25rem);line-height:.96;max-width:13ch}
+  .app-shell > .rail + main#top .hero-copy>p:not(.eyebrow){font-size:.875rem;line-height:1.62;margin-top:17px}
+  .app-shell > .rail + main#top .actions{margin-top:22px}.app-shell > .rail + main#top .btn{min-height:40px;font-size:.7rem}
+  .app-shell > .rail + main#top .now-card{min-height:210px;padding:20px}.app-shell > .rail + main#top .now-card::before{margin-bottom:12px}.app-shell > .rail + main#top .now-card>strong{font-size:2.45rem}
+  .app-shell > .rail + main#top .decision-strip{grid-template-columns:1fr 1fr}.app-shell > .rail + main#top .decision-strip article{min-height:104px;padding:16px 14px}.app-shell > .rail + main#top .decision-strip article:first-child{padding-left:14px}.app-shell > .rail + main#top .decision-strip article:nth-child(odd){border-left:1px solid var(--dash-line)}.app-shell > .rail + main#top .decision-strip strong{font-size:1.05rem}.app-shell > .rail + main#top .decision-strip span{font-size:.64rem}
+  .app-shell > .rail + main#top .section-block{padding:52px 0}.app-shell > .rail + main#top .section-head{display:grid;gap:10px;margin-bottom:20px}.app-shell > .rail + main#top .section-head h2{font-size:clamp(1.7rem,8vw,2.15rem)}
+  .app-shell > .rail + main#top .prediction-grid,.app-shell > .rail + main#top .live-grid,.app-shell > .rail + main#top .private-grid{grid-template-columns:1fr}.app-shell > .rail + main#top .best-window,.app-shell > .rail + main#top .rank-panel,.app-shell > .rail + main#top .live-grid>article{min-height:auto;padding:18px}
+  .app-shell > .rail + main#top .best-window>strong{margin-top:20px;font-size:2rem}.app-shell > .rail + main#top .best-window>b{font-size:1.8rem}
+  .app-shell > .rail + main#top .four-grid{grid-template-columns:1fr 1fr;gap:8px}.app-shell > .rail + main#top .compact-cards article{padding:14px}.app-shell > .rail + main#top .compact-cards p{font-size:.68rem}
+  .app-shell > .rail + main#top .finance-grid{grid-template-columns:1fr 1fr}.app-shell > .rail + main#top .finance-grid article{min-height:96px;padding:15px}.app-shell > .rail + main#top .closing-grid{grid-template-columns:1fr 1fr}
+  .app-shell > .rail + main#top .review-grid{grid-template-columns:1fr}.app-shell > .rail + main#top .review-grid article{grid-template-columns:56px 1fr;padding:16px;gap:14px}.app-shell > .rail + main#top .review-date strong{font-size:1.65rem}.app-shell > .rail + main#top .review-grid p{font-size:.75rem;-webkit-line-clamp:4}
+  .app-shell > .rail + main#top .vehicle-grid,.app-shell > .rail + main#top .health-grid{grid-template-columns:1fr 1fr}.app-shell > .rail + main#top footer{grid-template-columns:1fr;gap:5px}
+}
+
+@media(max-width:430px){
+  .app-shell > .rail + main#top{padding-inline:14px}
+  .app-shell > .rail + main#top .decision-strip,.app-shell > .rail + main#top .four-grid,.app-shell > .rail + main#top .finance-grid,.app-shell > .rail + main#top .closing-grid,.app-shell > .rail + main#top .vehicle-grid,.app-shell > .rail + main#top .health-grid{grid-template-columns:1fr}
+  .app-shell > .rail + main#top .decision-strip article{border-left:0!important;border-right:0}
+  .app-shell > .rail + main#top .finance-grid article{border-right:0}
+}
