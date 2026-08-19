@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { predictiveSummary, weekdayScores, hourScores, regionScores, routeScores } from '../data/predictive-engine-v3';
+import { currentClosings } from '../data/current-ops';
+import { evidenceDays, dataHealth } from '../data/dashboard-refresh';
+const latest=currentClosings.at(-1);
+const context={
+  bestWindow:predictiveSummary.bestWindow,
+  bestRegion:predictiveSummary.bestRegion,
+  bestRoute:predictiveSummary.bestRoute,
+  weekdayScores:weekdayScores.slice(0,5),
+  hourScores:hourScores.slice(0,5),
+  regionScores:regionScores.slice(0,5),
+  routeScores:routeScores.slice(0,5),
+  latestClosing:latest,
+  latestEvidence:evidenceDays.at(-1),
+  dataHealth
+};
+---
+<BaseLayout title="MotoristaOPS · Copiloto">
+<main class="copilot-shell">
+  <header><div><p class="eyebrow">Copiloto operacional</p><h1>Pergunte ao seu próprio histórico.</h1><p>Esta primeira versão responde localmente usando os dados já consolidados do MotoristaOPS. Nenhuma chave de IA fica exposta no navegador.</p></div><span class="mode">local · seguro</span></header>
+  <section class="chat-layout">
+    <aside><strong>Perguntas rápidas</strong><button data-question="Qual é o melhor dia para trabalhar?">Melhor dia</button><button data-question="Qual é a melhor região?">Melhor região</button><button data-question="Qual é a melhor faixa de horário?">Melhor horário</button><button data-question="Qual é a melhor rota?">Melhor rota</button><button data-question="Como foi meu último fechamento?">Último fechamento</button><button data-question="Tem algum dado pendente?">Pendências</button></aside>
+    <section class="chat-panel"><div id="copilot-messages" class="messages"><article class="assistant"><span>Motorista Ops</span><p>Posso consultar seu histórico consolidado, rankings, última operação e qualidade dos dados. Para trânsito ao vivo, use a aba Trânsito.</p></article></div><form id="copilot-form"><input id="copilot-input" autocomplete="off" placeholder="Ex.: qual região está rendendo melhor?" aria-label="Pergunta para o Copiloto"><button>Enviar</button></form><p class="note">IA generativa completa será conectada depois por backend autenticado. Esta versão não inventa respostas fora dos dados locais.</p></section>
+  </section>
+</main>
+<script is:inline define:vars={{context}}>
+const root=document.querySelector('#copilot-messages'),input=document.querySelector('#copilot-input'),form=document.querySelector('#copilot-form');
+const brl=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(n||0));
+const add=(role,text)=>{const el=document.createElement('article');el.className=role;el.innerHTML=`<span>${role==='assistant'?'Motorista Ops':'Você'}</span><p></p>`;el.querySelector('p').textContent=text;root.appendChild(el);root.scrollTop=root.scrollHeight;};
+function answer(q){const s=q.toLowerCase();if(s.includes('melhor dia')){const x=context.weekdayScores?.[0];return x?`${x.label} lidera a amostra atual, com ${brl(x.profitPerHour)}/h de lucro e score ${x.score}/100.`:'Ainda não há amostra suficiente.';}if(s.includes('região')){const x=context.bestRegion;return x?`${x.key} é a melhor região na amostra atual, score ${x.score}/100, confiança ${x.confidence}.`:'Ainda não há região com amostra suficiente.';}if(s.includes('horário')||s.includes('faixa')){const x=context.bestWindow;return x?`A melhor combinação atual é ${x.weekday} · ${x.hourBand}, score ${x.score}/100. ${x.rationale}`:'Ainda não há faixa suficiente.';}if(s.includes('rota')){const x=context.bestRoute;return x?`${x.key} é a rota melhor posicionada na amostra, score ${x.score}/100.`:'Ainda não há rota recorrente suficiente.';}if(s.includes('último')||s.includes('fechamento')){const x=context.latestClosing;return x?`Último fechamento completo: ${x.dateBR}, receita ${brl(x.grossRevenue)}, lucro operacional ${brl(x.operationalProfit)}, ${x.tripsTotal} corridas, ${Number(x.hoursOnline).toFixed(1)} h e ${Number(x.kmTotal).toFixed(1)} km.`:'Não encontrei fechamento completo.';}if(s.includes('pend')||s.includes('lacuna')||s.includes('falt')){const dates=context.dataHealth?.missingClosingDates||[];return dates.length?`Há ${dates.length} lacuna(s) de fechamento: ${dates.map(x=>x.split('-').reverse().join('/')).join(', ')}. A evidência mais recente é ${context.dataHealth.latestEvidenceDate}.`:'Não há lacunas registradas no recorte atual.';}return 'Consigo responder agora sobre melhor dia, horário, região, rota, último fechamento e pendências. A camada generativa completa será ligada por backend seguro para perguntas abertas.';}
+form.addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(!q)return;add('user',q);input.value='';setTimeout(()=>add('assistant',answer(q)),120);});
+document.querySelectorAll('[data-question]').forEach(btn=>btn.addEventListener('click',()=>{input.value=btn.dataset.question;form.requestSubmit();}));
+</script>
+<style>
+.copilot-shell{max-width:1260px;margin:auto;padding:26px 30px 72px}.copilot-shell header{display:flex;justify-content:space-between;gap:20px;align-items:end;padding:20px 0 24px;border-bottom:1px solid #2B2E32}.copilot-shell h1{font:700 clamp(1.8rem,3vw,2.7rem)/1 Manrope,sans-serif;margin:5px 0}.copilot-shell header p{max-width:72ch;margin:8px 0 0;color:#999ea4;font-size:.88rem;line-height:1.55}.eyebrow{margin:0;color:#C8A96B;font:700 11px Inter,sans-serif;text-transform:uppercase;letter-spacing:.12em}.mode{font:700 10px Inter,sans-serif;text-transform:uppercase;letter-spacing:.1em;color:#8EAA95;border:1px solid #39483d;padding:7px 9px;border-radius:999px}.chat-layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:14px;margin-top:18px}.chat-layout aside,.chat-panel{border:1px solid #2B2E32;background:#181A1D;border-radius:12px}.chat-layout aside{padding:14px;display:grid;align-content:start;gap:7px}.chat-layout aside strong{font-size:12px;margin-bottom:5px}.chat-layout aside button{border:1px solid #30343a;background:#101214;color:#c2c5c8;text-align:left;border-radius:8px;padding:10px;font:600 12px Inter,sans-serif}.chat-layout aside button:hover{border-color:#C8A96B;color:#F2EFE9}.chat-panel{min-height:520px;display:grid;grid-template-rows:minmax(0,1fr) auto auto;padding:14px}.messages{overflow:auto;display:grid;align-content:start;gap:12px;padding:8px}.messages article{max-width:78%;padding:12px 13px;border-radius:10px;background:#101214;border:1px solid #2B2E32}.messages article.user{margin-left:auto;background:#202329}.messages span{font:700 10px Inter,sans-serif;color:#C8A96B;text-transform:uppercase;letter-spacing:.08em}.messages p{margin:6px 0 0;font:500 14px/1.55 Inter,sans-serif;color:#e0e1e2}.chat-panel form{display:grid;grid-template-columns:1fr auto;gap:8px;border-top:1px solid #2B2E32;padding-top:12px}.chat-panel input{border:1px solid #34383d;background:#0f1113;color:#F2EFE9;border-radius:8px;padding:11px 12px;font-size:14px}.chat-panel button{border:1px solid #C8A96B;background:#C8A96B;color:#0B0C0D;border-radius:8px;padding:0 16px;font-weight:800}.note{margin:9px 0 0;color:#777d83;font-size:11px}@media(max-width:760px){.copilot-shell{padding:18px 15px 56px}.chat-layout{grid-template-columns:1fr}.chat-layout aside{display:flex;overflow-x:auto}.chat-layout aside strong{display:none}.chat-layout aside button{white-space:nowrap}.chat-panel{min-height:480px}.messages article{max-width:92%}}
+</style>
+</BaseLayout>
