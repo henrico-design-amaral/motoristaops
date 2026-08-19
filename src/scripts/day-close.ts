@@ -1,0 +1,25 @@
+import { supabase } from '../lib/supabase';
+
+const $=<T extends HTMLElement>(id:string)=>document.getElementById(id) as T|null;
+const form=$<HTMLFormElement>('day-close-form');
+const login=$<HTMLElement>('close-login');
+const loginForm=$<HTMLFormElement>('close-login-form');
+const authState=$<HTMLElement>('close-auth-state');
+const message=$<HTMLElement>('close-message');
+const brl=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
+let userId='';
+const num=(name:string)=>Number((form?.elements.namedItem(name) as HTMLInputElement|null)?.value||0)||0;
+const text=(id:string,value:string)=>{const node=$(id);if(node)node.textContent=value;};
+function notify(value:string,kind:'ok'|'error'='ok'){if(!message)return;message.hidden=false;message.dataset.kind=kind;message.textContent=value;}
+function preview(){if(!form)return;const gross=num('revenue_uber')+num('revenue_99')+num('revenue_private')+num('tips_extras');const cost=num('fuel_cost')+num('food_cost')+num('wash_cost')+num('other_operational_cost');const profit=gross-cost;const hours=num('hours_online');const km=num('km_total');const trips=num('trips_uber')+num('trips_99')+num('trips_private');text('close-gross',brl.format(gross));text('close-cost',brl.format(cost));text('close-profit',brl.format(profit));text('close-rph',hours?`${brl.format(gross/hours)}/h`:'—');text('close-pph',hours?`${brl.format(profit/hours)}/h`:'—');text('close-rpk',km?`${brl.format(gross/km)}/km`:'—');text('close-trips',String(trips));}
+function setToday(){if(!form)return;const field=form.elements.namedItem('operation_date') as HTMLInputElement|null;if(field&&!field.value)field.value=new Date().toISOString().slice(0,10);}
+function loadDraft(){const raw=sessionStorage.getItem('motoristaops:closing-draft');if(!raw||!form)return;try{const draft=JSON.parse(raw);Object.entries(draft).forEach(([key,val])=>{const field=form.elements.namedItem(key) as HTMLInputElement|HTMLTextAreaElement|null;if(field&&val!==null&&val!==undefined)field.value=String(val);});const note=$('draft-note');if(note)note.hidden=false;sessionStorage.removeItem('motoristaops:closing-draft');}catch{sessionStorage.removeItem('motoristaops:closing-draft');}}
+function payload(){if(!form)return null;const data=new FormData(form);return {owner_id:userId,operation_date:String(data.get('operation_date')),shift:String(data.get('shift')||''),primary_platform:String(data.get('primary_platform')||''),hours_online:num('hours_online'),hours_in_ride:num('hours_in_ride')||null,km_total:num('km_total'),km_passenger:num('km_passenger')||null,trips_uber:Math.trunc(num('trips_uber')),trips_99:Math.trunc(num('trips_99')),trips_private:Math.trunc(num('trips_private')),revenue_uber:num('revenue_uber'),revenue_99:num('revenue_99'),revenue_private:num('revenue_private'),tips_extras:num('tips_extras'),fuel_cost:num('fuel_cost'),food_cost:num('food_cost'),wash_cost:num('wash_cost'),other_operational_cost:num('other_operational_cost'),fuel_efficiency_km_l:num('fuel_efficiency_km_l')||null,fuel_price_reference:num('fuel_price_reference')||null,notes:String(data.get('notes')||''),source:'dashboard_day_close'};}
+function validate(p:any){const issues:string[]=[];if(!p.operation_date)issues.push('data');if(!(p.hours_online>0))issues.push('horas online');if(!(p.km_total>0))issues.push('km total');const gross=p.revenue_uber+p.revenue_99+p.revenue_private+p.tips_extras;if(!(gross>0))issues.push('receita');const trips=p.trips_uber+p.trips_99+p.trips_private;if(!(trips>0))issues.push('corridas');return issues;}
+async function auth(){const {data:{session}}=await supabase.auth.getSession();userId=session?.user.id||'';if(form)form.hidden=!userId;if(login)login.hidden=Boolean(userId);if(authState)authState.textContent=userId?'sessão autenticada':'acesso necessário';if(userId){setToday();loadDraft();preview();}}
+form?.addEventListener('input',preview);
+form?.addEventListener('reset',()=>setTimeout(()=>{setToday();preview();},0));
+form?.addEventListener('submit',async event=>{event.preventDefault();if(!userId){notify('Entre na sua conta antes de salvar.','error');return;}const p=payload();if(!p)return;const issues=validate(p);if(issues.length){notify(`Complete antes de salvar: ${issues.join(', ')}.`,'error');return;}const button=$<HTMLButtonElement>('save-day-close');if(button){button.disabled=true;button.textContent='Salvando…';}const {error}=await supabase.from('daily_closings').upsert(p,{onConflict:'owner_id,operation_date'});if(error)notify(error.message,'error');else{notify('Fechamento salvo e conciliado com sucesso.','ok');}if(button){button.disabled=false;button.textContent='Salvar fechamento completo';}});
+loginForm?.addEventListener('submit',async event=>{event.preventDefault();const email=String(new FormData(loginForm).get('email')||'');const {error}=await supabase.auth.signInWithOtp({email,options:{emailRedirectTo:window.location.href}});notify(error?error.message:'Link de acesso enviado para o seu e-mail.',error?'error':'ok');});
+supabase.auth.onAuthStateChange(()=>void auth());
+void auth();
