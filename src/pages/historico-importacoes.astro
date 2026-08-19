@@ -1,20 +1,79 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="MotoristaOps · Histórico de importações">
+<BaseLayout title="MotoristaOps · Importações e conciliação">
   <main class="history-shell">
     <header class="history-header">
-      <div><p class="eyebrow">MotoristaOps · Auditoria local</p><h1>Histórico de importações</h1><p>Registro das importações realizadas neste navegador. Limpar este histórico não altera os fechamentos já salvos.</p></div>
-      <div class="header-actions"><a class="button" href="/">Voltar ao painel</a><a class="button button--gold" href="/importar-uber">Importar vídeo Uber</a></div>
+      <div>
+        <p class="eyebrow">MotoristaOps · Importação e auditoria</p>
+        <h1>Importações e conciliação</h1>
+        <p>Use a planilha MotoristaOps para recuperar fechamentos completos. O arquivo passa primeiro por uma prévia; somente linhas com horas e evidência de custos ficam elegíveis, e nada é gravado antes da sua confirmação.</p>
+      </div>
+      <div class="header-actions"><a class="button" href="/">Voltar ao painel</a><a class="button" href="/importar-uber">Importar vídeo Uber</a></div>
     </header>
+
+    <section class="panel spreadsheet-import-panel" aria-labelledby="spreadsheet-title">
+      <div class="panel-head">
+        <div><span>Planilha MotoristaOps</span><h2 id="spreadsheet-title">Prévia antes de gravar</h2></div>
+        <span id="spreadsheet-auth-status" class="import-auth-status">Verificando sessão…</span>
+      </div>
+
+      <div id="spreadsheet-login" class="spreadsheet-login" hidden>
+        <p>Entre com o mesmo e-mail usado no MotoristaOps para revisar e confirmar a importação.</p>
+        <form id="spreadsheet-login-form" class="spreadsheet-login-form">
+          <label>E-mail <input name="email" type="email" autocomplete="email" required /></label>
+          <button class="button" type="submit">Enviar link de acesso</button>
+        </form>
+      </div>
+
+      <div id="spreadsheet-workspace" hidden>
+        <div class="spreadsheet-actions">
+          <label class="spreadsheet-file" for="spreadsheet-file">
+            <strong>Selecionar XLSX/XLS</strong>
+            <span>O arquivo não é persistido no Storage.</span>
+            <input id="spreadsheet-file" type="file" accept=".xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" hidden />
+          </label>
+          <div class="spreadsheet-action-buttons">
+            <button id="spreadsheet-preview" class="button" type="button" disabled>Gerar prévia</button>
+            <button id="spreadsheet-commit" class="button button--gold" type="button" disabled>Confirmar importação</button>
+          </div>
+        </div>
+        <p id="spreadsheet-file-name" class="muted">Nenhum arquivo selecionado.</p>
+        <div id="spreadsheet-result" class="spreadsheet-result" hidden aria-live="polite"></div>
+
+        <div id="spreadsheet-preview-panel" hidden>
+          <div class="review-summary-grid">
+            <article><span>Elegíveis</span><strong id="spreadsheet-eligible">0</strong><small>podem ser conciliados</small></article>
+            <article><span>Ignorados</span><strong id="spreadsheet-ignored">0</strong><small>continuam fora do fechamento</small></article>
+            <article><span>Linhas lidas</span><strong id="spreadsheet-read">0</strong><small>aba operacional</small></article>
+          </div>
+
+          <div class="table-panel">
+            <table>
+              <thead><tr><th>Data</th><th>Plataforma</th><th>Horas</th><th>KM</th><th>Corridas</th><th>Receita</th></tr></thead>
+              <tbody id="spreadsheet-preview-rows"></tbody>
+            </table>
+          </div>
+
+          <details class="ignored-details">
+            <summary>Ver linhas ignoradas</summary>
+            <div class="table-panel"><table><thead><tr><th>Data</th><th>Motivo</th></tr></thead><tbody id="spreadsheet-ignored-rows"></tbody></table></div>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <section class="panel import-history-panel">
-      <div class="panel-head"><div><span>Processamentos</span><h2>Últimas importações</h2></div><button id="clear-import-history" class="button" type="button">Limpar histórico</button></div>
+      <div class="panel-head"><div><span>Processamentos</span><h2>Histórico local</h2></div><button id="clear-import-history" class="button" type="button">Limpar histórico</button></div>
       <p id="import-history-summary" class="muted"></p>
       <div class="table-panel"><table><thead><tr><th>Quando</th><th>Origem</th><th>Arquivo</th><th>Status</th><th>Importados</th><th>Ignorados</th><th>Erros</th><th>Detalhe</th></tr></thead><tbody id="import-history-rows"></tbody></table></div>
     </section>
   </main>
-  <script>import '../scripts/import-history-view.ts';</script>
+  <script>
+    import '../scripts/spreadsheet-import.ts';
+    import '../scripts/import-history-view.ts';
+  </script>
 </BaseLayout>
 <style>
-  .history-shell{width:min(1200px,calc(100% - 32px));margin:0 auto;padding:32px 0 56px}.history-header{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:20px}.history-header h1{margin:0;font-size:clamp(2.2rem,6vw,4.8rem);line-height:.92;letter-spacing:-.06em}.history-header p{max-width:720px;color:var(--muted);line-height:1.6}.import-history-panel{margin-top:12px}.import-status{display:inline-flex;padding:5px 9px;border-radius:999px;font-size:.72rem;font-weight:800}.import-status--success{background:#173d27;color:#8ee7ac}.import-status--partial{background:#493b17;color:#ffd96c}.import-status--error{background:#4b2020;color:#ffaaaa}@media(max-width:760px){.history-header{display:block}.header-actions{margin-top:18px}}
+  .history-shell{width:min(1200px,calc(100% - 32px));margin:0 auto;padding:32px 0 56px}.history-header{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:20px}.history-header h1{margin:0;font-size:clamp(2.2rem,6vw,4.8rem);line-height:.92;letter-spacing:-.06em}.history-header p{max-width:760px;color:var(--muted);line-height:1.6}.header-actions{display:flex;gap:10px;flex-wrap:wrap}.spreadsheet-import-panel,.import-history-panel{margin-top:12px}.spreadsheet-actions{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.spreadsheet-file{display:grid;gap:4px;min-width:min(100%,360px);padding:18px 20px;border:1px dashed #454a50;border-radius:14px;cursor:pointer}.spreadsheet-file strong{color:#f2efe9}.spreadsheet-file span,.spreadsheet-login p{color:var(--muted);font-size:.88rem}.spreadsheet-action-buttons{display:flex;gap:10px;flex-wrap:wrap}.spreadsheet-login{padding:16px;border:1px solid #34383d;border-radius:14px}.spreadsheet-login-form{display:flex;gap:10px;align-items:end;flex-wrap:wrap}.spreadsheet-login-form label{display:grid;gap:6px;min-width:min(100%,320px)}.spreadsheet-login-form input{min-height:42px;padding:0 12px;border:1px solid #34383d;border-radius:9px;background:#121416;color:#f2efe9}.import-auth-status{font-size:.78rem;color:var(--muted)}.review-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:18px 0}.review-summary-grid article{padding:16px;border:1px solid #2e3236;border-radius:12px;background:#111315}.review-summary-grid span,.review-summary-grid small{display:block;color:var(--muted);font-size:.75rem}.review-summary-grid strong{display:block;margin:5px 0;font-size:1.8rem}.ignored-details{margin-top:14px}.ignored-details summary{cursor:pointer;color:#c8a96b}.spreadsheet-result{margin-top:14px;padding:12px 14px;border-radius:10px;background:#172019;color:#a7e8b9}.spreadsheet-result[data-kind='error']{background:#351b1b;color:#ffb0b0}.import-status{display:inline-flex;padding:5px 9px;border-radius:999px;font-size:.72rem;font-weight:800}.import-status--success{background:#173d27;color:#8ee7ac}.import-status--partial{background:#493b17;color:#ffd96c}.import-status--error{background:#4b2020;color:#ffaaaa}@media(max-width:760px){.history-header{display:block}.header-actions{margin-top:18px}.review-summary-grid{grid-template-columns:1fr}.spreadsheet-action-buttons{width:100%}.spreadsheet-action-buttons .button{flex:1}}
 </style>
