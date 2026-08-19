@@ -1,27 +1,89 @@
 {
   "schemaVersion": 2,
-  "collectedAt": null,
+  "collectedAt": "2026-08-19T01:36:59.689Z",
   "expectedRefreshMinutes": 5,
-  "status": "pending",
+  "status": "live",
   "traffic": {
-    "status": "pending",
-    "zones": [],
-    "derived": { "totalSlowKm": null, "worstZone": null, "pressure": "indisponível" }
+    "status": "live",
+    "source": {
+      "id": "cet-home",
+      "label": "CET-SP · Trânsito Agora",
+      "url": "https://www.cetsp.com.br/",
+      "kind": "official"
+    },
+    "zones": [
+      {
+        "name": "Norte",
+        "slowKm": 6,
+        "sharePct": 17
+      },
+      {
+        "name": "Oeste",
+        "slowKm": 5,
+        "sharePct": 15
+      },
+      {
+        "name": "Centro",
+        "slowKm": 6,
+        "sharePct": 17
+      },
+      {
+        "name": "Leste",
+        "slowKm": 9,
+        "sharePct": 27
+      },
+      {
+        "name": "Sul",
+        "slowKm": 12,
+        "sharePct": 36
+      }
+    ],
+    "busCorridorSpeed": {
+      "centroBairroKmh": 23,
+      "bairroCentroKmh": 26
+    },
+    "derived": {
+      "totalSlowKm": 38,
+      "worstZone": "Sul",
+      "pressure": "baixo"
+    },
+    "error": null
   },
   "weather": {
-    "status": "pending",
-    "temperatureC": null,
-    "humidityPct": null,
-    "precipitationMm": null,
-    "raining": null
+    "status": "live",
+    "source": {
+      "id": "open-meteo",
+      "label": "Open-Meteo · São Paulo",
+      "url": "https://open-meteo.com/",
+      "kind": "weather-api"
+    },
+    "observedAt": "2026-08-18T22:30",
+    "temperatureC": 23.1,
+    "humidityPct": 54,
+    "precipitationMm": 0,
+    "rainMm": 0,
+    "weatherCode": 0,
+    "windKmh": 1,
+    "raining": false,
+    "error": null
   },
   "airport": {
-    "status": "pending",
-    "operationalSignal": null
+    "status": "source-live",
+    "source": {
+      "id": "aena-cgh",
+      "label": "Aena Brasil · Congonhas",
+      "url": "https://www.aenabrasil.com.br/pt/aeroportos/aeroporto-de-congonhas/informacoes-de-voos.html",
+      "kind": "official"
+    },
+    "operationalSignal": null,
+    "note": "A fonte pública está monitorada, mas chegadas/partidas ainda não são convertidas em sinal quantitativo sem parser reproduzível.",
+    "httpStatus": 200,
+    "error": null
   },
   "governance": {
     "trafficCanAdjustLivePriority": true,
     "weatherCanAdjustLivePriority": false,
-    "airportCanAdjustLivePriority": false
+    "airportCanAdjustLivePriority": false,
+    "note": "Somente trânsito regional CET pode ajustar prioridade operacional nesta versão, com impacto limitado. Clima e aeroporto ficam visíveis até existir calibração histórica."
   }
 }
