@@ -41,15 +41,27 @@ jobs:
       - name: Build Astro
         env:
           SITE_URL: https://motoristaops.henrico.works
+          BASE_PATH: /
         run: npm run build
 
       - name: Verify build output
         run: |
           test -d dist
           test -f dist/index.html
+          test -f dist/motorista/index.html
+          test -f dist/transito/index.html
+          test -f dist/previsao/index.html
+          test -f dist/inteligencia/index.html
+          test -f dist/contexto/index.html
+          test -f dist/fechamento/index.html
+          test -f dist/importar-uber/index.html
+          test -f dist/copiloto/index.html
+          test -f dist/fontes-contexto/index.html
           test -f dist/data/motoristaops.json
           grep -q "MotoristaOps" dist/index.html
-          grep -q "Painel financeiro e estratégico" dist/index.html
+          grep -q "Plano operacional" dist/index.html
+          grep -q "Fechamento do dia" dist/fechamento/index.html
+          grep -q "Copiloto operacional" dist/copiloto/index.html
 
       - name: Ensure Hostinger secrets are configured
         env:
@@ -87,8 +99,10 @@ jobs:
       - name: Production smoke test
         run: |
           for attempt in 1 2 3 4 5 6; do
-            body="$(curl --fail --silent --show-error --location --max-time 20 https://motoristaops.henrico.works/ || true)"
-            if printf '%s' "$body" | grep -q "MotoristaOps" && printf '%s' "$body" | grep -q "Painel financeiro e estratégico"; then
+            home="$(curl --fail --silent --show-error --location --max-time 20 https://motoristaops.henrico.works/ || true)"
+            traffic="$(curl --fail --silent --show-error --location --max-time 20 https://motoristaops.henrico.works/transito/ || true)"
+            close="$(curl --fail --silent --show-error --location --max-time 20 https://motoristaops.henrico.works/fechamento/ || true)"
+            if printf '%s' "$home" | grep -q "Plano operacional" && printf '%s' "$traffic" | grep -q "contexto vivo" && printf '%s' "$close" | grep -q "Fechamento do dia"; then
               echo "Production smoke test passed on attempt $attempt."
               exit 0
             fi
