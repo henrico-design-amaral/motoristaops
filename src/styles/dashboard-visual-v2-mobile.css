@@ -1,9 +1,11 @@
-/* Loop 2 — mobile refinement for Dashboard Visual System v2 */
+/* Loop 2/3 — mobile refinement for Dashboard Visual System v2 */
 @media(max-width:780px){
-  .app-shell > .rail{overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
-  .app-shell > .rail::-webkit-scrollbar{display:none}
-  .app-shell > .rail nav{flex:0 0 auto;flex-wrap:nowrap;width:max-content}
-  .app-shell > .rail nav a{flex:0 0 auto}
+  /* Brand stays fixed; only the section list scrolls horizontally. */
+  .app-shell > .rail{overflow:hidden;scrollbar-width:none}
+  .app-shell > .rail .brand{position:relative;z-index:2;background:rgba(11,12,13,.97)}
+  .app-shell > .rail nav{flex:1 1 auto;min-width:0;width:auto;overflow-x:auto;overflow-y:hidden;display:flex;flex-wrap:nowrap;scrollbar-width:none;overscroll-behavior-inline:contain;scroll-snap-type:x proximity}
+  .app-shell > .rail nav::-webkit-scrollbar{display:none}
+  .app-shell > .rail nav a{flex:0 0 auto;scroll-snap-align:start}
 }
 
 @media(max-width:430px){
