@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "collectedAt": "2026-08-19T23:44:11.276Z",
+  "collectedAt": "2026-08-20T00:00:52.703Z",
   "expectedRefreshMinutes": 5,
   "status": "live",
   "traffic": {
@@ -31,13 +31,13 @@
       "url": "https://open-meteo.com/",
       "kind": "weather-api"
     },
-    "observedAt": "2026-08-19T20:30",
-    "temperatureC": 24,
-    "humidityPct": 42,
+    "observedAt": "2026-08-19T21:00",
+    "temperatureC": 23.5,
+    "humidityPct": 44,
     "precipitationMm": 0,
     "rainMm": 0,
     "weatherCode": 2,
-    "windKmh": 4.8,
+    "windKmh": 5.2,
     "raining": false,
     "error": null
   },
