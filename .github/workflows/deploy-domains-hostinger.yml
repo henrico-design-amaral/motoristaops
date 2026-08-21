@@ -1,0 +1,126 @@
+name: Deploy MotoristaOps canonical domains to Hostinger
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: motoristaops-canonical-domain-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy public + dashboard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Validate data snapshot
+        run: npm run validate:data
+
+      - name: Static analysis
+        run: npm run check
+
+      - name: Security gate
+        run: npm run security
+
+      - name: Build canonical domain artifacts
+        env:
+          SITE_URL: https://dashboard.motoristaops.com.br
+          BASE_PATH: /
+        run: npm run build:domains
+
+      - name: Verify artifacts before deploy
+        run: |
+          test -f dist-public/index.html
+          test -d dist-public/_astro
+          test ! -e dist-public/transito
+          test -f dist-dashboard/index.html
+          test -f dist-dashboard/transito/index.html
+          test -f dist-dashboard/fechamento/index.html
+          test -f dist-dashboard/data/motoristaops.json
+          test ! -e dist-dashboard/motorista
+          grep -q "Motorista particular" dist-public/index.html
+          grep -q "Plano operacional" dist-dashboard/index.html
+
+      - name: Ensure Hostinger secrets are configured
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+          HOSTINGER_DASHBOARD_TARGET_DIR: ${{ secrets.HOSTINGER_DASHBOARD_TARGET_DIR }}
+        run: |
+          test -n "$HOSTINGER_HOST"
+          test -n "$HOSTINGER_USERNAME"
+          test -n "$HOSTINGER_PASSWORD"
+          test -n "$HOSTINGER_PORT"
+          test -n "$HOSTINGER_PUBLIC_TARGET_DIR"
+          test -n "$HOSTINGER_DASHBOARD_TARGET_DIR"
+          test "$HOSTINGER_PUBLIC_TARGET_DIR" != "$HOSTINGER_DASHBOARD_TARGET_DIR"
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Deploy Landing Page
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+        run: |
+          lftp -u "$HOSTINGER_USERNAME","$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" sftp://"$HOSTINGER_HOST" <<EOF
+          set sftp:auto-confirm yes
+          set net:max-retries 2
+          set net:timeout 20
+          mirror --reverse --delete --verbose ./dist-public "$HOSTINGER_PUBLIC_TARGET_DIR"
+          bye
+          EOF
+
+      - name: Deploy Dashboard
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_DASHBOARD_TARGET_DIR: ${{ secrets.HOSTINGER_DASHBOARD_TARGET_DIR }}
+        run: |
+          lftp -u "$HOSTINGER_USERNAME","$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" sftp://"$HOSTINGER_HOST" <<EOF
+          set sftp:auto-confirm yes
+          set net:max-retries 2
+          set net:timeout 20
+          mirror --reverse --delete --verbose ./dist-dashboard "$HOSTINGER_DASHBOARD_TARGET_DIR"
+          bye
+          EOF
+
+      - name: Canonical production smoke test
+        run: |
+          for attempt in 1 2 3 4 5 6; do
+            public_home="$(curl --fail --silent --show-error --location --max-time 20 https://www.motoristaops.com.br/ || true)"
+            dashboard_home="$(curl --fail --silent --show-error --location --max-time 20 https://dashboard.motoristaops.com.br/ || true)"
+            dashboard_close="$(curl --fail --silent --show-error --location --max-time 20 https://dashboard.motoristaops.com.br/fechamento/ || true)"
+            if printf '%s' "$public_home" | grep -q "Motorista particular" \
+              && printf '%s' "$dashboard_home" | grep -q "Plano operacional" \
+              && printf '%s' "$dashboard_close" | grep -q "Fechamento do dia"; then
+              echo "Canonical domain smoke test passed on attempt $attempt."
+              exit 0
+            fi
+            echo "Canonical domains not ready on attempt $attempt."
+            sleep 10
+          done
+          echo "Canonical domain smoke test failed."
+          exit 1
