@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "collectedAt": "2026-08-21T18:18:14.073Z",
+  "collectedAt": "2026-08-21T19:02:21.757Z",
   "expectedRefreshMinutes": 5,
   "status": "live",
   "traffic": {
@@ -39,7 +39,7 @@
       }
     ],
     "busCorridorSpeed": {
-      "centroBairroKmh": 20,
+      "centroBairroKmh": 19,
       "bairroCentroKmh": 20
     },
     "derived": {
@@ -57,13 +57,13 @@
       "url": "https://open-meteo.com/",
       "kind": "weather-api"
     },
-    "observedAt": "2026-08-21T15:15",
-    "temperatureC": 25.2,
-    "humidityPct": 34,
+    "observedAt": "2026-08-21T16:00",
+    "temperatureC": 24.5,
+    "humidityPct": 38,
     "precipitationMm": 0,
     "rainMm": 0,
     "weatherCode": 1,
-    "windKmh": 15.7,
+    "windKmh": 14.9,
     "raining": false,
     "error": null
   },
