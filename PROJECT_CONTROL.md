@@ -11,10 +11,19 @@ O MotoristaOps deve permitir que Henrico seja encontrado, compreendido e contrat
 - Código: repositório `henrico-design-amaral/motoristaops`
 - Produção: branch `main`
 - Governança versionada atual: `PROJECT_CONTROL.md`, `AGENTS.md`, `HANDOFF.md`
+- Plano de migração de domínio: `docs/domain-migration.md`
 - Documentos citados pela governança, mas atualmente ausentes da árvore versionada: `TASKS.md`, `DECISIONS.md`, `DESIGN.md` e `docs/orchestrator/LOOP_EXECUTION.md`
 - GitHub é a fonte de verdade do código; Drive pode ser entrada/espelho operacional para mídias e documentos.
 
 ## Arquitetura oficial do MotoristaOps
+
+### Domínios canônicos
+
+- Landing Page pública: `https://www.motoristaops.com.br/`
+- Domínio raiz: `https://motoristaops.com.br/` com redirecionamento permanente para `https://www.motoristaops.com.br/`
+- Dashboard operacional: `https://dashboard.motoristaops.com.br/`
+- GitHub Pages permanece apenas como origem legada/fallback durante a migração e não é o endereço canônico final.
+- Endereços anteriores em `henrico.works` deixam de ser destinos canônicos do MotoristaOps.
 
 ### 1. Landing Page — Motorista
 
@@ -44,7 +53,8 @@ Direção de produto e visual:
 - mobile é uma experiência de primeira classe;
 - WhatsApp deve permanecer fixo ou persistentemente acessível, como ação principal;
 - Google/avaliações e redes sociais devem ganhar destaque suficiente para gerar prova social e conexão, sem competir com o CTA principal;
-- publicação inicial pode ocorrer via GitHub Pages; o endereço desejado do ecossistema é `motorista.henrico.works` quando a infraestrutura estiver consolidada.
+- o endereço público definitivo é `www.motoristaops.com.br`;
+- a Landing Page não deve depender de rotas internas do Dashboard nem permanecer subordinada a `/motorista/` na arquitetura final.
 
 ### 2. Dashboard — MotoristaOps
 
@@ -80,7 +90,9 @@ Regras de dados:
 - processamento de vídeo/OCR permanece local salvo decisão explícita posterior;
 - nenhum dado importado é persistido sem revisão humana;
 - deduplicação, datas, valores e origem precisam ser rastreáveis;
-- o dashboard não deve ser subordinado à Landing Page: é uma frente de primeira classe com ciclo próprio de evolução.
+- o dashboard não deve ser subordinado à Landing Page: é uma frente de primeira classe com ciclo próprio de evolução;
+- o endereço operacional definitivo é `dashboard.motoristaops.com.br`;
+- a migração do Dashboard deve preservar todas as rotas e funcionalidades operacionais antes do corte de DNS.
 
 ### 3. Social Media — Motorista
 
@@ -110,29 +122,46 @@ Social Media não é uma frente isolada de postagem. Ela existe para ampliar con
 - As três frentes compartilham identidade e estratégia, mas não compartilham necessariamente a mesma interface ou densidade de informação.
 - Mudanças em uma frente não devem provocar regressões nas outras.
 
+## Estratégia de migração de domínio
+
+A migração para `motoristaops.com.br` deve seguir uma sequência reversível:
+
+1. registrar a arquitetura canônica e o plano de migração;
+2. separar os artefatos de build/deploy da Landing Page e do Dashboard;
+3. publicar e validar os dois destinos na infraestrutura de hospedagem sem alterar DNS público;
+4. validar links, assets, rotas, HTTPS, mobile, smoke tests e ausência de regressões;
+5. apontar `www.motoristaops.com.br` para a Landing Page e `dashboard.motoristaops.com.br` para o Dashboard;
+6. configurar `motoristaops.com.br` para redirecionamento permanente a `www.motoristaops.com.br`;
+7. manter GitHub Pages como fallback durante a janela de estabilização;
+8. somente após estabilidade comprovada, configurar redirecionamentos das URLs legadas.
+
+DNS não deve ser alterado antes da validação dos dois destinos de produção.
+
 ## Prioridade atual
 
-Trabalhar Landing Page e Dashboard em paralelo, com ênfase temporariamente maior na Landing Page até que ela esteja publicada, visualmente validada e com fluxo de conversão claro. Social Media deve continuar sendo estruturada em apoio direto à LP.
+Executar a migração de arquitetura e domínio sem degradar Landing Page ou Dashboard. O trabalho visual e funcional continua separado da mudança de infraestrutura.
 
 ### Landing Page — próximo foco
 
-1. estabilizar publicação pelo GitHub Pages;
-2. validar arquitetura de URL/base path e links internos;
-3. revisar integralmente a narrativa e hierarquia visual;
+1. preparar build independente para `www.motoristaops.com.br`;
+2. eliminar dependência canônica da rota `/motorista/`;
+3. validar arquitetura de URL e links internos;
 4. validar desktop e mobile;
 5. manter WhatsApp persistente;
-6. preparar áreas de redes sociais e avaliação no Google sem inventar links que ainda não estejam oficialmente cadastrados;
-7. consolidar pontos de contato e opção de salvar contato;
-8. preparar evolução para `motorista.henrico.works` sem acoplar a LP ao dashboard.
+6. consolidar pontos de contato, redes sociais e avaliações;
+7. publicar no destino novo antes do corte de DNS;
+8. validar conversão e estabilidade após o cutover.
 
 ### Dashboard — próximo foco
 
-1. manter funcionando enquanto a LP evolui;
-2. continuar histórico/importação Uber;
-3. melhorar parser e clareza de confiança/duplicatas;
-4. integrar anexos ao fechamento diário;
-5. continuar sincronização com a planilha MotoristaOps;
-6. preservar e evoluir leitura financeira e estratégica.
+1. preparar build independente para `dashboard.motoristaops.com.br`;
+2. preservar todas as rotas operacionais existentes;
+3. manter funcionando enquanto a Landing Page é migrada;
+4. continuar histórico/importação Uber;
+5. melhorar parser e clareza de confiança/duplicatas;
+6. integrar anexos ao fechamento diário;
+7. continuar sincronização com a planilha MotoristaOps;
+8. preservar e evoluir leitura financeira e estratégica.
 
 ### Social Media — próximo foco
 
@@ -140,7 +169,7 @@ Trabalhar Landing Page e Dashboard em paralelo, com ênfase temporariamente maio
 2. organizar pilares de conteúdo alinhados ao serviço real;
 3. manter identidade visual e verbal coerente com a Landing Page e materiais do carro;
 4. reforçar Google/avaliações e redes sociais como elementos de confiança;
-5. usar a LP e o WhatsApp como destinos de conversão.
+5. usar `www.motoristaops.com.br` e o WhatsApp como destinos de conversão após o cutover.
 
 ## Regras centrais
 
@@ -154,6 +183,8 @@ Trabalhar Landing Page e Dashboard em paralelo, com ênfase temporariamente maio
 - Nenhuma frente pode ser degradada para acelerar outra.
 - Não reaproveitar código experimental ou legado apenas por conveniência.
 - Se uma parte estiver ruim, corrigir ou refazer somente aquela parte com precisão, sem reescrever o restante do projeto.
+- Não realizar cutover de DNS no mesmo PR que introduz a separação inicial de build/deploy.
+- Toda migração de infraestrutura deve manter caminho explícito de rollback.
 
 ## Critério de qualidade
 
