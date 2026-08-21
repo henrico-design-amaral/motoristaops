@@ -8,6 +8,7 @@
     "dev": "astro dev",
     "check": "astro check",
     "build": "astro build",
+    "build:domains": "npm run build && node scripts/split-domain-builds.mjs",
     "preview": "astro preview",
     "sync:data": "node scripts/sync-data.mjs",
     "validate:data": "node scripts/validate-data.mjs",
