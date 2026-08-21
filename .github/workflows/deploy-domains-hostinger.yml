@@ -46,6 +46,7 @@ jobs:
         run: |
           test -f dist-public/index.html
           test -d dist-public/_astro
+          test -f dist-public/.htaccess
           test ! -e dist-public/transito
           test -f dist-dashboard/index.html
           test -f dist-dashboard/transito/index.html
@@ -53,6 +54,8 @@ jobs:
           test -f dist-dashboard/data/motoristaops.json
           test ! -e dist-dashboard/motorista
           grep -q "Motorista particular" dist-public/index.html
+          grep -q "motoristaops\\.com\\.br" dist-public/.htaccess
+          grep -q "https://www.motoristaops.com.br" dist-public/.htaccess
           grep -q "Plano operacional" dist-dashboard/index.html
 
       - name: Ensure Hostinger secrets are configured
@@ -113,9 +116,12 @@ jobs:
             public_home="$(curl --fail --silent --show-error --location --max-time 20 https://www.motoristaops.com.br/ || true)"
             dashboard_home="$(curl --fail --silent --show-error --location --max-time 20 https://dashboard.motoristaops.com.br/ || true)"
             dashboard_close="$(curl --fail --silent --show-error --location --max-time 20 https://dashboard.motoristaops.com.br/fechamento/ || true)"
+            apex_headers="$(curl --silent --show-error --head --max-time 20 https://motoristaops.com.br/ || true)"
             if printf '%s' "$public_home" | grep -q "Motorista particular" \
               && printf '%s' "$dashboard_home" | grep -q "Plano operacional" \
-              && printf '%s' "$dashboard_close" | grep -q "Fechamento do dia"; then
+              && printf '%s' "$dashboard_close" | grep -q "Fechamento do dia" \
+              && printf '%s' "$apex_headers" | grep -Eq '^HTTP/[^ ]+ 301' \
+              && printf '%s' "$apex_headers" | grep -Eqi '^location: https://www\.motoristaops\.com\.br/'; then
               echo "Canonical domain smoke test passed on attempt $attempt."
               exit 0
             fi

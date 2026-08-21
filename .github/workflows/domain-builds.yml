@@ -44,11 +44,14 @@ jobs:
         run: |
           test -f dist-public/index.html
           test -d dist-public/_astro
+          test -f dist-public/.htaccess
           test ! -e dist-public/transito
           test ! -e dist-public/fechamento
           test ! -e dist-public/motorista
           grep -q "Levando pessoas, cuidando de histórias" dist-public/index.html
           grep -q "Motorista particular" dist-public/index.html
+          grep -q "motoristaops\\.com\\.br" dist-public/.htaccess
+          grep -q "https://www.motoristaops.com.br" dist-public/.htaccess
 
       - name: Verify dashboard artifact
         run: |
