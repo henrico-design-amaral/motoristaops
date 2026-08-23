@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "collectedAt": "2026-08-23T11:37:59.255Z",
+  "collectedAt": "2026-08-23T11:56:10.229Z",
   "expectedRefreshMinutes": 5,
   "status": "live",
   "traffic": {
@@ -24,7 +24,7 @@
       },
       {
         "name": "Centro",
-        "slowKm": 25,
+        "slowKm": 24,
         "sharePct": 11
       },
       {
@@ -40,10 +40,10 @@
     ],
     "busCorridorSpeed": {
       "centroBairroKmh": 27,
-      "bairroCentroKmh": 25
+      "bairroCentroKmh": 24
     },
     "derived": {
-      "totalSlowKm": 52,
+      "totalSlowKm": 51,
       "worstZone": "Centro",
       "pressure": "baixo"
     },
@@ -57,13 +57,13 @@
       "url": "https://open-meteo.com/",
       "kind": "weather-api"
     },
-    "observedAt": "2026-08-23T08:30",
-    "temperatureC": 14,
-    "humidityPct": 79,
+    "observedAt": "2026-08-23T08:45",
+    "temperatureC": 14.4,
+    "humidityPct": 76,
     "precipitationMm": 0,
     "rainMm": 0,
     "weatherCode": 2,
-    "windKmh": 5.6,
+    "windKmh": 5.3,
     "raining": false,
     "error": null
   },
