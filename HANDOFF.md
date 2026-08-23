@@ -2,31 +2,39 @@
 
 ## Estado atual
 
-A `main` contém o MVP do importador de gravação da Uber, com upload de vídeo, OCR local, deduplicação visual básica, revisão humana e persistência em `daily_closings`.
+A `main` contém a arquitetura canônica de publicação por domínios próprios:
+
+- `www.motoristaops.com.br` publica somente a Landing Page pública;
+- `dashboard.motoristaops.com.br` publica o dashboard operacional;
+- o build canônico é gerado por `npm run build:domains`;
+- o deploy autorizado é `.github/workflows/deploy-domains-hostinger.yml`.
+
+Os workflows legados de GitHub Pages e de publicação integral em Hostinger foram aposentados em 23/08/2026 por risco de exposição do build operacional completo.
 
 ## Branch ativa
 
-`chore/add-agent-loop-governance`
+`main`
 
-## Objetivo da branch
+## Autoridade de publicação
 
-Instalar a camada mínima de governança do MotoristaOps sem alterar comportamento funcional.
+Somente `.github/workflows/deploy-domains-hostinger.yml` deve publicar produção. Novos caminhos de deploy precisam preservar explicitamente a separação entre artefato público (`dist-public`) e operacional (`dist-dashboard`).
+
+## Privacidade e dados
+
+O dataset operacional ainda existe no repositório e é consumido pelo dashboard. Não publicar esse dataset no artefato público da Landing Page. A próxima correção estrutural de privacidade deve mover os dados operacionais para uma fonte privada/autenticada antes de removê-los do repositório público, evitando quebra do dashboard.
 
 ## Próximo ciclo técnico
 
-1. Criar histórico de importações.
-2. Melhorar o parser de OCR para telas da Uber.
-3. Exibir confiança, erros e duplicatas de forma mais clara.
-4. Integrar anexos de imagens ao fechamento diário.
-5. Conectar a sincronização com a planilha MotoristaOps.
+1. Migrar o dataset operacional para armazenamento privado/autenticado.
+2. Remover `public/data/motoristaops.json` e demais duplicações públicas após a migração.
+3. Garantir autenticação/autorização no dashboard antes de considerar os dados privados.
+4. Manter `domain-builds.yml` como gate de separação de artefatos.
+5. Aplicar branch protection/ruleset e required checks em `main` assim que a configuração estiver disponível pela superfície administrativa.
 
-## Riscos conhecidos
+## PRs superseded
 
-- OCR pode falhar com baixa resolução, rolagem rápida ou mudanças na interface da Uber.
-- A importação atual depende de revisão manual antes de salvar.
-- Ainda não há testes automatizados específicos para o importador.
-- Ainda não há registro persistido de lotes de importação.
+- PR #18 (`feat/dashboard-strategic-intelligence`) foi fechada sem merge em 23/08/2026 porque sua base ficou anterior ao estado canônico atual. Qualquer conteúdo útil deve ser reconciliado a partir de `main`.
 
 ## Critério de retomada
 
-Ler `PROJECT_CONTROL.md`, `AGENTS.md`, `TASKS.md`, `DECISIONS.md`, `DESIGN.md` e `docs/orchestrator/LOOP_EXECUTION.md` antes de editar.
+Antes de editar publicação, dados ou infraestrutura, validar que nenhum artefato público contém rotas operacionais ou dados financeiros reais e executar os gates de qualidade existentes.
