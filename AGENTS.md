@@ -2,39 +2,46 @@
 
 ## Fonte de verdade
 
-A fonte de verdade é o repositório versionado. O chat não substitui `HANDOFF.md`, `TASKS.md`, `DECISIONS.md`, `DESIGN.md` nem os gates do Henrico Agent OS.
+A fonte de verdade é o repositório versionado + as autoridades atuais resolvidas pelo HenricoOPS. Chat, provider memory e auto-memory não substituem `PROJECT_CONTEXT.md`, `HANDOFF.md`, `TASKS.md`, `DECISIONS.md`, `DESIGN.md` nem os gates aplicáveis.
 
 ## Ordem obrigatória de leitura
 
 1. `PROJECT_CONTROL.md`
-2. `AGENTS.md`
-3. `HANDOFF.md`
-4. `TASKS.md`
-5. `DECISIONS.md`
-6. `DESIGN.md`
-7. `docs/orchestrator/LOOP_EXECUTION.md`
-8. `package.json`
+2. `PROJECT_CONTEXT.md`
+3. `AGENTS.md`
+4. `HANDOFF.md`
+5. `TASKS.md`
+6. `DECISIONS.md`
+7. `DESIGN.md`
+8. `docs/orchestrator/LOOP_EXECUTION.md`
+9. `package.json`
 
-## Agentes
+Claude/Claude Code também deve carregar `CLAUDE.md` como bootstrap próprio.
 
-- **Orchestrator**: carrega contexto, escolhe a próxima tarefa, mantém escopo e fecha o ciclo.
-- **Implementation Agent**: altera apenas arquivos autorizados pelo ciclo ativo.
-- **QA Agent**: executa `npm run quality`, revisa diff e valida o fluxo crítico.
-- **Security Gatekeeper**: impede secrets, dados pessoais e uploads de vídeos para serviços externos.
-- **Design Reviewer**: valida legibilidade, contraste, responsividade e coerência visual.
-- **Data Integrity Agent**: protege deduplicação, datas, valores, upserts e rastreabilidade da origem.
+## Responsabilidades
 
-## Modo de execução padrão
+- **Orchestrator**: resolve contexto, modalidade, estágio, escopo, capacidades e fechamento.
+- **Implementation**: altera apenas arquivos autorizados pelo ciclo ativo.
+- **QA**: executa validações aplicáveis, revisa diff e regressão.
+- **Security/Data**: protege secrets, integridade, origem e fronteiras de dados.
+- **Design Reviewer**: valida projeto visual atual, HVS como quality floor e fidelidade a artefatos aprovados.
 
-Trabalhar em loops incrementais até atender ao critério de saída. Não pedir autorização para cada passo já coberto pelo escopo e pelas permissões concedidas. Só interromper por bloqueio real, risco irreversível, credencial ausente ou decisão de produto não registrada.
+Responsabilidades não exigem agentes separados quando uma execução única consegue manter os gates.
 
-## Regras
+## Regras de execução
 
 - Nunca trabalhar diretamente na `main`.
-- Uma branch por objetivo.
-- Um PR por escopo.
+- Uma branch por objetivo; um PR por escopo.
 - Não misturar governança e implementação funcional no mesmo PR.
-- Não versionar vídeos, prints, dados brutos, `.env`, chaves, caches ou builds.
-- Processamento de vídeo e OCR deve permanecer local no navegador, salvo decisão explícita em `DECISIONS.md`.
+- Resolver output modality e stage antes de executar.
+- Não mudar modalidade silenciosamente.
+- Não avançar de exploração para implementação, ou de implementação para publicação, sem autorização aplicável.
+- Antes de trabalho visual, resolver `DESIGN.md` e a autoridade visual atual.
+- Se houver artefato visual aprovado como base, declarar fidelidade e preservar anchors protegidos.
+- HVS valida qualidade; não redefine a estética do projeto.
+- O dashboard não exige autenticação por padrão conforme `DECISIONS.md`.
+- Escrita padrão: `PROFESSIONAL` conforme HenricoOPS.
+- Não versionar vídeos, prints temporários, dados brutos, `.env`, chaves, caches ou builds.
+- Processamento de vídeo/OCR permanece local, salvo decisão explícita em `DECISIONS.md`.
 - Toda importação exige revisão humana antes da persistência.
-- Antes de informar conclusão, mostrar evidências: diff, testes, resultado funcional e estado Git/PR.
+- Antes de concluir, mostrar evidências proporcionais ao escopo: diff, validações, resultado funcional/visual e estado Git/PR.
