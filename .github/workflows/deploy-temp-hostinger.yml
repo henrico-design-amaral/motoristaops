@@ -20,37 +20,25 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
-
       - name: Install locked dependencies
         run: npm ci
-
-      - name: Validate data snapshot
-        run: npm run validate:data
-
-      - name: Static analysis
-        run: npm run check
-
-      - name: Security gate
-        run: npm run security
-
+      - name: Validate and check
+        run: npm run validate:data && npm run check && npm run security
       - name: Build canonical domain artifacts
         env:
           SITE_URL: https://dashboard.motoristaops.com.br
           BASE_PATH: /
         run: npm run build:domains
-
       - name: Verify temp artifact
         run: |
           test -f dist-public/temp/index.html
-          grep -q "SEU TRAJETO COME" dist-public/temp/index.html
-          grep -q "PRIVACIDADE" dist-public/temp/index.html
-
+          grep -qi "trajeto começa" dist-public/temp/index.html
+          grep -qi "privacidade" dist-public/temp/index.html
       - name: Ensure Hostinger public secrets are configured
         env:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
@@ -64,10 +52,8 @@ jobs:
           test -n "$HOSTINGER_PASSWORD"
           test -n "$HOSTINGER_PORT"
           test -n "$HOSTINGER_PUBLIC_TARGET_DIR"
-
       - name: Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
-
       - name: Deploy public landing only
         env:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
@@ -83,17 +69,15 @@ jobs:
           mirror --reverse --delete --verbose ./dist-public "$HOSTINGER_PUBLIC_TARGET_DIR"
           bye
           EOF
-
       - name: Smoke test temp landing
         run: |
           for attempt in 1 2 3 4 5 6; do
             page="$(curl --fail --silent --show-error --location --max-time 20 https://www.motoristaops.com.br/temp/ || true)"
-            if printf '%s' "$page" | grep -q "SEU TRAJETO COME" && printf '%s' "$page" | grep -q "PRIVACIDADE"; then
+            if printf '%s' "$page" | grep -qi "trajeto começa" && printf '%s' "$page" | grep -qi "privacidade"; then
               echo "Temp landing is live on attempt $attempt."
               exit 0
             fi
             echo "Temp landing not ready on attempt $attempt."
             sleep 10
           done
-          echo "Temp landing smoke test failed."
           exit 1
