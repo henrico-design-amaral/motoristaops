@@ -8,26 +8,33 @@ O MotoristaOps deve permitir que Henrico seja encontrado, compreendido e contrat
 
 ## Fonte de verdade
 
-- Código: repositório `henrico-design-amaral/motoristaops`
-- Produção: branch `main`
-- Governança versionada atual: `PROJECT_CONTROL.md`, `AGENTS.md`, `HANDOFF.md`
-- Plano de migração de domínio: `docs/domain-migration.md`
-- Documentos citados pela governança, mas atualmente ausentes da árvore versionada: `TASKS.md`, `DECISIONS.md`, `DESIGN.md` e `docs/orchestrator/LOOP_EXECUTION.md`
-- GitHub é a fonte de verdade do código; Drive pode ser entrada/espelho operacional para mídias e documentos.
+- Código: repositório `henrico-design-amaral/motoristaops`.
+- Produção: branch `main`.
+- Contrato de contexto: `PROJECT_CONTEXT.md`.
+- Bootstrap de executores: `AGENTS.md` e `CLAUDE.md`.
+- Continuidade: `HANDOFF.md`.
+- Trabalho ativo: `TASKS.md`.
+- Decisões duráveis: `DECISIONS.md`.
+- Autoridade/contrato visual: `DESIGN.md`.
+- Loop de execução: `docs/orchestrator/LOOP_EXECUTION.md`.
+- Plano de domínio: `docs/domain-migration.md`.
+- GitHub é a fonte de verdade do código e da governança versionada; Google Drive é autoridade complementar para materiais/referências/documentos deliberadamente mantidos fora do Git conforme o registry do HenricoOPS.
+
+Chat, provider memory e auto-memory não substituem essas autoridades.
 
 ## Arquitetura oficial do MotoristaOps
 
 ### Domínios canônicos
 
-- Landing Page pública: `https://www.motoristaops.com.br/`
-- Domínio raiz: `https://motoristaops.com.br/` com redirecionamento permanente para `https://www.motoristaops.com.br/`
-- Dashboard operacional: `https://dashboard.motoristaops.com.br/`
-- GitHub Pages permanece apenas como origem legada/fallback durante a migração e não é o endereço canônico final.
-- Endereços anteriores em `henrico.works` deixam de ser destinos canônicos do MotoristaOps.
+- Landing Page pública: `https://www.motoristaops.com.br/`.
+- Domínio raiz: `https://motoristaops.com.br/` com redirecionamento permanente para `https://www.motoristaops.com.br/`.
+- Dashboard operacional: `https://dashboard.motoristaops.com.br/`.
+- GitHub Pages não é autoridade de publicação e seu workflow full-build legado foi aposentado.
+- Endereços anteriores em `henrico.works` não são destinos canônicos do MotoristaOps.
 
 ### 1. Landing Page — Motorista
 
-Frente pública e comercial, com prioridade atual levemente superior às demais até que sua experiência, publicação e conversão estejam claramente validadas.
+Frente pública e comercial.
 
 Responsabilidades:
 
@@ -36,25 +43,22 @@ Responsabilidades:
 - concentrar links e pontos de contato relevantes;
 - converter interesse em contato direto, principalmente pelo WhatsApp;
 - apresentar serviços como corridas particulares, aeroportos, rodoviárias, reuniões, eventos, compromissos e viagens;
-- sustentar confiança por meio de comunicação clara, atendimento direto, discrição, cuidado, pontualidade e experiência real nas ruas;
-- funcionar como destino principal para QR Codes, cartão, Google, Instagram e demais pontos de descoberta;
-- permitir que a pessoa salve o contato, acesse as redes sociais e encontre com facilidade a avaliação no Google quando os links oficiais estiverem cadastrados;
+- sustentar confiança por comunicação clara, discrição, cuidado, pontualidade e experiência real;
+- funcionar como destino principal para QR Codes, cartão, Google, Instagram e descoberta pública;
 - manter linguagem visual minimalista, premium, autoral e de alto impacto, sem excesso de conteúdo ou estética promocional genérica;
-- preservar coerência com o ecossistema `henrico.works`, sem criar uma identidade paralela desconectada.
+- preservar coerência com o ecossistema sem assumir identidade ou layout de outro projeto.
 
-Direção de produto e visual:
+Direção:
 
 - minimalista, mas não neutra;
-- gerar impacto com hierarquia, tipografia, contraste, ritmo, espaço e narrativa, não com excesso de elementos;
-- tipografia limpa, sóbria, simples e de leitura imediata, na linha de Helvetica/Verdana/sans-serif funcional, evitando grafismos tipográficos desnecessários;
-- dourado deve ser elegante e mais opaco, nunca amarelo vivo ou metálico exagerado;
-- o preto deve seguir a identidade escura já definida, evitando preto puro quando possível;
-- cada bloco deve justificar sua presença e contribuir para confiança, conexão ou conversão;
-- mobile é uma experiência de primeira classe;
-- WhatsApp deve permanecer fixo ou persistentemente acessível, como ação principal;
-- Google/avaliações e redes sociais devem ganhar destaque suficiente para gerar prova social e conexão, sem competir com o CTA principal;
-- o endereço público definitivo é `www.motoristaops.com.br`;
-- a Landing Page não deve depender de rotas internas do Dashboard nem permanecer subordinada a `/motorista/` na arquitetura final.
+- impacto por hierarquia, tipografia, contraste, ritmo, espaço e narrativa;
+- mobile como experiência de primeira classe;
+- WhatsApp persistentemente acessível como ação principal;
+- prova social e redes sem competir com o CTA principal;
+- endereço definitivo `www.motoristaops.com.br`;
+- a Landing não depende de rotas internas do Dashboard.
+
+A escolha concreta de logo, tipografia, paleta, composição, imagens e assinatura visual deve ser resolvida por `DESIGN.md` e pelas autoridades atuais apontadas por ele. Direções históricas não vencem decisões visuais posteriores.
 
 ### 2. Dashboard — MotoristaOps
 
@@ -75,117 +79,88 @@ Responsabilidades:
 - integração/sincronização com a planilha MotoristaOps;
 - leitura estratégica da operação e evolução histórica.
 
-Escopo estratégico já definido para evolução do dashboard:
+Escopo estratégico:
 
 - dashboards executivo, financeiro, operacional, estratégico, tributário, manutenção e combustível;
 - metas, previsões, sazonalidade, comparação Uber x 99, horários, regiões/mapas e fluxo de caixa;
 - despesas, patrimônio, custo/km, lucro líquido, reservas e impostos;
 - OCR/IA assistiva e recomendações;
 - fechamentos diário, semanal, mensal e anual;
-- Excel bidirecional, PDFs Uber/99, prints, anexos, histórico, filtros, busca, múltiplos veículos, backup, auditoria e configurações.
+- Excel bidirecional, PDFs Uber/99, anexos, histórico, filtros, busca, múltiplos veículos, backup, auditoria e configurações.
 
-Regras de dados:
+Regras:
 
+- o dashboard **não exige autenticação/login por padrão**, conforme `DECISIONS.md`; ausência de login não é defeito;
 - nenhum vídeo da Uber deve ser enviado a terceiros pelo importador;
 - processamento de vídeo/OCR permanece local salvo decisão explícita posterior;
 - nenhum dado importado é persistido sem revisão humana;
 - deduplicação, datas, valores e origem precisam ser rastreáveis;
-- o dashboard não deve ser subordinado à Landing Page: é uma frente de primeira classe com ciclo próprio de evolução;
-- o endereço operacional definitivo é `dashboard.motoristaops.com.br`;
-- a migração do Dashboard deve preservar todas as rotas e funcionalidades operacionais antes do corte de DNS.
+- o Dashboard é uma frente de primeira classe e não é subordinado à Landing;
+- endereço definitivo `dashboard.motoristaops.com.br`;
+- mudanças de infraestrutura devem preservar rotas e funcionalidades operacionais.
 
 ### 3. Social Media — Motorista
 
-Frente de distribuição, presença e relacionamento que alimenta a descoberta da Landing Page e reforça o posicionamento do serviço. Crescimento nas redes sociais é objetivo explícito desta frente.
+Frente de distribuição, presença e relacionamento.
 
 Responsabilidades:
 
-- Instagram e demais canais sociais definidos para o serviço de motorista;
 - conteúdos de apresentação, bastidores, rotina, experiência, confiança e serviço;
-- comunicação de ocasiões de uso: aeroportos, reuniões, eventos, viagens e corridas particulares;
-- peças digitais coerentes com a identidade da Landing Page, cartão, placa e materiais do carro;
-- reaproveitamento responsável de conteúdo entre canais sem transformar a marca em feed genérico;
-- direcionamento de tráfego para a Landing Page e para o WhatsApp;
-- incentivo a avaliações no Google como prova social quando o link oficial estiver cadastrado;
-- consistência de tom, slogan, assinatura visual e proposta de valor;
-- crescimento de conexão e reconhecimento, não apenas volume de postagem.
+- comunicação das ocasiões de uso do serviço;
+- peças coerentes com a identidade pública aprovada;
+- reaproveitamento responsável sem transformar a marca em feed genérico;
+- tráfego para Landing/WhatsApp;
+- consistência verbal e visual;
+- crescimento de conexão e reconhecimento, não apenas volume.
 
-Princípio editorial:
-
-Social Media não é uma frente isolada de postagem. Ela existe para ampliar confiança, presença e descoberta, conduzindo o usuário para contato ou para a Landing Page. O conteúdo deve parecer extensão da experiência do motorista, não publicidade de varejo.
+Social Media amplia confiança e descoberta. Não é uma identidade independente nem uma extensão visual do Dashboard.
 
 ## Relação entre as frentes
 
-- Landing Page vende, apresenta e organiza o serviço público.
-- Social Media gera descoberta, recorrência, conexão e contexto para a marca pública.
-- Dashboard administra, mede e melhora a operação que sustenta a promessa pública.
-- As três frentes compartilham identidade e estratégia, mas não compartilham necessariamente a mesma interface ou densidade de informação.
+- Landing apresenta, organiza e converte.
+- Social gera descoberta, recorrência e conexão.
+- Dashboard administra, mede e melhora a operação.
+- As frentes compartilham estratégia e brand anchors, mas não precisam compartilhar interface ou densidade.
 - Mudanças em uma frente não devem provocar regressões nas outras.
 
-## Estratégia de migração de domínio
+## Contrato operacional de contexto
 
-A migração para `motoristaops.com.br` deve seguir uma sequência reversível:
+Antes de qualquer tarefa relevante:
 
-1. registrar a arquitetura canônica e o plano de migração;
-2. separar os artefatos de build/deploy da Landing Page e do Dashboard;
-3. publicar e validar os dois destinos na infraestrutura de hospedagem sem alterar DNS público;
-4. validar links, assets, rotas, HTTPS, mobile, smoke tests e ausência de regressões;
-5. apontar `www.motoristaops.com.br` para a Landing Page e `dashboard.motoristaops.com.br` para o Dashboard;
-6. configurar `motoristaops.com.br` para redirecionamento permanente a `www.motoristaops.com.br`;
-7. manter GitHub Pages como fallback durante a janela de estabilização;
-8. somente após estabilidade comprovada, configurar redirecionamentos das URLs legadas.
+1. resolver projeto/superfície e autoridade atual;
+2. resolver output modality;
+3. resolver estágio atual e próximo permitido;
+4. registrar escopo e non-goals;
+5. resolver `DESIGN.md` para trabalho visual;
+6. resolver decisão e baseline aprovada quando aplicável;
+7. executar apenas o estágio autorizado;
+8. validar antes de commit/PR/release;
+9. persistir decisão/handoff quando o estado durável mudar.
 
-DNS não deve ser alterado antes da validação dos dois destinos de produção.
+Exploração não implica implementação. Implementação não implica publicação. Aprovação de uma seção não autoriza redesign das demais.
 
-## Prioridade atual
+## Estratégia de domínio/publicação
 
-Executar a migração de arquitetura e domínio sem degradar Landing Page ou Dashboard. O trabalho visual e funcional continua separado da mudança de infraestrutura.
-
-### Landing Page — próximo foco
-
-1. preparar build independente para `www.motoristaops.com.br`;
-2. eliminar dependência canônica da rota `/motorista/`;
-3. validar arquitetura de URL e links internos;
-4. validar desktop e mobile;
-5. manter WhatsApp persistente;
-6. consolidar pontos de contato, redes sociais e avaliações;
-7. publicar no destino novo antes do corte de DNS;
-8. validar conversão e estabilidade após o cutover.
-
-### Dashboard — próximo foco
-
-1. preparar build independente para `dashboard.motoristaops.com.br`;
-2. preservar todas as rotas operacionais existentes;
-3. manter funcionando enquanto a Landing Page é migrada;
-4. continuar histórico/importação Uber;
-5. melhorar parser e clareza de confiança/duplicatas;
-6. integrar anexos ao fechamento diário;
-7. continuar sincronização com a planilha MotoristaOps;
-8. preservar e evoluir leitura financeira e estratégica.
-
-### Social Media — próximo foco
-
-1. consolidar os canais e links oficiais usados pela Landing Page;
-2. organizar pilares de conteúdo alinhados ao serviço real;
-3. manter identidade visual e verbal coerente com a Landing Page e materiais do carro;
-4. reforçar Google/avaliações e redes sociais como elementos de confiança;
-5. usar `www.motoristaops.com.br` e o WhatsApp como destinos de conversão após o cutover.
+- Landing e Dashboard usam builds/artefatos separados.
+- O workflow canônico de deploy por domínios é a autoridade de publicação.
+- Deploy é manual/controlado e deve executar validação de dados, análise estática, security gate, build e smoke test.
+- GitHub Pages full-build e o deploy Hostinger full-build legado não devem ser restaurados como atalhos.
+- Alterações de DNS/publicação precisam manter rollback e não devem ser misturadas com redesign ou feature não relacionada.
 
 ## Regras centrais
 
 - Nunca trabalhar diretamente na `main`.
-- Uma branch por objetivo.
-- Um PR por escopo.
+- Uma branch por objetivo e um PR por escopo.
 - Não misturar governança e implementação funcional no mesmo PR.
-- Mudanças seguem branch → validação → PR → merge.
-- Antes de implementar, revisar escopo, governança existente, referências e risco de regressão.
-- Antes de concluir layout, executar Visual QA Gate para container, grid, tipografia, espaçamento, hierarquia, responsividade, contraste, consistência e screenshots desktop/mobile.
+- Mudanças seguem branch -> validação -> PR -> merge.
+- Resolver contexto, modalidade e estágio antes de implementar.
+- Antes de visual, resolver autoridade visual; HVS é quality floor, não estética padrão.
+- Artefato visual aprovado usado como fonte exige fidelidade declarada e validação contra a baseline.
+- Antes de concluir UI, executar gates aplicáveis e QA visual desktop/mobile.
 - Nenhuma frente pode ser degradada para acelerar outra.
-- Não reaproveitar código experimental ou legado apenas por conveniência.
-- Se uma parte estiver ruim, corrigir ou refazer somente aquela parte com precisão, sem reescrever o restante do projeto.
-- Não realizar cutover de DNS no mesmo PR que introduz a separação inicial de build/deploy.
-- Toda migração de infraestrutura deve manter caminho explícito de rollback.
+- Corrigir/refazer somente o escopo autorizado com precisão.
+- Toda migração de infraestrutura deve manter rollback.
 
 ## Critério de qualidade
 
-MotoristaOps deve ser funcional, controlado e visualmente inevitável. Na frente pública, isso significa uma experiência minimalista, memorável e capaz de gerar conexão imediata. Na frente operacional, significa clareza, confiabilidade e capacidade real de decisão. Na frente social, significa consistência, reconhecimento e ligação direta com o serviço real.
+MotoristaOps deve ser funcional, controlado e visualmente inevitável. Na frente pública, isso significa experiência memorável, específica e capaz de gerar conexão. Na frente operacional, clareza e capacidade real de decisão. Na frente social, consistência e ligação com o serviço real. A qualidade deve ser reproduzível entre executores a partir de contexto durável, não de memória de conversa.
