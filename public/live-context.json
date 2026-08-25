@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "collectedAt": "2026-08-25T19:51:46.389Z",
+  "collectedAt": "2026-08-25T20:14:23.595Z",
   "expectedRefreshMinutes": 5,
   "status": "live",
   "traffic": {
@@ -19,7 +19,7 @@
       },
       {
         "name": "Oeste",
-        "slowKm": 176,
+        "slowKm": 178,
         "sharePct": 31
       },
       {
@@ -29,13 +29,13 @@
       },
       {
         "name": "Leste",
-        "slowKm": 105,
-        "sharePct": 18
+        "slowKm": 90,
+        "sharePct": 16
       },
       {
         "name": "Sul",
-        "slowKm": 137,
-        "sharePct": 24
+        "slowKm": 145,
+        "sharePct": 25
       }
     ],
     "busCorridorSpeed": {
@@ -43,7 +43,7 @@
       "bairroCentroKmh": 20
     },
     "derived": {
-      "totalSlowKm": 582,
+      "totalSlowKm": 577,
       "worstZone": "Oeste",
       "pressure": "muito alto"
     },
@@ -57,13 +57,13 @@
       "url": "https://open-meteo.com/",
       "kind": "weather-api"
     },
-    "observedAt": "2026-08-25T16:45",
-    "temperatureC": 19.2,
-    "humidityPct": 69,
+    "observedAt": "2026-08-25T17:00",
+    "temperatureC": 19,
+    "humidityPct": 71,
     "precipitationMm": 0,
     "rainMm": 0,
     "weatherCode": 3,
-    "windKmh": 3.8,
+    "windKmh": 4.1,
     "raining": false,
     "error": null
   },
