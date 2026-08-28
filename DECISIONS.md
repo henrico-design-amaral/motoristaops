@@ -1,7 +1,7 @@
 # MotoristaOps Decisions
 
 Status: ACTIVE
-Updated: 2026-08-23
+Updated: 2026-08-28
 
 ## D-001 — Dashboard authentication
 
@@ -50,3 +50,24 @@ Decision: Henrico Visual System may enforce accessibility, responsiveness, consi
 Decision: MotoristaOps inherits the HenricoOPS `PROFESSIONAL` writing standard by default. `PERSONAL` is opt-in only.
 
 Copy should be concise, factual, direct and specific. Avoid filler, generic premium/chauffeur copy, unsupported claims and excessive text.
+
+## D-008 — Pricing Policy V3
+
+Decision: MotoristaOPS adopts `docs/operations/PRICING_POLICY_V3.md` and `docs/operations/PROPOSALS_TABLE_V3.md` as the canonical pricing framework for private rides and proposals.
+
+Core parameters:
+
+- operational base: Rua Mario Latorre, 245 — Parque Pinheiros — Taboão da Serra/SP — CEP 06767-230;
+- passenger distance: R$ 4,50/km;
+- scheduled-ride minimum: R$ 70,00;
+- booking/reservation: R$ 15,00 per service;
+- operational mobilization included up to 10 road km from/to base per applicable extremity;
+- excess mobilization: R$ 3,00/km above the included 10 km;
+- boarding tolerance: 10 minutes;
+- waiting after tolerance: R$ 1,00/minute;
+- simple extra stop: R$ 10,00 when it does not create material detour/waiting;
+- recurring-service discount: up to 8% only after calculating the complete technical operation.
+
+Rationale: pricing must account for required empty positioning and return, not only passenger kilometers. A fixed base makes quotes reproducible and prevents the driver's incidental location from distorting customer pricing.
+
+Constraint: long-distance trips, high-dedication services and unusual operations must be checked against the complete operational cycle; the simple mobilization formula cannot be used to underprice an unavoidable long empty return.

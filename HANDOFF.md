@@ -23,6 +23,20 @@ Somente `.github/workflows/deploy-domains-hostinger.yml` deve publicar produçã
 
 O dataset operacional ainda existe no repositório e é consumido pelo dashboard. Não publicar esse dataset no artefato público da Landing Page. A próxima correção estrutural de privacidade deve mover os dados operacionais para uma fonte privada/autenticada antes de removê-los do repositório público, evitando quebra do dashboard.
 
+## Precificação operacional
+
+A política canônica de precificação é a V3 registrada em:
+
+- `docs/operations/PRICING_POLICY_V3.md`;
+- `docs/operations/PROPOSALS_TABLE_V3.md`;
+- decisão `D-008` em `DECISIONS.md`.
+
+Base operacional oficial: **Rua Mario Latorre, 245 — Parque Pinheiros — Taboão da Serra/SP — CEP 06767-230**.
+
+Parâmetros centrais: R$ 4,50/km com passageiro, mínimo agendado de R$ 70, reserva de R$ 15, 10 km de mobilização incluídos por extremidade aplicável, R$ 3/km de mobilização excedente, tolerância de 10 min, espera a R$ 1/min e recorrência com desconto máximo de 8% após o cálculo técnico completo.
+
+A localização circunstancial do motorista não substitui a base como referência de orçamento. Viagens longas e retornos vazios relevantes exigem cálculo do ciclo operacional completo para evitar subprecificação.
+
 ## Próximo ciclo técnico
 
 1. Migrar o dataset operacional para armazenamento privado/autenticado.
@@ -38,3 +52,5 @@ O dataset operacional ainda existe no repositório e é consumido pelo dashboard
 ## Critério de retomada
 
 Antes de editar publicação, dados ou infraestrutura, validar que nenhum artefato público contém rotas operacionais ou dados financeiros reais e executar os gates de qualidade existentes.
+
+Antes de emitir orçamento particular, usar a Política de Precificação V3 e registrar a memória técnica do cálculo, ainda que a proposta externa seja simplificada.
