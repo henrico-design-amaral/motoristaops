@@ -21,39 +21,60 @@ Goal: formalize a reproducible pricing system that accounts for passenger distan
 - canonical pricing policy and proposal table created under `docs/operations/`;
 - durable decision recorded as `D-008`.
 
-## Current governance task
+## Completed governance continuity task
 
 Goal: make project context reproducible across Claude, ChatGPT, Codex and other executors without relying on chat memory.
 
+### Completed
+
+- project bootstrap/context files exist;
+- output modality and stage boundaries are explicit;
+- dashboard authentication decision is durable;
+- visual authority/fidelity contract is durable;
+- provider-neutral execution flow exists;
+- durable operational pricing rules are recorded.
+
+## Current task — Instagram Publishing OS v1 foundation
+
+Goal: create the controlled operating foundation for MotoristaOPS Instagram before adding external scheduling or unattended publication automation.
+
+Canonical contract: `docs/social/INSTAGRAM_PUBLISHING_OS_V1.md`.
+
 ### In scope
 
-- project bootstrap/context files;
-- explicit output modality and stage boundaries;
-- durable dashboard authentication decision;
-- visual authority/fidelity contract;
-- provider-neutral execution flow;
-- durable operational pricing rules.
+- persist the Publishing OS governance;
+- create the operational content-control structure in Drive;
+- create the first content-control spreadsheet;
+- load the first 30-day publication calendar;
+- define publication states and stable content IDs;
+- map official Story, Reel, Carousel and fixed-post formats;
+- use the Feedbackador as a mandatory gate;
+- keep Phase 1 human approval mandatory;
+- manually validate state transitions before connecting a scheduler.
 
 ### Out of scope
 
-- redesigning the Landing Page;
-- changing Dashboard product behavior;
-- adding authentication;
-- publishing new visual work;
-- changing production domains;
-- changing operational data.
+- direct Meta/Instagram API publication;
+- production n8n workflow;
+- Buffer or other scheduler integration;
+- unattended publishing;
+- changing Brand Book V12;
+- redesigning approved official publication templates;
+- changing Landing Page or Dashboard product behavior.
 
 ### Acceptance criteria
 
-- `CLAUDE.md` exists and loads project authority rather than relying on `AGENTS.md` being discovered implicitly;
-- `PROJECT_CONTEXT.md`, `TASKS.md`, `DECISIONS.md`, `DESIGN.md` and `docs/orchestrator/LOOP_EXECUTION.md` exist and agree;
-- image-only work cannot silently become code work;
-- approved visual sources can be declared as implementation baselines;
-- Dashboard auth is explicitly `not required by default`;
-- current HenricoOPS writing/context/fidelity governance is referenced;
-- governance changes enter through branch/PR, not direct `main` commits;
-- private-ride proposals use the canonical pricing policy rather than ad-hoc chat calculations.
+- `docs/social/INSTAGRAM_PUBLISHING_OS_V1.md` is merged;
+- `D-009` is durable in `DECISIONS.md`;
+- operational Drive folders for Instagram exist;
+- the control spreadsheet exists and contains the agreed schema;
+- the first 30-day calendar is loaded;
+- at least one content item completes `PLANNED -> ... -> READY_FOR_REVIEW` using the Feedbackador;
+- human approval is recorded before any scheduling;
+- no external scheduler is required to pass Phase 1 foundation.
 
-## Next product task
+## Next task gate
 
-Must be selected from the latest product request after the governance task is merged and context is rehydrated. Do not infer the next product implementation from old chat history.
+After the foundation passes acceptance criteria, evaluate Phase 2 scheduling automation.
+
+Do not select or implement a scheduler integration before the control plane and approval flow are validated.
