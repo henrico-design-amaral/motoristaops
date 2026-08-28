@@ -71,3 +71,20 @@ Core parameters:
 Rationale: pricing must account for required empty positioning and return, not only passenger kilometers. A fixed base makes quotes reproducible and prevents the driver's incidental location from distorting customer pricing.
 
 Constraint: long-distance trips, high-dedication services and unusual operations must be checked against the complete operational cycle; the simple mobilization formula cannot be used to underprice an unavoidable long empty return.
+
+## D-009 — Instagram Publishing OS uses phased automation
+
+Decision: MotoristaOPS adopts `docs/social/INSTAGRAM_PUBLISHING_OS_V1.md` as the operating contract for Instagram planning, production, QA, approval, scheduling, publication and learning.
+
+Phase 1 must remain human-approved. Content may be produced and QA-checked automatically, but no unattended publishing is authorized until the control plane, state transitions, asset handoff and Feedbackador behavior are validated in real operation.
+
+Rationale: automation must remove repetitive work without bypassing brand, content or publication controls.
+
+Constraints:
+
+- Brand Book V12 and official assets remain the visual authority;
+- GitHub remains the source of truth for versioned governance;
+- Drive may hold operational media and calendar artifacts;
+- only `APPROVED` content may be scheduled;
+- scheduler/provider choice is implementation detail and may not bypass the Publishing OS state machine;
+- automatic publication is a later phase and requires explicit validation before activation.
