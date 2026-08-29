@@ -1,167 +1,120 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import legacy from '../data/motoristaops.json';
-import { currentClosings, currentVehicleExpenses, currentFuelings, personalMonthlyExpenses, vehicleProfile } from '../data/current-ops';
+import { driverProfile as profile } from '../data/driver-profile';
 
-const money = new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
-const number = new Intl.NumberFormat('pt-BR',{maximumFractionDigits:2});
-const percent = new Intl.NumberFormat('pt-BR',{style:'percent',maximumFractionDigits:0});
-const base = import.meta.env.BASE_URL || '/';
-const importUrl = `${base}importar-uber`;
-
-const legacyDaily = Array.isArray((legacy as any).daily) ? (legacy as any).daily : [];
-const mergedMap = new Map<string, any>();
-legacyDaily.forEach((row:any)=>mergedMap.set(row.date,row));
-currentClosings.forEach((row:any)=>mergedMap.set(row.date,row));
-const closings = [...mergedMap.values()].sort((a,b)=>String(b.date).localeCompare(String(a.date)));
-const currentMonth = closings[0]?.date?.slice(0,7) ?? '2026-08';
-const monthRows = closings.filter((row:any)=>row.date?.startsWith(currentMonth));
-const sum = (rows:any[],key:string)=>rows.reduce((total,row)=>total+Number(row[key]??0),0);
-const monthRevenue = sum(monthRows,'grossRevenue');
-const monthProfit = sum(monthRows,'operationalProfit');
-const monthHours = sum(monthRows,'hoursOnline');
-const monthKm = sum(monthRows,'kmTotal');
-const monthTrips = sum(monthRows,'tripsTotal');
-const monthUber = sum(monthRows,'revenueUber');
-const month99 = sum(monthRows,'revenue99');
-const monthPrivate = sum(monthRows,'revenuePrivate');
-const historicRevenue = sum(closings,'grossRevenue');
-const historicTrips = sum(closings,'tripsTotal');
-const historicDays = closings.filter((r:any)=>Number(r.grossRevenue??0)>0).length;
-const personalMonthlyTotal = personalMonthlyExpenses.reduce((t,item)=>t+item[1],0);
-const maintenanceTotal = currentVehicleExpenses.filter(item=>item.category.includes('Manutenção')).reduce((t,item)=>t+item.value,0);
-const recentFuelPaid = currentFuelings.reduce((t,item)=>t+item.totalPaid,0);
-const latestFuelEfficiency = [...currentFuelings].reverse().find(item=>item.consumptionKmL)?.consumptionKmL ?? null;
-const latest = closings[0];
-const monthLabel = new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date(`${currentMonth}-01T00:00:00Z`));
-const chartRows = [...monthRows].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
-const chartMax = Math.max(1,...chartRows.map((r:any)=>Number(r.grossRevenue??0)));
-const chartData = chartRows.map((row:any)=>({
-  ...row,
-  chartHeight:Math.max(8,Number(row.grossRevenue??0)/chartMax*100),
-  chartTitle:`${row.dateBR ?? row.date} · ${money.format(Number(row.grossRevenue??0))}`,
-  chartDay:String(row.date).slice(8)
-}));
-const monthDays = Math.max(1,monthRows.filter((r:any)=>Number(r.grossRevenue??0)>0).length);
-const avgRevenueDay = monthRevenue/monthDays;
-const avgTripsDay = monthTrips/monthDays;
-const avgTicket = monthTrips ? monthRevenue/monthTrips : 0;
-const coverage = personalMonthlyTotal ? monthProfit/personalMonthlyTotal : 0;
-const netAfterPersonal = monthProfit-personalMonthlyTotal;
-const operatingMargin = monthRevenue ? monthProfit/monthRevenue : 0;
-const latestProfitPerHour = Number(latest?.hoursOnline??0) ? Number(latest?.operationalProfit??0)/Number(latest?.hoursOnline??0) : 0;
-const platformTotal = Math.max(1,monthUber+month99+monthPrivate);
-const platformMix = [
-  {name:'Uber',value:monthUber,share:monthUber/platformTotal},
-  {name:'99',value:month99,share:month99/platformTotal},
-  {name:'Particular',value:monthPrivate,share:monthPrivate/platformTotal}
+const portrait = 'https://meuairgo.com.br/assets/uploads/images/users/image-05-06-2026-17-50.webp';
+const services = [
+  ['Corridas particulares','Deslocamentos urbanos e regionais com conforto, segurança e atendimento pessoal.','https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=82'],
+  ['Aeroportos e rodoviárias','Traslados pontuais para aeroportos e rodoviárias com total previsibilidade.','https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=82'],
+  ['Agenda e compromissos','Compromissos profissionais, consultas e reuniões com foco em pontualidade.','https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=82'],
+  ['Viagens e deslocamentos','Viagens intermunicipais e longas distâncias com planejamento e conforto.','https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=82']
+];
+const method = [
+  ['◉','PRESENÇA','Henrico responde pessoalmente por cada serviço.'],
+  ['◇','PROTEÇÃO','Cuidado com pessoas, horários, trajetos e pertences.'],
+  ['▤','MÉTODO','Planejamento antes da partida e comunicação durante o percurso.'],
+  ['◔','DISCRIÇÃO','Profissionalismo sem exposição, excesso ou formalidade fria.'],
+  ['⌖','CONTINUIDADE','A experiência continua antes da corrida e termina depois da chegada.']
 ];
 ---
-<BaseLayout title="MotoristaOps · Painel de controle da operação">
-  <div class="app-shell app-shell--open">
-    <aside class="sidebar">
-      <div class="sidebar-brand"><span>MO</span><div><strong>MotoristaOps</strong><small>Controle da operação</small></div></div>
-      <nav aria-label="Navegação do painel">
-        <button class="nav-item active" data-section="overview">Visão geral</button>
-        <button class="nav-item" data-section="closings">Fechamentos</button>
-        <button class="nav-item" data-section="expenses">Despesas mensais</button>
-        <button class="nav-item" data-section="maintenance">Manutenção</button>
-        <button class="nav-item" data-section="fuelings">Abastecimentos</button>
-        <button class="nav-item" data-section="vehicle">Veículo</button>
-      </nav>
-      <div class="sidebar-bottom">
-        <span class="sidebar-status"><i></i> operação ativa</span>
-        <a class="nav-item nav-link" href={`${base}motorista/`}>Landing Page ↗</a>
+<BaseLayout title="Motorista Particular em São Paulo | MotoristaOPS">
+<main class="mops-page">
+  <header class="mops-header">
+    <a class="mops-brand" href="#inicio" aria-label="MotoristaOPS — início">
+      <span class="mops-brand-mark">M</span>
+      <span class="mops-brand-name">MOTORISTA<span>OPS</span></span>
+    </a>
+    <nav class="mops-nav" aria-label="Navegação principal">
+      <a href="#servicos">SERVIÇOS</a><a href="#como-funciona">COMO FUNCIONA</a><a href="#metodo">MÉTODO</a><a href="#quem-dirige">QUEM DIRIGE</a><a href="#contato">CONTATO</a>
+    </nav>
+    <a class="mops-btn mops-btn--gold mops-header-cta" href={profile.whatsapp}>FALAR NO WHATSAPP</a>
+  </header>
+
+  <section id="inicio" class="mops-hero">
+    <div class="mops-hero-copy">
+      <h1><span>SEU TRAJETO NÃO</span><span>COMEÇA NO CARRO.</span><span>COMEÇA NO MÉTODO.</span></h1>
+      <p>Cada corrida começa com contato direto, definição clara do trajeto, confiança e responsabilidade — com acompanhamento até a chegada.</p>
+      <p>Mais que dirigir, entregamos presença, método e tranquilidade.</p>
+      <div class="mops-actions"><a class="mops-btn mops-btn--gold" href={profile.whatsapp}>◉ FALAR NO WHATSAPP</a><a class="mops-btn mops-btn--outline" href="#contato">▣ AGENDAR CORRIDA</a></div>
+      <div class="mops-benefits">
+        <article><i>◇</i><div><strong>Contato direto</strong><span>Você fala com quem vai te atender.</span></div></article>
+        <article><i>◷</i><div><strong>Pontualidade</strong><span>Planejamento e execução com precisão.</span></div></article>
+        <article><i>♡</i><div><strong>Cuidado em cada percurso</strong><span>Conforto, discrição e responsabilidade.</span></div></article>
       </div>
-    </aside>
+    </div>
 
-    <section class="workspace">
-      <header class="workspace-header workspace-header--control">
-        <div>
-          <div class="workspace-live"><span><i></i> MotoristaOps ao vivo</span><time id="live-clock" aria-label="Horário atual">--:--</time></div>
-          <p class="eyebrow">Painel de controle</p>
-          <h1>Sua operação,<br/>sem ruído.</h1>
-          <p>Receita, ritmo, custos, carro e compromissos financeiros em uma leitura única, com o histórico real já incorporado.</p>
-        </div>
-        <div class="header-actions"><a class="button button--gold" href={importUrl}>Importar corridas</a><a class="button button--ghost" href={`${base}motorista/`}>Perfil público</a></div>
-      </header>
+    <div class="mops-hero-visual" aria-hidden="true">
+      <div class="mops-city">
+        {Array.from({length:20}).map((_,i)=><span style={`--i:${i};--h:${110 + (i%7)*27}px`}></span>)}
+      </div>
+      <svg class="mops-route" viewBox="0 0 620 620" preserveAspectRatio="none" aria-hidden="true">
+        <defs><filter id="glow"><feGaussianBlur stdDeviation="8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <path d="M78 620 C220 520, 96 465, 310 390 C470 334, 180 282, 412 210 C500 182, 418 155, 455 112" fill="none" stroke="#F0B44D" stroke-width="16" opacity=".2" filter="url(#glow)"/>
+        <path d="M78 620 C220 520, 96 465, 310 390 C470 334, 180 282, 412 210 C500 182, 418 155, 455 112" fill="none" stroke="#FFF0C8" stroke-width="6" filter="url(#glow)"/>
+      </svg>
+      <div class="mops-pin"><span></span></div>
+      <div class="mops-profile-card">
+        <img src={portrait} alt="" />
+        <div><h2>{profile.name}</h2><p>Motorista Particular</p><b></b><strong>Confiança que<br/>se constrói em<br/>cada detalhe.</strong></div>
+      </div>
+    </div>
+  </section>
 
-      <section id="overview" class="workspace-section">
-        <div class="control-strip">
-          <article><span>Snapshot</span><strong>{latest?.dateBR ?? latest?.date}</strong><small>último fechamento</small></article>
-          <article class={coverage>=1?'control-positive':'control-alert'}><span>Cobertura pessoal</span><strong>{percent.format(coverage)}</strong><small>lucro operacional / despesas mensais</small></article>
-          <article><span>Consumo recente</span><strong>{latestFuelEfficiency ? `${number.format(latestFuelEfficiency)} km/L` : '—'}</strong><small>{vehicleProfile.fuel}</small></article>
-          <article><span>Particular</span><strong>{money.format(monthPrivate)}</strong><small>{money.format(vehicleProfile.privateRatePerKm)}/km referência</small></article>
-        </div>
+  <section class="mops-section mops-direct" id="contato">
+    <div class="mops-kicker">TRÊS CAMINHOS.</div><h2>TODOS DIRETOS.</h2>
+    <div class="mops-direct-grid">
+      <a href={profile.whatsapp}><i>◉</i><div><strong>WHATSAPP</strong><span>Fale comigo de forma rápida e direta.</span></div></a>
+      <a href={profile.instagram} target="_blank" rel="noreferrer"><i>◎</i><div><strong>INSTAGRAM</strong><span>Acompanhe o dia a dia e os bastidores.</span></div></a>
+      <a href={profile.google} target="_blank" rel="noreferrer"><i>G</i><div><strong>GOOGLE</strong><span>Avalie e encontre minha localização.</span></div></a>
+    </div>
+  </section>
 
-        <div class="section-title"><div><span>{monthLabel}</span><h2>Pulso da operação</h2></div><p>Leitura consolidada dos fechamentos já registrados.</p></div>
-        <div class="metric-grid">
-          <article class="metric-card metric-card--signal"><span>Receita do mês</span><strong>{money.format(monthRevenue)}</strong><small>{money.format(avgRevenueDay)} / dia trabalhado</small></article>
-          <article class="metric-card"><span>Lucro operacional</span><strong>{money.format(monthProfit)}</strong><small>{percent.format(operatingMargin)} de margem operacional</small></article>
-          <article class="metric-card" data-state={netAfterPersonal>=0?'positive':'negative'}><span>Após despesas pessoais</span><strong>{money.format(netAfterPersonal)}</strong><small>{money.format(personalMonthlyTotal)} de compromissos / mês</small></article>
-          <article class="metric-card"><span>Horas</span><strong>{number.format(monthHours)}h</strong><small>{monthHours ? `${money.format(monthRevenue/monthHours)}/h bruto` : '—'}</small></article>
-          <article class="metric-card"><span>Km</span><strong>{number.format(monthKm)} km</strong><small>{monthKm ? `${money.format(monthRevenue/monthKm)}/km bruto` : '—'}</small></article>
-          <article class="metric-card"><span>Viagens</span><strong>{number.format(monthTrips)}</strong><small>{number.format(avgTripsDay)} / dia · ticket {money.format(avgTicket)}</small></article>
-        </div>
+  <section class="mops-section" id="servicos">
+    <div class="mops-kicker">SERVIÇOS</div><h2>MOBILIDADE PARA A <em>VIDA REAL.</em></h2>
+    <div class="mops-services-grid">{services.map(([title,desc,img])=><article><div class="mops-service-img" style={`background-image:url('${img}')`}></div><h3>{title}</h3><p>{desc}</p></article>)}</div>
+  </section>
 
-        <div class="dashboard-grid dashboard-grid--command">
-          <article class="panel panel--chart"><div class="panel-head"><div><span>Ritmo</span><h2>Receita por fechamento</h2></div><small>{monthRows.length} registros</small></div><div class="daily-chart">{chartData.map((row:any)=><div class="chart-bar" title={row.chartTitle}><span style={`height:${row.chartHeight}%`}></span><small>{row.chartDay}</small></div>)}</div></article>
-          <article class="panel latest-card"><div class="panel-head"><div><span>Último fechamento</span><h2>{latest?.dateBR ?? latest?.date}</h2></div><span class="status-pill">consolidado</span></div><div class="latest-summary"><strong>{money.format(Number(latest?.grossRevenue??0))}</strong><span>{latest?.platform ?? '—'} · {latest?.shift ?? '—'}</span><div class="latest-grid"><div><b>{Number(latest?.tripsTotal??0)}</b><small>viagens</small></div><div><b>{number.format(Number(latest?.hoursOnline??0))}h</b><small>trabalho</small></div><div><b>{number.format(Number(latest?.kmTotal??0))}</b><small>km</small></div><div><b>{money.format(latestProfitPerHour)}</b><small>lucro/h</small></div></div></div></article>
-        </div>
+  <section class="mops-section" id="metodo">
+    <div class="mops-kicker">NOSSO MÉTODO</div><h2>UMA MARCA PESSOAL COM <em>ESTRUTURA OPERACIONAL.</em></h2>
+    <div class="mops-method-grid">{method.map(([icon,title,desc])=><article><i>{icon}</i><h3>{title}</h3><p>{desc}</p></article>)}</div>
+  </section>
 
-        <div class="dashboard-grid dashboard-grid--balanced">
-          <article class="panel mix-card"><div class="panel-head"><div><span>Composição</span><h2>De onde vem a receita</h2></div></div><div class="mix-list">{platformMix.map(item=><div class="mix-row"><div><strong>{item.name}</strong><span>{money.format(item.value)}</span></div><div class="mix-track"><i style={`width:${Math.max(2,item.share*100)}%`}></i></div><small>{percent.format(item.share)}</small></div>)}</div></article>
-          <article class="panel action-card"><div class="panel-head"><div><span>Agora</span><h2>Centro de decisão</h2></div></div><div class="action-list"><a href={importUrl}><span>Importar novo fechamento</span><b>Adicionar corridas e revisar dados</b><i>↗</i></a><button data-section="maintenance"><span>Manutenção recente</span><b>{money.format(maintenanceTotal)} registrados</b><i>→</i></button><button data-section="expenses"><span>Compromissos mensais</span><b>{money.format(personalMonthlyTotal)} / mês</b><i>→</i></button><button data-section="fuelings"><span>Combustível</span><b>{money.format(recentFuelPaid)} pagos no histórico recente</b><i>→</i></button></div></article>
-        </div>
+  <section class="mops-section" id="como-funciona">
+    <div class="mops-kicker">COMO FUNCIONA.</div><h2>DIRETO AO PONTO. <em>DO JEITO QUE DEVE SER.</em></h2>
+    <div class="mops-steps">
+      <article><b>1</b><i>◉</i><div><h3>ME CHAMA.</h3><p>Você fala comigo diretamente.</p></div></article>
+      <article><b>2</b><i>⌖</i><div><h3>ME PASSA O TRAJETO.</h3><p>Origem, destino, horários e o que for importante para você.</p></div></article>
+      <article><b>3</b><i>✓</i><div><h3>EU CONFIRMO.</h3><p>Confirmo os detalhes, combino o horário e estou pronto para te atender.</p></div></article>
+    </div>
+  </section>
 
-        <div class="dashboard-grid dashboard-grid--balanced dashboard-grid--quiet">
-          <article class="panel strategic-card"><span>Histórico consolidado</span><h2>{historicDays} dias com receita.</h2><p>{money.format(historicRevenue)} registrados e {number.format(historicTrips)} viagens incorporadas ao MotoristaOps.</p></article>
-          <article class="panel strategic-card"><span>Carro em operação</span><h2>{vehicleProfile.vehicle}</h2><p>{number.format(vehicleProfile.recentOdometerKm)} km no odômetro recente · {vehicleProfile.fuel} · corrida particular em {money.format(vehicleProfile.privateRatePerKm)}/km.</p></article>
-        </div>
-      </section>
+  <section class="mops-section mops-presence">
+    <div class="mops-kicker">MENOS PROMESSA.</div><h2>MAIS PRESENÇA.</h2>
+    <div class="mops-presence-grid"><article><i>◇</i><div><h3>CONTATO DIRETO</h3><p>Você fala com quem vai te atender.</p></div></article><article><i>◷</i><div><h3>PONTUALIDADE</h3><p>Compromisso real com horários e prazos.</p></div></article><article><i>♡</i><div><h3>CUIDADO</h3><p>Condução responsável e atenção em cada detalhe.</p></div></article><article><i>▣</i><div><h3>DISCRIÇÃO</h3><p>Presença profissional com respeito e reserva.</p></div></article></div>
+  </section>
 
-      <section id="closings" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Histórico operacional</span><h2>Fechamentos</h2></div><p>Os registros mais recentes substituem versões antigas da mesma data.</p></div>
-        <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Plataforma</th><th>Receita</th><th>Lucro</th><th>Horas</th><th>Km</th><th>Viagens</th></tr></thead><tbody>{closings.map((row:any)=><tr><td>{row.dateBR ?? row.date}</td><td>{row.platform ?? row.platformMix ?? '—'}</td><td>{money.format(Number(row.grossRevenue??0))}</td><td>{money.format(Number(row.operationalProfit??0))}</td><td>{row.hoursOnline==null?'—':`${number.format(Number(row.hoursOnline))}h`}</td><td>{row.kmTotal==null?'—':number.format(Number(row.kmTotal))}</td><td>{number.format(Number(row.tripsTotal??0))}</td></tr>)}</tbody></table></div>
-      </section>
+  <section class="mops-about" id="quem-dirige">
+    <img src={portrait} alt="Henrico Amaral, motorista particular" />
+    <div><span>QUEM DIRIGE</span><h2>HENRICO AMARAL.</h2><p>Motorista particular com foco absoluto em segurança, respeito e confiança. Cada trajeto é conduzido com método, experiência e atenção aos detalhes que realmente importam.</p><div class="mops-about-tags"><b>◇ EXPERIÊNCIA<br/>COMPROVADA</b><b>◇ DISCRIÇÃO<br/>E RESPEITO</b><b>◉ ATENDIMENTO<br/>PERSONALIZADO</b><b>◇ COMPROMISSO<br/>COM VOCÊ</b></div></div>
+  </section>
 
-      <section id="expenses" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Vida financeira</span><h2>Despesas pessoais mensais</h2></div><p>Total recorrente: <strong>{money.format(personalMonthlyTotal)}</strong>. Mantido separado do custo operacional do carro.</p></div>
-        <div class="metric-grid metric-grid--compact"><article class="metric-card metric-card--signal"><span>Total mensal</span><strong>{money.format(personalMonthlyTotal)}</strong><small>base atual cadastrada</small></article><article class="metric-card"><span>Lucro operacional no mês</span><strong>{money.format(monthProfit)}</strong><small>referência de cobertura</small></article><article class="metric-card" data-state={netAfterPersonal>=0?'positive':'negative'}><span>Gap atual</span><strong>{money.format(netAfterPersonal)}</strong><small>lucro operacional menos despesas pessoais</small></article></div>
-        <div class="panel table-panel"><table><thead><tr><th>Despesa</th><th>Valor mensal</th></tr></thead><tbody>{personalMonthlyExpenses.map(item=><tr><td>{item[0]}</td><td>{money.format(item[1])}</td></tr>)}</tbody></table></div>
-      </section>
+  <section class="mops-final-cta">
+    <div><h2>ME DIGA <em>PARA ONDE.</em></h2><p>Entre em contato e tenha ao seu lado um motorista particular que entende do que importa: você.</p><a class="mops-btn mops-btn--gold" href={profile.whatsapp}>◉ FALAR NO WHATSAPP ›</a></div>
+    <div class="mops-mini-route"><span></span><i></i></div>
+  </section>
 
-      <section id="maintenance" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Veículo</span><h2>Manutenção e cuidados</h2></div><p>Investimentos separados para não distorcer o lucro operacional diário.</p></div>
-        <div class="metric-grid metric-grid--compact"><article class="metric-card"><span>Manutenção recente</span><strong>{money.format(maintenanceTotal)}</strong><small>itens registrados</small></article><article class="metric-card"><span>Odômetro recente</span><strong>{number.format(vehicleProfile.recentOdometerKm)} km</strong><small>último registro conhecido</small></article><article class="metric-card"><span>Abastecimentos pagos</span><strong>{money.format(recentFuelPaid)}</strong><small>saída real de caixa recente</small></article></div>
-        <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Categoria</th><th>Descrição</th><th>Valor</th></tr></thead><tbody>{currentVehicleExpenses.map(item=><tr><td>{item.dateBR}</td><td>{item.category}</td><td>{item.description}</td><td>{money.format(item.value)}</td></tr>)}</tbody></table></div>
-      </section>
+  <footer class="mops-footer">
+    <div class="mops-footer-brand"><div class="mops-brand"><span class="mops-brand-mark">M</span><span class="mops-brand-name">MOTORISTA<span>OPS</span></span></div><small>por Henrico Amaral<br/>MOTORISTA PARTICULAR</small></div>
+    <div><b>SERVIÇOS</b><a href="#servicos">Corridas particulares</a><a href="#servicos">Aeroportos e rodoviárias</a><a href="#servicos">Agenda e compromissos</a><a href="#servicos">Viagens e deslocamentos</a></div>
+    <div><b>LINKS</b><a href="#como-funciona">Como funciona</a><a href="#metodo">Método</a><a href="#quem-dirige">Quem dirige</a><a href="#contato">Contato</a></div>
+    <div><b>CONTATO</b><a href={profile.whatsapp}>Falar no WhatsApp</a><a href={profile.instagram}>Instagram</a></div>
+  </footer>
+  <div class="mops-legal"><span>© 2026 MotoristaOPS. Todos os direitos reservados.</span><span>Motorista Particular</span><span>Privacidade</span><span>Termos de uso</span></div>
+</main>
 
-      <section id="fuelings" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Combustível</span><h2>Abastecimentos</h2></div><p>Cortesia separada de desembolso real.</p></div>
-        <div class="panel table-panel"><table><thead><tr><th>Data</th><th>Combustível</th><th>Litros</th><th>Preço/L</th><th>Total pago</th><th>Observação</th></tr></thead><tbody>{currentFuelings.map(item=><tr><td>{item.dateBR}</td><td>{item.fuel}</td><td>{number.format(item.liters)} L</td><td>{money.format(item.pricePerLiter)}</td><td>{money.format(item.totalPaid)}</td><td>{item.notes}</td></tr>)}</tbody></table></div>
-      </section>
-
-      <section id="vehicle" class="workspace-section" hidden>
-        <div class="section-title"><div><span>Frota</span><h2>{vehicleProfile.vehicle}</h2></div><p>Veículo principal associado à operação.</p></div>
-        <div class="dashboard-grid dashboard-grid--balanced"><article class="panel"><span>Combustível</span><h2>{vehicleProfile.fuel}</h2><p>Preço recente usado nos fechamentos: aproximadamente {money.format(vehicleProfile.referenceFuelPrice)}/L.</p></article><article class="panel"><span>Corrida particular</span><h2>{money.format(vehicleProfile.privateRatePerKm)}/km</h2><p>Referência atual para orçamentos particulares.</p></article></div>
-      </section>
-    </section>
-  </div>
-
-  <script is:inline>
-    const setSection=(section)=>{
-      document.querySelectorAll('.workspace-section').forEach(node=>node.hidden=node.id!==section);
-      document.querySelectorAll('.nav-item[data-section]').forEach(node=>node.classList.toggle('active',node.dataset.section===section));
-      window.scrollTo({top:0,behavior:'smooth'});
-    };
-    document.addEventListener('click',(event)=>{
-      const target=event.target.closest('[data-section]');
-      if(!target)return;
-      setSection(target.dataset.section);
-    });
-    const clock=document.getElementById('live-clock');
-    const tick=()=>{if(clock)clock.textContent=new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(new Date())};
-    tick();setInterval(tick,1000);
-  </script>
+<style>
+:global(html){scroll-behavior:smooth}:global(body){margin:0;background:#070709;color:#F3EFE4;font-family:"Arial Narrow","Roboto Condensed",Arial,sans-serif}.mops-page{--bg:#070709;--surface:#111114;--line:#6e5736;--gold:#C79C5B;--gold2:#F0B44D;--ivory:#F3EFE4;--muted:#aaa59b;background:radial-gradient(circle at 78% 8%,rgba(199,156,91,.06),transparent 28%),var(--bg);color:var(--ivory);min-height:100vh;overflow:hidden}.mops-header{height:88px;border-bottom:1px solid #5a462c;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:36px;padding:0 4.2vw;background:rgba(5,6,8,.96);position:relative;z-index:20}.mops-brand{display:flex;align-items:center;gap:12px;color:var(--ivory);text-decoration:none}.mops-brand-mark{width:38px;height:42px;display:grid;place-items:center;border:2px solid var(--gold2);border-radius:48% 48% 58% 58%;color:var(--gold2);font-weight:900;font-size:18px;box-shadow:inset 0 0 0 3px #070709}.mops-brand-name{font-size:22px;font-weight:900;letter-spacing:.06em}.mops-brand-name span{color:var(--gold2)}.mops-nav{display:flex;justify-content:center;gap:44px}.mops-nav a{color:#e7e1d7;text-decoration:none;font-weight:800;font-size:12px;letter-spacing:.05em}.mops-btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 24px;text-decoration:none;border:1px solid var(--gold);font-weight:900;font-size:13px;letter-spacing:.05em;box-sizing:border-box}.mops-btn--gold{background:linear-gradient(#d7ab66,#c79751);color:#18120b;border-color:#dbaf6c}.mops-btn--outline{color:var(--ivory);background:#0a0b0d}.mops-header-cta{min-height:48px}.mops-hero{min-height:810px;display:grid;grid-template-columns:43% 57%;border-bottom:1px solid #44331f;background:linear-gradient(90deg,#050608 0%,#050608 37%,rgba(5,6,8,.3) 64%,#050608 100%)}.mops-hero-copy{padding:82px 26px 42px 4.2vw;position:relative;z-index:4}.mops-hero h1{margin:0 0 24px;max-width:700px;font-size:clamp(52px,5.1vw,86px);line-height:.97;letter-spacing:-.025em;font-weight:900;text-transform:uppercase}.mops-hero h1 span{display:block}.mops-hero h1 span:last-child{color:var(--gold)}.mops-hero-copy>p{max-width:650px;margin:0 0 10px;color:#ded9cf;font-size:18px;line-height:1.55}.mops-actions{display:flex;gap:20px;margin-top:28px}.mops-benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px;max-width:760px}.mops-benefits article{display:grid;grid-template-columns:58px 1fr;gap:12px;min-height:90px;padding-right:18px;border-right:1px solid #493923}.mops-benefits article:last-child{border-right:0}.mops-benefits i,.mops-direct i,.mops-method-grid i,.mops-steps i,.mops-presence-grid i{color:var(--gold2);font-style:normal;font-size:42px;line-height:1}.mops-benefits strong{display:block;font-size:16px}.mops-benefits span{display:block;margin-top:8px;color:#c2bbb0;font-size:13px;line-height:1.45}.mops-hero-visual{position:relative;overflow:hidden;min-width:0;background:radial-gradient(ellipse at 58% 36%,rgba(240,180,77,.08),transparent 23%),linear-gradient(#06080a,#08090b)}.mops-hero-visual:after{content:"";position:absolute;inset:38% 0 0;background:repeating-linear-gradient(8deg,transparent 0 34px,rgba(240,180,77,.08) 35px 36px),repeating-linear-gradient(98deg,transparent 0 55px,rgba(240,180,77,.07) 56px 57px);transform:perspective(500px) rotateX(62deg) scale(1.8);transform-origin:center top}.mops-city{position:absolute;inset:40px 0 auto 0;height:360px;display:flex;align-items:flex-end;justify-content:space-around;gap:8px;padding:0 26px;opacity:.95}.mops-city span{height:var(--h);width:34px;background:repeating-linear-gradient(90deg,transparent 0 8px,#f0a728 9px 11px,transparent 12px 18px),repeating-linear-gradient(0deg,#111317 0 11px,#252018 12px 14px);clip-path:polygon(0 9%,22% 9%,22% 0,78% 0,78% 12%,100% 12%,100% 100%,0 100%);filter:brightness(calc(.7 + var(--i)*.012))}.mops-route{position:absolute;left:4%;top:18%;width:70%;height:76%;z-index:2}.mops-pin{position:absolute;left:52%;top:27%;width:42px;height:54px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--gold2);box-shadow:0 0 30px rgba(240,180,77,.85);z-index:4}.mops-pin span{position:absolute;inset:13px;border-radius:50%;background:#292015}.mops-profile-card{position:absolute;right:5.5%;bottom:10%;width:min(500px,60%);height:230px;display:grid;grid-template-columns:45% 55%;border:1px solid #8d6633;background:rgba(10,11,13,.94);z-index:5}.mops-profile-card img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:saturate(.86) contrast(1.08)}.mops-profile-card>div{padding:36px 28px}.mops-profile-card h2{margin:0;color:var(--gold);font-size:25px}.mops-profile-card p{margin:8px 0 18px;color:#f0ebe3;font-size:16px}.mops-profile-card b{display:block;width:36px;height:2px;background:var(--gold2);margin-bottom:25px}.mops-profile-card strong{font-size:18px;line-height:1.5;font-weight:500}.mops-section{padding:32px 8vw 34px;border-bottom:1px solid #33291d;text-align:center;background:linear-gradient(90deg,#090a0c,#0d0e10 50%,#090a0c)}.mops-kicker{color:var(--gold2);font-size:11px;letter-spacing:.24em;font-weight:900}.mops-section h2{margin:7px 0 20px;font-size:31px;letter-spacing:.05em}.mops-section h2 em{font-style:normal;color:var(--gold2)}.mops-direct-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1080px;margin:auto}.mops-direct-grid a{min-height:96px;border:1px solid #6a4c29;color:inherit;text-decoration:none;display:flex;align-items:center;gap:22px;padding:0 28px;text-align:left;background:#111214}.mops-direct-grid i{font-size:44px}.mops-direct-grid strong{display:block;font-size:18px}.mops-direct-grid span{display:block;margin-top:6px;color:#c1baaf;font-size:13px}.mops-services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1180px;margin:auto}.mops-services-grid article{border:1px solid #6b4e2b;background:#111214;text-align:left;overflow:hidden}.mops-service-img{height:142px;background-size:cover;background-position:center;filter:saturate(.8) contrast(1.05)}.mops-services-grid h3{margin:14px 14px 6px;text-transform:uppercase;font-size:15px}.mops-services-grid p{margin:0 14px 16px;color:#c8c0b4;font-size:12px;line-height:1.5}.mops-method-grid{display:grid;grid-template-columns:repeat(5,1fr);max-width:1180px;margin:auto}.mops-method-grid article{padding:0 24px;border-right:1px solid #6a4c29}.mops-method-grid article:last-child{border-right:0}.mops-method-grid i{display:block;font-size:48px}.mops-method-grid h3{margin:8px 0 8px;font-size:16px}.mops-method-grid p{margin:0;color:#c6bfb4;font-size:12px;line-height:1.45}.mops-steps{display:grid;grid-template-columns:repeat(3,1fr);max-width:1080px;margin:28px auto 0;border-top:1px solid #826034}.mops-steps article{position:relative;display:grid;grid-template-columns:68px 1fr;gap:16px;text-align:left;padding:22px 24px}.mops-steps b{position:absolute;top:-15px;left:20px;width:27px;height:27px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--gold2);background:#0a0b0d;color:var(--gold2)}.mops-steps h3{margin:0;font-size:15px}.mops-steps p{margin:6px 0 0;color:#c6bfb4;font-size:12px;line-height:1.45}.mops-presence-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1180px;margin:auto}.mops-presence-grid article{display:grid;grid-template-columns:54px 1fr;align-items:center;text-align:left;border:1px solid #674a29;min-height:88px;padding:0 18px}.mops-presence-grid i{font-size:40px}.mops-presence-grid h3{margin:0 0 5px;font-size:13px}.mops-presence-grid p{margin:0;color:#c4bdb2;font-size:11px;line-height:1.35}.mops-about{display:grid;grid-template-columns:260px 1fr;max-width:1180px;margin:18px auto;border:1px solid #73532d;background:#101113}.mops-about>img{width:100%;height:100%;min-height:250px;object-fit:cover;object-position:center 10%;filter:saturate(.86) contrast(1.05)}.mops-about>div{padding:28px 38px;text-align:left}.mops-about>div>span{color:var(--gold2);font-size:11px;letter-spacing:.15em}.mops-about h2{margin:6px 0 10px;font-size:32px}.mops-about p{max-width:760px;color:#d6cfc5;font-size:13px;line-height:1.55}.mops-about-tags{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}.mops-about-tags b{padding-right:14px;border-right:1px solid #503c26;color:#d8d0c5;font-size:10px;line-height:1.4}.mops-about-tags b:last-child{border-right:0}.mops-final-cta{min-height:190px;margin:0;border-top:1px solid #7d5c32;border-bottom:1px solid #7d5c32;display:grid;grid-template-columns:42% 58%;align-items:center;padding:0 8vw;background:radial-gradient(circle at 73% 48%,rgba(240,180,77,.14),transparent 18%),#090a0c;overflow:hidden}.mops-final-cta h2{margin:0;font-size:42px}.mops-final-cta h2 em{color:var(--gold2);font-style:normal}.mops-final-cta p{max-width:450px;color:#d2cbc0;font-size:13px;line-height:1.45}.mops-mini-route{height:100%;position:relative;background:repeating-linear-gradient(12deg,transparent 0 35px,rgba(240,180,77,.08) 36px 37px),repeating-linear-gradient(102deg,transparent 0 58px,rgba(240,180,77,.06) 59px 60px)}.mops-mini-route:before{content:"";position:absolute;left:5%;bottom:22%;width:72%;height:5px;background:linear-gradient(90deg,transparent,#fff0c8 20%,#f0b44d 55%,transparent);transform:rotate(-6deg);box-shadow:0 0 18px #f0b44d}.mops-mini-route i{position:absolute;right:18%;top:26%;width:34px;height:45px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:var(--gold2);box-shadow:0 0 25px rgba(240,180,77,.7)}.mops-footer{display:grid;grid-template-columns:1.35fr 1fr .8fr .9fr;gap:44px;max-width:1180px;margin:auto;padding:28px 24px 24px}.mops-footer>div{display:flex;flex-direction:column;gap:6px}.mops-footer b{color:var(--gold2);font-size:10px}.mops-footer a{color:#d9d2c7;text-decoration:none;font-size:11px}.mops-footer-brand small{margin-top:8px;color:var(--gold);font-size:10px;line-height:1.45}.mops-legal{border-top:1px solid #2f291f;display:grid;grid-template-columns:1.6fr .7fr .5fr .6fr;gap:20px;padding:12px 6vw;color:#8f887e;font-size:10px}
+@media(max-width:1100px){.mops-nav{gap:20px}.mops-hero{grid-template-columns:1fr;min-height:auto}.mops-hero-visual{min-height:620px}.mops-hero-copy{padding-bottom:22px}.mops-profile-card{width:54%}.mops-services-grid,.mops-presence-grid{grid-template-columns:repeat(2,1fr)}.mops-method-grid{grid-template-columns:repeat(3,1fr);gap:26px}.mops-method-grid article{border-right:0}.mops-footer{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.mops-header{height:72px;grid-template-columns:1fr auto;padding:0 18px}.mops-nav{display:none}.mops-brand-name{font-size:18px}.mops-brand-mark{width:31px;height:35px}.mops-header-cta{min-height:40px;padding:0 14px;font-size:10px}.mops-hero-copy{padding:52px 20px 24px}.mops-hero h1{font-size:clamp(42px,12vw,64px)}.mops-hero-copy>p{font-size:15px}.mops-actions{flex-direction:column;align-items:stretch}.mops-benefits{grid-template-columns:1fr;gap:12px}.mops-benefits article{border-right:0;border-bottom:1px solid #493923;padding:0 0 14px}.mops-hero-visual{min-height:540px}.mops-city{transform:scale(.85);transform-origin:center bottom}.mops-route{left:-6%;width:90%}.mops-profile-card{left:20px;right:20px;width:auto;height:190px;bottom:22px;grid-template-columns:42% 58%}.mops-profile-card>div{padding:22px 18px}.mops-profile-card h2{font-size:20px}.mops-profile-card strong{font-size:14px}.mops-section{padding:30px 20px}.mops-direct-grid,.mops-services-grid,.mops-method-grid,.mops-steps,.mops-presence-grid{grid-template-columns:1fr}.mops-method-grid article{padding:20px 0;border-bottom:1px solid #5b462c}.mops-steps{border-top:0}.mops-steps article{border-top:1px solid #826034}.mops-about{grid-template-columns:1fr;margin:18px 20px}.mops-about>img{height:280px}.mops-about-tags{grid-template-columns:1fr 1fr}.mops-final-cta{grid-template-columns:1fr;padding:32px 20px}.mops-mini-route{height:150px}.mops-footer{grid-template-columns:1fr;padding:28px 20px}.mops-legal{grid-template-columns:1fr 1fr;padding:12px 20px}}
+</style>
 </BaseLayout>
