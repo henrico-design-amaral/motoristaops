@@ -1,68 +1,101 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import LandingLayout from '../layouts/LandingLayout.astro';
 
-const whatsapp = 'https://wa.me/5511984240398?text=Ol%C3%A1%2C%20Henrico.%20Quero%20organizar%20um%20trajeto%20com%20a%20MotoristaOps.';
-const services = [
-  { icon:'✈', title:'Aeroportos e rodoviárias', text:'Embarques e desembarques planejados com antecedência, margem de segurança e apoio com bagagens.' },
-  { icon:'◇', title:'Consultas e exames', text:'Transporte com espera no local e opção de acompanhamento durante consultas, exames e compromissos de saúde.' },
-  { icon:'▣', title:'Reuniões e eventos', text:'Corridas agendadas para compromissos profissionais e sociais, com horário e rota planejados antes da partida.' },
-  { icon:'⌁', title:'Viagens, litoral e interior', text:'Trajetos de maior distância com planejamento de rota, paradas e condições do percurso.' },
-  { icon:'◷', title:'Espera programada', text:'O motorista permanece disponível no local quando o compromisso exige continuidade do atendimento.' },
-  { icon:'◎', title:'Atendimento sob medida', text:'Paradas adicionais e necessidades específicas podem ser incorporadas ao planejamento do serviço.' },
-];
-const faqs = [
-  ['Como funciona o orçamento?','Você informa origem, destino, data, horário e necessidades do trajeto. O serviço é analisado antes da confirmação e o valor é apresentado com clareza.'],
-  ['Posso contratar ida, espera e volta?','Sim. Espera programada e retorno podem fazer parte do mesmo atendimento. O formato é combinado antes da confirmação.'],
-  ['Há atendimento para consultas e exames?','Sim. Além do deslocamento, é possível combinar espera no local e acompanhamento, conforme a necessidade do passageiro.'],
-  ['Vocês fazem aeroportos e viagens?','Sim. Aeroportos, rodoviárias, litoral, interior e outros trajetos intermunicipais fazem parte do escopo de atendimento.'],
-  ['Como funciona a espera?','Existe tolerância operacional de 10 minutos. Quando aplicável, a espera adicional é considerada a R$ 1,00 por minuto. Em serviços com espera programada, o orçamento é apresentado previamente.'],
-  ['Como meus dados são tratados?','Os dados enviados para orçamento e contato são usados somente para atender a solicitação e organizar o serviço. A página não exige cadastro e não comercializa dados pessoais.'],
-];
+const whatsapp = 'https://wa.me/5511984240398?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%0A%0AOrigem%3A%0ADestino%3A%0AData%3A%0AHor%C3%A1rio%3A%0APassageiros%3A%0ABagagem%2Fobserva%C3%A7%C3%B5es%3A';
+const car = 'https://www.hyundai.com.br/content/dam/hmb/product-page/novo-hyndai-hb20/veiculo/360/externo/hb20_cinza_shadow_48.webp';
 ---
-<BaseLayout title="MotoristaOps | Motorista Particular em São Paulo" description="Motorista particular em São Paulo para aeroportos, reuniões, consultas, exames, eventos e viagens. Planejamento, presença e discrição do primeiro contato ao destino.">
-  <main class="temp-page">
-    <header class="nav shell">
-      <a class="brand" href="#inicio" aria-label="MotoristaOps"><span class="crest">MO</span><span><b>MOTORISTA<span>OPS</span></b><small>por Henrico Amaral · MOTORISTA PARTICULAR</small></span></a>
-      <nav aria-label="Navegação principal"><a href="#servicos">Serviços</a><a href="#metodo">Método</a><a href="#sobre">Sobre</a><a href="#avaliacoes">Avaliações</a><a href="#faq">FAQ</a><a href="#contato">Contato</a></nav>
-      <a class="nav-cta" href={whatsapp}>Organizar trajeto</a>
+
+<LandingLayout>
+  <main class="landing-v3">
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="#inicio" aria-label="MotoristaOPS — início">
+          <img src="/landing-v3/logo-oficial.svg" alt="MotoristaOPS por Henrico Amaral — Motorista Particular" />
+        </a>
+
+        <nav class="desktop-nav" aria-label="Navegação principal">
+          <a href="#servicos">Serviços</a>
+          <a href="#como-funciona">Como funciona</a>
+          <a href="#metodo">Método</a>
+          <a href="#quem-dirige">Quem dirige</a>
+          <a href="#contato">Contato</a>
+        </nav>
+
+        <a class="header-cta" href={whatsapp}>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.4-4.2A8.5 8.5 0 1 1 20.5 11.7Z"/><path d="M8.3 7.8c.3-.3.7-.2.9.1l1.1 1.8c.2.3.1.6-.1.9l-.7.8c.8 1.6 2 2.8 3.7 3.6l.8-.8c.2-.2.6-.3.9-.1l1.8 1.1c.3.2.4.6.1.9-.6.7-1.4 1.1-2.3 1-3.8-.5-7.1-3.7-7.6-7.5-.1-.9.3-1.8 1.4-1.8Z"/></svg>
+          <span>Falar no WhatsApp</span>
+        </a>
+      </div>
     </header>
 
-    <section class="hero shell" id="inicio">
-      <div class="hero-copy">
-        <p class="kicker">MOTORISTA PARTICULAR EM SÃO PAULO</p>
-        <h1>SEU TRAJETO COMEÇA<br/><em>ANTES DA PARTIDA.</em></h1>
-        <p class="lead">Planejamento, presença e discrição do primeiro contato ao destino. Para aeroportos, reuniões, consultas, eventos e viagens.</p>
-        <div class="hero-actions"><a class="cta" href={whatsapp}>ORGANIZAR MEU TRAJETO <span>↗</span></a><a class="text-link" href="#servicos">Conhecer os serviços ↓</a></div>
-        <div class="proof" aria-label="Indicadores de confiança"><div><strong>3.373+</strong><span>VIAGENS REALIZADAS</span><small>EM 3 ANOS</small></div><div><strong>4,99</strong><span>AVALIAÇÃO NA UBER</span></div><div><strong>5,0</strong><span>ESTRELAS NO GOOGLE</span></div></div>
+    <section class="hero" id="inicio">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="skyline" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
       </div>
-      <div class="route-art" aria-hidden="true"><div class="city"></div><div class="pin">●</div><svg viewBox="0 0 700 680" preserveAspectRatio="none"><path d="M650 40 C500 90 650 190 470 230 C260 275 640 340 380 390 C90 445 420 520 70 660"/></svg><span class="route-label">SÃO PAULO · SP</span></div>
+      <svg class="route" viewBox="0 0 900 720" preserveAspectRatio="none" aria-hidden="true">
+        <defs><filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <path class="route-shadow" d="M760 58C620 122 818 177 635 235C475 286 720 338 552 393C365 455 635 494 452 554C308 601 421 648 356 703"/>
+        <path class="route-main" d="M760 58C620 122 818 177 635 235C475 286 720 338 552 393C365 455 635 494 452 554C308 601 421 648 356 703"/>
+      </svg>
+      <div class="destination" aria-hidden="true"><span></span></div>
+
+      <div class="shell hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">MOTORISTA PARTICULAR · SÃO PAULO</p>
+          <h1>Seu trajeto não<br/>começa no carro.<br/><em>Começa no método.</em></h1>
+          <p class="lead">Cada corrida começa antes da partida: contexto claro, trajeto definido e comunicação direta. Você sabe como o serviço funciona e o que esperar até a chegada.</p>
+          <p class="promise">Mais que deslocamento: presença, cuidado e previsibilidade.</p>
+
+          <div class="actions">
+            <a class="button button-primary" href={whatsapp}>Falar no WhatsApp</a>
+            <a class="button button-secondary" href={whatsapp}>Pedir orçamento <span>↗</span></a>
+          </div>
+
+          <div class="trust-row" aria-label="Pilares do atendimento">
+            <article>
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm-10 10c1.7-5.4 5-8 10-8s8.3 2.6 10 8"/></svg>
+              <div><strong>Contato direto</strong><span>Você fala com quem vai atender.</span></div>
+            </article>
+            <article>
+              <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M16 8v9l6 3"/></svg>
+              <div><strong>Planejamento</strong><span>Horário, trajeto e contexto alinhados.</span></div>
+            </article>
+            <article>
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 28S5 21.6 5 12.9C5 8.7 8 6 11.5 6c2.2 0 3.8 1.1 4.5 2.8C16.7 7.1 18.3 6 20.5 6 24 6 27 8.7 27 12.9 27 21.6 16 28 16 28Z"/></svg>
+              <div><strong>Cuidado</strong><span>Conforto, discrição e responsabilidade.</span></div>
+            </article>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="car-glow" aria-hidden="true"></div>
+          <img src={car} alt="Hyundai HB20 usado como referência visual do serviço MotoristaOPS" />
+        </div>
+      </div>
     </section>
-
-    <section class="section shell" id="servicos">
-      <div class="section-head"><p class="kicker">SERVIÇOS</p><h2>Não é só uma corrida.<br/><em>É um compromisso organizado.</em></h2><p>O formato muda conforme o que o seu dia exige. O princípio permanece: entender antes, planejar antes e acompanhar até a chegada.</p></div>
-      <div class="services">{services.map((s,i)=><article class:list={['service',i===1&&'featured']}><span class="service-icon">{s.icon}</span><small>0{i+1}</small><h3>{s.title}</h3><p>{s.text}</p><a href={whatsapp}>Solicitar orçamento ↗</a></article>)}</div>
-      <div class="pricing-note"><div><span>REFERÊNCIA DE PRECIFICAÇÃO</span><strong>A partir de R$ 4,50/km</strong></div><p>Corridas particulares são orçadas individualmente. Corrida agendada: mínimo de R$ 70,00. Reserva: R$ 15,00. Parada adicional: R$ 10,00. Pedágios, estacionamentos e necessidades especiais são informados quando aplicáveis.</p></div>
-    </section>
-
-    <section class="method" id="metodo"><div class="shell"><div class="section-head narrow"><p class="kicker">COMO FUNCIONA</p><h2>Três momentos.<br/><em>Um percurso sem improviso.</em></h2></div><div class="steps"><article><b>01</b><h3>Antes</h3><p>Entendo horário, origem, destino, compromisso, bagagens, passageiros e necessidades específicas.</p></article><article><b>02</b><h3>Durante</h3><p>Condução tranquila, comunicação objetiva e atenção ao percurso, ao horário e ao conforto de quem está comigo.</p></article><article><b>03</b><h3>Até o fim</h3><p>O atendimento não termina no embarque. Espera, retorno ou continuidade podem ser combinados desde o orçamento.</p></article></div></div></section>
-
-    <section class="section shell split" id="sobre"><div><p class="kicker">PRESENÇA HUMANA</p><h2>Você sabe <em>quem vai chegar.</em></h2><p class="body-copy">A MotoristaOps é um serviço particular com responsabilidade pessoal. Henrico Amaral responde pelo atendimento, pelo planejamento e pela experiência em cada percurso.</p><ul><li>Atendimento direto, sem central intermediária</li><li>Horário e trajeto planejados antes da partida</li><li>Discrição, cuidado e comunicação clara</li><li>Serviço adaptável à rotina do passageiro</li></ul></div><aside class="quote"><span>“</span><p>Levando pessoas,<br/>cuidando de histórias.</p><small>MOTORISTAOPS · MOTORISTA PARTICULAR</small></aside></section>
-
-    <section class="reviews" id="avaliacoes"><div class="shell"><div class="review-score"><span>CONFIANÇA CONSTRUÍDA NO PERCURSO</span><strong>4,99</strong><p>avaliação na Uber</p></div><div class="review-copy"><h2>Experiência que pode ser <em>medida.</em></h2><p>Milhares de viagens ajudam a transformar atenção, pontualidade e cuidado em método — não em promessa.</p><div class="mini-stats"><span><b>3.373+</b> viagens</span><span><b>5,0</b> Google</span><span><b>3 anos</b> de experiência</span></div></div></div></section>
-
-    <section class="section shell" id="faq"><div class="section-head narrow"><p class="kicker">PERGUNTAS FREQUENTES</p><h2>Clareza <em>antes de reservar.</em></h2></div><div class="faq">{faqs.map(([q,a])=><details><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></section>
-
-    <section class="privacy shell" id="privacidade"><p class="kicker">PRIVACIDADE · LGPD</p><h2>Seus dados entram para <em>organizar o serviço.</em><br/>Não para virar produto.</h2><div class="privacy-grid"><p>Ao entrar em contato, você pode compartilhar dados como nome, telefone, origem, destino, data, horário e informações necessárias ao atendimento. Eles são usados para responder à solicitação, preparar o orçamento e executar o serviço contratado.</p><p>A MotoristaOps não exige criação de conta nesta página e não vende dados pessoais. Informações são mantidas apenas pelo período necessário às finalidades do atendimento e às obrigações legais aplicáveis. Solicitações sobre acesso, correção ou exclusão podem ser feitas pelo canal de contato.</p></div><small>Esta versão temporária não utiliza formulário próprio de cadastro. O contato é direcionado ao WhatsApp. Cookies estritamente necessários poderão ser usados pela infraestrutura de hospedagem.</small></section>
-
-    <section class="final-cta" id="contato"><div class="shell"><p class="kicker">PRÓXIMO TRAJETO</p><h2>Conte para onde você vai.<br/><em>Eu organizo o caminho.</em></h2><p>Envie origem, destino, data, horário e o que precisa durante o atendimento.</p><a class="cta light" href={whatsapp}>FALAR COM HENRICO NO WHATSAPP <span>↗</span></a></div></section>
-
-    <footer class="shell footer"><div class="brand"><span class="crest">MO</span><span><b>MOTORISTA<span>OPS</span></b><small>por Henrico Amaral · MOTORISTA PARTICULAR</small></span></div><div><a href="#servicos">Serviços</a><a href="#faq">FAQ</a><a href="#privacidade">Privacidade</a></div><small>© 2026 MotoristaOps. Versão temporária para validação.</small></footer>
   </main>
-</BaseLayout>
+</LandingLayout>
 
 <style>
-:global(:root){--night:#070709;--graphite:#151518;--champagne:#C79C5B;--ivory:#F3EFE4;--stone:#A6A39E;--line:rgba(199,156,91,.24)}
-:global(body){background:var(--night);color:var(--ivory);font-family:Inter,Instrument Sans,system-ui,sans-serif}.temp-page{overflow:hidden}.shell{width:min(1440px,calc(100% - 9vw));margin:auto}.nav{height:116px;display:flex;align-items:center;gap:42px;position:relative;z-index:5}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:270px}.crest{width:48px;height:58px;border:1px solid var(--champagne);border-radius:12px 12px 22px 22px;display:grid;place-items:center;color:var(--champagne);font-weight:800;font-size:12px}.brand b{font-size:21px;letter-spacing:.02em}.brand b span{color:var(--champagne)}.brand small{display:block;color:var(--stone);font-size:9px;letter-spacing:.1em;margin-top:3px}.nav nav{display:flex;gap:34px;margin-left:auto}.nav nav a,.footer a{color:#d8d3ca;text-decoration:none;font-size:13px}.nav-cta{border:1px solid var(--champagne);padding:12px 16px;text-decoration:none;color:var(--champagne);font-size:11px;letter-spacing:.1em}.hero{min-height:720px;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;padding:38px 0 82px}.hero-copy{position:relative;z-index:2}.kicker{color:var(--champagne);font-size:12px;font-weight:700;letter-spacing:.2em;margin:0 0 25px}.hero h1,.section h2,.method h2,.reviews h2,.privacy h2,.final-cta h2{font-family:'Arial Narrow',Inter,sans-serif;font-stretch:condensed;font-size:clamp(58px,6vw,94px);line-height:.91;letter-spacing:-.055em;margin:0;font-weight:800}.hero h1 em,.section h2 em,.method h2 em,.reviews h2 em,.privacy h2 em,.final-cta h2 em{font-style:normal;color:var(--champagne)}.lead{max-width:620px;color:#d6d0c7;font-size:19px;line-height:1.65;margin:30px 0}.hero-actions{display:flex;align-items:center;gap:26px}.cta{display:inline-flex;align-items:center;gap:30px;border:1px solid var(--champagne);padding:18px 22px;color:var(--champagne);text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.13em}.text-link{color:var(--stone);font-size:12px;text-decoration:none}.proof{display:grid;grid-template-columns:repeat(3,1fr);max-width:680px;margin-top:48px}.proof div{padding:0 28px;border-left:1px solid var(--line)}.proof div:first-child{padding-left:0;border:0}.proof strong{display:block;color:var(--champagne);font-size:39px;line-height:1}.proof span,.proof small{display:block;font-size:9px;letter-spacing:.12em;margin-top:8px}.proof small{color:var(--champagne)}.route-art{height:680px;position:relative;margin-right:-9vw;background:radial-gradient(circle at 65% 35%,rgba(199,156,91,.13),transparent 28%),linear-gradient(90deg,var(--night),rgba(7,7,9,.25))}.city{position:absolute;inset:18% 0 32%;opacity:.35;background:repeating-linear-gradient(90deg,transparent 0 46px,rgba(243,239,228,.09) 47px 50px),linear-gradient(0deg,rgba(199,156,91,.09),transparent);clip-path:polygon(0 80%,6% 46%,11% 73%,18% 30%,25% 72%,31% 52%,38% 76%,46% 19%,52% 72%,60% 42%,68% 78%,75% 23%,82% 71%,90% 45%,100% 80%,100% 100%,0 100%)}.route-art svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 0 8px rgba(240,180,77,.38))}.route-art path{fill:none;stroke:#F0B44D;stroke-width:3}.pin{position:absolute;z-index:2;right:23%;top:33%;width:62px;height:62px;border:2px solid var(--champagne);border-radius:50% 50% 50% 4px;transform:rotate(-45deg);display:grid;place-items:center;color:var(--ivory);font-size:12px;box-shadow:0 0 30px rgba(240,180,77,.28)}.pin::first-letter{transform:rotate(45deg)}.route-label{position:absolute;right:12%;bottom:13%;color:var(--stone);font-size:10px;letter-spacing:.2em}.section{padding:130px 0}.section-head{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:50px;align-items:end;margin-bottom:64px}.section-head h2,.method h2,.reviews h2,.privacy h2,.final-cta h2{font-size:clamp(42px,4.6vw,72px)}.section-head>p:last-child,.body-copy{color:var(--stone);font-size:16px;line-height:1.7}.section-head.narrow{display:block;max-width:760px}.services{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}.service{min-height:310px;padding:32px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);position:relative}.service.featured{background:linear-gradient(145deg,rgba(199,156,91,.1),transparent)}.service-icon{display:grid;place-items:center;width:52px;height:52px;border:1px solid var(--line);border-radius:50%;color:var(--champagne);font-size:23px}.service small{position:absolute;right:28px;top:30px;color:#6f675e}.service h3{font-size:22px;margin:55px 0 12px}.service p{color:var(--stone);line-height:1.65;font-size:14px}.service a{color:var(--champagne);text-decoration:none;font-size:11px;letter-spacing:.1em}.pricing-note{margin-top:28px;border:1px solid var(--line);padding:26px 30px;display:grid;grid-template-columns:.8fr 2fr;gap:45px;align-items:center}.pricing-note span{display:block;color:var(--stone);font-size:9px;letter-spacing:.16em}.pricing-note strong{display:block;color:var(--champagne);font-size:26px;margin-top:7px}.pricing-note p{color:var(--stone);font-size:13px;line-height:1.65}.method{background:var(--graphite);padding:120px 0}.steps{display:grid;grid-template-columns:repeat(3,1fr);margin-top:65px}.steps article{padding:30px 45px 10px 0;border-top:1px solid var(--line);margin-right:45px}.steps b{color:var(--champagne);font-size:11px;letter-spacing:.16em}.steps h3{font-size:30px;margin:42px 0 14px}.steps p{color:var(--stone);line-height:1.7}.split{display:grid;grid-template-columns:1.1fr .9fr;gap:100px;align-items:center}.split h2{font-size:clamp(48px,5vw,78px)}.split ul{list-style:none;padding:0;margin-top:35px}.split li{padding:13px 0;border-top:1px solid var(--line);color:#d6d0c7}.split li::before{content:'—';color:var(--champagne);margin-right:14px}.quote{border-left:1px solid var(--champagne);padding:40px 0 40px 55px}.quote>span{color:var(--champagne);font-size:80px;line-height:.5}.quote p{font-family:Georgia,serif;font-size:40px;line-height:1.15}.quote small{color:var(--stone);letter-spacing:.15em}.reviews{background:#0c0c0e;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.reviews .shell{padding:100px 0;display:grid;grid-template-columns:.65fr 1.35fr;gap:100px}.review-score{border-right:1px solid var(--line)}.review-score>span{color:var(--champagne);font-size:10px;letter-spacing:.15em}.review-score strong{display:block;font-size:100px;color:var(--champagne);line-height:1;margin-top:25px}.review-score p,.review-copy>p{color:var(--stone)}.mini-stats{display:flex;gap:40px;margin-top:35px}.mini-stats span{color:var(--stone);font-size:12px}.mini-stats b{color:var(--ivory);font-size:20px;margin-right:6px}.faq{max-width:980px;margin-left:auto}.faq details{border-top:1px solid var(--line);padding:0}.faq details:last-child{border-bottom:1px solid var(--line)}.faq summary{list-style:none;display:flex;justify-content:space-between;padding:24px 0;font-size:18px;cursor:pointer}.faq summary span{color:var(--champagne)}.faq details p{color:var(--stone);max-width:760px;line-height:1.7;margin:0 0 26px}.privacy{padding:90px 0;border-top:1px solid var(--line)}.privacy h2{max-width:1000px}.privacy-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin:45px 0 25px;max-width:1100px}.privacy-grid p,.privacy>small{color:var(--stone);line-height:1.7}.final-cta{background:var(--champagne);color:var(--night);padding:100px 0}.final-cta .kicker,.final-cta h2 em{color:#59411f}.final-cta p{font-size:17px}.cta.light{border-color:var(--night);color:var(--night);margin-top:20px}.footer{min-height:170px;display:flex;align-items:center;justify-content:space-between;gap:40px}.footer>div:nth-child(2){display:flex;gap:24px}.footer>small{color:#706a63;font-size:10px}
-@media(max-width:1000px){.nav nav{display:none}.nav-cta{margin-left:auto}.hero{grid-template-columns:1fr;min-height:auto}.route-art{height:430px;order:-1;margin:-30px -9vw 30px}.section-head{grid-template-columns:1fr}.services{grid-template-columns:repeat(2,1fr)}.split,.reviews .shell{grid-template-columns:1fr}.review-score{border-right:0;border-bottom:1px solid var(--line);padding-bottom:40px}.pricing-note{grid-template-columns:1fr}.footer{flex-wrap:wrap;padding:40px 0}}
-@media(max-width:650px){.shell{width:min(100% - 36px,1440px)}.nav{height:90px}.brand{min-width:0}.brand b{font-size:16px}.crest{width:38px;height:46px}.nav-cta{display:none}.hero{padding-top:10px}.hero h1{font-size:50px}.lead{font-size:16px}.hero-actions{align-items:flex-start;flex-direction:column}.proof{grid-template-columns:1fr 1fr;gap:25px}.proof div{padding:0 15px}.proof div:nth-child(3){display:none}.proof strong{font-size:30px}.route-art{height:300px}.section,.method{padding:80px 0}.services,.steps,.privacy-grid{grid-template-columns:1fr}.steps article{margin:0}.section-head{gap:10px;margin-bottom:38px}.pricing-note{padding:22px}.split{gap:55px}.quote{padding-left:30px}.quote p{font-size:31px}.reviews .shell{padding:75px 0;gap:45px}.review-score strong{font-size:72px}.mini-stats{gap:16px;flex-wrap:wrap}.footer{display:grid}.footer .brand{margin-bottom:15px}}
+  :global(:root){--night:#070709;--graphite:#151518;--champagne:#C79C5B;--ivory:#F3EFE4;--stone:#A6A39E;--route:#F0B44D}
+  .landing-v3{min-height:100vh;background:var(--night);overflow:hidden}.shell{width:min(1500px,calc(100% - 96px));margin:0 auto}
+  .site-header{position:relative;z-index:20;height:104px;border-bottom:1px solid rgba(199,156,91,.38);background:rgba(7,7,9,.94);backdrop-filter:blur(18px)}
+  .header-inner{height:100%;display:flex;align-items:center;gap:42px}.brand{display:block;width:170px;flex:0 0 170px}.brand img{display:block;width:100%;height:92px;object-fit:contain;object-position:left center}
+  .desktop-nav{display:flex;align-items:center;gap:32px;margin-left:auto}.desktop-nav a{position:relative;text-decoration:none;color:rgba(243,239,228,.84);font-size:11px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}.desktop-nav a:after{content:'';position:absolute;left:0;right:100%;bottom:-10px;height:1px;background:var(--champagne);transition:right .2s ease}.desktop-nav a:hover:after,.desktop-nav a:focus-visible:after{right:0}
+  .header-cta{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--champagne);border-radius:4px;padding:13px 17px;text-decoration:none;color:var(--night);background:var(--champagne);font-size:11px;font-weight:750;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}.header-cta svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+  .hero{position:relative;height:760px;min-height:calc(100vh - 104px);border-bottom:1px solid rgba(199,156,91,.16);background:radial-gradient(circle at 74% 38%,rgba(199,156,91,.11),transparent 26%),linear-gradient(180deg,#080a0c 0%,#070709 78%)}
+  .hero:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,7,9,.99) 0%,rgba(7,7,9,.93) 34%,rgba(7,7,9,.34) 60%,rgba(7,7,9,.03) 100%);pointer-events:none}
+  .hero-inner{position:relative;z-index:5;height:100%;display:grid;grid-template-columns:minmax(0,.92fr) minmax(560px,1.08fr);align-items:center;gap:10px;padding-bottom:12px}.hero-copy{max-width:660px;padding-top:8px}.eyebrow{margin:0 0 18px;color:var(--champagne);font-size:10px;font-weight:700;letter-spacing:.22em}
+  h1{margin:0;color:var(--ivory);font-size:clamp(56px,5.15vw,82px);font-weight:700;line-height:.91;letter-spacing:-.052em;text-transform:uppercase}h1 em{font-style:normal;color:var(--champagne)}
+  .lead{max-width:600px;margin:24px 0 0;color:rgba(243,239,228,.78);font-size:17px;line-height:1.58}.promise{margin:12px 0 0;color:var(--ivory);font-size:14px;line-height:1.5}.actions{display:flex;gap:12px;margin-top:26px}.button{height:52px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:4px;padding:0 20px;text-decoration:none;text-transform:uppercase;font-size:11px;font-weight:760;letter-spacing:.09em;transition:.18s ease}.button:hover{transform:translateY(-1px)}.button-primary{background:var(--champagne);border:1px solid var(--champagne);color:var(--night)}.button-secondary{background:rgba(7,7,9,.24);border:1px solid rgba(199,156,91,.68);color:var(--ivory)}
+  .trust-row{display:grid;grid-template-columns:repeat(3,1fr);margin-top:28px;border-top:1px solid rgba(199,156,91,.16);padding-top:20px}.trust-row article{display:grid;grid-template-columns:38px 1fr;gap:10px;min-height:70px;padding:0 17px;border-left:1px solid rgba(199,156,91,.28)}.trust-row article:first-child{padding-left:0;border-left:0}.trust-row svg{width:31px;height:31px;fill:none;stroke:var(--champagne);stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round}.trust-row strong{display:block;margin:1px 0 4px;color:var(--ivory);font-size:12px}.trust-row span{display:block;color:var(--stone);font-size:10px;line-height:1.45}
+  .hero-visual{position:relative;align-self:end;height:690px;margin-right:-90px;z-index:2}.hero-visual img{position:absolute;z-index:5;width:min(940px,73vw);max-width:none;right:-50px;bottom:-10px;filter:brightness(.36) contrast(1.24) saturate(.28) drop-shadow(-30px 35px 36px rgba(0,0,0,.68));transform:rotate(-1deg);transform-origin:center bottom}.car-glow{position:absolute;right:6%;bottom:8%;width:70%;height:34%;background:radial-gradient(ellipse at center,rgba(240,180,77,.18),transparent 66%);filter:blur(16px)}
+  .hero-grid{position:absolute;z-index:1;right:0;bottom:-16%;width:64%;height:75%;opacity:.31;background-image:linear-gradient(rgba(199,156,91,.23) 1px,transparent 1px),linear-gradient(90deg,rgba(199,156,91,.23) 1px,transparent 1px);background-size:38px 38px;transform:perspective(620px) rotateX(65deg) rotateZ(-8deg);transform-origin:bottom center;mask-image:linear-gradient(to top,#000,transparent 83%)}
+  .skyline{position:absolute;z-index:1;right:-1%;top:13%;width:58%;height:36%;display:flex;align-items:flex-end;gap:13px;opacity:.42}.skyline i{display:block;width:7%;height:48%;border:1px solid rgba(199,156,91,.15);background-color:rgba(14,16,18,.88);background-image:radial-gradient(circle,rgba(240,180,77,.78) 0 1px,transparent 1.2px);background-size:14px 13px}.skyline i:nth-child(2){height:77%}.skyline i:nth-child(3){height:56%}.skyline i:nth-child(4){height:92%}.skyline i:nth-child(5){height:68%}.skyline i:nth-child(6){height:43%}.skyline i:nth-child(7){height:83%}.skyline i:nth-child(8){height:60%}.skyline i:nth-child(9){height:96%}.skyline i:nth-child(10){height:72%}.skyline i:nth-child(11){height:50%}.skyline i:nth-child(12){height:66%}
+  .route{position:absolute;z-index:2;right:-2%;top:4%;width:61%;height:90%;overflow:visible;filter:url(#glow)}.route path{fill:none;stroke-linecap:round}.route-shadow{stroke:rgba(240,180,77,.18);stroke-width:13}.route-main{stroke:var(--route);stroke-width:2.8;filter:drop-shadow(0 0 5px rgba(240,180,77,.55))}.destination{position:absolute;z-index:3;right:9.3%;top:13.8%;width:34px;height:44px;border-radius:50% 50% 50% 0;background:var(--route);transform:rotate(-45deg);box-shadow:0 0 24px rgba(240,180,77,.5)}.destination span{position:absolute;width:11px;height:11px;border-radius:50%;background:#16110c;left:12px;top:12px}
+  @media(max-width:1180px){.shell{width:min(1120px,calc(100% - 56px))}.desktop-nav{gap:20px}.desktop-nav a{font-size:10px}.brand{width:150px;flex-basis:150px}.hero-inner{grid-template-columns:.95fr 1.05fr}.hero-visual{margin-right:-70px}.hero-visual img{width:780px}}
+  @media(max-width:900px){.site-header{height:82px}.header-inner{gap:18px}.desktop-nav{display:none}.brand{width:130px;flex-basis:130px}.brand img{height:72px}.header-cta{margin-left:auto;padding:11px 13px}.hero{height:auto;min-height:900px;padding:42px 0 0}.hero-inner{display:block;padding-bottom:0}.hero-copy{max-width:650px}.hero-visual{height:420px;margin:0 -30px 0 0}.hero-visual img{right:-110px;bottom:-12px;width:760px}.route{right:-23%;top:41%;width:100%;height:58%}.skyline{top:48%;width:78%}.destination{right:8%;top:48%}.hero:after{background:linear-gradient(180deg,rgba(7,7,9,.96) 0%,rgba(7,7,9,.84) 48%,rgba(7,7,9,.18) 74%,rgba(7,7,9,.03) 100%)}}
+  @media(max-width:640px){.shell{width:calc(100% - 36px)}.site-header{height:74px}.brand{width:104px;flex-basis:104px}.brand img{height:62px}.header-cta span{display:none}.header-cta{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%;background:transparent;color:var(--champagne)}.hero{min-height:850px;padding-top:34px}.eyebrow{font-size:9px;margin-bottom:14px}h1{font-size:48px;line-height:.93}.lead{font-size:15px;margin-top:19px}.promise{font-size:13px}.actions{align-items:stretch;flex-direction:column;width:100%;margin-top:22px}.button{width:100%;height:50px}.trust-row{grid-template-columns:1fr;margin-top:24px;padding-top:0;border-top:0}.trust-row article{grid-template-columns:34px 1fr;border-left:0;border-top:1px solid rgba(199,156,91,.18);padding:13px 0;min-height:0}.trust-row svg{width:27px;height:27px}.hero-visual{height:310px;margin-right:-18px}.hero-visual img{right:-155px;width:650px;bottom:-18px}.skyline{top:65%;width:100%;right:-20%}.route{top:57%;height:46%;right:-50%;width:145%}.destination{top:65%;right:6%;transform:scale(.78) rotate(-45deg)}.hero-grid{width:110%;height:45%}}
+  @media(prefers-reduced-motion:no-preference){.hero-visual img{animation:arrive .9s cubic-bezier(.2,.8,.2,1) both}.hero-copy{animation:reveal .7s ease both}@keyframes arrive{from{opacity:0;transform:translateX(45px) rotate(-1deg)}to{opacity:1;transform:translateX(0) rotate(-1deg)}}@keyframes reveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}}
 </style>
