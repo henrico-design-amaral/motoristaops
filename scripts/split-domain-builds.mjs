@@ -13,20 +13,20 @@ async function assertExists(path, label) {
 await assertExists(join(source, 'index.html'), 'Dashboard index');
 await assertExists(join(source, 'motorista', 'index.html'), 'Landing Page index');
 await assertExists(join(source, 'temp', 'index.html'), 'Temp Landing Page index');
+await assertExists(join(source, 'landing-v3'), 'Landing V3 static assets');
 await assertExists(join(source, '_astro'), 'Astro assets');
 
 await rm(publicOut, { recursive: true, force: true });
 await rm(dashboardOut, { recursive: true, force: true });
 await mkdir(publicOut, { recursive: true });
 
-// Dashboard: preserve the complete operational build, but remove public landing routes.
 await cp(source, dashboardOut, { recursive: true });
 await rm(join(dashboardOut, 'motorista'), { recursive: true, force: true });
 await rm(join(dashboardOut, 'temp'), { recursive: true, force: true });
 
-// Public site: promote /motorista/ to root and preserve /temp/ for homologation.
 await cp(join(source, 'motorista', 'index.html'), join(publicOut, 'index.html'));
 await cp(join(source, 'temp'), join(publicOut, 'temp'), { recursive: true });
+await cp(join(source, 'landing-v3'), join(publicOut, 'temp', 'landing-v3'), { recursive: true });
 await cp(join(source, '_astro'), join(publicOut, '_astro'), { recursive: true });
 
 const publicHtaccess = `RewriteEngine On
@@ -37,8 +37,10 @@ await writeFile(join(publicOut, '.htaccess'), publicHtaccess, 'utf8');
 
 await assertExists(join(publicOut, 'index.html'), 'Public index');
 await assertExists(join(publicOut, 'temp', 'index.html'), 'Public temp index');
+await assertExists(join(publicOut, 'temp', 'landing-v3', 'logo-header-v3.svg'), 'Public temp logo asset');
+await assertExists(join(publicOut, 'temp', 'landing-v3', 'hero-visual-html.svg'), 'Public temp hero asset');
 await assertExists(join(publicOut, '_astro'), 'Public assets');
 await assertExists(join(publicOut, '.htaccess'), 'Public canonical redirect');
 await assertExists(join(dashboardOut, 'index.html'), 'Dashboard output');
 
-console.log('OK: artefatos separados em dist-public e dist-dashboard, incluindo /temp no site publico.');
+console.log('OK: artefatos separados em dist-public e dist-dashboard, com /temp autocontido e seus assets visuais.');
