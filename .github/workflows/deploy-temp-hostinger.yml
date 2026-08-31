@@ -1,0 +1,115 @@
+name: Deploy MotoristaOPS temp to Hostinger
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/pages/temp.astro'
+      - 'src/layouts/LandingLayout.astro'
+      - 'public/landing-v3/**'
+      - 'scripts/split-domain-builds.mjs'
+      - 'astro.config.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/deploy-temp-hostinger.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: motoristaops-temp-hostinger
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy-temp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate data
+        run: npm run validate:data
+
+      - name: Static analysis
+        run: npm run check
+
+      - name: Security gate
+        run: npm run security
+
+      - name: Build public temp artifact
+        env:
+          SITE_URL: https://www.motoristaops.com.br
+          BASE_PATH: /
+        run: npm run build:domains
+
+      - name: Verify isolated temp artifact
+        run: |
+          test -f dist-public/temp/index.html
+          test -f dist-public/temp/landing-v3/logo-header-v3.svg
+          test -f dist-public/temp/landing-v3/hero-visual-html.svg
+          test -d dist-public/_astro
+          grep -q 'landing-v3-block-01-r2' dist-public/temp/index.html
+          grep -q 'noindex,nofollow,noarchive' dist-public/temp/index.html
+
+      - name: Ensure Hostinger temp deploy secrets are configured
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+        run: |
+          test -n "$HOSTINGER_HOST"
+          test -n "$HOSTINGER_USERNAME"
+          test -n "$HOSTINGER_PASSWORD"
+          test -n "$HOSTINGER_PORT"
+          test -n "$HOSTINGER_PUBLIC_TARGET_DIR"
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Deploy only /temp
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+        run: |
+          lftp -u "$HOSTINGER_USERNAME","$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" sftp://"$HOSTINGER_HOST" <<EOF_LFTP
+          set sftp:auto-confirm yes
+          set net:max-retries 2
+          set net:timeout 20
+          mirror --reverse --delete --verbose ./dist-public/temp "$HOSTINGER_PUBLIC_TARGET_DIR/temp"
+          mirror --reverse --only-newer --verbose ./dist-public/_astro "$HOSTINGER_PUBLIC_TARGET_DIR/_astro"
+          bye
+          EOF_LFTP
+
+      - name: Smoke test motoristaops.com.br/temp
+        run: |
+          for attempt in 1 2 3 4 5 6; do
+            temp_html="$(curl --fail --silent --show-error --location --max-time 20 https://www.motoristaops.com.br/temp/ || true)"
+            logo_status="$(curl --silent --output /dev/null --write-out '%{http_code}' --location --max-time 20 https://www.motoristaops.com.br/temp/landing-v3/logo-header-v3.svg || true)"
+            hero_status="$(curl --silent --output /dev/null --write-out '%{http_code}' --location --max-time 20 https://www.motoristaops.com.br/temp/landing-v3/hero-visual-html.svg || true)"
+            if printf '%s' "$temp_html" | grep -q 'landing-v3-block-01-r2' \
+              && printf '%s' "$temp_html" | grep -q 'MOTORISTA PARTICULAR' \
+              && test "$logo_status" = "200" \
+              && test "$hero_status" = "200"; then
+              echo "MotoristaOPS /temp smoke test passed on attempt $attempt."
+              exit 0
+            fi
+            echo "MotoristaOPS /temp not ready on attempt $attempt (logo=$logo_status hero=$hero_status)."
+            sleep 10
+          done
+          echo "MotoristaOPS /temp smoke test failed."
+          exit 1
