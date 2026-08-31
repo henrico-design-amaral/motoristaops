@@ -2,26 +2,23 @@
 import LandingLayout from '../layouts/LandingLayout.astro';
 
 const whatsapp = 'https://wa.me/5511984240398?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento.%0A%0AOrigem%3A%0ADestino%3A%0AData%3A%0AHor%C3%A1rio%3A%0APassageiros%3A%0ABagagem%2Fobserva%C3%A7%C3%B5es%3A';
-const car = 'https://www.hyundai.com.br/content/dam/hmb/product-page/novo-hyndai-hb20/veiculo/360/externo/hb20_cinza_shadow_48.webp';
 ---
 
-<LandingLayout>
+<LandingLayout title="MotoristaOPS | Motorista Particular em São Paulo">
   <main class="landing-v3">
     <header class="site-header">
       <div class="shell header-inner">
         <a class="brand" href="#inicio" aria-label="MotoristaOPS — início">
-          <img src="/landing-v3/logo-oficial.svg" alt="MotoristaOPS por Henrico Amaral — Motorista Particular" />
+          <img src="/landing-v3/logo-header-v3.svg" alt="MotoristaOPS" />
         </a>
 
         <nav class="desktop-nav" aria-label="Navegação principal">
           <a href="#servicos">Serviços</a>
           <a href="#como-funciona">Como funciona</a>
-          <a href="#metodo">Método</a>
           <a href="#quem-dirige">Quem dirige</a>
-          <a href="#contato">Contato</a>
         </nav>
 
-        <a class="header-cta" href={whatsapp}>
+        <a class="header-cta" href={whatsapp} aria-label="Falar no WhatsApp">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.4-4.2A8.5 8.5 0 1 1 20.5 11.7Z"/><path d="M8.3 7.8c.3-.3.7-.2.9.1l1.1 1.8c.2.3.1.6-.1.9l-.7.8c.8 1.6 2 2.8 3.7 3.6l.8-.8c.2-.2.6-.3.9-.1l1.8 1.1c.3.2.4.6.1.9-.6.7-1.4 1.1-2.3 1-3.8-.5-7.1-3.7-7.6-7.5-.1-.9.3-1.8 1.4-1.8Z"/></svg>
           <span>Falar no WhatsApp</span>
         </a>
@@ -29,48 +26,42 @@ const car = 'https://www.hyundai.com.br/content/dam/hmb/product-page/novo-hyndai
     </header>
 
     <section class="hero" id="inicio">
-      <div class="hero-grid" aria-hidden="true"></div>
-      <div class="skyline" aria-hidden="true">
-        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      <div class="hero-visual" aria-hidden="true">
+        <img src="/landing-v3/hero-visual-html.svg" alt="" />
+        <div class="hero-visual-fade"></div>
       </div>
-      <svg class="route" viewBox="0 0 900 720" preserveAspectRatio="none" aria-hidden="true">
-        <defs><filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-        <path class="route-shadow" d="M760 58C620 122 818 177 635 235C475 286 720 338 552 393C365 455 635 494 452 554C308 601 421 648 356 703"/>
-        <path class="route-main" d="M760 58C620 122 818 177 635 235C475 286 720 338 552 393C365 455 635 494 452 554C308 601 421 648 356 703"/>
-      </svg>
-      <div class="destination" aria-hidden="true"><span></span></div>
 
       <div class="shell hero-inner">
         <div class="hero-copy">
-          <p class="eyebrow">MOTORISTA PARTICULAR · SÃO PAULO</p>
-          <h1>Seu trajeto não<br/>começa no carro.<br/><em>Começa no método.</em></h1>
-          <p class="lead">Cada corrida começa antes da partida: contexto claro, trajeto definido e comunicação direta. Você sabe como o serviço funciona e o que esperar até a chegada.</p>
-          <p class="promise">Mais que deslocamento: presença, cuidado e previsibilidade.</p>
+          <p class="eyebrow">SÃO PAULO <span>•</span> CORRIDAS AGENDADAS</p>
+
+          <h1>
+            MOTORISTA PARTICULAR<br />
+            EM SÃO PAULO, COM<br />
+            <em>CONFORTO, DISCRIÇÃO E<br />PONTUALIDADE.</em>
+          </h1>
+
+          <p class="lead">Atendimento direto para aeroportos, reuniões, compromissos e deslocamentos planejados — com comunicação clara e uma experiência cuidadosa do início ao fim.</p>
 
           <div class="actions">
             <a class="button button-primary" href={whatsapp}>Falar no WhatsApp</a>
-            <a class="button button-secondary" href={whatsapp}>Pedir orçamento <span>↗</span></a>
+            <a class="button button-secondary" href="#servicos">Ver serviços <span aria-hidden="true">→</span></a>
           </div>
 
-          <div class="trust-row" aria-label="Pilares do atendimento">
-            <article>
-              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 17a6 6 0 1 0 0-12 6 6 0 0 0 0 12Zm-10 10c1.7-5.4 5-8 10-8s8.3 2.6 10 8"/></svg>
-              <div><strong>Contato direto</strong><span>Você fala com quem vai atender.</span></div>
-            </article>
+          <div class="trust-row" aria-label="Diferenciais do atendimento">
             <article>
               <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M16 8v9l6 3"/></svg>
-              <div><strong>Planejamento</strong><span>Horário, trajeto e contexto alinhados.</span></div>
+              <span>Atendimento com<br />hora marcada</span>
             </article>
             <article>
-              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 28S5 21.6 5 12.9C5 8.7 8 6 11.5 6c2.2 0 3.8 1.1 4.5 2.8C16.7 7.1 18.3 6 20.5 6 24 6 27 8.7 27 12.9 27 21.6 16 28 16 28Z"/></svg>
-              <div><strong>Cuidado</strong><span>Conforto, discrição e responsabilidade.</span></div>
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="m6 17 20-9-8 20-3-8-9-3Z"/><path d="m15 20 5-5"/></svg>
+              <span>Aeroportos e<br />deslocamentos</span>
+            </article>
+            <article>
+              <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 28s9-8.4 9-15A9 9 0 0 0 7 13c0 6.6 9 15 9 15Z"/><circle cx="16" cy="13" r="3"/></svg>
+              <span>São Paulo<br />e região</span>
             </article>
           </div>
-        </div>
-
-        <div class="hero-visual">
-          <div class="car-glow" aria-hidden="true"></div>
-          <img src={car} alt="Hyundai HB20 usado como referência visual do serviço MotoristaOPS" />
         </div>
       </div>
     </section>
@@ -78,24 +69,92 @@ const car = 'https://www.hyundai.com.br/content/dam/hmb/product-page/novo-hyndai
 </LandingLayout>
 
 <style>
-  :global(:root){--night:#070709;--graphite:#151518;--champagne:#C79C5B;--ivory:#F3EFE4;--stone:#A6A39E;--route:#F0B44D}
-  .landing-v3{min-height:100vh;background:var(--night);overflow:hidden}.shell{width:min(1500px,calc(100% - 96px));margin:0 auto}
-  .site-header{position:relative;z-index:20;height:104px;border-bottom:1px solid rgba(199,156,91,.38);background:rgba(7,7,9,.94);backdrop-filter:blur(18px)}
-  .header-inner{height:100%;display:flex;align-items:center;gap:42px}.brand{display:block;width:170px;flex:0 0 170px}.brand img{display:block;width:100%;height:92px;object-fit:contain;object-position:left center}
-  .desktop-nav{display:flex;align-items:center;gap:32px;margin-left:auto}.desktop-nav a{position:relative;text-decoration:none;color:rgba(243,239,228,.84);font-size:11px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}.desktop-nav a:after{content:'';position:absolute;left:0;right:100%;bottom:-10px;height:1px;background:var(--champagne);transition:right .2s ease}.desktop-nav a:hover:after,.desktop-nav a:focus-visible:after{right:0}
-  .header-cta{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--champagne);border-radius:4px;padding:13px 17px;text-decoration:none;color:var(--night);background:var(--champagne);font-size:11px;font-weight:750;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}.header-cta svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-  .hero{position:relative;height:760px;min-height:calc(100vh - 104px);border-bottom:1px solid rgba(199,156,91,.16);background:radial-gradient(circle at 74% 38%,rgba(199,156,91,.11),transparent 26%),linear-gradient(180deg,#080a0c 0%,#070709 78%)}
-  .hero:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,7,9,.99) 0%,rgba(7,7,9,.93) 34%,rgba(7,7,9,.34) 60%,rgba(7,7,9,.03) 100%);pointer-events:none}
-  .hero-inner{position:relative;z-index:5;height:100%;display:grid;grid-template-columns:minmax(0,.92fr) minmax(560px,1.08fr);align-items:center;gap:10px;padding-bottom:12px}.hero-copy{max-width:660px;padding-top:8px}.eyebrow{margin:0 0 18px;color:var(--champagne);font-size:10px;font-weight:700;letter-spacing:.22em}
-  h1{margin:0;color:var(--ivory);font-size:clamp(56px,5.15vw,82px);font-weight:700;line-height:.91;letter-spacing:-.052em;text-transform:uppercase}h1 em{font-style:normal;color:var(--champagne)}
-  .lead{max-width:600px;margin:24px 0 0;color:rgba(243,239,228,.78);font-size:17px;line-height:1.58}.promise{margin:12px 0 0;color:var(--ivory);font-size:14px;line-height:1.5}.actions{display:flex;gap:12px;margin-top:26px}.button{height:52px;display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:4px;padding:0 20px;text-decoration:none;text-transform:uppercase;font-size:11px;font-weight:760;letter-spacing:.09em;transition:.18s ease}.button:hover{transform:translateY(-1px)}.button-primary{background:var(--champagne);border:1px solid var(--champagne);color:var(--night)}.button-secondary{background:rgba(7,7,9,.24);border:1px solid rgba(199,156,91,.68);color:var(--ivory)}
-  .trust-row{display:grid;grid-template-columns:repeat(3,1fr);margin-top:28px;border-top:1px solid rgba(199,156,91,.16);padding-top:20px}.trust-row article{display:grid;grid-template-columns:38px 1fr;gap:10px;min-height:70px;padding:0 17px;border-left:1px solid rgba(199,156,91,.28)}.trust-row article:first-child{padding-left:0;border-left:0}.trust-row svg{width:31px;height:31px;fill:none;stroke:var(--champagne);stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round}.trust-row strong{display:block;margin:1px 0 4px;color:var(--ivory);font-size:12px}.trust-row span{display:block;color:var(--stone);font-size:10px;line-height:1.45}
-  .hero-visual{position:relative;align-self:end;height:690px;margin-right:-90px;z-index:2}.hero-visual img{position:absolute;z-index:5;width:min(940px,73vw);max-width:none;right:-50px;bottom:-10px;filter:brightness(.36) contrast(1.24) saturate(.28) drop-shadow(-30px 35px 36px rgba(0,0,0,.68));transform:rotate(-1deg);transform-origin:center bottom}.car-glow{position:absolute;right:6%;bottom:8%;width:70%;height:34%;background:radial-gradient(ellipse at center,rgba(240,180,77,.18),transparent 66%);filter:blur(16px)}
-  .hero-grid{position:absolute;z-index:1;right:0;bottom:-16%;width:64%;height:75%;opacity:.31;background-image:linear-gradient(rgba(199,156,91,.23) 1px,transparent 1px),linear-gradient(90deg,rgba(199,156,91,.23) 1px,transparent 1px);background-size:38px 38px;transform:perspective(620px) rotateX(65deg) rotateZ(-8deg);transform-origin:bottom center;mask-image:linear-gradient(to top,#000,transparent 83%)}
-  .skyline{position:absolute;z-index:1;right:-1%;top:13%;width:58%;height:36%;display:flex;align-items:flex-end;gap:13px;opacity:.42}.skyline i{display:block;width:7%;height:48%;border:1px solid rgba(199,156,91,.15);background-color:rgba(14,16,18,.88);background-image:radial-gradient(circle,rgba(240,180,77,.78) 0 1px,transparent 1.2px);background-size:14px 13px}.skyline i:nth-child(2){height:77%}.skyline i:nth-child(3){height:56%}.skyline i:nth-child(4){height:92%}.skyline i:nth-child(5){height:68%}.skyline i:nth-child(6){height:43%}.skyline i:nth-child(7){height:83%}.skyline i:nth-child(8){height:60%}.skyline i:nth-child(9){height:96%}.skyline i:nth-child(10){height:72%}.skyline i:nth-child(11){height:50%}.skyline i:nth-child(12){height:66%}
-  .route{position:absolute;z-index:2;right:-2%;top:4%;width:61%;height:90%;overflow:visible;filter:url(#glow)}.route path{fill:none;stroke-linecap:round}.route-shadow{stroke:rgba(240,180,77,.18);stroke-width:13}.route-main{stroke:var(--route);stroke-width:2.8;filter:drop-shadow(0 0 5px rgba(240,180,77,.55))}.destination{position:absolute;z-index:3;right:9.3%;top:13.8%;width:34px;height:44px;border-radius:50% 50% 50% 0;background:var(--route);transform:rotate(-45deg);box-shadow:0 0 24px rgba(240,180,77,.5)}.destination span{position:absolute;width:11px;height:11px;border-radius:50%;background:#16110c;left:12px;top:12px}
-  @media(max-width:1180px){.shell{width:min(1120px,calc(100% - 56px))}.desktop-nav{gap:20px}.desktop-nav a{font-size:10px}.brand{width:150px;flex-basis:150px}.hero-inner{grid-template-columns:.95fr 1.05fr}.hero-visual{margin-right:-70px}.hero-visual img{width:780px}}
-  @media(max-width:900px){.site-header{height:82px}.header-inner{gap:18px}.desktop-nav{display:none}.brand{width:130px;flex-basis:130px}.brand img{height:72px}.header-cta{margin-left:auto;padding:11px 13px}.hero{height:auto;min-height:900px;padding:42px 0 0}.hero-inner{display:block;padding-bottom:0}.hero-copy{max-width:650px}.hero-visual{height:420px;margin:0 -30px 0 0}.hero-visual img{right:-110px;bottom:-12px;width:760px}.route{right:-23%;top:41%;width:100%;height:58%}.skyline{top:48%;width:78%}.destination{right:8%;top:48%}.hero:after{background:linear-gradient(180deg,rgba(7,7,9,.96) 0%,rgba(7,7,9,.84) 48%,rgba(7,7,9,.18) 74%,rgba(7,7,9,.03) 100%)}}
-  @media(max-width:640px){.shell{width:calc(100% - 36px)}.site-header{height:74px}.brand{width:104px;flex-basis:104px}.brand img{height:62px}.header-cta span{display:none}.header-cta{width:44px;height:44px;padding:0;justify-content:center;border-radius:50%;background:transparent;color:var(--champagne)}.hero{min-height:850px;padding-top:34px}.eyebrow{font-size:9px;margin-bottom:14px}h1{font-size:48px;line-height:.93}.lead{font-size:15px;margin-top:19px}.promise{font-size:13px}.actions{align-items:stretch;flex-direction:column;width:100%;margin-top:22px}.button{width:100%;height:50px}.trust-row{grid-template-columns:1fr;margin-top:24px;padding-top:0;border-top:0}.trust-row article{grid-template-columns:34px 1fr;border-left:0;border-top:1px solid rgba(199,156,91,.18);padding:13px 0;min-height:0}.trust-row svg{width:27px;height:27px}.hero-visual{height:310px;margin-right:-18px}.hero-visual img{right:-155px;width:650px;bottom:-18px}.skyline{top:65%;width:100%;right:-20%}.route{top:57%;height:46%;right:-50%;width:145%}.destination{top:65%;right:6%;transform:scale(.78) rotate(-45deg)}.hero-grid{width:110%;height:45%}}
-  @media(prefers-reduced-motion:no-preference){.hero-visual img{animation:arrive .9s cubic-bezier(.2,.8,.2,1) both}.hero-copy{animation:reveal .7s ease both}@keyframes arrive{from{opacity:0;transform:translateX(45px) rotate(-1deg)}to{opacity:1;transform:translateX(0) rotate(-1deg)}}@keyframes reveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}}
+  :global(:root){--night:#070709;--graphite:#151518;--champagne:#C79C5B;--ivory:#F3EFE4;--stone:#A6A39E;--amber:#F0B44D}
+  .landing-v3{min-height:100vh;background:var(--night);overflow:hidden}
+  .shell{width:min(1500px,calc(100% - 96px));margin:0 auto}
+
+  .site-header{position:relative;z-index:20;height:104px;border-bottom:1px solid rgba(199,156,91,.45);background:#070709}
+  .header-inner{height:100%;display:flex;align-items:center;gap:42px}
+  .brand{display:block;width:255px;flex:0 0 255px}
+  .brand img{display:block;width:100%;height:auto}
+  .desktop-nav{display:flex;align-items:center;gap:56px;margin-left:auto}
+  .desktop-nav a{color:var(--ivory);text-decoration:none;font-size:14px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+  .header-cta{margin-left:18px;display:inline-flex;align-items:center;gap:12px;padding:16px 22px;border:1px solid rgba(199,156,91,.85);border-radius:4px;text-decoration:none;color:var(--champagne);font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap}
+  .header-cta svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+  .hero{position:relative;min-height:760px;background:#070709;border-bottom:1px solid rgba(199,156,91,.12);isolation:isolate}
+  .hero-visual{position:absolute;z-index:0;right:0;top:0;width:69%;height:100%;overflow:hidden}
+  .hero-visual img{width:100%;height:100%;object-fit:cover;object-position:center right;display:block}
+  .hero-visual:before{content:'';position:absolute;z-index:2;inset:0;background:linear-gradient(90deg,#070709 0%,rgba(7,7,9,.95) 8%,rgba(7,7,9,.54) 30%,rgba(7,7,9,.08) 58%,rgba(7,7,9,.05) 100%)}
+  .hero-visual-fade{position:absolute;z-index:3;left:0;right:0;bottom:0;height:30%;background:linear-gradient(180deg,transparent,#070709 94%)}
+
+  .hero-inner{position:relative;z-index:5;min-height:760px;display:flex;align-items:center}
+  .hero-copy{width:min(660px,48vw);padding:56px 0 48px}
+  .eyebrow{margin:0 0 28px;color:var(--amber);font-size:13px;font-weight:650;letter-spacing:.28em;text-transform:uppercase}
+  .eyebrow span{margin:0 .5em;color:var(--champagne)}
+
+  h1{margin:0;color:var(--ivory);font-size:clamp(54px,4.85vw,82px);font-weight:700;line-height:.95;letter-spacing:-.045em;text-transform:uppercase;font-variation-settings:'wdth' 78}
+  h1 em{font-style:normal;color:var(--champagne)}
+  .lead{max-width:610px;margin:26px 0 0;color:rgba(243,239,228,.88);font-size:18px;line-height:1.62}
+
+  .actions{display:flex;gap:18px;margin-top:32px}
+  .button{height:58px;display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:0 26px;border-radius:4px;text-decoration:none;text-transform:uppercase;font-size:13px;font-weight:750;letter-spacing:.08em;transition:transform .18s ease,background .18s ease,border-color .18s ease}
+  .button:hover,.button:focus-visible{transform:translateY(-1px)}
+  .button-primary{background:var(--champagne);border:1px solid var(--champagne);color:var(--night)}
+  .button-secondary{background:rgba(7,7,9,.56);border:1px solid rgba(199,156,91,.84);color:var(--champagne)}
+
+  .trust-row{display:flex;align-items:center;gap:0;margin-top:34px}
+  .trust-row article{display:flex;align-items:center;gap:13px;padding:0 24px;border-left:1px solid rgba(199,156,91,.34)}
+  .trust-row article:first-child{padding-left:0;border-left:0}
+  .trust-row svg{width:38px;height:38px;fill:none;stroke:var(--amber);stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+  .trust-row span{color:rgba(243,239,228,.9);font-size:12px;font-weight:600;line-height:1.45;text-transform:uppercase;letter-spacing:.05em}
+
+  @media(max-width:1180px){
+    .shell{width:min(1120px,calc(100% - 56px))}
+    .brand{width:220px;flex-basis:220px}
+    .desktop-nav{gap:28px}.desktop-nav a{font-size:12px}
+    .header-cta{padding:14px 16px;font-size:11px}
+    .hero-visual{width:72%}
+    .hero-copy{width:min(590px,50vw)}
+    h1{font-size:clamp(46px,5vw,66px)}
+    .lead{font-size:16px}
+  }
+
+  @media(max-width:900px){
+    .site-header{height:82px}
+    .header-inner{gap:16px}
+    .desktop-nav{display:none}
+    .brand{width:190px;flex-basis:190px}
+    .header-cta{margin-left:auto;padding:12px 14px}
+    .header-cta span{display:none}
+    .hero{min-height:auto;padding-bottom:0}
+    .hero-inner{min-height:auto;display:block;padding-top:38px}
+    .hero-copy{width:100%;max-width:640px;padding:0 0 390px}
+    .hero-visual{top:auto;bottom:0;width:100%;height:430px}
+    .hero-visual:before{background:linear-gradient(180deg,#070709 0%,rgba(7,7,9,.68) 20%,rgba(7,7,9,.08) 54%,rgba(7,7,9,.25) 100%)}
+    .eyebrow{font-size:11px;margin-bottom:20px}
+    h1{font-size:clamp(44px,9vw,64px)}
+    .lead{max-width:560px}
+  }
+
+  @media(max-width:620px){
+    .shell{width:calc(100% - 32px)}
+    .site-header{height:74px}
+    .brand{width:165px;flex-basis:165px}
+    .header-cta{padding:10px 11px}
+    .hero-inner{padding-top:28px}
+    .hero-copy{padding-bottom:330px}
+    .eyebrow{font-size:9px;letter-spacing:.22em}
+    h1{font-size:clamp(38px,11vw,50px);line-height:.96}
+    .lead{font-size:15px;margin-top:20px}
+    .actions{display:grid;grid-template-columns:1fr;margin-top:24px}
+    .button{width:100%;height:54px}
+    .trust-row{display:grid;grid-template-columns:1fr;gap:14px;margin-top:24px}
+    .trust-row article,.trust-row article:first-child{padding:0;border:0}
+    .trust-row svg{width:30px;height:30px}
+    .trust-row span{font-size:11px}
+    .hero-visual{height:350px}
+  }
+
+  @media(prefers-reduced-motion:reduce){.button{transition:none}.button:hover,.button:focus-visible{transform:none}}
 </style>
