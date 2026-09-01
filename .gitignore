@@ -1,9 +1,16 @@
 node_modules/
 dist/
+build/
+.cache/
 .astro/
+.next/
+.vercel/
 .env
+.env.*
+!.env.example
 .DS_Store
-# MotoristaOps private operational sources
-public/source/*.xlsx
-public/source/*.xls
-!public/source/.gitkeep
+Thumbs.db
+*.log
+*.tmp
+*.temp
+coverage/

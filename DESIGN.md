@@ -1,78 +1,35 @@
-# MotoristaOps Design Authority
+# MotoristaOPS V2 — DESIGN
 
-Status: ACTIVE CONTRACT
-Updated: 2026-08-23
+## Autoridade
+1. decisões explicitamente aprovadas para a superfície;
+2. Brand Book oficial e assets oficiais;
+3. esta especificação;
+4. referências específicas do MotoristaOPS;
+5. referências globais homologadas do ecossistema.
 
-## Purpose
+Nenhuma ferramenta, tendência ou referência externa pode substituir essa ordem.
 
-This file does not invent a new MotoristaOps identity. It defines how an executor must resolve and preserve the current visual authority before generating or implementing visual work.
+## Invariantes de marca
+- escrever `MotoristaOPS` unido;
+- categoria: `MOTORISTA PARTICULAR`;
+- assinatura: `por Henrico Amaral`;
+- não redesenhar logo, brasão ou assinatura quando houver asset oficial;
+- composição deve usar assets oficiais, não regenerar a marca por IA.
 
-## Authority order
+## Paleta oficial atual
+- Champagne `#C79C5B`
+- Grafite `#151518`
+- Noite `#070709`
+- Marfim `#F3EFE4`
+- sem verde/glow.
 
-For a visual task, use this order:
+## Superfícies
+- Landing: pública, minimalista, autoral, alta clareza e conversão.
+- Dashboard: operacional, escaneável e orientado a decisão.
+- Social: extensão da marca pública, não identidade independente.
 
-1. explicit current project decisions and approved artifacts for the requested surface;
-2. current MotoristaOps implementation when it represents an already approved/shipped surface;
-3. current MotoristaOps project references/brand context resolved through HenricoOPS and the project Drive mapping;
-4. current project control/non-goals;
-5. historical explorations and superseded studies only as provenance or anti-reference.
+## Preflight visual obrigatório
+Resolver antes de criar: superfície, asset oficial, conteúdo real, referência aprovada, modalidade, estágio, fidelidade e responsividade.
 
-Old studies must not become canonical merely because they contain detailed typography, palette or logo instructions.
-
-## Mandatory preflight
-
-Before generating an image, page, component, campaign or frontend code, resolve:
-
-- surface: Landing, Dashboard or Social;
-- current brand/logo authority;
-- current typography authority;
-- current palette authority;
-- imagery/iconography authority if applicable;
-- approved reference pack or source artifact;
-- output modality;
-- current stage;
-- fidelity mode when an approved artifact exists.
-
-If a required visual authority is conflicting or cannot be resolved, **do not invent replacements**. Mark the visual task `BLOCKED — visual authority unresolved` and identify the conflict.
-
-## Surface rules
-
-### Landing
-
-Public/commercial. Minimal, memorable, high-impact and specific to the real MotoristaOps service. Do not use dashboard density or software-product aesthetics as a shortcut.
-
-### Dashboard
-
-Operational. Prioritize scanability, hierarchy, reliable information and task completion. It shares brand anchors with the ecosystem but may use a distinct operational composition/density.
-
-### Social
-
-Extends the public brand and approved campaign language. It must not become an independent identity.
-
-## Approved visual -> implementation
-
-When a visual artifact is explicitly approved as the basis for implementation, create/resolve a fidelity contract:
-
-- source artifact;
-- approval record/date;
-- `STRICT`, `ADAPTIVE` or `DIRECTIONAL` mode;
-- protected anchors;
-- allowed transformations;
-- forbidden reinterpretations;
-- responsive translation rules.
-
-In `STRICT` mode, logo, typography, palette roles, primary composition, content hierarchy and signature visual elements are protected by default.
-
-## HVS relationship
-
-Henrico Visual System is used for quality assurance, not for choosing MotoristaOps aesthetics.
-
-HVS may validate accessibility, responsiveness, semantic structure, performance, consistency and token discipline. Generic HVS grids, type scales, hero layouts or components are examples only and cannot override current project authority.
-
-## Anti-generic rule
-
-Do not solve an unspecified visual axis with a provider's favorite/default aesthetic. Resolve the project context first. Distinctiveness must come from MotoristaOps content, approved identity, service reality and current references.
-
-## Writing
-
-Visual copy inherits HenricoOPS `PROFESSIONAL` mode unless explicitly overridden. Use concise, direct, factual text; no filler or generic luxury promises.
+## QA obrigatório
+Rejeitar e corrigir antes de apresentar se houver erro de nome, logo, grafia, arquitetura de marca, paleta, tipografia, legibilidade, conteúdo ou sobreposição de elementos.

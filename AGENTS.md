@@ -1,47 +1,22 @@
-# MotoristaOps — Agent Governance
+# MotoristaOPS V2 — AGENTS
 
-## Fonte de verdade
+## Regra zero
+MotoristaOPS V2 é um projeto limpo. Não importar código, dependências, componentes, configurações, layouts ou decisões da V1 sem uma spec explícita de migração e validação.
 
-A fonte de verdade é o repositório versionado + as autoridades atuais resolvidas pelo HenricoOPS. Chat, provider memory e auto-memory não substituem `PROJECT_CONTEXT.md`, `HANDOFF.md`, `TASKS.md`, `DECISIONS.md`, `DESIGN.md` nem os gates aplicáveis.
+## Ordem obrigatória
+1. `PRODUCT.md`
+2. `DESIGN.md` para qualquer trabalho visual
+3. `A11Y.md`
+4. spec ativa em `specs/`
+5. decisões explicitamente aprovadas e Brand Book oficial
 
-## Ordem obrigatória de leitura
-
-1. `PROJECT_CONTROL.md`
-2. `PROJECT_CONTEXT.md`
-3. `AGENTS.md`
-4. `HANDOFF.md`
-5. `TASKS.md`
-6. `DECISIONS.md`
-7. `DESIGN.md`
-8. `docs/orchestrator/LOOP_EXECUTION.md`
-9. `package.json`
-
-Claude/Claude Code também deve carregar `CLAUDE.md` como bootstrap próprio.
-
-## Responsabilidades
-
-- **Orchestrator**: resolve contexto, modalidade, estágio, escopo, capacidades e fechamento.
-- **Implementation**: altera apenas arquivos autorizados pelo ciclo ativo.
-- **QA**: executa validações aplicáveis, revisa diff e regressão.
-- **Security/Data**: protege secrets, integridade, origem e fronteiras de dados.
-- **Design Reviewer**: valida projeto visual atual, HVS como quality floor e fidelidade a artefatos aprovados.
-
-Responsabilidades não exigem agentes separados quando uma execução única consegue manter os gates.
-
-## Regras de execução
-
-- Nunca trabalhar diretamente na `main`.
-- Uma branch por objetivo; um PR por escopo.
-- Não misturar governança e implementação funcional no mesmo PR.
-- Resolver output modality e stage antes de executar.
-- Não mudar modalidade silenciosamente.
-- Não avançar de exploração para implementação, ou de implementação para publicação, sem autorização aplicável.
-- Antes de trabalho visual, resolver `DESIGN.md` e a autoridade visual atual.
-- Se houver artefato visual aprovado como base, declarar fidelidade e preservar anchors protegidos.
-- HVS valida qualidade; não redefine a estética do projeto.
-- O dashboard não exige autenticação por padrão conforme `DECISIONS.md`.
-- Escrita padrão: `PROFESSIONAL` conforme HenricoOPS.
-- Não versionar vídeos, prints temporários, dados brutos, `.env`, chaves, caches ou builds.
-- Processamento de vídeo/OCR permanece local, salvo decisão explícita em `DECISIONS.md`.
-- Toda importação exige revisão humana antes da persistência.
-- Antes de concluir, mostrar evidências proporcionais ao escopo: diff, validações, resultado funcional/visual e estado Git/PR.
+## Execução
+- Orquestrador ativo em toda ação.
+- Uma mudança por objetivo; mudanças cirúrgicas.
+- Fluxo: spec -> plan -> tasks -> implement -> converge.
+- Pensar antes de codar; simplicidade primeiro.
+- Ambiguidade reversível pode ser resolvida com evidência; ambiguidade material ou irreversível deve ser escalada.
+- Não inventar dados, conteúdo, features, identidade ou estrutura inexistente.
+- Referências externas podem aconselhar; nunca substituem contexto, Brand Book, DESIGN.md ou decisão aprovada.
+- Não versionar cache, build, secrets, `.env`, temporários, prints descartáveis ou dados brutos sensíveis.
+- Nunca trabalhar diretamente em `main`.
