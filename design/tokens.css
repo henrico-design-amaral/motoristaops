@@ -1,0 +1,16 @@
+:root {
+  --mops-night: #070709;
+  --mops-graphite: #151518;
+  --mops-champagne: #C79C5B;
+  --mops-champagne-shadow: #947546;
+  --mops-ivory: #F3EFE4;
+  --mops-stone: #A6A39E;
+  --mops-route-amber: #F0B44D;
+  --mops-font-sans: "Instrument Sans", system-ui, sans-serif;
+  --mops-weight-body: 400;
+  --mops-weight-body-strong: 500;
+  --mops-weight-heading: 600;
+  --mops-weight-heading-strong: 700;
+  --mops-icon-size: 24px;
+  --mops-icon-stroke: 1.75px;
+}
