@@ -22,7 +22,6 @@ Todo trabalho de criação, mudança material ou evolução estrutural do Motori
 14. OBSERVAÇÃO + APRENDIZADO
 
 ## Regra de progressão
-
 - Cada etapa tem um artefato ou evidência de saída.
 - Nenhuma etapa futura deve ser preenchida por antecipação apenas para completar documentação.
 - Decisões só se tornam herdáveis quando consolidadas no estágio adequado.
@@ -30,5 +29,4 @@ Todo trabalho de criação, mudança material ou evolução estrutural do Motori
 - Se uma etapa reabrir uma premissa anterior, o fluxo retorna ao ponto necessário e registra a mudança.
 
 ## Estado atual
-
-`1. DEFINIÇÃO DO PROJETO — READY FOR VALIDATION`
+`9. PRODUÇÃO — ACTIVE`
