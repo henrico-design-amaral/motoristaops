@@ -14,7 +14,7 @@ Active work session: `WS-011 — Landing Hero + Header / spec-first`
 ## GitHub
 Repository: `henrico-design-amaral/motoristaops`
 V2 branch: `v2/bootstrap-clean`
-Current convergence commit: `af4e670eebbb43f4e384091b339d24ff14edb35a`
+Current convergence commit: `cee9e4ab7093ed4322659d3f7d725ce532a92b48`
 GitHub is the source of truth for versioned code and executable governance.
 
 ## Google Drive
