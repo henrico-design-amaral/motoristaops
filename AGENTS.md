@@ -1,28 +1,37 @@
 # MotoristaOPS V2 — AGENTS
 
-## Regra zero
-MotoristaOPS V2 é um projeto limpo e sequencial. Não importar código, dependências, componentes, configurações, layouts ou decisões da V1 sem passar pelo estágio apropriado do ciclo oficial.
+Status: ACTIVE CONTRACT
 
-## Autoridade por estágio
-1. `PROJECT_LIFECYCLE.md` — define o estágio atual e o próximo permitido.
-2. `project/00-INTENCAO.md` — intenção validada/em validação.
-3. artefato do estágio atual em `project/`.
-4. decisões explicitamente aprovadas pelo usuário.
-5. Brand Book e assets oficiais quando a etapa visual os tornar aplicáveis.
-6. contratos futuros (`PRODUCT.md`, `DESIGN.md`, `A11Y.md`, `specs/`) somente após seus estágios de ativação.
+## Regra zero
+Orquestrador ativo em toda ação. Começar por contexto e autoridade; nunca por código, estética padrão da ferramenta ou memória de conversa.
+
+## Ordem mínima de leitura
+1. `PROJECT_LIFECYCLE.md`
+2. estado ativo em `project/07-PLANO_SPEC_WORK_SESSION.md` e `project/09-PRODUCAO_STATUS.md`
+3. `PRODUCT.md`
+4. `SOURCES.md`
+5. `DESIGN.md` para qualquer trabalho visual
+6. `A11Y.md`
+7. spec ativa em `specs/`
+8. `DECISIONS.md` quando a decisão material puder já existir
 
 ## Execução
-- Orquestrador ativo em toda ação.
-- Não pular estágios para ganhar velocidade.
-- Não preencher documentação de etapas futuras por antecipação.
-- Uma mudança por objetivo; mudanças cirúrgicas.
-- Pensar antes de codar; simplicidade primeiro.
-- Não inventar dados, conteúdo, features, identidade ou estrutura inexistente.
-- Ambiguidade reversível pode ser resolvida com evidência; ambiguidade material ou irreversível deve permanecer explícita até decisão.
-- Referências aconselham; nunca substituem contexto, Brand Book ou decisão aprovada.
-- A V1 é histórico e fonte potencial, não autoridade automática.
-- Não versionar cache, build, secrets, `.env`, temporários, prints descartáveis ou dados brutos sensíveis.
-- Nunca trabalhar diretamente em `main`.
+- fluxo material: spec → plan → tasks → implement → converge;
+- uma mudança por objetivo; alterações cirúrgicas;
+- não avançar de estágio por aparência de completude;
+- não inventar dados, conteúdo, feature, identidade, credencial, review ou contato;
+- preferir asset real quando ele existe;
+- ambiguidade reversível e coberta por fonte pode ser resolvida autonomamente;
+- conflito de autoridade, política comercial/legal, publicação e baseline visual material exigem gate humano;
+- nunca trabalhar diretamente em `main`;
+- não versionar cache, build, secrets, temporários ou dados privados.
 
-## Gate atual
-Consultar `PROJECT_LIFECYCLE.md`. Nenhum executor pode assumir que um estágio futuro já está autorizado.
+## Visual
+- Brand Book V12 + assets oficiais vencem referências;
+- HVS/heurísticas validam qualidade, não escolhem estética;
+- seção aprovada congela anchors e não é redesenhada silenciosamente durante ajuste de outra;
+- toda seção visual passa pelo Triple Check: conteúdo/fonte, identidade/visual, técnico/experiência.
+
+## Estado atual
+`Stage 7 — WS-011 Landing Hero + Header / spec-first`.
+O Visual Gate exige três direções comparáveis e escolha humana antes de congelar a baseline do Hero.

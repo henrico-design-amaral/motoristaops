@@ -1,7 +1,10 @@
 # 0. INTENÇÃO — MotoristaOPS V2
 
-Status: READY FOR VALIDATION
+Status: VALIDATED BY PROJECT PROGRESSION
 Date: 2026-09-01
+Current lifecycle: Stage 7
+
+> Supersession note: a intenção inicial citava Landing, Dashboard e Social/Conteúdo como frentes distintas. O PDR validado posterior restringiu a baseline V2 atual a Landing + Instagram + WhatsApp Business. Dashboard permanece fora da baseline até decisão explícita por spec.
 
 ## Declaração de intenção
 Reconstruir o MotoristaOPS a partir de uma base limpa, governada e rastreável, para que a presença pública, a operação real do trabalho como motorista e a distribuição de conteúdo evoluam como partes de um mesmo sistema, sem herdar automaticamente ruído, dívida técnica, experimentos ou decisões obsoletas da V1.
@@ -24,7 +27,7 @@ Um MotoristaOPS mais simples de entender, manter, operar e evoluir, com separaç
 1. Começar limpo; migrar somente por decisão explícita.
 2. Não inventar dados, features, identidade, conteúdo ou autoridade inexistente.
 3. Usar Brand Book, assets oficiais e decisões aprovadas como autoridade humana.
-4. Preservar a distinção entre Landing, Dashboard e Social/Conteúdo.
+4. Preservar a separação de responsabilidades entre superfícies; a baseline atual segue o PDR validado (Landing + Instagram + WhatsApp Business).
 5. Manter GitHub e Google Drive com papéis claros e complementares.
 6. Trabalhar por evidência, contexto real e validação, não por aparência de completude.
 7. Preferir simplicidade, mudanças cirúrgicas e rastreabilidade.

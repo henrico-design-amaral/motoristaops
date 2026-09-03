@@ -1,10 +1,15 @@
 # MotoristaOPS V2 — DECISIONS
 
-## 2026-09-01 — Bootstrap V2
+## 2026-09-01
 - V2 nasce limpa e separada da V1.
-- V1 permanece apenas como histórico e fonte potencial de migração controlada.
-- GitHub é fonte de verdade de código e governança versionada.
-- Google Drive é autoridade complementar para assets, referências e documentos humanos.
-- Contratos executáveis canônicos: AGENTS.md, PRODUCT.md, DESIGN.md, A11Y.md e specs/.
-- Stack técnica não é herdada automaticamente.
-- Nenhum artefato da V1 entra na V2 sem decisão/spec de migração.
+- V1 permanece histórica.
+- GitHub: código e governança versionada.
+- Drive: assets, referências e documentos humanos.
+- Nenhum artefato da V1 entra sem spec de migração.
+
+## 2026-09-03 — Governance convergence
+- Contratos raiz foram reconciliados com os gates validados do Drive.
+- Baseline V2 atual = Landing + Instagram + WhatsApp Business.
+- Dashboard V1 permanece fora da baseline até reintrodução explícita por spec.
+- `SOURCES.md` torna-se contrato ativo do Base Pack.
+- `project/01-DEFINICAO_DO_PROJETO.md` foi restaurado no workspace versionado e marcado como gate histórico já superado por progressão.
