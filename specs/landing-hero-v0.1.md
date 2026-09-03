@@ -1,6 +1,6 @@
 # MotoristaOPS V2 — Landing Hero Contract v0.1
 
-Status: READY FOR VISUAL EXPLORATION
+Status: VISUAL GATE — 3 DIRECTIONS READY / HUMAN CHOICE REQUIRED
 Surface: Landing pública
 Stage: Visual/content contract before high-fidelity
 Parent: `landing-wireframe-v0.2.md`
@@ -111,3 +111,12 @@ Rejeitar antes de apresentar se:
 
 ## Visual gate
 Gerar 3 direções A/B/C. A próxima interação humana necessária será escolher/aprovar uma direção visual ou rejeitar todas. Nenhuma delas vira baseline antes dessa aprovação.
+
+## Execution evidence — 2026-09-03
+- A/B/C compositional prototypes created under `apps/landing/hero-exploration-v0.1/`.
+- Prototypes use real HB20 assets; no generated premium substitute was accepted.
+- Header uses the existing official master logo asset cropped to the approved wordmark-only treatment; no logo is redrawn.
+- Direction B is the strongest structural candidate after iterative QA, but remains unapproved.
+- Automated generations that did not produce service photography were rejected and excluded from baseline.
+- Desktop/mobile render proxies completed; real-browser visual QA remains pending in a render-capable environment.
+- Gate remains unchanged: human approval is required before freezing a Hero baseline.
