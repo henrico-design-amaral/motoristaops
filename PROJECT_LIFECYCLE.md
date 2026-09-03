@@ -1,7 +1,7 @@
 # MotoristaOPS V2 — Project Lifecycle
 
 Status: CANONICAL
-Updated: 2026-09-01
+Updated: 2026-09-03
 
 Todo trabalho de criação, mudança material ou evolução estrutural do MotoristaOPS V2 deve respeitar esta sequência. Um estágio não autoriza automaticamente o próximo.
 
@@ -31,4 +31,6 @@ Todo trabalho de criação, mudança material ou evolução estrutural do Motori
 
 ## Estado atual
 
-`1. DEFINIÇÃO DO PROJETO — READY FOR VALIDATION`
+`7. PLANO / SPEC / WORK SESSION — ACTIVE — WS-011 Landing Hero + Header / spec-first`
+
+A produção high-fidelity permanece bloqueada até a aprovação estrutural do wireframe completo da Landing.
