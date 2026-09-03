@@ -33,5 +33,5 @@ Orquestrador ativo em toda ação. Começar por contexto e autoridade; nunca por
 - toda seção visual passa pelo Triple Check: conteúdo/fonte, identidade/visual, técnico/experiência.
 
 ## Estado atual
-`Stage 7 — WS-011 Landing Hero + Header / spec-first`.
-O Visual Gate exige três direções comparáveis e escolha humana antes de congelar a baseline do Hero.
+`Stage 7 — WS-012 Landing full-page implementation`.
+A implementação completa está materializada e QA'd, mas release permanece bloqueado por confirmação dos dados públicos, fidelidade final da Hero B2 e autorização explícita de publicação.
