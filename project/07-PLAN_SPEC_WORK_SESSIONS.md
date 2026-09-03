@@ -1,30 +1,42 @@
-# MotoristaOPS V2 — 07 PLANO / SPEC / WORK SESSION
+# MotoristaOPS V2 - 07 PLANO / SPEC / WORK SESSION
 
-Status: VALIDATED
-Updated: 2026-09-01
-Release target: V2-R1 — Presença Pública
+Status: ACTIVE - WIREFRAME GATE
+Updated: 2026-09-02
 
-## Estratégia
-Uma superfície por vez, Landing como espinha dorsal. Instagram reutiliza identidade/narrativa validada; WhatsApp recebe conversão.
+## Correção de processo aprovada
 
-## Work sessions
-- WS-001 Asset normalization — DONE local.
-- WS-010 Landing Content Architecture.
-- WS-011 Landing Hero + Header.
-- WS-012 Landing Service + Proof.
-- WS-013 Landing Trust + Contact + Footer.
-- WS-014 Landing Technical QA.
-- WS-020 Instagram System.
-- WS-021 Instagram Initial Pack.
-- WS-030 WhatsApp Business.
-- WS-040 Cross-surface integration.
-- WS-050 Release candidate.
+Antes de qualquer produção high-fidelity seção por seção, a landing inteira deve existir e convergir como wireframe de baixa fidelidade.
 
-## Narrativa Landing
-IDENTIFICAÇÃO → PROPOSTA → PESSOA → SERVIÇO → PROVA → CONFIANÇA → CONTATO → CONTINUIDADE. Funções podem ser combinadas; não obrigam oito seções.
+Sequência:
+1. arquitetura de informação;
+2. wireframe completo de baixa fidelidade (desktop + comportamento responsivo);
+3. revisão e aprovação estrutural;
+4. congelamento da ordem e responsabilidade de cada seção;
+5. work sessions high-fidelity seção por seção;
+6. implementação + QA desktop/mobile por seção;
+7. convergência da página completa.
 
-## Fotografia reversível
-Hero: retrato real como âncora; `perfil-portfolio`/`perfil-normal` candidatos preferenciais; `perfil-serio` para contexto editorial de maior gravidade. Carro: prova/contexto em bloco próprio com crops que reduzam ruído; nunca substituir por stock/geração.
+## Work session ativa
 
-## Gate
-`7. PLANO / SPEC / WORK SESSION — VALIDATED` → `8. ESTRATÉGIA + CONTRATOS`.
+`WS-010 - Full Landing Wireframe`
+
+Outputs:
+- `apps/landing/wireframe/index.html`
+- `apps/landing/wireframe/styles.css`
+- `apps/landing/wireframe/WIREFRAME_MAP.md`
+
+## High-fidelity status
+
+`WS-011 - Landing Hero + Header` está `PAUSED / PRESERVED AS EXPLORATION`.
+R1/R2 podem informar decisões visuais futuras, mas não são baseline estrutural e não podem limitar o wireframe.
+
+## Gate para retomar high-fidelity
+
+O wireframe completo deve ser aprovado em:
+- sequência de seções;
+- responsabilidade de cada bloco;
+- hierarquia de informação;
+- distribuição de CTAs;
+- estratégia de prova;
+- relação entre Landing, WhatsApp e Instagram;
+- comportamento estrutural desktop/mobile.
