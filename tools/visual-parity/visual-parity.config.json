@@ -1,0 +1,17 @@
+{
+  "url": "http://127.0.0.1:4173",
+  "viewport": { "width": 1440, "height": 1200 },
+  "reference": "../../references/visual/landing-v2/approved-static-reference.png",
+  "actual": "./out/actual.png",
+  "normalizedActual": "./out/actual-normalized.png",
+  "diff": "./out/diff.png",
+  "overlay": "./out/overlay.png",
+  "report": "./out/report.json",
+  "threshold": 0.10,
+  "maxDiffRatio": 0.08,
+  "fullPage": true,
+  "normalization": {
+    "mode": "fit-reference-width",
+    "cropToReferenceHeight": true
+  }
+}

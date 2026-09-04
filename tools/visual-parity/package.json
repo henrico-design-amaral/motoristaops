@@ -1,0 +1,16 @@
+{
+  "name": "motoristaops-visual-parity",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "capture": "node src/capture.mjs",
+    "diff": "node src/diff.mjs",
+    "parity": "node src/parity.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.55.0",
+    "pixelmatch": "^7.1.0",
+    "pngjs": "^7.0.0",
+    "sharp": "^0.34.3"
+  }
+}
