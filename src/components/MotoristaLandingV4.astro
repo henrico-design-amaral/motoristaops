@@ -1,0 +1,575 @@
+---
+import { driverProfile as profile } from '../data/driver-profile';
+
+const baseUrl = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const asset = (path: string) => `${baseUrl}${path.replace(/^\//, '')}`;
+
+const whatsappUrl = new URL(profile.whatsapp);
+whatsappUrl.searchParams.set('text', 'Olá, Henrico. Gostaria de solicitar um orçamento.\n\nData:\nHorário:\nOrigem:\nDestino:\nPassageiros:\nBagagem/observações:');
+const whatsapp = whatsappUrl.toString();
+
+const benefits = [
+  ['01', 'É compromisso.', 'O planejamento começa antes do percurso e termina na hora combinada.'],
+  ['02', 'Comunicação clara.', 'Combinamos o trajeto, o ritmo e o que precisa ser considerado antes da saída.'],
+  ['03', 'Cuidado no trajeto.', 'Rota, bagagem, espera e contexto entram na leitura do atendimento.'],
+  ['04', 'Discrição.', 'Presença profissional sem exposição. O contexto define a postura.']
+] as const;
+
+const services = [
+  ['01', 'Aeroportos e rodoviárias', 'Ida e chegada com horário planejado, bagagem no trajeto e atenção ao compromisso.', 'Voos, embarques, conexões e chegadas.'],
+  ['02', 'Reuniões e compromissos', 'Deslocamento com hora marcada, leitura de contexto e atenção aos detalhes do tempo.', 'Reuniões, consultas e agendas importantes.'],
+  ['03', 'Eventos', 'Chegada e saída alinhadas antes para reduzir improvisos no momento crítico.', 'Eventos sociais, profissionais e culturais.'],
+  ['04', 'Viagens e deslocamentos', 'Trajetos particulares fora da rotina com percurso e condições combinadas.', 'Bate-voltas e viagens previamente alinhadas.'],
+  ['05', 'Espera e acompanhamento', 'Quando contratado, mantenho uma presença discreta dentro da mesma demanda.', 'Compromissos com espera ou retorno combinado.'],
+  ['06', 'Rotinas personalizadas', 'Agenda recorrente com previsibilidade, contexto e continuidade de atendimento.', 'Rotinas profissionais, pessoais e familiares.']
+] as const;
+
+const advance = [
+  ['01', 'Disponibilidade', 'O horário é reservado antes, com clareza sobre origem, destino e contexto.'],
+  ['02', 'Rota pensada', 'Tempo, trânsito, distância, espera e possíveis paradas entram no planejamento.'],
+  ['03', 'Menos ruído', 'Valor, horário, forma de atendimento e detalhes importantes ficam alinhados antes.'],
+  ['04', 'Mais tranquilidade', 'Você segue para o compromisso sem resolver o deslocamento em cima da hora.']
+] as const;
+
+const process = [
+  ['01', 'Você chama', 'Passa data, horário, origem, destino e o que precisa ser considerado.'],
+  ['02', 'Alinhamos o trajeto', 'Rota, tempo, paradas, espera e detalhes importantes ficam claros antes da confirmação.'],
+  ['03', 'Você confirma', 'Valor, condições e apontamentos são confirmados pelo canal oficial.'],
+  ['04', 'Eu cuido do trajeto', 'O serviço acontece conforme o combinado, com comunicação e atenção ao contexto.']
+] as const;
+
+const quality = [
+  ['Discrição', 'Presença profissional com reserva e respeito ao contexto.'],
+  ['Pontualidade', 'Compromisso com o horário combinado e com o tempo.'],
+  ['Comunicação', 'Informações claras antes, durante e depois do percurso.'],
+  ['Cuidado', 'Atenção com bagagem, pertences e preferências do trajeto.'],
+  ['Continuidade', 'Atendimento recorrente com consistência e adaptação.']
+] as const;
+
+const behaviors = [
+  ['01', 'Rotina real', 'A leitura vem da prática: horários, trânsito, espera, bagagem, compromisso e contexto.'],
+  ['02', 'Comunicação sem ruído', 'O combinado fica claro antes. Mudanças são tratadas sem improviso.'],
+  ['03', 'Pontualidade com método', 'Horário certo depende de rota, margem, trânsito e ritmo do compromisso.'],
+  ['04', 'Discrição e cuidado', 'O atendimento acompanha o contexto sem exposição desnecessária.']
+] as const;
+---
+
+<div class="mops-page" data-build="motoristaops-landing-v4">
+  <header class="mops-header" data-header>
+    <div class="mops-shell mops-header__inner">
+      <a class="mops-brand" href="#inicio" aria-label="MotoristaOPS — início">
+        <img src={asset('landing-v3/logo-header-v3.svg')} alt="MotoristaOPS" width="293" height="96" />
+      </a>
+
+      <nav class="mops-nav" aria-label="Navegação principal">
+        <a href="#servicos">Serviços</a>
+        <a href="#por-que-combinar">Por que combinar</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#quem-dirige">Quem dirige</a>
+      </nav>
+
+      <a class="mops-header__cta" href={whatsapp}>Solicitar orçamento</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="mops-hero" id="inicio" aria-labelledby="hero-title">
+      <img
+        class="mops-hero__media"
+        src={asset('landing-v3/hero-motoristaops-v4.webp')}
+        alt=""
+        width="2048"
+        height="868"
+        fetchpriority="high"
+        decoding="async"
+      />
+      <div class="mops-hero__veil" aria-hidden="true"></div>
+      <div class="mops-hero__grid" aria-hidden="true"></div>
+
+      <div class="mops-shell mops-hero__inner">
+        <div class="mops-hero__copy">
+          <p class="mops-eyebrow mops-reveal">Motorista particular em São Paulo <span>•</span> atendimento com hora marcada</p>
+          <h1 id="hero-title" class="mops-reveal" style="--delay: 100ms">
+            <span>Seu compromisso</span>
+            <span>começa antes</span>
+            <em>do destino.</em>
+          </h1>
+          <p class="mops-hero__lead mops-reveal" style="--delay: 180ms">Corridas particulares para aeroportos, reuniões, consultas, eventos e viagens — com planejamento, comunicação direta, discrição e cuidado do início ao fim.</p>
+
+          <div class="mops-actions mops-reveal" style="--delay: 260ms">
+            <a class="mops-button mops-button--primary" href={whatsapp}>Solicitar orçamento no WhatsApp</a>
+            <a class="mops-button mops-button--ghost" href="#como-funciona">Entender como funciona <span aria-hidden="true">→</span></a>
+          </div>
+          <p class="mops-trust-note mops-reveal" style="--delay: 340ms">Atendimento direto com Henrico Amaral. Confirmação pelo canal oficial.</p>
+        </div>
+      </div>
+
+      <svg class="mops-route mops-route--hero" viewBox="0 0 1200 150" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 104C145 64 249 127 374 93C510 56 572 19 711 53C831 83 883 130 1010 91C1082 68 1130 38 1200 27" />
+        <circle cx="374" cy="93" r="4" />
+        <circle cx="1010" cy="91" r="4" />
+      </svg>
+    </section>
+
+    <section class="mops-benefits" aria-label="Diferenciais do atendimento">
+      <div class="mops-shell mops-benefits__grid">
+        {benefits.map(([number, title, description], index) => (
+          <article class="mops-benefit mops-reveal" style={`--delay:${index * 70}ms`}>
+            <span class="mops-index">{number}</span>
+            <div><h2>{title}</h2><p>{description}</p></div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="mops-section mops-services" id="servicos">
+      <div class="mops-shell">
+        <div class="mops-section-head mops-reveal">
+          <div>
+            <p class="mops-kicker">O que ofereço</p>
+            <h2>Para compromissos que pedem mais controle do trajeto.</h2>
+          </div>
+          <p>Você informa o contexto. O deslocamento é pensado nos detalhes que realmente mudam o atendimento: horário, rota, espera, bagagem, paradas e ritmo do compromisso.</p>
+        </div>
+
+        <div class="mops-services__grid">
+          {services.map(([number, title, description, idealFor], index) => (
+            <article class="mops-service-card mops-reveal" style={`--delay:${(index % 3) * 70}ms`}>
+              <span class="mops-index">{number}</span>
+              <h3>{title}</h3>
+              <p>{description}</p>
+              <small><strong>Ideal para:</strong> {idealFor}</small>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="mops-section mops-advance" id="por-que-combinar">
+      <div class="mops-shell mops-advance__layout">
+        <div class="mops-advance__intro mops-reveal">
+          <p class="mops-kicker">Por que combinar antes</p>
+          <h2>Porque compromisso com hora marcada não deve depender de improviso.</h2>
+          <p>Antecedência não é cerimônia. É o que permite reservar horário, entender o contexto e reduzir decisões em cima da hora.</p>
+        </div>
+
+        <div class="mops-advance__track" data-route-track>
+          <div class="mops-advance__line" aria-hidden="true"><span></span></div>
+          {advance.map(([number, title, description], index) => (
+            <article class="mops-advance__step mops-reveal" style={`--delay:${index * 80}ms`}>
+              <span class="mops-node">{number}</span>
+              <div><h3>{title}</h3><p>{description}</p></div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="mops-section mops-process" id="como-funciona">
+      <div class="mops-shell mops-process__layout">
+        <div class="mops-process__intro mops-reveal">
+          <p class="mops-kicker">Como funciona</p>
+          <h2>Direto, suficiente e detalhado para evitar ruído.</h2>
+          <p>O contato começa pela troca direta. Depois, necessidade, condições e apontamentos ficam alinhados antes da execução.</p>
+        </div>
+
+        <div class="mops-timeline" data-timeline>
+          <span class="mops-timeline__rail" aria-hidden="true"><i></i></span>
+          {process.map(([number, title, description]) => (
+            <article class="mops-timeline__step" data-step>
+              <span class="mops-timeline__number">{number}</span>
+              <div><h3>{title}</h3><p>{description}</p></div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="mops-section mops-quality">
+      <div class="mops-shell">
+        <div class="mops-section-head mops-section-head--compact mops-reveal">
+          <div>
+            <p class="mops-kicker">Qualidade operacional</p>
+            <h2>Critérios que aparecem no atendimento.</h2>
+          </div>
+          <p>Mais do que dirigir, o serviço depende de leitura de contexto, comunicação e presença calma no momento certo.</p>
+        </div>
+
+        <div class="mops-quality__list">
+          {quality.map(([title, description], index) => (
+            <article class="mops-quality__row mops-reveal" style={`--delay:${index * 55}ms`}>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="mops-section mops-behavior" aria-labelledby="behavior-title">
+      <div class="mops-shell">
+        <div class="mops-section-head mops-section-head--light mops-reveal">
+          <div>
+            <p class="mops-kicker">Experiência e diferenciais</p>
+            <h2 id="behavior-title">O valor aparece no jeito de trabalhar.</h2>
+          </div>
+          <p>Menos adjetivo. Mais comportamento que pode ser percebido no atendimento.</p>
+        </div>
+
+        <div class="mops-behavior__grid">
+          {behaviors.map(([number, title, description], index) => (
+            <article class="mops-behavior__card mops-reveal" style={`--delay:${index * 65}ms`}>
+              <span>{number}</span>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="mops-section mops-driver" id="quem-dirige">
+      <div class="mops-shell mops-driver__layout">
+        <figure class="mops-driver__photo mops-reveal">
+          <img src={asset('landing-v3/henrico-amaral-v4.webp')} alt="Henrico Amaral, motorista particular" width="848" height="1272" loading="lazy" decoding="async" />
+        </figure>
+
+        <div class="mops-driver__copy mops-reveal" style="--delay:80ms">
+          <p class="mops-kicker">Quem dirige</p>
+          <h2>Henrico Amaral.</h2>
+          <p class="mops-driver__lead">O serviço leva meu nome porque a responsabilidade também é minha.</p>
+          <p>Motorista particular em São Paulo. Atendimento direto, com hora marcada, comunicação clara, pontualidade, discrição e atenção ao contexto de cada compromisso.</p>
+          <blockquote>“{profile.slogan}”</blockquote>
+        </div>
+
+        <aside class="mops-driver__facts mops-reveal" style="--delay:160ms" aria-label="Informações de confiança">
+          <div><span>Avaliação na Uber</span><strong>{profile.uberRating}</strong></div>
+          <div><span>Atendimento</span><strong>Direto</strong></div>
+          <div><span>Região</span><strong>São Paulo</strong></div>
+          <a href={profile.google} target="_blank" rel="noreferrer">Ver presença no Google <span aria-hidden="true">↗</span></a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="mops-final-cta" aria-labelledby="cta-title">
+      <svg class="mops-route mops-route--cta" viewBox="0 0 1200 220" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 146C145 103 226 174 356 141C498 104 556 43 714 83C852 118 927 194 1048 126C1112 90 1152 70 1200 64" />
+        <circle cx="356" cy="141" r="4" />
+        <circle cx="1048" cy="126" r="4" />
+      </svg>
+      <div class="mops-shell mops-final-cta__inner mops-reveal">
+        <p class="mops-kicker">Próximo trajeto</p>
+        <h2 id="cta-title">Precisa combinar um trajeto?<br /><em>Fale comigo pelo WhatsApp.</em></h2>
+        <p>Envie data, horário, origem, destino e qualquer detalhe importante. A partir disso, alinhamos rota, condições e confirmação pelo canal oficial.</p>
+        <a class="mops-button mops-button--primary" href={whatsapp}>Chamar no WhatsApp</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mops-footer">
+    <div class="mops-shell mops-footer__grid">
+      <a class="mops-brand mops-brand--footer" href="#inicio" aria-label="MotoristaOPS — voltar ao início">
+        <img src={asset('landing-v3/logo-header-v3.svg')} alt="MotoristaOPS" width="293" height="96" loading="lazy" />
+      </a>
+      <div>
+        <strong>Serviços</strong>
+        <a href="#servicos">Aeroportos</a>
+        <a href="#servicos">Reuniões</a>
+        <a href="#servicos">Eventos</a>
+        <a href="#servicos">Viagens</a>
+      </div>
+      <div>
+        <strong>Navegação</strong>
+        <a href="#por-que-combinar">Por que combinar</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#quem-dirige">Quem dirige</a>
+      </div>
+      <div>
+        <strong>Contato</strong>
+        <a href={whatsapp}>WhatsApp</a>
+        <a href={profile.instagram} target="_blank" rel="noreferrer">Instagram</a>
+        <a href={profile.google} target="_blank" rel="noreferrer">Google</a>
+      </div>
+    </div>
+    <div class="mops-shell mops-footer__bottom">
+      <span>© 2026 MotoristaOPS por Henrico Amaral.</span>
+      <span>{profile.slogan}</span>
+    </div>
+  </footer>
+
+  <a class="mops-mobile-whatsapp" href={whatsapp} aria-label="Solicitar orçamento no WhatsApp">WhatsApp</a>
+</div>
+
+<script>
+  const pageRoot = document.querySelector('.mops-page');
+  pageRoot?.classList.add('mops-js');
+
+  const header = document.querySelector('[data-header]');
+  const updateHeader = () => header?.toggleAttribute('data-scrolled', window.scrollY > 16);
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+
+  const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+
+  document.querySelectorAll('.mops-reveal').forEach((element) => revealObserver.observe(element));
+
+  const timeline = document.querySelector('[data-timeline]');
+  const steps = [...document.querySelectorAll('[data-step]')];
+  const stepObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add('is-active');
+    });
+    const activeCount = steps.filter((step) => step.classList.contains('is-active')).length;
+    if (timeline instanceof HTMLElement) timeline.style.setProperty('--progress', `${Math.max(0, activeCount - 1) / Math.max(1, steps.length - 1) * 100}%`);
+  }, { threshold: 0.45 });
+  steps.forEach((step) => stepObserver.observe(step));
+
+  const routeTrack = document.querySelector('[data-route-track]');
+  if (routeTrack) {
+    const routeObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-active');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.3 });
+    routeObserver.observe(routeTrack);
+  }
+</script>
+
+<style>
+  :global(:root) {
+    --mops-night: #070709;
+    --mops-graphite: #151518;
+    --mops-champagne: #C79C5B;
+    --mops-champagne-shadow: #947546;
+    --mops-ivory: #F3EFE4;
+    --mops-stone: #A6A39E;
+    --mops-amber: #F0B44D;
+    --mops-border: rgba(199, 156, 91, .24);
+    --mops-shell: 1260px;
+    --mops-section-space: clamp(84px, 8vw, 132px);
+    --mops-ease: cubic-bezier(.16, 1, .3, 1);
+  }
+
+  .mops-page { min-height: 100vh; overflow: clip; background: var(--mops-night); color: var(--mops-ivory); }
+  .mops-shell { width: min(var(--mops-shell), calc(100% - clamp(36px, 7vw, 112px))); margin-inline: auto; }
+  .mops-header { position: fixed; z-index: 100; inset: 0 0 auto; height: 82px; background: linear-gradient(180deg, rgba(7, 7, 9, .92), rgba(7, 7, 9, .6)); border-bottom: 1px solid transparent; transition: background 220ms ease, border-color 220ms ease, backdrop-filter 220ms ease; }
+  .mops-header[data-scrolled] { background: rgba(7, 7, 9, .9); border-bottom-color: rgba(199, 156, 91, .2); backdrop-filter: blur(18px); }
+  .mops-header__inner { height: 100%; display: flex; align-items: center; gap: 34px; }
+  .mops-brand { width: clamp(178px, 15vw, 226px); flex: 0 0 auto; display: inline-flex; align-items: center; }
+  .mops-brand img { display: block; width: 100%; height: auto; }
+  .mops-nav { margin-left: auto; display: flex; align-items: center; gap: clamp(22px, 2.2vw, 38px); }
+  .mops-nav a, .mops-footer a { text-decoration: none; }
+  .mops-nav a { position: relative; color: rgba(243, 239, 228, .82); font-size: 12px; font-weight: 650; letter-spacing: .095em; text-transform: uppercase; }
+  .mops-nav a::after { content: ''; position: absolute; height: 1px; left: 0; right: 100%; bottom: -9px; background: var(--mops-champagne); transition: right 180ms ease; }
+  .mops-nav a:hover::after, .mops-nav a:focus-visible::after { right: 0; }
+  .mops-header__cta { min-height: 44px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; color: var(--mops-night); background: var(--mops-champagne); border: 1px solid var(--mops-champagne); text-decoration: none; font-size: 11px; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; transition: transform 180ms ease, background 180ms ease; }
+  .mops-header__cta:hover, .mops-header__cta:focus-visible { transform: translateY(-2px); background: var(--mops-ivory); }
+  .mops-hero { position: relative; min-height: 840px; display: grid; align-items: center; overflow: hidden; isolation: isolate; border-bottom: 1px solid rgba(199, 156, 91, .16); }
+  .mops-hero__media { position: absolute; z-index: -4; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 54% center; transform: scale(1.04); animation: mopsHeroIn 1200ms var(--mops-ease) forwards; }
+  .mops-hero__veil { position: absolute; z-index: -3; inset: 0; background: linear-gradient(90deg, rgba(7,7,9,.98) 0%, rgba(7,7,9,.94) 29%, rgba(7,7,9,.7) 46%, rgba(7,7,9,.1) 72%), linear-gradient(180deg, rgba(7,7,9,.45), transparent 24%, transparent 68%, rgba(7,7,9,.8)); }
+  .mops-hero__grid { position: absolute; z-index: -2; inset: auto 0 0; height: 31%; opacity: .16; background-image: linear-gradient(rgba(199,156,91,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(199,156,91,.09) 1px, transparent 1px); background-size: 48px 48px; mask-image: linear-gradient(to top, #000, transparent 88%); }
+  .mops-hero__inner { width: min(var(--mops-shell), calc(100% - clamp(36px, 7vw, 112px))); min-height: 840px; padding: 120px 0 86px; display: flex; align-items: center; }
+  .mops-hero__copy { width: min(650px, 52vw); }
+  .mops-eyebrow, .mops-kicker { margin: 0 0 22px; color: var(--mops-champagne); font-size: 12px; line-height: 1.35; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+  .mops-eyebrow span { color: var(--mops-amber); margin-inline: .4em; }
+  .mops-hero h1 { margin: 0; max-width: 640px; color: var(--mops-ivory); font-size: clamp(55px, 5.3vw, 88px); font-weight: 700; line-height: .94; letter-spacing: -.048em; text-transform: uppercase; }
+  .mops-hero h1 span, .mops-hero h1 em { display: block; font-style: normal; }
+  .mops-hero h1 em { color: var(--mops-champagne); }
+  .mops-hero__lead { margin: 30px 0 0; max-width: 570px; color: rgba(243, 239, 228, .78); font-size: clamp(16px, 1.45vw, 19px); line-height: 1.65; }
+  .mops-actions { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 12px; }
+  .mops-button { min-height: 49px; padding: 0 20px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid var(--mops-border); text-decoration: none; font-size: 11px; font-weight: 750; letter-spacing: .07em; text-transform: uppercase; transition: transform 220ms var(--mops-ease), box-shadow 220ms ease, background 220ms ease, border-color 220ms ease; }
+  .mops-button:hover, .mops-button:focus-visible { transform: translateY(-2px); }
+  .mops-button--primary { color: var(--mops-night); background: var(--mops-champagne); border-color: var(--mops-champagne); }
+  .mops-button--primary:hover, .mops-button--primary:focus-visible { background: var(--mops-ivory); border-color: var(--mops-ivory); box-shadow: 0 0 0 6px rgba(199, 156, 91, .08); }
+  .mops-button--ghost { color: var(--mops-ivory); background: rgba(7,7,9,.28); }
+  .mops-button--ghost:hover, .mops-button--ghost:focus-visible { border-color: rgba(199, 156, 91, .62); background: rgba(21,21,24,.58); }
+  .mops-trust-note { margin: 20px 0 0; color: var(--mops-stone); font-size: 12px; line-height: 1.5; }
+  .mops-route { fill: none; stroke: var(--mops-champagne); stroke-width: 1.25; vector-effect: non-scaling-stroke; }
+  .mops-route circle { fill: var(--mops-amber); stroke: var(--mops-night); stroke-width: 4; }
+  .mops-route--hero { position: absolute; z-index: 1; inset: auto 0 0; width: 100%; height: 118px; opacity: .66; }
+  .mops-benefits { position: relative; z-index: 2; background: rgba(7,7,9,.98); border-bottom: 1px solid rgba(199, 156, 91, .13); }
+  .mops-benefits__grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .mops-benefit { min-height: 170px; padding: 34px 30px 34px 0; display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-content: center; border-right: 1px solid rgba(199, 156, 91, .18); }
+  .mops-benefit + .mops-benefit { padding-left: 30px; }
+  .mops-benefit:last-child { border-right: 0; }
+  .mops-index { color: var(--mops-champagne); font-size: 11px; font-weight: 700; letter-spacing: .08em; }
+  .mops-benefit h2 { margin: 0; font-size: 14px; font-weight: 700; letter-spacing: .035em; text-transform: uppercase; }
+  .mops-benefit p { margin: 10px 0 0; color: var(--mops-stone); font-size: 13px; line-height: 1.55; }
+  .mops-section { padding: var(--mops-section-space) 0; }
+  .mops-services, .mops-process, .mops-quality, .mops-driver { background: var(--mops-night); }
+  .mops-advance { background: linear-gradient(180deg, #0a0a0c, var(--mops-graphite)); border-block: 1px solid rgba(199,156,91,.13); }
+  .mops-section-head { margin-bottom: clamp(44px, 5vw, 68px); display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: clamp(40px, 8vw, 110px); align-items: end; }
+  .mops-section-head h2, .mops-advance__intro h2, .mops-process__intro h2, .mops-driver__copy h2, .mops-final-cta h2 { margin: 0; font-size: clamp(38px, 4vw, 64px); line-height: 1.02; letter-spacing: -.035em; font-weight: 700; }
+  .mops-section-head > p, .mops-advance__intro > p:last-child, .mops-process__intro > p:last-child, .mops-driver__copy > p, .mops-final-cta__inner > p { margin: 0; color: var(--mops-stone); font-size: 15px; line-height: 1.7; }
+  .mops-services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .mops-service-card { min-height: 270px; padding: 28px; display: flex; flex-direction: column; border: 1px solid rgba(199,156,91,.22); background: linear-gradient(145deg, rgba(21,21,24,.76), rgba(7,7,9,.48)); transition: transform 220ms var(--mops-ease), border-color 220ms ease, background 220ms ease; }
+  .mops-service-card:hover { transform: translateY(-2px); border-color: rgba(199,156,91,.5); background: rgba(21,21,24,.86); }
+  .mops-service-card h3 { margin: 38px 0 0; font-size: 19px; line-height: 1.2; font-weight: 700; text-transform: uppercase; }
+  .mops-service-card p { margin: 14px 0 0; color: var(--mops-stone); font-size: 14px; line-height: 1.6; }
+  .mops-service-card small { margin-top: auto; padding-top: 28px; color: rgba(243,239,228,.68); font-size: 12px; line-height: 1.5; }
+  .mops-service-card small strong { color: var(--mops-champagne); font-weight: 650; }
+  .mops-advance__layout, .mops-process__layout { display: grid; grid-template-columns: minmax(0, .72fr) minmax(520px, 1.28fr); gap: clamp(60px, 9vw, 130px); align-items: start; }
+  .mops-advance__intro, .mops-process__intro { position: sticky; top: 130px; }
+  .mops-advance__intro h2, .mops-process__intro h2 { max-width: 500px; }
+  .mops-advance__intro > p:last-child, .mops-process__intro > p:last-child { margin-top: 24px; max-width: 470px; }
+  .mops-advance__track { position: relative; display: grid; gap: 0; --route-progress: 0%; }
+  .mops-advance__line { position: absolute; left: 25px; top: 25px; bottom: 25px; width: 1px; background: rgba(199,156,91,.18); }
+  .mops-advance__line span { display: block; width: 100%; height: 0; background: var(--mops-champagne); transition: height 1000ms var(--mops-ease); }
+  .mops-advance__track.is-active .mops-advance__line span { height: 100%; }
+  .mops-advance__step { position: relative; min-height: 132px; padding: 0 0 34px 82px; display: flex; align-items: flex-start; }
+  .mops-node { position: absolute; z-index: 2; left: 0; top: 0; width: 51px; height: 51px; display: grid; place-items: center; border: 1px solid rgba(199,156,91,.42); border-radius: 50%; background: var(--mops-graphite); color: var(--mops-champagne); font-size: 11px; font-weight: 750; }
+  .mops-advance__step h3, .mops-timeline__step h3 { margin: 3px 0 0; font-size: 18px; font-weight: 700; text-transform: uppercase; }
+  .mops-advance__step p, .mops-timeline__step p { margin: 10px 0 0; color: var(--mops-stone); font-size: 14px; line-height: 1.6; }
+  .mops-timeline { position: relative; --progress: 0%; }
+  .mops-timeline__rail { position: absolute; left: 28px; top: 28px; bottom: 28px; width: 1px; background: rgba(199,156,91,.16); }
+  .mops-timeline__rail i { display: block; width: 100%; height: var(--progress); background: var(--mops-champagne); transition: height 420ms var(--mops-ease); }
+  .mops-timeline__step { position: relative; min-height: 142px; padding: 0 0 38px 86px; opacity: 1; transition: opacity 420ms ease, transform 420ms var(--mops-ease); }
+  .mops-page.mops-js .mops-timeline__step { opacity: .45; }
+  .mops-page.mops-js .mops-timeline__step.is-active { opacity: 1; transform: translateX(3px); }
+  .mops-timeline__number { position: absolute; z-index: 2; left: 0; top: 0; width: 57px; height: 57px; display: grid; place-items: center; border: 1px solid rgba(199,156,91,.28); border-radius: 50%; background: var(--mops-night); color: var(--mops-champagne-shadow); font-size: 12px; transition: color 320ms ease, border-color 320ms ease, background 320ms ease; }
+  .mops-timeline__step.is-active .mops-timeline__number { color: var(--mops-champagne); border-color: rgba(199,156,91,.72); background: var(--mops-graphite); }
+  .mops-section-head--compact { margin-bottom: 44px; }
+  .mops-quality__list { border-top: 1px solid rgba(199,156,91,.2); }
+  .mops-quality__row { min-height: 104px; display: grid; grid-template-columns: 60px 230px 1fr; gap: 24px; align-items: center; border-bottom: 1px solid rgba(199,156,91,.14); }
+  .mops-quality__row > span { color: var(--mops-champagne-shadow); font-size: 11px; }
+  .mops-quality__row h3 { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: .035em; text-transform: uppercase; }
+  .mops-quality__row p { margin: 0; color: var(--mops-stone); font-size: 14px; line-height: 1.55; }
+  .mops-behavior { background: var(--mops-ivory); color: var(--mops-night); }
+  .mops-section-head--light .mops-kicker { color: var(--mops-champagne-shadow); }
+  .mops-section-head--light > p { color: #5e5b57; }
+  .mops-behavior__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .mops-behavior__card { min-height: 240px; padding: 26px; border: 1px solid rgba(21,21,24,.18); background: rgba(255,255,255,.16); }
+  .mops-behavior__card > span { color: var(--mops-champagne-shadow); font-size: 11px; font-weight: 700; }
+  .mops-behavior__card h3 { margin: 52px 0 0; font-size: 16px; font-weight: 750; text-transform: uppercase; }
+  .mops-behavior__card p { margin: 14px 0 0; color: #5d5a56; font-size: 14px; line-height: 1.55; }
+  .mops-driver { border-bottom: 1px solid rgba(199,156,91,.14); }
+  .mops-driver__layout { display: grid; grid-template-columns: minmax(240px, .7fr) minmax(0, 1.3fr) minmax(240px, .65fr); gap: clamp(36px, 5vw, 72px); align-items: center; }
+  .mops-driver__photo { position: relative; margin: 0; aspect-ratio: 3 / 4; overflow: hidden; border: 1px solid rgba(199,156,91,.26); background: var(--mops-graphite); }
+  .mops-driver__photo::after { content: ''; position: absolute; inset: 12px; border: 1px solid rgba(199,156,91,.16); pointer-events: none; }
+  .mops-driver__photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; display: block; filter: saturate(.92) contrast(1.03); }
+  .mops-driver__copy h2 { font-size: clamp(42px, 4.2vw, 68px); }
+  .mops-driver__lead { margin-top: 18px !important; color: var(--mops-ivory) !important; font-size: 20px !important; line-height: 1.45 !important; max-width: 560px; }
+  .mops-driver__copy > p:not(.mops-driver__lead):not(.mops-kicker) { margin-top: 20px; max-width: 620px; }
+  .mops-driver blockquote { margin: 28px 0 0; padding-left: 18px; border-left: 2px solid var(--mops-champagne); color: var(--mops-champagne); font-size: 14px; font-style: italic; }
+  .mops-driver__facts { border: 1px solid rgba(199,156,91,.2); }
+  .mops-driver__facts div { padding: 20px 22px; display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid rgba(199,156,91,.13); }
+  .mops-driver__facts span { color: var(--mops-champagne-shadow); font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  .mops-driver__facts strong { font-size: 18px; font-weight: 650; }
+  .mops-driver__facts > a { padding: 18px 22px; display: flex; justify-content: space-between; gap: 10px; color: var(--mops-champagne); text-decoration: none; font-size: 12px; font-weight: 650; }
+  .mops-final-cta { position: relative; overflow: hidden; min-height: 480px; display: grid; align-items: center; background: linear-gradient(180deg, #0a0a0c, var(--mops-night)); }
+  .mops-final-cta::before { content: ''; position: absolute; inset: 0; opacity: .12; background-image: linear-gradient(30deg, transparent 48%, rgba(199,156,91,.4) 49%, transparent 50%); background-size: 80px 80px; mask-image: linear-gradient(90deg, transparent, #000 40%, #000 70%, transparent); }
+  .mops-final-cta__inner { position: relative; z-index: 2; padding-block: 78px; text-align: center; }
+  .mops-final-cta h2 em { color: var(--mops-champagne); font-style: normal; }
+  .mops-final-cta__inner > p { margin: 22px auto 0; max-width: 640px; }
+  .mops-final-cta .mops-button { margin-top: 30px; }
+  .mops-route--cta { position: absolute; inset: auto 0 0; width: 100%; height: 220px; opacity: .34; }
+  .mops-footer { padding: 58px 0 24px; background: #050506; border-top: 1px solid rgba(199,156,91,.13); }
+  .mops-footer__grid { display: grid; grid-template-columns: 1.7fr repeat(3, 1fr); gap: 48px; }
+  .mops-brand--footer { width: 200px; align-self: start; }
+  .mops-footer__grid > div { display: flex; flex-direction: column; align-items: flex-start; gap: 9px; }
+  .mops-footer__grid strong { margin-bottom: 8px; color: var(--mops-champagne); font-size: 10px; letter-spacing: .13em; text-transform: uppercase; }
+  .mops-footer__grid a { color: var(--mops-stone); font-size: 12px; }
+  .mops-footer__grid a:hover { color: var(--mops-ivory); }
+  .mops-footer__bottom { margin-top: 48px; padding-top: 18px; display: flex; justify-content: space-between; gap: 24px; border-top: 1px solid rgba(199,156,91,.1); color: #6f6c67; font-size: 10px; }
+  .mops-mobile-whatsapp { display: none; }
+  .mops-reveal { opacity: 1; transform: none; }
+  .mops-page.mops-js .mops-reveal { opacity: 0; transform: translateY(16px); transition: opacity 620ms var(--mops-ease), transform 620ms var(--mops-ease); transition-delay: var(--delay, 0ms); }
+  .mops-page.mops-js .mops-reveal.is-visible { opacity: 1; transform: translateY(0); }
+  @keyframes mopsHeroIn { to { transform: scale(1); } }
+
+  @media (max-width: 1100px) {
+    .mops-nav { display: none; }
+    .mops-header__cta { margin-left: auto; }
+    .mops-hero__copy { width: min(650px, 64vw); }
+    .mops-benefits__grid { grid-template-columns: repeat(2, 1fr); }
+    .mops-benefit:nth-child(2) { border-right: 0; }
+    .mops-benefit:nth-child(-n+2) { border-bottom: 1px solid rgba(199,156,91,.16); }
+    .mops-services__grid { grid-template-columns: repeat(2, 1fr); }
+    .mops-advance__layout, .mops-process__layout { grid-template-columns: .78fr 1.22fr; gap: 64px; }
+    .mops-behavior__grid { grid-template-columns: repeat(2, 1fr); }
+    .mops-driver__layout { grid-template-columns: minmax(230px, .7fr) 1.3fr; }
+    .mops-driver__facts { grid-column: 2; display: grid; grid-template-columns: repeat(3, 1fr); }
+    .mops-driver__facts div { border-right: 1px solid rgba(199,156,91,.13); border-bottom: 0; }
+    .mops-driver__facts > a { grid-column: 1 / -1; border-top: 1px solid rgba(199,156,91,.13); }
+  }
+
+  @media (max-width: 820px) {
+    .mops-shell { width: min(var(--mops-shell), calc(100% - 40px)); }
+    .mops-header { height: 72px; }
+    .mops-brand { width: 170px; }
+    .mops-header__cta { min-height: 40px; padding-inline: 14px; font-size: 10px; }
+    .mops-hero { min-height: 790px; }
+    .mops-hero__inner { width: calc(100% - 40px); min-height: 790px; padding-top: 112px; align-items: flex-end; padding-bottom: 142px; }
+    .mops-hero__media { object-position: 62% center; }
+    .mops-hero__veil { background: linear-gradient(90deg, rgba(7,7,9,.94), rgba(7,7,9,.76) 54%, rgba(7,7,9,.32)), linear-gradient(180deg, rgba(7,7,9,.4), transparent 25%, rgba(7,7,9,.74) 78%, var(--mops-night)); }
+    .mops-hero__copy { width: 100%; max-width: 650px; }
+    .mops-hero h1 { font-size: clamp(48px, 10vw, 72px); }
+    .mops-section-head { grid-template-columns: 1fr; gap: 24px; align-items: start; }
+    .mops-advance__layout, .mops-process__layout { grid-template-columns: 1fr; gap: 54px; }
+    .mops-advance__intro, .mops-process__intro { position: static; }
+    .mops-quality__row { grid-template-columns: 46px 170px 1fr; }
+    .mops-driver__layout { grid-template-columns: minmax(200px, .55fr) 1fr; gap: 34px; }
+    .mops-footer__grid { grid-template-columns: 1.5fr 1fr 1fr; }
+    .mops-footer__grid > div:last-child { grid-column: 2; }
+  }
+
+  @media (max-width: 620px) {
+    .mops-shell { width: calc(100% - 32px); }
+    .mops-header { height: 66px; }
+    .mops-header__inner { gap: 12px; }
+    .mops-brand { width: 132px; }
+    .mops-header__cta { padding: 0 10px; font-size: 8.5px; letter-spacing: .045em; }
+    .mops-hero { min-height: 760px; }
+    .mops-hero__inner { width: calc(100% - 32px); min-height: 760px; padding: 104px 0 130px; align-items: flex-end; }
+    .mops-hero__media { object-position: 70% center; filter: brightness(.82); }
+    .mops-hero__veil { background: linear-gradient(90deg, rgba(7,7,9,.97), rgba(7,7,9,.75)), linear-gradient(180deg, rgba(7,7,9,.3), transparent 28%, rgba(7,7,9,.92) 78%, var(--mops-night)); }
+    .mops-eyebrow { font-size: 10px; letter-spacing: .13em; max-width: 300px; }
+    .mops-hero h1 { font-size: clamp(43px, 13vw, 60px); letter-spacing: -.05em; }
+    .mops-hero__lead { margin-top: 22px; font-size: 15px; line-height: 1.55; }
+    .mops-actions { flex-direction: column; align-items: stretch; }
+    .mops-button { width: 100%; min-height: 50px; }
+    .mops-route--hero { height: 90px; }
+    .mops-benefits__grid { grid-template-columns: 1fr; }
+    .mops-benefit, .mops-benefit + .mops-benefit { min-height: 140px; padding: 26px 0; border-right: 0; border-bottom: 1px solid rgba(199,156,91,.16); }
+    .mops-benefit:last-child { border-bottom: 0; }
+    .mops-section { padding: 76px 0; }
+    .mops-section-head { margin-bottom: 38px; }
+    .mops-section-head h2, .mops-advance__intro h2, .mops-process__intro h2, .mops-driver__copy h2, .mops-final-cta h2 { font-size: 38px; }
+    .mops-services__grid { grid-template-columns: 1fr; }
+    .mops-service-card { min-height: 248px; }
+    .mops-advance__step { padding-left: 72px; }
+    .mops-timeline__step { padding-left: 76px; }
+    .mops-quality__row { padding: 22px 0; grid-template-columns: 38px 1fr; gap: 12px 14px; }
+    .mops-quality__row p { grid-column: 2; }
+    .mops-behavior__grid { grid-template-columns: 1fr; }
+    .mops-behavior__card { min-height: 210px; }
+    .mops-driver__layout { grid-template-columns: 1fr; }
+    .mops-driver__photo { width: min(100%, 340px); }
+    .mops-driver__facts { grid-column: auto; grid-template-columns: 1fr; }
+    .mops-driver__facts div { border-right: 0; border-bottom: 1px solid rgba(199,156,91,.13); }
+    .mops-footer { padding-bottom: 88px; }
+    .mops-footer__grid { grid-template-columns: 1fr 1fr; gap: 36px 26px; }
+    .mops-brand--footer { grid-column: 1 / -1; }
+    .mops-footer__grid > div:last-child { grid-column: auto; }
+    .mops-footer__bottom { flex-direction: column; }
+    .mops-mobile-whatsapp { position: fixed; z-index: 120; right: 16px; bottom: 16px; min-height: 48px; padding: 0 18px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--mops-champagne); background: var(--mops-champagne); color: var(--mops-night); text-decoration: none; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; box-shadow: 0 12px 30px rgba(0,0,0,.28); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(html) { scroll-behavior: auto !important; }
+    .mops-hero__media { animation: none; transform: none; }
+    .mops-reveal { opacity: 1; transform: none; transition: none; }
+    .mops-timeline__step { opacity: 1; transform: none; transition: none; }
+    .mops-timeline__rail i, .mops-advance__line span { transition: none; }
+    .mops-button, .mops-service-card, .mops-header { transition: none; }
+  }
+</style>
