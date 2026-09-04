@@ -1,0 +1,191 @@
+{
+  "schema": "henricoops.visual-lock.v1",
+  "project": "MotoristaOPS",
+  "status": "PARTIAL",
+  "version": "1.0.0",
+  "authority": {
+    "sources": [
+      "Brand Book V12",
+      "STYLE_GUIDE.md",
+      "DESIGN_SYSTEM.md",
+      "DESIGN.md",
+      "Google Drive 02_BRAND_SYSTEM.md (fileId 11k8GgpEby7mQXQc2ySe0ZGUHOIOJJ_ay)",
+      "Google Drive MotoristaOPS V2 — 04 LEVEL 0 (documentId 1PGjIpKBg_OGPbGIoC_YmSfdu69IgKkix6B9Yl3QL1VE)"
+    ],
+    "last_reviewed": "2026-09-04"
+  },
+  "tokens": {
+    "source": "Brand Book V12 / Drive Level 0 resolved tokens; machine-readable local token file still pending",
+    "format": "HenricoOPS semantic roles",
+    "generated_targets": []
+  },
+  "identity": {
+    "locked": [
+      "product name MotoristaOPS always joined",
+      "human identity Henrico Amaral when used",
+      "signature por Henrico Amaral when applicable",
+      "category MOTORISTA PARTICULAR when required",
+      "header uses official compact horizontal signature: official crest + MotoristaOPS wordmark, no endorsement, no category",
+      "official logo/signature assets only",
+      "preserve official proportions and protection area"
+    ],
+    "bounded": [
+      "approved compact or complete official signature according to surface",
+      "approved contrast/background variant"
+    ],
+    "forbidden": [
+      "redraw or reconstruct logo by CSS/text",
+      "generative approximation of official assets",
+      "split Motorista OPS naming",
+      "insert slogan into logo",
+      "distort or recolor outside approved variants"
+    ]
+  },
+  "typography": {
+    "locked": [
+      "Instrument Sans Variable for editorial/UI",
+      "titles weight 600-700",
+      "body weight 400-500",
+      "labels uppercase with moderate tracking",
+      "logo/signature typography is never reconstructed"
+    ],
+    "bounded": [
+      "responsive role scaling after surface composition contract is resolved"
+    ],
+    "forbidden": [
+      "introduce unrelated condensed/display font to imitate references",
+      "provider-default typography",
+      "reconstruct logo type"
+    ]
+  },
+  "color": {
+    "locked": [
+      "Noite #070709 — primary background",
+      "Grafite #151518 — surfaces",
+      "Champagne #C79C5B — brand/highlight",
+      "Champagne Sombra #947546 — borders/secondary detail",
+      "Marfim #F3EFE4 — primary text on dark",
+      "Pedra #A6A39E — secondary text",
+      "Ambar de Percurso #F0B44D — route/pin/signaling only",
+      "visual proportion target 70% Noite/Grafite, 20% Marfim, 10% Champagne"
+    ],
+    "bounded": [
+      "Ambar only for functional route/location/signaling semantics"
+    ],
+    "forbidden": [
+      "treat Ambar as second brand color",
+      "off-palette provider colors",
+      "green/glow treatment",
+      "unapproved effects"
+    ]
+  },
+  "geometry": {
+    "locked": [
+      "icon base 24x24",
+      "icon stroke 1.75px",
+      "rounded icon terminals",
+      "preserve logo protection area and proportions"
+    ],
+    "bounded": [
+      "surface-specific grid/container/spacing after explicit composition contract",
+      "landing, dashboard and social may use different density while preserving brand anchors"
+    ],
+    "forbidden": [
+      "invent systemic spacing/grid values in production code when unresolved",
+      "compress desktop mechanically into mobile"
+    ]
+  },
+  "graphic_language": {
+    "locked": [
+      "single minimal outline icon family",
+      "route, pin, urban map, skyline, headlights and thin lines as supporting motifs",
+      "documental premium photography: real, discreet, human",
+      "real service context has priority over decorative imagery"
+    ],
+    "bounded": [
+      "Champagne or Ambar icon color only when semantically appropriate",
+      "surface-specific use of route/map/skyline motifs"
+    ],
+    "forbidden": [
+      "mixed icon families",
+      "supercars or artificial luxury",
+      "generic corporate posing",
+      "stock imagery disconnected from service",
+      "mandatory suit-and-tie aesthetic"
+    ]
+  },
+  "composition": {
+    "locked": [
+      "Landing is memorable, high-impact and restrained rather than dashboard-like",
+      "Dashboard prioritizes operational scanability and decision support",
+      "Social extends the public identity and never becomes an independent identity"
+    ],
+    "bounded": [
+      "surface composition may vary only under explicit surface contract and approved Pattern Master"
+    ],
+    "forbidden": [
+      "generic SaaS card-wall composition",
+      "transfer dashboard composition to landing/social by convenience",
+      "blank-canvas reinterpretation of an already approved visual family"
+    ]
+  },
+  "content_slots": [
+    {
+      "id": "official_identity",
+      "mode": "LOCKED",
+      "rule": "Use exact approved assets and naming; content cannot alter identity geometry."
+    },
+    {
+      "id": "copy",
+      "mode": "CONTENT_SLOT",
+      "rule": "Copy may change by task but remains concise, factual and aligned to MotoristaOPS professional voice."
+    },
+    {
+      "id": "service_photography",
+      "mode": "BOUNDED",
+      "rule": "Real/documental imagery may vary while preserving approved treatment and service truth."
+    },
+    {
+      "id": "format_layout",
+      "mode": "FORMAT_TRANSFORM",
+      "rule": "Reflow/crop/stacking must come from a declared format/surface transform, not free redesign."
+    }
+  ],
+  "format_transforms": [
+    {
+      "id": "landing",
+      "canvas": "responsive browser",
+      "rules": [
+        "browser-first responsive transformation",
+        "do not use dashboard density",
+        "approved visual requires Visual Decoupage before production implementation"
+      ]
+    },
+    {
+      "id": "dashboard",
+      "canvas": "responsive product UI",
+      "rules": [
+        "optimize scanability and reliable information hierarchy",
+        "retain brand anchors without copying landing composition"
+      ]
+    },
+    {
+      "id": "social",
+      "canvas": "channel-specific social formats",
+      "rules": [
+        "inherit public identity",
+        "use applicable Social/Carousel/Video protocol",
+        "do not create an independent visual language"
+      ]
+    }
+  ],
+  "pattern_masters": [],
+  "baselines": [],
+  "exceptions": [
+    {
+      "status": "OPEN_GAP",
+      "reason": "Level 0 is validated, but local machine-readable token source, formal Pattern Masters, Golden Artifacts/Screens and detailed cross-format composition masters are not yet fully materialized.",
+      "next_action": "Extract/promote repeated current implementation values, register approved masters/baselines, then move lock from PARTIAL to READY."
+    }
+  ]
+}
