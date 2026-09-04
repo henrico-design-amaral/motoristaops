@@ -6,10 +6,23 @@
   <meta name="theme-color" content="#070709" />
   <meta name="description" content="MotoristaOPS por Henrico Amaral — motorista particular com atendimento com hora marcada." />
   <title>MotoristaOPS — Motorista Particular</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <link rel="stylesheet" href="./styles.min.css" />
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+  <svg class="icon-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M5 6h14v10H9l-4 3V6Z"/><path d="M8 10h8M8 13h5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.7-2.8 7.8-7 10-4.2-2.2-7-5.3-7-10V6l7-3Z"/><path d="m9 12 2 2 4-5"/></symbol>
+    <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M6 20c.6-4 2.7-6 6-6s5.4 2 6 6"/></symbol>
+    <symbol id="i-airport" viewBox="0 0 24 24"><path d="m3 14 7-2V5l2-2 2 2v7l7 2v2l-7-1v4l2 1v1l-4-1-4 1v-1l2-1v-4l-7 1v-2Z"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M9 7V5h6v2M4 12h16M10 12v2h4v-2"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 9h16M8 13h2M12 13h2M16 13h1M8 16h2M12 16h2"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><path d="M7 18c-2 0-3-1-3-2.5S5 13 7 13h10c2 0 3-1 3-2.5S19 8 17 8H9"/><path d="m7 5 2 3-2 3"/><circle cx="7" cy="18" r="2"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24"><path d="M6 8h10l-2-2M18 16H8l2 2"/><path d="M18 8c1.2 1 2 2.3 2 4M6 16c-1.2-1-2-2.3-2-4"/></symbol>
+    <symbol id="i-care" viewBox="0 0 24 24"><path d="M12 20s-7-4.2-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.8-7 9-7 9Z"/></symbol>
+  </svg>
 
   <header class="site-header" id="topo">
     <div class="shell header-inner">
@@ -52,135 +65,42 @@
 
     <section class="benefit-strip" aria-label="Princípios do atendimento">
       <div class="shell benefit-grid">
-        <article class="benefit-card">
-          <span class="count">01</span><span class="icon" aria-hidden="true">◷</span>
-          <h2>Horário é compromisso.</h2>
-          <p>O planejamento começa antes do percurso e acompanha o horário combinado.</p>
-        </article>
-        <article class="benefit-card">
-          <span class="count">02</span><span class="icon" aria-hidden="true">□</span>
-          <h2>Comunicação clara.</h2>
-          <p>Trajeto, contexto e condições ficam alinhados antes da execução.</p>
-        </article>
-        <article class="benefit-card">
-          <span class="count">03</span><span class="icon" aria-hidden="true">◇</span>
-          <h2>Cuidado no trajeto.</h2>
-          <p>Rota, bagagem, espera e preferências entram na leitura do atendimento.</p>
-        </article>
-        <article class="benefit-card">
-          <span class="count">04</span><span class="icon" aria-hidden="true">○</span>
-          <h2>Discrição.</h2>
-          <p>Presença profissional sem espetáculo, excesso ou exposição desnecessária.</p>
-        </article>
+        <article class="benefit-card"><span class="count">01</span><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg><h2>Horário é compromisso.</h2><p>O planejamento começa antes do percurso e acompanha o horário combinado.</p></article>
+        <article class="benefit-card"><span class="count">02</span><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg><h2>Comunicação clara.</h2><p>Trajeto, contexto e condições ficam alinhados antes da execução.</p></article>
+        <article class="benefit-card"><span class="count">03</span><svg class="icon" aria-hidden="true"><use href="#i-shield"/></svg><h2>Cuidado no trajeto.</h2><p>Rota, bagagem, espera e preferências entram na leitura do atendimento.</p></article>
+        <article class="benefit-card"><span class="count">04</span><svg class="icon" aria-hidden="true"><use href="#i-person"/></svg><h2>Discrição.</h2><p>Presença profissional sem espetáculo, excesso ou exposição desnecessária.</p></article>
       </div>
     </section>
 
     <section class="section section-dark" id="servicos" aria-labelledby="services-title">
       <div class="shell">
-        <div class="section-heading split-heading">
-          <div>
-            <p class="eyebrow">O que ofereço</p>
-            <h2 id="services-title">Para compromissos que pedem mais controle do trajeto.</h2>
-          </div>
-          <p class="side-note">Você informa o contexto. O deslocamento é pensado em cada detalhe que realmente muda o atendimento.</p>
-        </div>
+        <div class="section-heading split-heading"><div><p class="eyebrow">O que ofereço</p><h2 id="services-title">Para compromissos que pedem mais controle do trajeto.</h2></div><p class="side-note">Você informa o contexto. O deslocamento é pensado em cada detalhe que realmente muda o atendimento.</p></div>
         <div class="service-grid">
-          <article class="service-card"><span>01</span><h3>Aeroportos e rodoviárias</h3><p>Ida e chegada com horário planejado e atenção ao tempo do compromisso.</p></article>
-          <article class="service-card"><span>02</span><h3>Reuniões e compromissos</h3><p>Deslocamentos com hora marcada, leitura de contexto e clareza no alinhamento.</p></article>
-          <article class="service-card"><span>03</span><h3>Eventos</h3><p>Chegadas e saídas combinadas antes para reduzir ruído no momento crítico.</p></article>
-          <article class="service-card"><span>04</span><h3>Viagens e deslocamentos</h3><p>Trajetos particulares fora da rotina com percurso e condições combinadas.</p></article>
-          <article class="service-card"><span>05</span><h3>Espera e acompanhamento</h3><p>Quando contratado, o atendimento permanece dentro da mesma demanda.</p></article>
-          <article class="service-card"><span>06</span><h3>Rotinas personalizadas</h3><p>Atendimento recorrente com previsibilidade, conforto e continuidade.</p></article>
+          <article class="service-card"><span>01</span><svg class="service-icon" aria-hidden="true"><use href="#i-airport"/></svg><h3>Aeroportos e rodoviárias</h3><p>Ida e chegada com horário planejado e atenção ao tempo do compromisso.</p></article>
+          <article class="service-card"><span>02</span><svg class="service-icon" aria-hidden="true"><use href="#i-briefcase"/></svg><h3>Reuniões e compromissos</h3><p>Deslocamentos com hora marcada, leitura de contexto e clareza no alinhamento.</p></article>
+          <article class="service-card"><span>03</span><svg class="service-icon" aria-hidden="true"><use href="#i-calendar"/></svg><h3>Eventos</h3><p>Chegadas e saídas combinadas antes para reduzir ruído no momento crítico.</p></article>
+          <article class="service-card"><span>04</span><svg class="service-icon" aria-hidden="true"><use href="#i-route"/></svg><h3>Viagens e deslocamentos</h3><p>Trajetos particulares fora da rotina com percurso e condições combinadas.</p></article>
+          <article class="service-card"><span>05</span><svg class="service-icon" aria-hidden="true"><use href="#i-clock"/></svg><h3>Espera e acompanhamento</h3><p>Quando contratado, o atendimento permanece dentro da mesma demanda.</p></article>
+          <article class="service-card"><span>06</span><svg class="service-icon" aria-hidden="true"><use href="#i-repeat"/></svg><h3>Rotinas personalizadas</h3><p>Atendimento recorrente com previsibilidade, conforto e continuidade.</p></article>
         </div>
       </div>
     </section>
 
     <section class="section method-section" id="como-funciona" aria-labelledby="method-title">
       <div class="route-art route-art-method" aria-hidden="true"><svg viewBox="0 0 1440 220" preserveAspectRatio="none"><path d="M-30 175 C260 85 340 230 610 145 S910 68 1080 126 S1300 185 1480 84" /></svg></div>
-      <div class="shell method-grid">
-        <div class="method-intro">
-          <p class="eyebrow">Como funciona</p>
-          <h2 id="method-title"><span>Direto, suficiente</span><span>e detalhado para</span><span>evitar ruído.</span></h2>
-          <p>O correto começa pela troca direta. Depois, necessidade, condições e apontamentos ficam alinhados antes da execução.</p>
-        </div>
-        <ol class="steps">
-          <li><span>01</span><div><h3>Você chama</h3><p>Passa data, horário, origem, destino e o que precisa ser considerado.</p></div></li>
-          <li><span>02</span><div><h3>A gente alinha</h3><p>Rota, tempo, paradas, espera e os detalhes que realmente mudam o trajeto.</p></div></li>
-          <li><span>03</span><div><h3>Você confirma</h3><p>Valor, condições e apontamentos são confirmados pelo canal oficial.</p></div></li>
-          <li><span>04</span><div><h3>Eu cuido do trajeto</h3><p>O serviço acontece conforme o combinado, com comunicação e atenção ao contexto.</p></div></li>
-        </ol>
-      </div>
+      <div class="shell method-grid"><div class="method-intro"><p class="eyebrow">Como funciona</p><h2 id="method-title"><span>Direto, suficiente</span><span>e detalhado para</span><span>evitar ruído.</span></h2><p>O correto começa pela troca direta. Depois, necessidade, condições e apontamentos ficam alinhados antes da execução.</p></div><ol class="steps"><li><span>01</span><div><h3>Você chama</h3><p>Passa data, horário, origem, destino e o que precisa ser considerado.</p></div></li><li><span>02</span><div><h3>A gente alinha</h3><p>Rota, tempo, paradas, espera e os detalhes que realmente mudam o trajeto.</p></div></li><li><span>03</span><div><h3>Você confirma</h3><p>Valor, condições e apontamentos são confirmados pelo canal oficial.</p></div></li><li><span>04</span><div><h3>Eu cuido do trajeto</h3><p>O serviço acontece conforme o combinado, com comunicação e atenção ao contexto.</p></div></li></ol></div>
     </section>
 
-    <section class="section quality-section" aria-labelledby="quality-title">
-      <div class="shell">
-        <div class="section-heading split-heading">
-          <div><p class="eyebrow">Qualidade operacional</p><h2 id="quality-title">Rotina que funciona, execução que tranquiliza.</h2></div>
-          <p class="side-note">Mais do que dirigir, o que entrego é organização, leitura de contexto e presença calma no que realmente importa.</p>
-        </div>
-        <div class="quality-grid">
-          <article><span class="line-icon">◎</span><h3>Discrição</h3><p>Presença profissional com reserva e respeito ao contexto.</p></article>
-          <article><span class="line-icon">◷</span><h3>Pontualidade</h3><p>Compromisso com o horário combinado e com o seu tempo.</p></article>
-          <article><span class="line-icon">□</span><h3>Comunicação</h3><p>Informações claras antes, durante e depois do percurso.</p></article>
-          <article><span class="line-icon">◇</span><h3>Cuidado</h3><p>Atenção com bagagem, pertences e preferências do trajeto.</p></article>
-          <article><span class="line-icon">↻</span><h3>Continuidade</h3><p>Atendimento recorrente com consistência e adaptação.</p></article>
-        </div>
-      </div>
-    </section>
+    <section class="section quality-section" aria-labelledby="quality-title"><div class="shell"><div class="section-heading split-heading"><div><p class="eyebrow">Qualidade operacional</p><h2 id="quality-title">Rotina que funciona, execução que tranquiliza.</h2></div><p class="side-note">Mais do que dirigir, o que entrego é organização, leitura de contexto e presença calma no que realmente importa.</p></div><div class="quality-grid"><article><svg class="line-icon" aria-hidden="true"><use href="#i-person"/></svg><h3>Discrição</h3><p>Presença profissional com reserva e respeito ao contexto.</p></article><article><svg class="line-icon" aria-hidden="true"><use href="#i-clock"/></svg><h3>Pontualidade</h3><p>Compromisso com o horário combinado e com o seu tempo.</p></article><article><svg class="line-icon" aria-hidden="true"><use href="#i-message"/></svg><h3>Comunicação</h3><p>Informações claras antes, durante e depois do percurso.</p></article><article><svg class="line-icon" aria-hidden="true"><use href="#i-care"/></svg><h3>Cuidado</h3><p>Atenção com bagagem, pertences e preferências do trajeto.</p></article><article><svg class="line-icon" aria-hidden="true"><use href="#i-repeat"/></svg><h3>Continuidade</h3><p>Atendimento recorrente com consistência e adaptação.</p></article></div></div></section>
 
-    <section class="section difference-section" id="diferenciais" aria-labelledby="difference-title">
-      <div class="shell">
-        <div class="section-heading split-heading">
-          <div><p class="eyebrow">Experiência e diferenciais</p><h2 id="difference-title">O valor aparece no jeito de trabalhar.</h2></div>
-          <p class="side-note">Menos adjetivo. Mais comportamento que pode ser percebido no atendimento.</p>
-        </div>
-        <div class="difference-grid">
-          <article><span>01</span><h3>Rotina real</h3><p>O que vem antes da prática é leitura de contexto, rotina e necessidade.</p></article>
-          <article><span>02</span><h3>Comunicação</h3><p>O que foi combinado fica claro antes, no trajeto e quando algo muda.</p></article>
-          <article><span>03</span><h3>Pontualidade com método</h3><p>Horário certo é reflexo de planejamento, rota e leitura do tempo.</p></article>
-          <article><span>04</span><h3>Discrição e cuidado</h3><p>O passageiro recebe atenção com profissionalismo sem excesso de exposição.</p></article>
-        </div>
-      </div>
-    </section>
+    <section class="section difference-section" id="diferenciais" aria-labelledby="difference-title"><div class="shell"><div class="section-heading split-heading"><div><p class="eyebrow">Experiência e diferenciais</p><h2 id="difference-title">O valor aparece no jeito de trabalhar.</h2></div><p class="side-note">Menos adjetivo. Mais comportamento que pode ser percebido no atendimento.</p></div><div class="difference-grid"><article><span>01</span><h3>Rotina real</h3><p>O que vem antes da prática é leitura de contexto, rotina e necessidade.</p></article><article><span>02</span><h3>Comunicação</h3><p>O que foi combinado fica claro antes, no trajeto e quando algo muda.</p></article><article><span>03</span><h3>Pontualidade com método</h3><p>Horário certo é reflexo de planejamento, rota e leitura do tempo.</p></article><article><span>04</span><h3>Discrição e cuidado</h3><p>O passageiro recebe atenção com profissionalismo sem excesso de exposição.</p></article></div></div></section>
 
-    <section class="section driver-section" id="quem-dirige" aria-labelledby="driver-title">
-      <div class="shell driver-grid">
-        <figure class="driver-photo"><img src="./assets/henrico-profile.webp" alt="Retrato de Henrico Amaral" /></figure>
-        <div class="driver-copy">
-          <p class="eyebrow">Quem dirige</p>
-          <h2 id="driver-title">Henrico Amaral.</h2>
-          <p class="driver-lede">O serviço leva meu nome porque a responsabilidade também é minha.</p>
-          <p>Motorista particular. A proposta é simples: troca clara, deslocamento como parte do que você precisa realizar, comunicação direta, pontualidade, discrição e atenção ao contexto.</p>
-          <blockquote>“Levando pessoas, cuidando de histórias.”</blockquote>
-        </div>
-        <aside class="driver-principles" aria-label="Princípios do serviço">
-          <div><span>01</span><strong>Presença</strong><small>Responsabilidade pessoal por cada serviço.</small></div>
-          <div><span>02</span><strong>Proteção</strong><small>Cuidado com pessoas, horários, trajetos e pertences.</small></div>
-          <div><span>03</span><strong>Continuidade</strong><small>A experiência começa antes e termina depois da chegada.</small></div>
-        </aside>
-      </div>
-    </section>
+    <section class="section driver-section" id="quem-dirige" aria-labelledby="driver-title"><div class="shell driver-grid"><figure class="driver-photo"><img src="./assets/henrico-profile.webp" alt="Retrato de Henrico Amaral" /></figure><div class="driver-copy"><p class="eyebrow">Quem dirige</p><h2 id="driver-title">Henrico Amaral.</h2><p class="driver-lede">O serviço leva meu nome porque a responsabilidade também é minha.</p><p>Motorista particular. A proposta é simples: troca clara, deslocamento como parte do que você precisa realizar, comunicação direta, pontualidade, discrição e atenção ao contexto.</p><blockquote>“Levando pessoas, cuidando de histórias.”</blockquote></div><aside class="driver-principles" aria-label="Princípios do serviço"><div><span>01</span><strong>Presença</strong><small>Responsabilidade pessoal por cada serviço.</small></div><div><span>02</span><strong>Proteção</strong><small>Cuidado com pessoas, horários, trajetos e pertences.</small></div><div><span>03</span><strong>Continuidade</strong><small>A experiência começa antes e termina depois da chegada.</small></div></aside></div></section>
 
-    <section class="final-cta" id="contato" aria-labelledby="cta-title">
-      <div class="route-art route-art-cta" aria-hidden="true"><svg viewBox="0 0 1440 260" preserveAspectRatio="none"><path d="M-20 160 C210 80 310 210 520 140 S850 68 1010 144 S1240 205 1460 92" /></svg></div>
-      <div class="shell final-cta-inner">
-        <p class="eyebrow">Próximo trajeto</p>
-        <h2 id="cta-title">Precisa combinar um trajeto?<br><em>Fale comigo pelo WhatsApp.</em></h2>
-        <p>Data, horário, origem e destino ajudam a começar o alinhamento. A confirmação acontece pelo canal oficial.</p>
-        <a class="button" href="#topo">Preparar solicitação</a>
-      </div>
-    </section>
+    <section class="final-cta" id="contato" aria-labelledby="cta-title"><div class="route-art route-art-cta" aria-hidden="true"><svg viewBox="0 0 1440 260" preserveAspectRatio="none"><path d="M-20 160 C210 80 310 210 520 140 S850 68 1010 144 S1240 205 1460 92" /></svg></div><div class="shell final-cta-inner"><p class="eyebrow">Próximo trajeto</p><h2 id="cta-title">Precisa combinar um trajeto?<br><em>Fale comigo pelo WhatsApp.</em></h2><p>Data, horário, origem e destino ajudam a começar o alinhamento. A confirmação acontece pelo canal oficial.</p><a class="button" href="#topo">Preparar solicitação</a></div></section>
   </main>
 
-  <footer class="site-footer">
-    <div class="shell footer-grid">
-      <div class="footer-brand"><img src="./assets/logo-oficial.webp" alt="MotoristaOPS por Henrico Amaral" /><p>Levando pessoas, cuidando de histórias.</p></div>
-      <div><h2>Serviços</h2><a href="#servicos">Aeroportos</a><a href="#servicos">Reuniões</a><a href="#servicos">Eventos</a><a href="#servicos">Viagens</a></div>
-      <div><h2>Navegação</h2><a href="#como-funciona">Como funciona</a><a href="#diferenciais">Diferenciais</a><a href="#quem-dirige">Quem dirige</a></div>
-      <div><h2>Atendimento</h2><p>Atendimento particular com hora marcada.</p><a href="#contato">Solicitar orçamento</a></div>
-    </div>
-    <div class="shell footer-bottom"><span>MotoristaOPS por Henrico Amaral.</span><a href="#topo">Voltar ao topo ↑</a></div>
-  </footer>
+  <footer class="site-footer"><div class="shell footer-grid"><div class="footer-brand"><img src="./assets/logo-oficial.webp" alt="MotoristaOPS por Henrico Amaral" /><p>Levando pessoas, cuidando de histórias.</p></div><div><h2>Serviços</h2><a href="#servicos">Aeroportos</a><a href="#servicos">Reuniões</a><a href="#servicos">Eventos</a><a href="#servicos">Viagens</a></div><div><h2>Navegação</h2><a href="#como-funciona">Como funciona</a><a href="#diferenciais">Diferenciais</a><a href="#quem-dirige">Quem dirige</a></div><div><h2>Atendimento</h2><p>Atendimento particular com hora marcada.</p><a href="#contato">Solicitar orçamento</a></div></div><div class="shell footer-bottom"><span>MotoristaOPS por Henrico Amaral.</span><a href="#topo">Voltar ao topo ↑</a></div></footer>
 
   <script src="./script.js"></script>
 </body>
