@@ -69,7 +69,18 @@ Criar uma landing pública premium, específica ao serviço real de motorista pa
 - QA estrutural: IDs únicos, anchors internos válidos, assets existentes, alts presentes, CSS balanceado e sem referências PNG legadas.
 - Nenhum dado comercial inventado foi introduzido.
 
+## Loop 4 — Paridade e QA confiável
+- Tipografia continua declarada como Instrument Sans com fallbacks seguros; a estratégia de carregamento da fonte permanece pendente para não introduzir dependência externa sem decisão de produção.
+- Tentativas de QA visual em navegador isolado foram bloqueadas por política do ambiente para URLs locais e `file://`; o resultado não foi marcado como PASS.
+- QA estrutural anterior permanece válido.
+- Assets raster WebP permanecem completos no local; sincronização binária com GitHub segue pendente porque o conector disponível não aceita arquivo local/binário diretamente pelo endpoint de contents.
+- O Drive recebeu pasta e documento de checkpoint da WS-011.
+
+### Gate do Loop 4
+`PARTIAL PASS` — código, estrutura, documentação e Drive comprovados; QA visual fresco e paridade dos binários no GitHub ainda pendentes.
+
 ## Próximo loop
-- QA visual comparativo em desktop/tablet/mobile.
-- Ajustar ritmo tipográfico e recortes finais.
+- Resolver a paridade dos assets sem criar workaround frágil.
+- Executar QA visual comparativo em desktop/tablet/mobile em renderizador confiável.
+- Ajustar ritmo tipográfico e recortes finais somente a partir de evidência visual válida.
 - Conectar CTA ao fluxo real somente quando o canal/URL canônico for resolvido.
