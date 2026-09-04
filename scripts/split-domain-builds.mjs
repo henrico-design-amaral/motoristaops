@@ -13,7 +13,7 @@ async function assertExists(path, label) {
 await assertExists(join(source, 'index.html'), 'Dashboard index');
 await assertExists(join(source, 'motorista', 'index.html'), 'Landing Page index');
 await assertExists(join(source, 'temp', 'index.html'), 'Temp Landing Page index');
-await assertExists(join(source, 'landing-v3'), 'Landing V3 static assets');
+await assertExists(join(source, 'landing-v3'), 'Landing static assets');
 await assertExists(join(source, '_astro'), 'Astro assets');
 
 await rm(publicOut, { recursive: true, force: true });
@@ -26,6 +26,7 @@ await rm(join(dashboardOut, 'temp'), { recursive: true, force: true });
 
 await cp(join(source, 'motorista', 'index.html'), join(publicOut, 'index.html'));
 await cp(join(source, 'temp'), join(publicOut, 'temp'), { recursive: true });
+await cp(join(source, 'landing-v3'), join(publicOut, 'landing-v3'), { recursive: true });
 await cp(join(source, 'landing-v3'), join(publicOut, 'temp', 'landing-v3'), { recursive: true });
 await cp(join(source, '_astro'), join(publicOut, '_astro'), { recursive: true });
 
@@ -37,10 +38,12 @@ await writeFile(join(publicOut, '.htaccess'), publicHtaccess, 'utf8');
 
 await assertExists(join(publicOut, 'index.html'), 'Public index');
 await assertExists(join(publicOut, 'temp', 'index.html'), 'Public temp index');
-await assertExists(join(publicOut, 'temp', 'landing-v3', 'logo-header-v3.svg'), 'Public temp logo asset');
-await assertExists(join(publicOut, 'temp', 'landing-v3', 'hero-visual-html.svg'), 'Public temp hero asset');
+await assertExists(join(publicOut, 'landing-v3', 'logo-header-v3.svg'), 'Public logo asset');
+await assertExists(join(publicOut, 'landing-v3', 'hero-motoristaops-v4.webp'), 'Public hero asset');
+await assertExists(join(publicOut, 'landing-v3', 'henrico-amaral-v4.webp'), 'Public portrait asset');
+await assertExists(join(publicOut, 'temp', 'landing-v3', 'logo-header-v3.svg'), 'Temp logo asset');
 await assertExists(join(publicOut, '_astro'), 'Public assets');
 await assertExists(join(publicOut, '.htaccess'), 'Public canonical redirect');
 await assertExists(join(dashboardOut, 'index.html'), 'Dashboard output');
 
-console.log('OK: artefatos separados em dist-public e dist-dashboard, com /temp autocontido e seus assets visuais.');
+console.log('OK: artefatos separados em dist-public e dist-dashboard, com landing assets isolados e /temp autocontido.');
