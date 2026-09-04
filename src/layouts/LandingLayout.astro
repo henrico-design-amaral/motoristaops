@@ -2,7 +2,9 @@
 const {
   title = 'MotoristaOPS | Motorista Particular em São Paulo',
   description = 'Motorista particular em São Paulo com atendimento direto, planejamento, cuidado e discrição.',
-  noindex = false
+  noindex = false,
+  canonical = 'https://www.motoristaops.com.br/',
+  image = 'https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp'
 } = Astro.props;
 ---
 <!doctype html>
@@ -12,7 +14,14 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     {noindex && <meta name="robots" content="noindex,nofollow,noarchive" />}
+    {!noindex && <link rel="canonical" href={canonical} />}
     <meta name="theme-color" content="#070709" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap" rel="stylesheet" />
@@ -32,7 +41,9 @@ const {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
+  img { max-width: 100%; }
   a { color: inherit; }
   a, button { -webkit-tap-highlight-color: transparent; }
   :focus-visible { outline: 2px solid #C79C5B; outline-offset: 4px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 </style>
