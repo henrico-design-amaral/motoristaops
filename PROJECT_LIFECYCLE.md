@@ -1,9 +1,7 @@
 # MotoristaOPS V2 — Project Lifecycle
 
-Status: CANONICAL
-Updated: 2026-09-01
-
-Todo trabalho de criação, mudança material ou evolução estrutural do MotoristaOPS V2 deve respeitar esta sequência. Um estágio não autoriza automaticamente o próximo.
+Status: ACTIVE
+Updated: 2026-09-03
 
 0. INTENÇÃO
 1. DEFINIÇÃO DO PROJETO
@@ -22,13 +20,13 @@ Todo trabalho de criação, mudança material ou evolução estrutural do Motori
 14. OBSERVAÇÃO + APRENDIZADO
 
 ## Regra de progressão
-
-- Cada etapa tem um artefato ou evidência de saída.
-- Nenhuma etapa futura deve ser preenchida por antecipação apenas para completar documentação.
-- Decisões só se tornam herdáveis quando consolidadas no estágio adequado.
-- Artefatos históricos da V1 são insumos potenciais, nunca autoridades automáticas.
-- Se uma etapa reabrir uma premissa anterior, o fluxo retorna ao ponto necessário e registra a mudança.
+- Cada etapa exige artefato ou evidência de saída.
+- Nenhuma etapa futura é preenchida por antecipação.
+- Decisões só se tornam herdáveis quando consolidadas.
+- A V1 é insumo histórico, nunca autoridade automática.
+- Se uma premissa anterior reabrir, o fluxo retorna ao estágio necessário.
 
 ## Estado atual
+`7. PLANO / SPEC / WORK SESSION — WS-011 LANDING V2 ACTIVE`
 
-`1. DEFINIÇÃO DO PROJETO — READY FOR VALIDATION`
+A implementação atual é um protótipo executável em loop. Ainda não é release nem baseline de produção.
