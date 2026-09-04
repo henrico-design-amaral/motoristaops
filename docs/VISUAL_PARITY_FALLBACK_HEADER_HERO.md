@@ -1,30 +1,46 @@
 # MotoristaOPS V2 — Header + Hero fallback parity report
 
 Date: 2026-09-04
-Scope: Header + Hero only
-Golden Master: 1694x928
+Scope: Header + Hero + trust strip
+Status: CORRECTED BASELINE IN PROGRESS
 
-## Result
+## Correction
 
-**STRUCTURAL CONVERGENCE: PASS**  
-**BROWSER VERIFICATION: BLOCKED BY ENVIRONMENT POLICY**  
-**PRODUCTION BASELINE: NOT YET PROMOTED**
+The previous Golden Master (1694x928 isolated hero) is **invalidated**.
 
-The fallback loop was executed as HTML/CSS -> deterministic render -> screenshot -> pixel diff -> correction.
-Five refinement loops corrected layout drift in header spacing, headline/paragraph rhythm, CTA wrapping, benefit-row vertical alignment, profile-card geometry and raster scaling.
+The authoritative visual reference is now the full landing image supplied by the user on 2026-09-04 (`Landing page premium de motorista particular(2).png`). The pipeline must preserve the architecture of that complete page, not reinterpret the isolated hero as the page structure.
 
-Final full-frame ImageMagick AE mismatch at 10% fuzz: **12.843%**.
+## Corrected first slice
 
-This raw number intentionally includes differences that should not be "fixed" by cheating: the production-facing proof uses the real provided portrait instead of copying the generated face from the Golden Master, and lower scene pixels containing source UI were deliberately omitted rather than rasterized into HTML.
+The first corrected gate is the top slice of the supplied full-page reference:
 
-## What is now proven
+- Header with official MotoristaOPS lockup.
+- Hero with editorial copy on the left.
+- Large vehicle/city scene on the right.
+- Route graphic along the bottom of the hero.
+- Four-column operational-principles strip immediately below.
 
-- The approved static visual can be decomposed into a real HTML/CSS composition without using the full screenshot as the page.
-- Header, Hero copy, CTAs, benefit strip and profile card can be aligned against a fixed 1694x928 oracle.
-- Raster scene assets must keep native geometry; stretching them was a primary source of drift.
-- Visual QA must distinguish interface geometry from intentional photographic/raster substitutions.
-- The environment's Chromium build blocks `file://`, loopback HTTP, mapped local hosts and `data:` URLs. A browser PASS cannot be claimed here.
+## Fallback execution
+
+A clean local proof was rebuilt from the corrected reference using:
+
+`correct Golden Master -> semantic HTML/CSS -> deterministic render -> screenshot -> diff -> correction`
+
+Four calibration loops were executed for:
+
+- header/logo scale;
+- nav and CTA spacing;
+- condensed headline rhythm and line breaks;
+- hero scene scale/position;
+- paragraph and CTA vertical rhythm;
+- trust-strip alignment.
+
+The scene/photo and brand lockup are treated as image assets; headline, body copy, buttons, navigation and benefit content remain real HTML.
 
 ## Gate
 
-Do not proceed to the next landing section until the desktop Header + Hero is human-approved as the first visual baseline. Mobile remains a separate gate because no mobile Golden Master has been approved.
+The old parity PASS is revoked. Do not use the previous isolated-hero proof as a baseline.
+
+The new top-section proof is the only active visual candidate and still requires human visual approval before the next section is promoted.
+
+Mobile remains a separate gate.
