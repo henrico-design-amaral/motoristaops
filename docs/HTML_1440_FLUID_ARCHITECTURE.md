@@ -13,14 +13,17 @@ The approved visual remains the composition authority, but HTML must implement i
 ## Structural contract
 
 1. **Page surfaces are full width.** Section backgrounds extend through the viewport.
-2. **Normal content uses one continuous centered shell capped at 1440 px.**
-3. **The Hero media is independent from the content shell.** Its visual canvas may breathe across the viewport but never scales beyond its real 1440 px canvas.
-4. **At viewports wider than 1440 px**, both the content shell and Hero canvas remain centered at 1440 px while the surrounding viewport resolves to Noite `#070709`.
-5. **Hero edges dissolve organically into the page background** through bilateral masking plus a left-side reading scrim. Do not show a hard image rectangle.
-6. **Do not reintroduce artboard scaling.** Root font size, section heights and spacing must not be derived proportionally from the 682 px source mockup.
-7. **Section heights are content driven**, using responsive padding and grid changes.
-8. **Desktop reference viewport is 1440 px.** Wide desktop must preserve the 1440 cap; mobile is a separate responsive composition.
-9. **No horizontal overflow** at 1440, 1920 or 390 px.
+2. **Normal interface content uses one continuous centered shell capped at 1440 px.**
+3. **The Hero photography is independent from the 1440 content shell and is full-bleed.** It must cover the complete viewport from edge to edge, including behind the header.
+4. **The Hero background does not cap at 1440 px.** On wider monitors, more of the same continuous panorama is revealed/covered; the interface content remains centered and capped at 1440 px.
+5. **The Hero must never look like a boxed image, isolated car crop, or finite 1440 canvas.** Landscape, road, skyline and lighting must remain visually continuous at both edges.
+6. **Territorial anchor is locked:** Sao Paulo, Ponte Estaiada Octavio Frias de Oliveira / Marginal Pinheiros skyline, night atmosphere, black HB20 integrated into the scene.
+7. **The header floats over the same Hero photography.** The image begins at the top of the page, not below the header.
+8. **A left reading scrim may be used only for legibility.** It must not create a visible image boundary or replace photographic continuity.
+9. **Do not reintroduce artboard scaling.** Root font size, section heights and spacing must not be derived proportionally from the 682 px source mockup.
+10. **Section heights are content driven**, using responsive padding and grid changes.
+11. **Desktop content reference is 1440 px.** Mobile is a separate responsive composition.
+12. **No horizontal overflow** at desktop, wide desktop or mobile.
 
 ## Brand/system constraints preserved
 
@@ -30,29 +33,33 @@ The approved visual remains the composition authority, but HTML must implement i
 - Champagne Sombra `#947546`
 - Marfim `#F3EFE4`
 - Pedra `#A6A39E`
-- Âmbar `#F0B44D` reserved for route/signalling elements
-- Instrument Sans for operational/UI/body typography
-- Official MotoristaOPS lockup as an asset; never redraw the logo in CSS
-- Real Henrico Amaral portrait in `Quem dirige`
-- No invented reviews, metrics, awards or customer claims
+- Ambar `#F0B44D` reserved for route/signalling elements
+- **Instrument Sans Variable is the only interface/display family for this landing.** Do not introduce Bebas, Oswald, Anton, DIN Condensed or another display family to imitate the raster reference.
+- Official MotoristaOPS lockup as a raster/image asset; never redraw the logo in CSS or generate replacement vector artwork.
+- Official icon family: outline/monoline, 24x24 source geometry, stroke 1.75, rounded joins/terminals, consistent family. Use approved raster/icon assets; do not handcraft SVG/CSS icons.
+- Real Henrico Amaral portrait in `Quem dirige`.
+- No invented reviews, metrics, awards or customer claims.
+
+## Hero territory contract
+
+The Hero photography must express the visual territory already established for MotoristaOPS:
+
+- Ponte Estaiada / Marginal Pinheiros as recognizable Sao Paulo anchor;
+- black HB20 as the real service vehicle language;
+- city-at-night documentary-premium atmosphere;
+- deep blacks, low saturation and controlled warm highlights;
+- road and skyline continuing through the entire panorama;
+- car integrated into the environment rather than pasted into a separate box;
+- left side calmer/darker for copy without eliminating the scenery;
+- no generic street, limousine, supercar, neon/cyberpunk or generic luxury-dealership aesthetic.
 
 ## Reference principles applied
 
-- Dramatic Hero contrast via a deep reading scrim, with the vehicle/city image bleeding to the right.
+- Dramatic Hero contrast via a controlled reading scrim, while the photographic scene remains continuous.
 - Controlled editorial density and a breathable modular grid rather than generic SaaS card density.
 - Realistic/documentary service imagery and personal operator accountability.
 - Continuous composition across the entire landing rather than independently scaled blocks.
 
-## QA evidence
-
-Local fallback checks on the current architecture:
-
-- 1440 viewport: shell = 1440 px; Hero canvas = 1440 px; no horizontal overflow.
-- 1920 viewport: shell = 1440 px; Hero canvas = 1440 px; no horizontal overflow.
-- 390 viewport: shell = 390 px; no horizontal overflow; mobile navigation activation works.
-
-The local artifact contains `design-qa.md`, browser-rendered screenshots and geometry evidence. Mobile remains a resilience gate until a dedicated mobile Golden Master is approved.
-
 ## Rule for future agents
 
-Do not solve visual parity by making the webpage the same pixel dimensions as the static reference. Preserve the **composition**, not the source-image coordinate system.
+Do not solve visual parity by making the webpage the same pixel dimensions as the static reference. Preserve the **composition**, the **territory**, and the **responsive behavior** — not the source-image coordinate system.
