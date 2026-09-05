@@ -1,0 +1,1 @@
+Active production assembly remains source/parts/*.htmlfrag. Promote staged blobs atomically via Git tree operations only.
