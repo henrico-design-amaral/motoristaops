@@ -7,9 +7,8 @@
   <div class="header-inner">
     <a href="#topo" aria-label="MotoristaOPS — início"><img data-logo class="header-logo" src="/landing-v3/logo-header-v3.svg" alt="MotoristaOPS por Henrico Amaral"></a>
     <nav class="nav" aria-label="Navegação principal">
-      <a href="#por-que-agendar">Por que agendar</a>
       <a href="#servicos">Serviços</a>
-      <a href="#como-funciona">Como funciona</a>
+      <a href="#por-que-agendar">Por que agendar</a>
       <a href="#quem-dirige">Quem dirige</a>
     </nav>
     <a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener">Agendar</a>
@@ -24,26 +23,10 @@
     <p class="hero-copy">Corridas particulares para aeroportos, reuniões, consultas, eventos e viagens — com planejamento, comunicação direta e cuidado do início ao fim.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
-      <a class="btn btn-secondary" href="#como-funciona">Ver como funciona</a>
+      <a class="btn btn-secondary" href="#servicos">Ver serviços</a>
     </div>
     <div class="hero-proof" aria-label="Principais benefícios"><span>Hora marcada</span><span>Atendimento direto</span><span>Planejamento de rota</span><span>Discrição</span></div>
   </div></div>
-</section>
-
-<section id="por-que-agendar" class="section">
-  <div class="container">
-    <p class="eyebrow">Por que agendar antes?</p>
-    <div class="split-head">
-      <h2 class="title-lg">Porque alguns trajetos não podem depender de improviso.</h2>
-      <p class="copy">Quando existe horário, bagagem, reunião, consulta, voo, evento ou espera, o deslocamento precisa ser pensado antes. A diferença está no que acontece antes do carro chegar.</p>
-    </div>
-    <div class="grid-4">
-      <article class="card reason-card" data-reveal="0"><span class="card-num">01</span><h3>Horário combinado</h3><p>A agenda é alinhada antes do atendimento.</p></article>
-      <article class="card reason-card" data-reveal="80"><span class="card-num">02</span><h3>Rota pensada</h3><p>Tempo, trânsito e contexto entram na decisão.</p></article>
-      <article class="card reason-card" data-reveal="160"><span class="card-num">03</span><h3>Comunicação direta</h3><p>Você fala com quem vai te atender.</p></article>
-      <article class="card reason-card" data-reveal="240"><span class="card-num">04</span><h3>Menos ruído</h3><p>Origem, destino, espera e detalhes ficam claros antes.</p></article>
-    </div>
-  </div>
 </section>
 
 <section id="servicos" class="section" style="border-top:1px solid rgba(243,239,228,.06)">
@@ -64,14 +47,18 @@
   </div>
 </section>
 
-<section id="como-funciona" class="section" style="border-top:1px solid rgba(243,239,228,.06);border-bottom:1px solid rgba(243,239,228,.06)">
-  <div class="container timeline-wrap">
-    <div><p class="eyebrow">Como funciona</p><h2 class="title-lg">Direto, claro e sem ruído.</h2><p class="copy" style="margin:20px 0 0;max-width:34em">O atendimento começa pela conversa. Antes do trajeto, alinhamos horário, origem, destino, espera, paradas e qualquer detalhe que possa mudar a experiência.</p></div>
-    <div class="timeline">
-      <article class="step" data-step><span class="step-num">01</span><div><h3>Você chama</h3><p>Me passa data, horário, origem, destino e contexto.</p></div></article>
-      <article class="step" data-step><span class="step-num">02</span><div><h3>A gente alinha</h3><p>Eu avalio rota, tempo, paradas, espera e condições.</p></div></article>
-      <article class="step" data-step><span class="step-num">03</span><div><h3>Você confirma</h3><p>Valor, horário e detalhes ficam registrados no canal oficial.</p></div></article>
-      <article class="step" data-step><span class="step-num">04</span><div><h3>Eu cuido do trajeto</h3><p>O atendimento acontece conforme combinado, com comunicação e atenção.</p></div></article>
+<section id="por-que-agendar" class="section" style="border-top:1px solid rgba(243,239,228,.06)">
+  <div class="container">
+    <p class="eyebrow">Por que agendar antes?</p>
+    <div class="split-head">
+      <h2 class="title-lg">Porque alguns trajetos não podem depender de improviso.</h2>
+      <p class="copy">Quando existe horário, bagagem, reunião, consulta, voo, evento ou espera, o deslocamento precisa ser pensado antes. A diferença está no que acontece antes do carro chegar.</p>
+    </div>
+    <div class="grid-4">
+      <article class="card reason-card" data-reveal="0"><span class="card-num">01</span><h3>Horário combinado</h3><p>A agenda é alinhada antes do atendimento.</p></article>
+      <article class="card reason-card" data-reveal="80"><span class="card-num">02</span><h3>Rota pensada</h3><p>Tempo, trânsito e contexto entram na decisão.</p></article>
+      <article class="card reason-card" data-reveal="160"><span class="card-num">03</span><h3>Comunicação direta</h3><p>Você fala com quem vai te atender.</p></article>
+      <article class="card reason-card" data-reveal="240"><span class="card-num">04</span><h3>Menos ruído</h3><p>Origem, destino, espera e detalhes ficam claros antes.</p></article>
     </div>
   </div>
 </section>
