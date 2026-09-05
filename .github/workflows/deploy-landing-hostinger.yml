@@ -85,7 +85,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p runtime-bundle
-          base64 --decode release/runtime-assets/runtime-assets-tiny.zip.b64 > runtime-bundle/runtime-assets.zip
+          cat release/runtime-assets/chunks/part-*.bin > runtime-bundle/runtime-assets.zip
           echo 'a711c244f0e24ff36f12a28e76a865f62f15c813c974adc9cb843515639af40a  runtime-bundle/runtime-assets.zip' | sha256sum -c -
           unzip -q runtime-bundle/runtime-assets.zip -d runtime-bundle/extracted
           cp -a runtime-bundle/extracted/assets deploy-public/
