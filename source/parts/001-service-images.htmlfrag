@@ -1,38 +1,38 @@
 #servicos .container{
-  max-width:1600px;
-  padding-left:clamp(12px,1.15vw,18px);
-  padding-right:clamp(12px,1.15vw,18px);
+  max-width:1440px;
+  padding-left:clamp(18px,3.2vw,48px);
+  padding-right:clamp(18px,3.2vw,48px);
 }
 #servicos .grid-3{
   display:grid;
-  grid-template-columns:repeat(6,minmax(0,1fr));
-  gap:12px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
 }
 #servicos .service-card{
   position:relative;
   overflow:hidden;
-  padding:0 16px 16px;
+  padding:0 24px 28px;
   min-height:0;
-  border:1px solid rgba(199,156,91,.46);
-  border-radius:8px;
-  background:#101114;
-  box-shadow:none;
-  transition:border-color 180ms var(--mo-ease),background-color 180ms var(--mo-ease);
+  border:1px solid rgba(199,156,91,.24);
+  border-radius:14px;
+  background:linear-gradient(180deg,rgba(21,21,24,.58) 0%,rgba(15,15,18,.78) 46%,rgba(10,10,12,.94) 100%);
+  box-shadow:0 14px 34px rgba(0,0,0,.12);
+  transition:transform 200ms var(--mo-ease),border-color 200ms var(--mo-ease),background-color 200ms var(--mo-ease);
 }
 #servicos .service-card:hover{
-  transform:none;
-  border-color:rgba(199,156,91,.72);
-  background:#111215;
+  transform:translateY(-2px);
+  border-color:rgba(199,156,91,.46);
 }
 #servicos .service-card::before{
   content:'';
   display:block;
-  height:150px;
-  margin:0 -16px;
-  background-image:linear-gradient(180deg,rgba(10,10,12,0) 60%,rgba(10,10,12,.12) 78%,rgba(10,10,12,.62) 100%),url('/assets/service-cards.webp');
+  height:clamp(190px,16vw,228px);
+  margin:0 -24px;
+  background-image:linear-gradient(180deg,rgba(10,10,12,0) 0%,rgba(10,10,12,0) 72%,rgba(10,10,12,.18) 100%),url('/assets/service-cards.webp');
   background-repeat:no-repeat;
   background-size:100% 100%,300% 200%;
-  border-bottom:1px solid rgba(199,156,91,.24);
+  background-color:#111216;
+  border-bottom:1px solid rgba(243,239,228,.07);
   transition:filter 180ms var(--mo-ease);
 }
 #servicos .service-card:nth-child(1)::before{background-position:center,0% 0%}
@@ -41,67 +41,46 @@
 #servicos .service-card:nth-child(4)::before{background-position:center,0% 100%}
 #servicos .service-card:nth-child(5)::before{background-position:center,50% 100%}
 #servicos .service-card:nth-child(6)::before{background-position:center,100% 100%}
-#servicos .service-card:hover::before{filter:brightness(1.035)}
+#servicos .service-card:hover::before{filter:brightness(1.025)}
+
+/* Iconografia oficial anterior: arquivo real, sem círculo, sem máscara e fora da imagem. */
 #servicos .service-top{
-  position:absolute;
-  z-index:3;
-  left:16px;
-  top:128px;
-  width:42px;
-  height:42px;
+  position:relative;
+  left:auto;
+  top:auto;
+  width:auto;
+  height:auto;
+  margin:20px 0 14px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+#servicos .service-top .card-num{display:none!important}
+#servicos .service-top .card-icon{
+  display:block!important;
+  width:32px;
+  height:32px;
   margin:0;
-  display:grid;
-  place-items:center;
-  border:1px solid rgba(199,156,91,.88);
-  border-radius:999px;
-  background:#0A0A0C;
-  color:#C79C5B;
-  box-shadow:0 7px 18px rgba(0,0,0,.32);
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  object-fit:contain;
+  opacity:.92;
 }
-#servicos .service-top .card-num,
-#servicos .service-top .card-icon{display:none!important}
-#servicos .service-top::before{
-  content:'';
-  width:21px;
-  height:21px;
-  display:block;
-  background:#C79C5B;
-  -webkit-mask-repeat:no-repeat;
-  mask-repeat:no-repeat;
-  -webkit-mask-position:center;
-  mask-position:center;
-  -webkit-mask-size:contain;
-  mask-size:contain;
-}
-#servicos .service-card:nth-child(1) .service-top::before{
-  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 14l8-3 3-7 2 1-1 6 5-2 1 2-6 3-3 6-2-1 1-5-6 2z'/%3E%3C/svg%3E");
-  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 14l8-3 3-7 2 1-1 6 5-2 1 2-6 3-3 6-2-1 1-5-6 2z'/%3E%3C/svg%3E");
-}
-#servicos .service-card:nth-child(2) .service-top::before{
-  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='7' width='16' height='12' rx='2'/%3E%3Cpath d='M9 7V5h6v2M4 12h16M10 12v2h4v-2'/%3E%3C/svg%3E");
-  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='7' width='16' height='12' rx='2'/%3E%3Cpath d='M9 7V5h6v2M4 12h16M10 12v2h4v-2'/%3E%3C/svg%3E");
-}
-#servicos .service-card:nth-child(3) .service-top::before{
-  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 4h6v5h5v6h-5v5H9v-5H4V9h5z'/%3E%3C/svg%3E");
-  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 4h6v5h5v6h-5v5H9v-5H4V9h5z'/%3E%3C/svg%3E");
-}
-#servicos .service-card:nth-child(4) .service-top::before{
-  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='5' width='16' height='15' rx='2'/%3E%3Cpath d='M8 3v4M16 3v4M4 9h16M12 12l1 2 2 .3-1.5 1.5.4 2.2-1.9-1-1.9 1 .4-2.2L9 14.3l2-.3z'/%3E%3C/svg%3E");
-  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='5' width='16' height='15' rx='2'/%3E%3Cpath d='M8 3v4M16 3v4M4 9h16M12 12l1 2 2 .3-1.5 1.5.4 2.2-1.9-1-1.9 1 .4-2.2L9 14.3l2-.3z'/%3E%3C/svg%3E");
-}
-#servicos .service-card:nth-child(5) .service-top::before{
-  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11z'/%3E%3Ccircle cx='12' cy='10' r='2'/%3E%3C/svg%3E");
-  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11z'/%3E%3Ccircle cx='12' cy='10' r='2'/%3E%3C/svg%3E");
-}
-#servicos .service-card:nth-child(6) .service-top::before{
-  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8' r='3'/%3E%3Ccircle cx='17' cy='9' r='2.5'/%3E%3Cpath d='M3.5 19c.4-4 2.3-6 5.5-6s5.1 2 5.5 6M14 14.2c2.9-.6 5.1.9 6 3.8'/%3E%3C/svg%3E");
-  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='9' cy='8' r='3'/%3E%3Ccircle cx='17' cy='9' r='2.5'/%3E%3Cpath d='M3.5 19c.4-4 2.3-6 5.5-6s5.1 2 5.5 6M14 14.2c2.9-.6 5.1.9 6 3.8'/%3E%3C/svg%3E");
-}
+#servicos .service-top::before{content:none!important;display:none!important}
+
 #servicos .service-card h3{
-  margin:20px 0 7px;
+  margin:0 0 9px;
   font-family:Georgia,'Times New Roman',serif;
   font-stretch:normal;
-  font-size:clamp(15px,1.08vw,18px);
+  font-size:clamp(19px,1.35vw,22px);
   font-weight:400;
   line-height:1.16;
   letter-spacing:-.012em;
@@ -110,25 +89,23 @@
 }
 #servicos .service-card p{
   margin:0;
-  font-size:clamp(11.5px,.83vw,13px);
-  line-height:1.45;
+  max-width:34em;
+  font-size:14px;
+  line-height:1.55;
   color:#C8C4BC;
 }
-@media(max-width:1199px) and (min-width:901px){
-  #servicos .grid-3{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-  #servicos .service-card::before{height:180px}
-  #servicos .service-top{top:158px}
+
+@media(max-width:980px) and (min-width:681px){
+  #servicos .grid-3{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  #servicos .service-card::before{height:220px}
 }
-@media(max-width:900px) and (min-width:781px){
-  #servicos .grid-3{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-  #servicos .service-card::before{height:190px}
-  #servicos .service-top{top:168px}
-}
-@media(max-width:780px){
+@media(max-width:680px){
   #servicos .container{padding-left:18px;padding-right:18px}
-  #servicos .service-card{padding:0 18px 20px}
-  #servicos .service-card::before{height:clamp(180px,54vw,230px);margin:0 -18px}
-  #servicos .service-top{left:18px;top:calc(clamp(180px,54vw,230px) - 22px)}
-  #servicos .service-card h3{margin-top:22px;font-size:18px}
-  #servicos .service-card p{font-size:14px}
+  #servicos .grid-3{grid-template-columns:1fr;gap:16px}
+  #servicos .service-card{padding:0 20px 24px}
+  #servicos .service-card::before{height:clamp(210px,58vw,260px);margin:0 -20px}
+  #servicos .service-top{margin-top:18px;margin-bottom:13px}
+  #servicos .service-top .card-icon{width:31px;height:31px}
+  #servicos .service-card h3{font-size:21px}
+  #servicos .service-card p{font-size:14.5px}
 }
