@@ -39,14 +39,30 @@ jobs:
             -e 's#/assets/icons-official/\([a-z-]*\)\.png#/assets/icons-official/\1.webp#g' \
             deploy-public/index.html
 
-          # Preserve metadata/OG URLs, but restore the exact Claude Design visual assets.
+          # Production content overrides maintained by MotoristaOPS.
+          # 1) Canonical WhatsApp contact.
+          # 2) Remove the duplicate pre-footer CTA section requested for removal.
           python - <<'PY'
           from pathlib import Path
+
           p = Path('deploy-public/index.html')
-          s = p.read_text()
+          s = p.read_text(encoding='utf-8')
+
+          s = s.replace('5511953970704', '5511988329725')
+
+          start_marker = '  <section style="padding:clamp(64px,8vw,124px) 0; background:radial-gradient'
+          footer_marker = '  <footer data-comment-anchor="footer"'
+          start = s.find(start_marker)
+          end = s.find(footer_marker, start if start >= 0 else 0)
+          if start < 0 or end < 0:
+              raise SystemExit('Expected pre-footer CTA section/footer markers were not found.')
+          s = s[:start] + s[end:]
+
+          # Preserve metadata/OG URLs, but restore the exact Claude Design visual assets.
           s = s.replace('src="/landing-v3/hero-motoristaops-v4.webp"', 'src="/assets/hero-claude.avif"')
           s = s.replace('src="/landing-v3/logo-header-v3.svg"', 'src="/assets/logo-claude.avif"')
-          p.write_text(s)
+
+          p.write_text(s, encoding='utf-8')
           PY
 
           grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' deploy-public/index.html
@@ -62,6 +78,10 @@ jobs:
           grep -qF 'src="/assets/logo-claude.avif"' deploy-public/index.html
           grep -qF '/assets/henrico-profile.webp' deploy-public/index.html
           grep -qF '/assets/icons-official/whatsapp.webp' deploy-public/index.html
+          grep -qF 'https://wa.me/5511988329725?' deploy-public/index.html
+          ! grep -qF '5511953970704' deploy-public/index.html
+          ! grep -qF 'Próximo trajeto' deploy-public/index.html
+          ! grep -qF 'Fale comigo pelo WhatsApp.' deploy-public/index.html
           ! grep -qiF 'noindex' deploy-public/index.html
           ! grep -qF '/temp/' deploy-public/index.html
           ! grep -qF 'blob:' deploy-public/index.html
@@ -188,6 +208,10 @@ jobs:
               && grep -qF 'src="/assets/logo-claude.avif"' <<<"$public_home" \
               && grep -qF '/assets/henrico-profile.webp' <<<"$public_home" \
               && grep -qF '/assets/icons-official/whatsapp.webp' <<<"$public_home" \
+              && grep -qF 'https://wa.me/5511988329725?' <<<"$public_home" \
+              && ! grep -qF '5511953970704' <<<"$public_home" \
+              && ! grep -qF 'Próximo trajeto' <<<"$public_home" \
+              && ! grep -qF 'Fale comigo pelo WhatsApp.' <<<"$public_home" \
               && grep -qF 'Sitemap: https://www.motoristaops.com.br/sitemap.xml' <<<"$robots" \
               && grep -qF '<loc>https://www.motoristaops.com.br/</loc>' <<<"$sitemap" \
               && grep -qF 'Plano operacional' <<<"$dashboard_home" \
