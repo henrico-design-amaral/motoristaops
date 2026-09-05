@@ -1,0 +1,78 @@
+@media(max-width:780px){.header-inner{flex-wrap:wrap}.header-logo{height:38px}.nav{order:3;width:100%;justify-content:space-between;gap:10px;overflow:auto;padding-top:2px}.nav a{font-size:11px}.header-inner>.btn{margin-left:auto;min-height:42px;padding:11px 15px;font-size:11px}.hero{padding-top:164px}.hero-content{max-width:100%}.hero-media img{object-position:68% center}.split-head,.timeline-wrap{grid-template-columns:1fr}.grid-3,.grid-4,.grid-5,.grid-8{grid-template-columns:1fr}.driver-grid{grid-template-columns:1fr}.driver-meta{grid-column:auto;grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.footer-mid{border-left:0;border-right:0;border-top:1px solid rgba(243,239,228,.08);border-bottom:1px solid rgba(243,239,228,.08);padding:28px 0;text-align:left}.hero-actions .btn{width:100%}.hero-proof{gap:10px 16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}[data-reveal]{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body data-build="motoristaops-claude-design-2026-09-05">
+<header data-header>
+  <div class="header-inner">
+    <a href="#topo" aria-label="MotoristaOPS — início"><img data-logo class="header-logo" src="/landing-v3/logo-header-v3.svg" alt="MotoristaOPS por Henrico Amaral"></a>
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="#por-que-agendar">Por que agendar</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#quem-dirige">Quem dirige</a>
+    </nav>
+    <a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener">Agendar</a>
+  </div>
+</header>
+<main>
+<section id="topo" class="hero">
+  <div class="hero-media" aria-hidden="true"><img src="/landing-v3/hero-motoristaops-v4.webp" alt=""><div class="hero-shade-a"></div><div class="hero-shade-b"></div></div>
+  <div class="container"><div class="hero-content">
+    <p class="eyebrow">Motorista particular • São Paulo • hora marcada</p>
+    <h1 class="title-xl"><span>Seu compromisso</span><span>começa antes</span><span>do destino.</span></h1>
+    <p class="hero-copy">Corridas particulares para aeroportos, reuniões, consultas, eventos e viagens — com planejamento, comunicação direta e cuidado do início ao fim.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
+      <a class="btn btn-secondary" href="#como-funciona">Ver como funciona</a>
+    </div>
+    <div class="hero-proof" aria-label="Principais benefícios"><span>Hora marcada</span><span>Atendimento direto</span><span>Planejamento de rota</span><span>Discrição</span></div>
+  </div></div>
+</section>
+
+<section id="por-que-agendar" class="section">
+  <div class="container">
+    <p class="eyebrow">Por que agendar antes?</p>
+    <div class="split-head">
+      <h2 class="title-lg">Porque alguns trajetos não podem depender de improviso.</h2>
+      <p class="copy">Quando existe horário, bagagem, reunião, consulta, voo, evento ou espera, o deslocamento precisa ser pensado antes. A diferença está no que acontece antes do carro chegar.</p>
+    </div>
+    <div class="grid-4">
+      <article class="card reason-card" data-reveal="0"><span class="card-num">01</span><h3>Horário combinado</h3><p>A agenda é alinhada antes do atendimento.</p></article>
+      <article class="card reason-card" data-reveal="80"><span class="card-num">02</span><h3>Rota pensada</h3><p>Tempo, trânsito e contexto entram na decisão.</p></article>
+      <article class="card reason-card" data-reveal="160"><span class="card-num">03</span><h3>Comunicação direta</h3><p>Você fala com quem vai te atender.</p></article>
+      <article class="card reason-card" data-reveal="240"><span class="card-num">04</span><h3>Menos ruído</h3><p>Origem, destino, espera e detalhes ficam claros antes.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="servicos" class="section" style="border-top:1px solid rgba(243,239,228,.06)">
+  <div class="container">
+    <p class="eyebrow">O que ofereço</p>
+    <div class="split-head">
+      <h2 class="title-lg">Para compromissos que pedem mais controle do trajeto.</h2>
+      <p class="copy">Você informa o contexto. Eu organizo o deslocamento com atenção ao que realmente muda a experiência.</p>
+    </div>
+    <div class="grid-3">
+      <article class="card service-card" data-reveal="0"><div class="service-top"><span class="card-num">01</span><img class="card-icon" src="/assets/icons-official/airport.png" alt=""></div><h3>Aeroportos e rodoviárias</h3><p>Ida, chegada, bagagem e horário planejados com antecedência.</p></article>
+      <article class="card service-card" data-reveal="80"><div class="service-top"><span class="card-num">02</span><img class="card-icon" src="/assets/icons-official/reuniao.png" alt=""></div><h3>Reuniões e compromissos</h3><p>Deslocamento com hora marcada e leitura do tempo necessário.</p></article>
+      <article class="card service-card" data-reveal="160"><div class="service-top"><span class="card-num">03</span><img class="card-icon" src="/assets/icons-official/seguranca.png" alt=""></div><h3>Consultas e exames</h3><p>Trajeto com calma, cuidado e atenção ao horário.</p></article>
+      <article class="card service-card" data-reveal="0"><div class="service-top"><span class="card-num">04</span><img class="card-icon" src="/assets/icons-official/agendamento.png" alt=""></div><h3>Eventos</h3><p>Chegada e saída combinadas antes do momento crítico.</p></article>
+      <article class="card service-card" data-reveal="80"><div class="service-top"><span class="card-num">05</span><img class="card-icon" src="/assets/icons-official/rota.png" alt=""></div><h3>Viagens e deslocamentos</h3><p>Percursos particulares fora da rotina, com condições alinhadas.</p></article>
+      <article class="card service-card" data-reveal="160"><div class="service-top"><span class="card-num">06</span><img class="card-icon" src="/assets/icons-official/pontualidade.png" alt=""></div><h3>Espera e acompanhamento</h3><p>Quando contratado, permaneço disponível dentro da mesma demanda.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona" class="section" style="border-top:1px solid rgba(243,239,228,.06);border-bottom:1px solid rgba(243,239,228,.06)">
+  <div class="container timeline-wrap">
+    <div><p class="eyebrow">Como funciona</p><h2 class="title-lg">Direto, claro e sem ruído.</h2><p class="copy" style="margin:20px 0 0;max-width:34em">O atendimento começa pela conversa. Antes do trajeto, alinhamos horário, origem, destino, espera, paradas e qualquer detalhe que possa mudar a experiência.</p></div>
+    <div class="timeline">
+      <article class="step" data-step><span class="step-num">01</span><div><h3>Você chama</h3><p>Me passa data, horário, origem, destino e contexto.</p></div></article>
+      <article class="step" data-step><span class="step-num">02</span><div><h3>A gente alinha</h3><p>Eu avalio rota, tempo, paradas, espera e condições.</p></div></article>
+      <article class="step" data-step><span class="step-num">03</span><div><h3>Você confirma</h3><p>Valor, horário e detalhes ficam registrados no canal oficial.</p></div></article>
+      <article class="step" data-step><span class="step-num">04</span><div><h3>Eu cuido do trajeto</h3><p>O atendimento acontece conforme combinado, com comunicação e atenção.</p></div></article>
+    </div>
+  </div>
+</section>
+
