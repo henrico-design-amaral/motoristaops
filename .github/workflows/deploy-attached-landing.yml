@@ -84,3 +84,5 @@ jobs:
           done
           echo 'Production verification failed.'
           exit 1
+
+# v2 validated attached artifact deployment
