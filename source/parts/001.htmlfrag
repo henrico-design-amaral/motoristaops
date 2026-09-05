@@ -1,98 +1,13 @@
-        <img src="/assets/icons-official/motorista.png" alt="" style="width:30px; height:30px; display:block; opacity:.82; flex:none">
-        <div>
-          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:13px; letter-spacing:.18em; color:#C79C5B; margin-bottom:6px">04</span>
-          <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:17.5px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Discrição.</h3>
-          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Profissionalismo sem exposição. Presença que contribui com a sua rotina.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="servicos" style="padding:clamp(56px,7vw,108px) 0">
-    <div style="max-width:1440px; margin:0 auto; padding:0 clamp(16px,3vw,40px)">
-      <p style="margin:0 0 22px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.22em; text-transform:uppercase; color:#C79C5B">O que ofereço</p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(20px,4vw,64px); align-items:start; margin-bottom:clamp(34px,4vw,56px)">
-        <h2 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:clamp(32px,4.2vw,56px); line-height:1.04; letter-spacing:-.012em; font-weight:700; text-transform:uppercase; max-width:14em">Para compromissos que pedem mais controle do trajeto.</h2>
-        <p style="margin:0; font-size:15.5px; line-height:1.68; color:#A6A39E; max-width:26em">Você informa o contexto. O deslocamento é pensado em cada detalhe que realmente muda o atendimento.</p>
-      </div>
-
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr)); gap:18px">
-        <div data-reveal="0" style="display:flex; flex-direction:column; gap:14px; padding:28px 26px 30px; border:1px solid rgba(199,156,91,.16); background:#151518; transition:transform 240ms cubic-bezier(.16,1,.3,1), border-color 240ms ease, opacity 520ms ease" style-hover="transform:translateY(-2px); border-color:rgba(199,156,91,.5)">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px">
-            <span style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#C79C5B">01</span>
-            <img src="/assets/icons-official/airport.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
-          </div>
-          <h3 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Aeroportos e rodoviárias.</h3>
-          <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E">Ida e chegada com horário planejado, bagagem no trajeto e atenção aos compromissos.</p>
-        </div>
-        <div data-reveal="80" style="display:flex; flex-direction:column; gap:14px; padding:28px 26px 30px; border:1px solid rgba(199,156,91,.16); background:#151518; transition:transform 240ms cubic-bezier(.16,1,.3,1), border-color 240ms ease, opacity 520ms ease" style-hover="transform:translateY(-2px); border-color:rgba(199,156,91,.5)">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px">
-            <span style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#C79C5B">02</span>
-            <img src="/assets/icons-official/reuniao.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
-          </div>
-          <h3 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Reuniões e compromissos</h3>
-          <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E">Deslocamentos com hora marcada, leitura de contexto e atenção aos detalhes do tempo.</p>
-        </div>
-        <div data-reveal="160" style="display:flex; flex-direction:column; gap:14px; padding:28px 26px 30px; border:1px solid rgba(199,156,91,.16); background:#151518; transition:transform 240ms cubic-bezier(.16,1,.3,1), border-color 240ms ease, opacity 520ms ease" style-hover="transform:translateY(-2px); border-color:rgba(199,156,91,.5)">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px">
-            <span style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#C79C5B">03</span>
-            <img src="/assets/icons-official/agendamento.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
-          </div>
-          <h3 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Eventos</h3>
-          <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E">Chegadas e saídas alinhadas antes para reduzir imprevistos no momento crítico.</p>
-        </div>
-        <div data-reveal="0" style="display:flex; flex-direction:column; gap:14px; padding:28px 26px 30px; border:1px solid rgba(199,156,91,.16); background:#151518; transition:transform 240ms cubic-bezier(.16,1,.3,1), border-color 240ms ease, opacity 520ms ease" style-hover="transform:translateY(-2px); border-color:rgba(199,156,91,.5)">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px">
-            <span style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#C79C5B">04</span>
-            <img src="/assets/icons-official/rota.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
-          </div>
-          <h3 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Viagens e deslocamentos</h3>
-          <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E">Trajetos particulares fora da rotina com percurso e condições combinadas.</p>
-        </div>
-        <div data-reveal="80" style="display:flex; flex-direction:column; gap:14px; padding:28px 26px 30px; border:1px solid rgba(199,156,91,.16); background:#151518; transition:transform 240ms cubic-bezier(.16,1,.3,1), border-color 240ms ease, opacity 520ms ease" style-hover="transform:translateY(-2px); border-color:rgba(199,156,91,.5)">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px">
-            <span style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#C79C5B">05</span>
-            <img src="/assets/icons-official/pontualidade.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
-          </div>
-          <h3 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Espera e acompanhamento</h3>
-          <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E">Quando contratado, mantenho uma espera estratégica dentro da mesma demanda.</p>
-        </div>
-        <div data-reveal="160" style="display:flex; flex-direction:column; gap:14px; padding:28px 26px 30px; border:1px solid rgba(199,156,91,.16); background:#151518; transition:transform 240ms cubic-bezier(.16,1,.3,1), border-color 240ms ease, opacity 520ms ease" style-hover="transform:translateY(-2px); border-color:rgba(199,156,91,.5)">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px">
-            <span style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#C79C5B">06</span>
-            <img src="/assets/icons-official/checklist.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
-          </div>
-          <h3 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Rotinas personalizadas</h3>
-          <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E">Agenda recorrente com previsibilidade, conforto e continuidade de atendimento.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="como-funciona" style="padding:clamp(56px,7vw,108px) 0; background:#0A0A0C; border-top:1px solid rgba(243,239,228,.06); border-bottom:1px solid rgba(243,239,228,.06)">
-    <div style="max-width:1440px; margin:0 auto; padding:0 clamp(16px,3vw,40px); display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:clamp(30px,5vw,80px); align-items:start">
-      <div>
-        <p style="margin:0 0 22px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.22em; text-transform:uppercase; color:#C79C5B">O que funciona</p>
-        <h2 style="margin:0 0 20px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:clamp(32px,4vw,52px); line-height:1.04; letter-spacing:-.012em; font-weight:700; text-transform:uppercase; max-width:14em">Direto, suficiente e detalhado para evitar ruído.</h2>
-        <p style="margin:0; font-size:15.5px; line-height:1.68; color:#A6A39E; max-width:30em">O correto começa pela troca direta. Depois, necessidade, condições e apontamentos ficam alinhados antes da execução.</p>
-      </div>
-      <div style="position:relative; display:flex; flex-direction:column">
-        <div style="position:absolute; left:23px; top:24px; bottom:24px; width:1px; background:rgba(243,239,228,.10)"></div>
-        <div data-step="" style="position:relative; display:flex; gap:22px; padding:0 0 34px; opacity:.45; transition:opacity 520ms ease">
-          <span data-num="" style="flex:none; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:999px; border:1px solid rgba(243,239,228,.16); background:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:16px; letter-spacing:.1em; color:#A6A39E; transition:color 520ms ease, border-color 520ms ease">01</span>
-          <div style="padding-top:6px">
-            <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Você chama</h3>
-            <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E; max-width:32em">Passa data, horário, origem, destino e o que precisa ser considerado no atendimento.</p>
-          </div>
-        </div>
-        <div data-step="" style="position:relative; display:flex; gap:22px; padding:0 0 34px; opacity:.45; transition:opacity 520ms ease">
-          <span data-num="" style="flex:none; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:999px; border:1px solid rgba(243,239,228,.16); background:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:16px; letter-spacing:.1em; color:#A6A39E; transition:color 520ms ease, border-color 520ms ease">02</span>
-          <div style="padding-top:6px">
-            <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">A gente alinha</h3>
-            <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E; max-width:32em">Rota, tempo, paradas, espera e os detalhes que realmente mudam o trajeto.</p>
-          </div>
-        </div>
-        <div data-step="" style="position:relative; display:flex; gap:22px; padding:0 0 34px; opacity:.45; transition:opacity 520ms ease">
-          <span data-num="" style="flex:none; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:999px; border:1px solid rgba(243,239,228,.16); background:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:16px; letter-spacing:.1em; color:#A6A39E; transition:color 520ms ease, border-color 520ms ease">03</span>
-          <div style="padding-top:6px">
-            <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Você confirma</h3>
+.hero-content{position:relative;max-width:880px}.hero .eyebrow{animation:heroFade 600ms var(--mo-ease) 100ms both}.hero h1 span{display:block;animation:heroFade 680ms var(--mo-ease) both}.hero h1 span:nth-child(1){animation-delay:180ms}.hero h1 span:nth-child(2){animation-delay:260ms}.hero h1 span:nth-child(3){animation-delay:340ms;color:var(--mo-champagne)}.hero-copy{max-width:690px;margin:24px 0 0;font-size:clamp(16px,1.35vw,18px);line-height:1.65;color:var(--mo-muted-light);animation:heroFade 680ms var(--mo-ease) 420ms both}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;animation:heroFade 680ms var(--mo-ease) 500ms both}.hero-proof{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:34px;padding-top:22px;border-top:1px solid rgba(243,239,228,.12);animation:heroFade 680ms var(--mo-ease) 580ms both}.hero-proof span{font-stretch:75%;font-size:12.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--mo-muted-light)}.hero-proof span:before{content:'•';color:var(--mo-champagne);margin-right:9px}
+.split-head{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:clamp(28px,5vw,86px);align-items:start;margin-bottom:clamp(36px,5vw,68px)}
+.grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.grid-5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}.grid-8{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.card{border:1px solid rgba(199,156,91,.17);background:var(--mo-graphite);padding:26px 24px 28px;transition:transform 220ms var(--mo-ease),border-color 220ms var(--mo-ease),background-color 220ms var(--mo-ease)}.card:hover{transform:translateY(-2px);border-color:rgba(199,156,91,.48)}.card-num{display:block;margin-bottom:18px;font-stretch:75%;font-size:13px;letter-spacing:.18em;color:var(--mo-champagne)}.card h3{margin:0 0 10px;font-stretch:75%;font-size:19px;font-weight:650;line-height:1.1;text-transform:uppercase}.card p{margin:0;font-size:14.5px;line-height:1.62;color:var(--mo-muted)}.card-icon{width:34px;height:34px;display:block;margin-bottom:20px;object-fit:contain}
+.reason-card{min-height:188px}.service-card{min-height:220px}.service-top{display:flex;align-items:center;justify-content:space-between;gap:16px}.service-top .card-icon{margin:0;width:32px;height:32px}
+.timeline-wrap{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(360px,1.2fr);gap:clamp(40px,7vw,110px);align-items:start}.timeline{position:relative}.timeline:before{content:'';position:absolute;left:23px;top:24px;bottom:24px;width:1px;background:rgba(243,239,228,.12)}.step{position:relative;display:flex;gap:22px;padding:0 0 36px;opacity:.42;transition:opacity var(--mo-slow) ease}.step:last-child{padding-bottom:0}.step-num{position:relative;z-index:1;flex:0 0 48px;width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:999px;border:1px solid rgba(243,239,228,.16);background:var(--mo-night);font-stretch:75%;font-size:15px;letter-spacing:.08em;color:var(--mo-muted);transition:color var(--mo-slow),border-color var(--mo-slow),background-color var(--mo-slow)}.step.is-active{opacity:1}.step.is-active .step-num{color:var(--mo-champagne);border-color:rgba(199,156,91,.68);background:#101012}.step h3{margin:4px 0 8px;font-stretch:75%;font-size:20px;font-weight:650;text-transform:uppercase}.step p{margin:0;font-size:14.5px;line-height:1.62;color:var(--mo-muted);max-width:34em}
+.light{background:var(--mo-ivory);color:var(--mo-ink)}.light .eyebrow{color:#947546}.light .copy{color:#4A4845}.scenario{padding:22px;border:1px solid rgba(21,21,24,.12);background:#FAF8F3;min-height:118px;display:flex;flex-direction:column;justify-content:space-between;transition:transform 220ms var(--mo-ease),border-color 220ms var(--mo-ease)}.scenario:hover{transform:translateY(-2px);border-color:rgba(148,117,70,.5)}.scenario span{font-stretch:75%;font-size:12px;letter-spacing:.16em;color:#947546}.scenario strong{font-stretch:75%;font-size:18px;line-height:1.15;text-transform:uppercase}
+.quality-item{text-align:center;padding:8px}.quality-item img{width:38px;height:38px;display:block;margin:0 auto 18px;object-fit:contain}.quality-item h3{margin:0 0 10px;font-stretch:75%;font-size:18px;font-weight:650;text-transform:uppercase}.quality-item p{margin:0;font-size:14px;line-height:1.62;color:var(--mo-muted)}
+.driver-grid{display:grid;grid-template-columns:minmax(260px,.9fr) minmax(300px,1.15fr) minmax(260px,.85fr);gap:clamp(28px,4vw,60px);align-items:center}.driver-photo{padding:12px;border:1px solid rgba(199,156,91,.34)}.driver-photo img{display:block;width:100%;height:auto}.driver-quote{margin:24px 0 0;padding-left:16px;border-left:2px solid rgba(199,156,91,.5);font-size:16px;line-height:1.5;color:var(--mo-champagne)}.driver-meta{display:flex;flex-direction:column;gap:12px}.driver-meta-item{display:flex;align-items:center;gap:14px;padding:18px 20px;border:1px solid rgba(199,156,91,.18);background:var(--mo-graphite)}.driver-meta-item img{width:30px;height:30px;object-fit:contain}.driver-meta-item span{display:block;margin-bottom:3px;font-stretch:75%;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mo-muted)}.driver-meta-item strong{font-stretch:75%;font-size:17px;font-weight:650;text-transform:uppercase}
+footer{padding:clamp(44px,5vw,64px) 0 28px;border-top:1px solid rgba(243,239,228,.08);background:var(--mo-night)}.footer-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,3vw,48px);align-items:center}.footer-mid{padding:0 clamp(14px,2vw,30px);text-align:center;border-left:1px solid rgba(243,239,228,.08);border-right:1px solid rgba(243,239,228,.08)}.footer-logo{height:52px;width:auto;display:block}.footer-link{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid rgba(243,239,228,.10);font-stretch:75%;font-size:13px;font-weight:650;letter-spacing:.12em;text-transform:uppercase}.footer-link img{width:22px;height:22px;object-fit:contain}.footer-bottom{margin-top:clamp(28px,3.5vw,44px);padding-top:22px;border-top:1px solid rgba(243,239,228,.08);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;font-size:13px;color:#7A7772}
+[data-reveal]{opacity:0;transform:translateY(16px);transition:opacity var(--mo-slow) var(--mo-ease),transform var(--mo-slow) var(--mo-ease)}[data-reveal].is-visible{opacity:1;transform:none}
+@keyframes heroImageIn{from{transform:scale(1.02)}to{transform:scale(1)}}@keyframes heroFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media(max-width:1100px){.nav a:nth-child(4){display:none}.grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-5{grid-template-columns:repeat(3,minmax(0,1fr))}.grid-8{grid-template-columns:repeat(2,minmax(0,1fr))}.driver-grid{grid-template-columns:minmax(260px,.8fr) minmax(320px,1.2fr)}.driver-meta{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr)}}

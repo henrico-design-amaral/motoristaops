@@ -1,125 +1,91 @@
-          <img src="/assets/icons-official/motorista.png" alt="" style="width:30px; height:30px; display:block; opacity:.75; flex:none">
-          <div>
-            <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:#A6A39E; margin-bottom:4px">Experiência</span>
-            <strong style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:18px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Rotina real nas ruas</strong>
-          </div>
-        </div>
-        <div data-reveal="280" style="display:flex; align-items:center; gap:16px; padding:20px 22px; border:1px solid rgba(199,156,91,.18); background:#151518; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1), border-color 240ms ease" style-hover="border-color:rgba(199,156,91,.45)">
-          <img src="/assets/icons-official/seguranca.png" alt="" style="width:30px; height:30px; display:block; opacity:.75; flex:none">
-          <div>
-            <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:#A6A39E; margin-bottom:4px">Atendimento</span>
-            <strong style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:18px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Direto e discreto</strong>
-          </div>
-        </div>
-        <div data-reveal="360" style="display:flex; align-items:center; gap:16px; padding:20px 22px; border:1px solid rgba(199,156,91,.18); background:#151518; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1), border-color 240ms ease" style-hover="border-color:rgba(199,156,91,.45)">
-          <img src="/assets/icons-official/pontualidade.png" alt="" style="width:30px; height:30px; display:block; opacity:.75; flex:none">
-          <div>
-            <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:#A6A39E; margin-bottom:4px">Compromisso</span>
-            <strong style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:18px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Hora marcada</strong>
-          </div>
-        </div>
-      </div>
+<section id="quando-faz-sentido" class="section light">
+  <div class="container">
+    <p class="eyebrow">Quando faz sentido</p>
+    <div class="split-head"><h2 class="title-lg">Quando o deslocamento faz parte de um compromisso importante.</h2><p class="copy">Nem todo trajeto precisa ser agendado. Mas alguns ficam melhores quando horário, contexto e continuidade já estão definidos antes.</p></div>
+    <div class="grid-8">
+      <article class="scenario" data-reveal="0"><span>01</span><strong>Voo com horário</strong></article>
+      <article class="scenario" data-reveal="60"><span>02</span><strong>Consulta ou exame</strong></article>
+      <article class="scenario" data-reveal="120"><span>03</span><strong>Reunião importante</strong></article>
+      <article class="scenario" data-reveal="180"><span>04</span><strong>Evento com chegada marcada</strong></article>
+      <article class="scenario" data-reveal="0"><span>05</span><strong>Cliente ou familiar para acompanhar</strong></article>
+      <article class="scenario" data-reveal="60"><span>06</span><strong>Trajeto recorrente</strong></article>
+      <article class="scenario" data-reveal="120"><span>07</span><strong>Viagem curta</strong></article>
+      <article class="scenario" data-reveal="180"><span>08</span><strong>Espera no local</strong></article>
     </div>
-  </section>
+  </div>
+</section>
+
+<section id="diferenciais" class="section">
+  <div class="container">
+    <p class="eyebrow">Qualidade operacional</p>
+    <div class="split-head"><h2 class="title-lg">O valor aparece no jeito de trabalhar.</h2><p class="copy">Menos promessa. Mais comportamento percebido no atendimento.</p></div>
+    <div class="grid-5">
+      <article class="quality-item" data-reveal="0"><img src="/assets/icons-official/pontualidade.png" alt=""><h3>Pontualidade</h3><p>Não é pressa. É planejamento de tempo.</p></article>
+      <article class="quality-item" data-reveal="70"><img src="/assets/icons-official/motorista.png" alt=""><h3>Discrição</h3><p>Presença profissional sem exposição.</p></article>
+      <article class="quality-item" data-reveal="140"><img src="/assets/icons-official/whatsapp.png" alt=""><h3>Comunicação</h3><p>O combinado fica claro antes, durante e depois.</p></article>
+      <article class="quality-item" data-reveal="210"><img src="/assets/icons-official/bagagem.png" alt=""><h3>Cuidado</h3><p>Bagagem, preferências e contexto entram no atendimento.</p></article>
+      <article class="quality-item" data-reveal="280"><img src="/assets/icons-official/rota.png" alt=""><h3>Continuidade</h3><p>Atendimento recorrente melhora porque o contexto não se perde.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="quem-dirige" class="section" style="border-top:1px solid rgba(243,239,228,.06)">
+  <div class="container driver-grid">
+    <div class="driver-photo" data-reveal="0"><img src="/assets/henrico-profile.png" alt="Retrato de Henrico Amaral"></div>
+    <div>
+      <p class="eyebrow" data-reveal="100">Quem dirige</p>
+      <h2 class="title-lg" data-reveal="160">Henrico Amaral.</h2>
+      <p class="copy-light" data-reveal="220" style="font-size:17px;line-height:1.55;max-width:28em;margin:18px 0 0">O serviço leva meu nome porque a responsabilidade também é minha.</p>
+      <p class="copy" data-reveal="280" style="max-width:36em">Sou motorista particular em São Paulo. Atendo com hora marcada, comunicação direta, pontualidade, discrição e atenção ao contexto de cada deslocamento.</p>
+      <blockquote class="driver-quote" data-reveal="340">“Levando pessoas, cuidando de histórias.”</blockquote>
+    </div>
+    <div class="driver-meta">
+      <div class="driver-meta-item" data-reveal="180"><img src="/assets/icons-official/motorista.png" alt=""><div><span>Experiência</span><strong>Rotina real nas ruas</strong></div></div>
+      <div class="driver-meta-item" data-reveal="240"><img src="/assets/icons-official/whatsapp.png" alt=""><div><span>Atendimento</span><strong>Direto</strong></div></div>
+      <div class="driver-meta-item" data-reveal="300"><img src="/assets/icons-official/pontualidade.png" alt=""><div><span>Compromisso</span><strong>Hora marcada</strong></div></div>
+      <div class="driver-meta-item" data-reveal="360"><img src="/assets/icons-official/seguranca.png" alt=""><div><span>Postura</span><strong>Discrição</strong></div></div>
+    </div>
+  </div>
+</section>
+</main>
 
   <section style="padding:clamp(64px,8vw,124px) 0; background:radial-gradient(90% 130% at 50% 0%, rgba(199,156,91,.12) 0%, rgba(10,10,12,0) 62%), #0A0A0C; border-top:1px solid rgba(199,156,91,.18)">
-    <div style="max-width:1440px; margin:0 auto; padding:0 clamp(16px,3vw,40px); text-align:center">
-      <p style="margin:0 0 22px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.22em; text-transform:uppercase; color:#C79C5B">Próximo trajeto</p>
-      <h2 style="margin:0 0 22px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:clamp(32px,4.6vw,60px); line-height:1.04; letter-spacing:-.012em; font-weight:700; text-transform:uppercase; text-wrap:balance">Precisa combinar um <span style="color:#C79C5B">trajeto?</span><br><span style="color:#C79C5B">Fale comigo pelo WhatsApp.</span></h2>
-      <p style="margin:0 auto 34px; max-width:40em; font-size:15.5px; line-height:1.68; color:#A6A39E">Data, horário, origem e destino ajudam a começar o alinhamento.<br>A confirmação acontece pelo canal oficial.</p>
-      <a href="https://wa.me/5511953970704?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20falar%20sobre%20uma%20corrida%20particular." target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; padding:18px 34px; background:#C79C5B; color:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:17px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; box-shadow:0 0 0 0 rgba(199,156,91,.24); transition:box-shadow 260ms ease, transform 260ms cubic-bezier(.16,1,.3,1), background-color 220ms ease" style-hover="transform:translateY(-2px); box-shadow:0 0 0 10px rgba(199,156,91,.10); background:#E3C79A; color:#0A0A0C">
-        <img src="/assets/icons-official/whatsapp.png" alt="" style="width:18px; height:18px; display:block">
-        Chamar no WhatsApp
-      </a>
-    </div>
   </section>
 
-  <footer data-comment-anchor="footer" style="padding:clamp(40px,5vw,60px) 0 30px; border-top:1px solid rgba(243,239,228,.07); background:#0A0A0C">
-    <div style="max-width:1440px; margin:0 auto; padding:0 clamp(16px,3vw,40px)">
-      <div data-footer-grid="" style="display:grid; gap:clamp(24px,3vw,48px); align-items:center">
-        <div>
-          <img src="/landing-v3/logo-header-v3.svg" alt="MotoristaOPS por Henrico Amaral" style="height:52px; width:auto; display:block; opacity:.95">
-          <p style="margin:14px 0 0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:13px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:#C9C5BF">Motorista particular</p>
-          <div style="width:64px; height:1px; margin:18px 0; background:rgba(199,156,91,.55)"></div>
-          <p style="margin:0; font-size:14.5px; color:#A6A39E">atendimento discreto e planejado</p>
-        </div>
-
-        <div data-footer-mid="" style="padding:0 clamp(12px,2vw,28px); text-align:center">
-          <p style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:13px; font-weight:500; letter-spacing:.24em; text-transform:uppercase; color:#C79C5B">Precisa combinar</p>
-          <h2 style="margin:0 0 22px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:clamp(28px,3vw,40px); line-height:1.02; letter-spacing:-.012em; font-weight:700; text-transform:uppercase">Um trajeto?</h2>
-          <a href="https://wa.me/5511953970704?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20falar%20sobre%20uma%20corrida%20particular." target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:12px; padding:16px 26px; background:#C79C5B; color:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; transition:background-color 220ms ease, transform 220ms cubic-bezier(.16,1,.3,1)" style-hover="background:#E3C79A; transform:translateY(-2px); color:#0A0A0C">
-            <img src="/assets/icons-official/whatsapp.png" alt="" style="width:18px; height:18px; display:block">
-            Falar no WhatsApp
-            <span style="font-size:15px">→</span>
-          </a>
-        </div>
-
-        <div style="display:flex; flex-direction:column">
-          <a href="https://wa.me/5511953970704?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20falar%20sobre%20uma%20corrida%20particular." target="_blank" rel="noopener" style="display:flex; align-items:center; gap:16px; padding:14px 0; border-bottom:1px solid rgba(243,239,228,.10); color:#F3EFE4; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; transition:border-color 220ms ease" style-hover="border-color:rgba(199,156,91,.6); color:#F3EFE4">
-            <img src="/assets/icons-official/whatsapp.png" alt="" style="width:22px; height:22px; display:block; flex:none">
-            <span style="flex:1 1 auto">WhatsApp</span>
-            <span style="color:#C79C5B; font-size:15px">→</span>
-          </a>
-          <a href="https://instagram.com/henrico.driver.amaral" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:16px; padding:14px 0; border-bottom:1px solid rgba(243,239,228,.10); color:#F3EFE4; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; transition:border-color 220ms ease" style-hover="border-color:rgba(199,156,91,.6); color:#F3EFE4">
-            <span style="flex:none; width:22px; height:22px; display:flex; align-items:center; justify-content:center">
-              <svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="#C79C5B" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.2" cy="6.8" r="1.1" fill="#C79C5B" stroke="none"></circle></svg>
-            </span>
-            <span style="flex:1 1 auto">Instagram</span>
-            <span style="color:#C79C5B; font-size:15px">→</span>
-          </a>
-          <div style="display:flex; align-items:center; gap:16px; padding:14px 0; color:#F3EFE4; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; font-weight:600; letter-spacing:.14em; text-transform:uppercase">
-            <span style="flex:none; width:22px; height:22px; display:flex; align-items:center; justify-content:center">
-              <svg width="20" height="20" sc-camel-view-box="0 0 24 24" fill="none" stroke="#C79C5B" stroke-width="1.6" stroke-linecap="round"><path d="M12 21.5s7-6.2 7-11.3A7 7 0 0 0 5 10.2c0 5.1 7 11.3 7 11.3Z"></path><circle cx="12" cy="10" r="2.6"></circle></svg>
-            </span>
-            <span>São Paulo / Brasil</span>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top:clamp(28px,3.5vw,44px); padding-top:22px; border-top:1px solid rgba(243,239,228,.08); display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; align-items:center; font-size:13px; color:#7A7772">
-        <span>© 2026 MotoristaOPS · por Henrico Amaral</span>
-        <span style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; letter-spacing:.18em; text-transform:uppercase; color:#C79C5B">São Paulo / Brasil</span>
+  <footer data-comment-anchor="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><img class="footer-logo" src="/landing-v3/logo-header-v3.svg" alt="MotoristaOPS por Henrico Amaral"><p style="margin:14px 0 0;font-stretch:75%;font-size:12.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mo-muted-light)">Motorista particular</p><div style="width:64px;height:1px;margin:18px 0;background:rgba(199,156,91,.55)"></div><p style="margin:0;font-size:14.5px;color:var(--mo-muted)">atendimento discreto e planejado</p></div>
+      <div class="footer-mid"><p class="eyebrow" style="margin-bottom:8px">Precisa combinar</p><h2 class="title-md" style="margin-bottom:20px">Um trajeto?</h2><a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener"><img src="/assets/icons-official/whatsapp.png" alt="" style="width:18px;height:18px;object-fit:contain">Falar no WhatsApp</a><p style="margin:12px 0 0;font-size:12.5px;color:var(--mo-muted)">Atendimento direto com Henrico Amaral.</p></div>
+      <div>
+        <a class="footer-link" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener"><img src="/assets/icons-official/whatsapp.png" alt=""><span style="flex:1">WhatsApp</span><span style="color:var(--mo-champagne)">→</span></a>
+        <a class="footer-link" href="https://instagram.com/henrico.driver.amaral" target="_blank" rel="noopener"><span style="width:22px;height:22px;display:grid;place-items:center;color:var(--mo-champagne)">◎</span><span style="flex:1">Instagram</span><span style="color:var(--mo-champagne)">→</span></a>
+        <div class="footer-link" style="border-bottom:0"><span style="width:22px;height:22px;display:grid;place-items:center;color:var(--mo-champagne)">⌖</span><span>São Paulo / Brasil</span></div>
       </div>
     </div>
-  </footer>
-</div>
+    <div class="footer-bottom"><span>© 2026 MotoristaOPS · por Henrico Amaral</span><span style="font-stretch:75%;letter-spacing:.16em;text-transform:uppercase;color:var(--mo-champagne)">São Paulo / Brasil</span></div>
+  </div>
+</footer>
+
 <script>
 (function(){
   'use strict';
-  function parseStyle(s){
-    var o={}; (s||'').split(';').forEach(function(p){ var i=p.indexOf(':'); if(i>0){o[p.slice(0,i).trim()]=p.slice(i+1).trim();}}); return o;
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function reveal(){
+    var items=[].slice.call(document.querySelectorAll('[data-reveal]'));
+    if(reduced||!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('is-visible')});return;}
+    var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var d=parseInt(e.target.getAttribute('data-reveal')||'0',10);setTimeout(function(){e.target.classList.add('is-visible')},d);io.unobserve(e.target);}})},{threshold:.08,rootMargin:'0px 0px -6% 0px'});
+    items.forEach(function(el){io.observe(el)});
   }
-  function hoverEnhance(){
-    document.querySelectorAll('[style-hover]').forEach(function(el){
-      var next=parseStyle(el.getAttribute('style-hover')), prev={};
-      Object.keys(next).forEach(function(k){ prev[k]=el.style.getPropertyValue(k); });
-      el.addEventListener('mouseenter',function(){Object.keys(next).forEach(function(k){el.style.setProperty(k,next[k]);});});
-      el.addEventListener('mouseleave',function(){Object.keys(next).forEach(function(k){el.style.setProperty(k,prev[k]||'');});});
-    });
-  }
-  function motion(){
-    var reduced=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var reveal=[].slice.call(document.querySelectorAll('[data-reveal]'));
+  function timeline(){
     var steps=[].slice.call(document.querySelectorAll('[data-step]'));
-    function show(el){var d=reduced?0:parseInt(el.getAttribute('data-reveal')||'0',10);setTimeout(function(){el.style.opacity='1';el.style.transform='none';},d);}
-    function activate(el){el.style.opacity='1';var n=el.querySelector('[data-num]');if(n){n.style.color='#C79C5B';n.style.borderColor='rgba(199,156,91,.65)';}}
-    if(reduced){reveal.forEach(show);steps.forEach(activate);return;}
-    reveal.forEach(function(el){el.style.opacity='0';el.style.transform='translateY(16px)';});
-    if('IntersectionObserver' in window){
-      var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -6% 0px'});
-      reveal.forEach(function(el){io.observe(el);});
-      var so=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){activate(e.target);so.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px -8% 0px'});
-      steps.forEach(function(el){so.observe(el);});
-    } else {reveal.forEach(show);steps.forEach(activate);}
-    setTimeout(function(){reveal.forEach(function(el){el.style.opacity='1';el.style.transform='none';});steps.forEach(activate);},4000);
+    if(reduced||!('IntersectionObserver' in window)){steps.forEach(function(el){el.classList.add('is-active')});return;}
+    var so=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-active');so.unobserve(e.target);}})},{threshold:.35,rootMargin:'0px 0px -10% 0px'});
+    steps.forEach(function(el){so.observe(el)});
   }
-  function header(){
-    var h=document.querySelector('[data-header]'); if(!h) return;
-    function onScroll(){var on=window.scrollY>40;h.style.background=on?'rgba(10,10,12,.9)':'rgba(10,10,12,.44)';h.style.backdropFilter=on?'blur(16px)':'blur(8px)';h.style.borderBottomColor=on?'rgba(199,156,91,.24)':'rgba(199,156,91,.10)';var l=h.querySelector('[data-logo]');if(l)l.style.opacity=on?'1':'.9';}
-    window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-  }
-  function init(){hoverEnhance();motion();header();}
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init); else init();
+  function header(){var h=document.querySelector('[data-header]');if(!h)return;function onScroll(){var on=window.scrollY>40;h.style.background=on?'rgba(10,10,12,.92)':'rgba(10,10,12,.46)';h.style.backdropFilter=on?'blur(16px)':'blur(8px)';h.style.borderBottomColor=on?'rgba(199,156,91,.24)':'rgba(199,156,91,.10)'}window.addEventListener('scroll',onScroll,{passive:true});onScroll();}
+  function init(){reveal();timeline();header();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
 </body>

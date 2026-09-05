@@ -1,97 +1,78 @@
-            <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E; max-width:32em">Valor, condições e apontamentos são confirmados pelo canal oficial.</p>
-          </div>
-        </div>
-        <div data-step="" style="position:relative; display:flex; gap:22px; opacity:.45; transition:opacity 520ms ease">
-          <span data-num="" style="flex:none; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:999px; border:1px solid rgba(243,239,228,.16); background:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:16px; letter-spacing:.1em; color:#A6A39E; transition:color 520ms ease, border-color 520ms ease">04</span>
-          <div style="padding-top:6px">
-            <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Eu cuido do trajeto</h3>
-            <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E; max-width:32em">O serviço acontece conforme o combinado, com comunicação e atenção ao contexto.</p>
-          </div>
-        </div>
-      </div>
+@media(max-width:780px){.header-inner{flex-wrap:wrap}.header-logo{height:38px}.nav{order:3;width:100%;justify-content:space-between;gap:10px;overflow:auto;padding-top:2px}.nav a{font-size:11px}.header-inner>.btn{margin-left:auto;min-height:42px;padding:11px 15px;font-size:11px}.hero{padding-top:164px}.hero-content{max-width:100%}.hero-media img{object-position:68% center}.split-head,.timeline-wrap{grid-template-columns:1fr}.grid-3,.grid-4,.grid-5,.grid-8{grid-template-columns:1fr}.driver-grid{grid-template-columns:1fr}.driver-meta{grid-column:auto;grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.footer-mid{border-left:0;border-right:0;border-top:1px solid rgba(243,239,228,.08);border-bottom:1px solid rgba(243,239,228,.08);padding:28px 0;text-align:left}.hero-actions .btn{width:100%}.hero-proof{gap:10px 16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}[data-reveal]{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body data-build="motoristaops-claude-design-2026-09-05">
+<header data-header>
+  <div class="header-inner">
+    <a href="#topo" aria-label="MotoristaOPS — início"><img data-logo class="header-logo" src="/landing-v3/logo-header-v3.svg" alt="MotoristaOPS por Henrico Amaral"></a>
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="#por-que-agendar">Por que agendar</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#quem-dirige">Quem dirige</a>
+    </nav>
+    <a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener">Agendar</a>
+  </div>
+</header>
+<main>
+<section id="topo" class="hero">
+  <div class="hero-media" aria-hidden="true"><img src="/landing-v3/hero-motoristaops-v4.webp" alt=""><div class="hero-shade-a"></div><div class="hero-shade-b"></div></div>
+  <div class="container"><div class="hero-content">
+    <p class="eyebrow">Motorista particular • São Paulo • hora marcada</p>
+    <h1 class="title-xl"><span>Seu compromisso</span><span>começa antes</span><span>do destino.</span></h1>
+    <p class="hero-copy">Corridas particulares para aeroportos, reuniões, consultas, eventos e viagens — com planejamento, comunicação direta e cuidado do início ao fim.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
+      <a class="btn btn-secondary" href="#como-funciona">Ver como funciona</a>
     </div>
-  </section>
+    <div class="hero-proof" aria-label="Principais benefícios"><span>Hora marcada</span><span>Atendimento direto</span><span>Planejamento de rota</span><span>Discrição</span></div>
+  </div></div>
+</section>
 
-  <section style="padding:clamp(56px,7vw,108px) 0">
-    <div style="max-width:1440px; margin:0 auto; padding:0 clamp(16px,3vw,40px)">
-      <p style="margin:0 0 22px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.22em; text-transform:uppercase; color:#C79C5B">Qualidade operacional</p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(20px,4vw,64px); align-items:start; margin-bottom:clamp(38px,4.5vw,64px)">
-        <h2 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:clamp(30px,4vw,52px); line-height:1.04; letter-spacing:-.012em; font-weight:700; text-transform:uppercase; max-width:15em">Rotina que funciona, execução que tranquiliza.</h2>
-        <p style="margin:0; font-size:15.5px; line-height:1.68; color:#A6A39E; max-width:28em">Mais do que dirigir, o que entrego é organização, leitura de contexto e presença calma no que realmente importa.</p>
-      </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:clamp(22px,3vw,40px)">
-        <div data-reveal="0" style="text-align:center; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
-          <img src="/assets/icons-official/motorista.png" alt="" style="width:38px; height:38px; display:block; margin:0 auto 18px; opacity:.8">
-          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:18px; font-weight:600; letter-spacing:.02em; text-transform:uppercase">Discrição</h3>
-          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Presença profissional com reserva e respeito ao contexto.</p>
-        </div>
-        <div data-reveal="80" style="text-align:center; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
-          <img src="/assets/icons-official/pontualidade.png" alt="" style="width:38px; height:38px; display:block; margin:0 auto 18px; opacity:.8">
-          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:18px; font-weight:600; letter-spacing:.02em; text-transform:uppercase">Pontualidade</h3>
-          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Compromisso com o horário combinado e com o seu tempo.</p>
-        </div>
-        <div data-reveal="160" style="text-align:center; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
-          <img src="/assets/icons-official/whatsapp.png" alt="" style="width:38px; height:38px; display:block; margin:0 auto 18px; opacity:.8">
-          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:18px; font-weight:600; letter-spacing:.02em; text-transform:uppercase">Comunicação</h3>
-          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Informações claras antes, durante e depois do percurso.</p>
-        </div>
-        <div data-reveal="240" style="text-align:center; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
-          <img src="/assets/icons-official/bagagem.png" alt="" style="width:38px; height:38px; display:block; margin:0 auto 18px; opacity:.8">
-          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:18px; font-weight:600; letter-spacing:.02em; text-transform:uppercase">Cuidado</h3>
-          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Atenção com bagagem, pertences e preferências do trajeto.</p>
-        </div>
-        <div data-reveal="320" style="text-align:center; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
-          <img src="/assets/icons-official/rota.png" alt="" style="width:38px; height:38px; display:block; margin:0 auto 18px; opacity:.8">
-          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:18px; font-weight:600; letter-spacing:.02em; text-transform:uppercase">Continuidade</h3>
-          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Atendimento recorrente com consistência e adaptação.</p>
-        </div>
-      </div>
+<section id="por-que-agendar" class="section">
+  <div class="container">
+    <p class="eyebrow">Por que agendar antes?</p>
+    <div class="split-head">
+      <h2 class="title-lg">Porque alguns trajetos não podem depender de improviso.</h2>
+      <p class="copy">Quando existe horário, bagagem, reunião, consulta, voo, evento ou espera, o deslocamento precisa ser pensado antes. A diferença está no que acontece antes do carro chegar.</p>
     </div>
-  </section>
-
-  <section id="diferenciais" style="padding:clamp(56px,7vw,108px) 0; background:#F3EFE4; color:#151518">
-    <div style="max-width:1440px; margin:0 auto; padding:0 clamp(16px,3vw,40px)">
-      <p style="margin:0 0 22px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.22em; text-transform:uppercase; color:#947546">Experiência e diferenciais</p>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(20px,4vw,64px); align-items:start; margin-bottom:clamp(34px,4vw,56px)">
-        <h2 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:clamp(32px,4.2vw,56px); line-height:1.04; letter-spacing:-.012em; font-weight:700; text-transform:uppercase; max-width:14em">O valor aparece no jeito de trabalhar.</h2>
-        <p style="margin:0; font-size:15.5px; line-height:1.68; color:#4A4845; max-width:26em">Menos adjetivo. Mais comportamento que pode ser percebido no atendimento.</p>
-      </div>
-      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px">
-        <div data-reveal="0" style="padding:26px 24px 30px; border:1px solid rgba(21,21,23,.12); background:#FAF8F3; transition:border-color 240ms ease, transform 240ms cubic-bezier(.16,1,.3,1), opacity 520ms ease" style-hover="border-color:rgba(156,118,56,.55); transform:translateY(-2px)">
-          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#947546; margin-bottom:18px">01</span>
-          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:19px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Rotina real</h3>
-          <p style="margin:0; font-size:14.5px; line-height:1.6; color:#4A4845">O que vem antes da prática é leitura de contexto, rotina e necessidade.</p>
-        </div>
-        <div data-reveal="80" style="padding:26px 24px 30px; border:1px solid rgba(21,21,23,.12); background:#FAF8F3; transition:border-color 240ms ease, transform 240ms cubic-bezier(.16,1,.3,1), opacity 520ms ease" style-hover="border-color:rgba(156,118,56,.55); transform:translateY(-2px)">
-          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#947546; margin-bottom:18px">02</span>
-          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:19px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Comunicação</h3>
-          <p style="margin:0; font-size:14.5px; line-height:1.6; color:#4A4845">O que foi combinado fica claro antes, no trajeto e quando muda.</p>
-        </div>
-        <div data-reveal="160" style="padding:26px 24px 30px; border:1px solid rgba(21,21,23,.12); background:#FAF8F3; transition:border-color 240ms ease, transform 240ms cubic-bezier(.16,1,.3,1), opacity 520ms ease" style-hover="border-color:rgba(156,118,56,.55); transform:translateY(-2px)">
-          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#947546; margin-bottom:18px">03</span>
-          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:19px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Pontualidade com método</h3>
-          <p style="margin:0; font-size:14.5px; line-height:1.6; color:#4A4845">Horário certo é reflexo de ritmo, rota e leitura fina do tempo.</p>
-        </div>
-        <div data-reveal="240" style="padding:26px 24px 30px; border:1px solid rgba(21,21,23,.12); background:#FAF8F3; transition:border-color 240ms ease, transform 240ms cubic-bezier(.16,1,.3,1), opacity 520ms ease" style-hover="border-color:rgba(156,118,56,.55); transform:translateY(-2px)">
-          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#947546; margin-bottom:18px">04</span>
-          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:19px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Discrição e cuidado</h3>
-          <p style="margin:0; font-size:14.5px; line-height:1.6; color:#4A4845">O passageiro recebe atenção com profissionalismo sem excesso de exposição.</p>
-        </div>
-      </div>
+    <div class="grid-4">
+      <article class="card reason-card" data-reveal="0"><span class="card-num">01</span><h3>Horário combinado</h3><p>A agenda é alinhada antes do atendimento.</p></article>
+      <article class="card reason-card" data-reveal="80"><span class="card-num">02</span><h3>Rota pensada</h3><p>Tempo, trânsito e contexto entram na decisão.</p></article>
+      <article class="card reason-card" data-reveal="160"><span class="card-num">03</span><h3>Comunicação direta</h3><p>Você fala com quem vai te atender.</p></article>
+      <article class="card reason-card" data-reveal="240"><span class="card-num">04</span><h3>Menos ruído</h3><p>Origem, destino, espera e detalhes ficam claros antes.</p></article>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section id="quem-dirige" style="padding:clamp(56px,7vw,108px) 0; background:#0A0A0C">
-    <div style="max-width:1440px; margin:0 auto; padding:0 clamp(16px,3vw,40px); display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(28px,4vw,60px); align-items:center">
-      <div data-reveal="0" style="padding:12px; border:1px solid rgba(199,156,91,.34); transition:opacity 720ms ease, transform 720ms cubic-bezier(.16,1,.3,1)">
-        <img src="/assets/henrico-profile.png" alt="Retrato de Henrico Amaral" style="width:100%; height:auto; display:block">
-      </div>
-      <div>
-        <p data-reveal="120" style="margin:0 0 20px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.22em; text-transform:uppercase; color:#C79C5B; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">Quem dirige</p>
-        <h2 data-reveal="180" style="margin:0 0 18px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:clamp(32px,4vw,52px); line-height:1.02; letter-spacing:-.012em; font-weight:700; text-transform:uppercase; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">Henrico Amaral.</h2>
-        <p data-reveal="240" style="margin:0 0 16px; font-size:17.5px; line-height:1.5; color:#F3EFE4; max-width:24em; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">O serviço leva meu nome porque a responsabilidade também é minha.</p>
-        <p data-reveal="300" style="margin:0 0 22px; font-size:15px; line-height:1.68; color:#A6A39E; max-width:32em; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">Motorista particular. A proposta é simples: troca clara, deslocamento como parte do que você precisa realizar, com comunicação direta, pontualidade, discrição e atenção ao contexto.</p>
-        <blockquote data-reveal="360" style="margin:0; padding-left:16px; border-left:2px solid rgba(199,156,91,.5); font-size:16px; line-height:1.5; color:#C79C5B; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">“Levando pessoas, cuidando de histórias.”</blockquote>
-      </div>
-      <div style="display:flex; flex-direction:column; gap:14px">
-        <div data-reveal="200" style="display:flex; align-items:center; gap:16px; padding:20px 22px; border:1px solid rgba(199,156,91,.18); background:#151518; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1), border-color 240ms ease" style-hover="border-color:rgba(199,156,91,.45)">
+<section id="servicos" class="section" style="border-top:1px solid rgba(243,239,228,.06)">
+  <div class="container">
+    <p class="eyebrow">O que ofereço</p>
+    <div class="split-head">
+      <h2 class="title-lg">Para compromissos que pedem mais controle do trajeto.</h2>
+      <p class="copy">Você informa o contexto. Eu organizo o deslocamento com atenção ao que realmente muda a experiência.</p>
+    </div>
+    <div class="grid-3">
+      <article class="card service-card" data-reveal="0"><div class="service-top"><span class="card-num">01</span><img class="card-icon" src="/assets/icons-official/airport.png" alt=""></div><h3>Aeroportos e rodoviárias</h3><p>Ida, chegada, bagagem e horário planejados com antecedência.</p></article>
+      <article class="card service-card" data-reveal="80"><div class="service-top"><span class="card-num">02</span><img class="card-icon" src="/assets/icons-official/reuniao.png" alt=""></div><h3>Reuniões e compromissos</h3><p>Deslocamento com hora marcada e leitura do tempo necessário.</p></article>
+      <article class="card service-card" data-reveal="160"><div class="service-top"><span class="card-num">03</span><img class="card-icon" src="/assets/icons-official/seguranca.png" alt=""></div><h3>Consultas e exames</h3><p>Trajeto com calma, cuidado e atenção ao horário.</p></article>
+      <article class="card service-card" data-reveal="0"><div class="service-top"><span class="card-num">04</span><img class="card-icon" src="/assets/icons-official/agendamento.png" alt=""></div><h3>Eventos</h3><p>Chegada e saída combinadas antes do momento crítico.</p></article>
+      <article class="card service-card" data-reveal="80"><div class="service-top"><span class="card-num">05</span><img class="card-icon" src="/assets/icons-official/rota.png" alt=""></div><h3>Viagens e deslocamentos</h3><p>Percursos particulares fora da rotina, com condições alinhadas.</p></article>
+      <article class="card service-card" data-reveal="160"><div class="service-top"><span class="card-num">06</span><img class="card-icon" src="/assets/icons-official/pontualidade.png" alt=""></div><h3>Espera e acompanhamento</h3><p>Quando contratado, permaneço disponível dentro da mesma demanda.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="como-funciona" class="section" style="border-top:1px solid rgba(243,239,228,.06);border-bottom:1px solid rgba(243,239,228,.06)">
+  <div class="container timeline-wrap">
+    <div><p class="eyebrow">Como funciona</p><h2 class="title-lg">Direto, claro e sem ruído.</h2><p class="copy" style="margin:20px 0 0;max-width:34em">O atendimento começa pela conversa. Antes do trajeto, alinhamos horário, origem, destino, espera, paradas e qualquer detalhe que possa mudar a experiência.</p></div>
+    <div class="timeline">
+      <article class="step" data-step><span class="step-num">01</span><div><h3>Você chama</h3><p>Me passa data, horário, origem, destino e contexto.</p></div></article>
+      <article class="step" data-step><span class="step-num">02</span><div><h3>A gente alinha</h3><p>Eu avalio rota, tempo, paradas, espera e condições.</p></div></article>
+      <article class="step" data-step><span class="step-num">03</span><div><h3>Você confirma</h3><p>Valor, horário e detalhes ficam registrados no canal oficial.</p></div></article>
+      <article class="step" data-step><span class="step-num">04</span><div><h3>Eu cuido do trajeto</h3><p>O atendimento acontece conforme combinado, com comunicação e atenção.</p></div></article>
+    </div>
+  </div>
+</section>
+
