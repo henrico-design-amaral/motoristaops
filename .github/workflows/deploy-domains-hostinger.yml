@@ -124,15 +124,14 @@ jobs:
             public_home="$(curl --fail --silent --show-error --location --max-time 20 https://www.motoristaops.com.br/ || true)"
             dashboard_home="$(curl --fail --silent --show-error --location --max-time 20 https://dashboard.motoristaops.com.br/ || true)"
             dashboard_close="$(curl --fail --silent --show-error --location --max-time 20 https://dashboard.motoristaops.com.br/fechamento/ || true)"
-            apex_headers="$(curl --silent --show-error --head --max-time 20 https://motoristaops.com.br/ || true)"
+            apex_final_url="$(curl --silent --show-error --location --output /dev/null --write-out '%{url_effective}' --max-time 20 https://motoristaops.com.br/ || true)"
             hero_status="$(curl --silent --output /dev/null --write-out '%{http_code}' --location --max-time 20 https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp || true)"
-            if printf '%s' "$public_home" | grep -q "Seu compromisso começa" \
-              && printf '%s' "$public_home" | grep -q "Motorista particular" \
+            if grep -qF "Seu compromisso começa" <<<"$public_home" \
+              && grep -qF "Motorista particular" <<<"$public_home" \
               && test "$hero_status" = "200" \
-              && printf '%s' "$dashboard_home" | grep -q "Plano operacional" \
-              && printf '%s' "$dashboard_close" | grep -q "Fechamento do dia" \
-              && printf '%s' "$apex_headers" | grep -Eq '^HTTP/[^ ]+ 301' \
-              && printf '%s' "$apex_headers" | grep -Eqi '^location: https://www\\.motoristaops\\.com\\.br/'; then
+              && grep -qF "Plano operacional" <<<"$dashboard_home" \
+              && grep -qF "Fechamento do dia" <<<"$dashboard_close" \
+              && test "$apex_final_url" = "https://www.motoristaops.com.br/"; then
               echo "Canonical domain smoke test passed on attempt $attempt."
               exit 0
             fi
