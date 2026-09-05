@@ -1,0 +1,45 @@
+#servicos .service-card{
+  position:relative;
+  overflow:hidden;
+  padding:0 24px 28px;
+  min-height:0;
+}
+#servicos .service-card::before{
+  content:'';
+  display:block;
+  height:clamp(156px,13.5vw,198px);
+  margin:0 -24px 0;
+  background-image:linear-gradient(180deg,rgba(10,10,12,0) 54%,rgba(10,10,12,.16) 76%,rgba(10,10,12,.76) 100%),url('/assets/service-cards.webp');
+  background-repeat:no-repeat;
+  background-size:100% 100%,300% 200%;
+  border-bottom:1px solid rgba(199,156,91,.22);
+}
+#servicos .service-card:nth-child(1)::before{background-position:center,0% 0%}
+#servicos .service-card:nth-child(2)::before{background-position:center,50% 0%}
+#servicos .service-card:nth-child(3)::before{background-position:center,100% 0%}
+#servicos .service-card:nth-child(4)::before{background-position:center,0% 100%}
+#servicos .service-card:nth-child(5)::before{background-position:center,50% 100%}
+#servicos .service-card:nth-child(6)::before{background-position:center,100% 100%}
+#servicos .service-top{
+  position:relative;
+  z-index:2;
+  justify-content:flex-start;
+  margin-top:-25px;
+}
+#servicos .service-top .card-num{display:none}
+#servicos .service-top .card-icon{
+  width:50px;
+  height:50px;
+  margin:0;
+  padding:10px;
+  border:1px solid rgba(199,156,91,.72);
+  border-radius:999px;
+  background:var(--mo-night);
+  object-fit:contain;
+  box-shadow:0 8px 24px rgba(0,0,0,.28);
+}
+#servicos .service-card h3{margin-top:18px}
+#servicos .service-card:hover::before{filter:brightness(1.04)}
+@media(max-width:780px){
+  #servicos .service-card::before{height:clamp(170px,48vw,220px)}
+}
