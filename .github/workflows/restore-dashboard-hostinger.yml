@@ -1,0 +1,106 @@
+name: Restore MotoristaOPS dashboard from stable source
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/restore-dashboard-hostinger.yml'
+
+concurrency:
+  group: motoristaops-dashboard-restore
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  restore-dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout immutable dashboard source
+        uses: actions/checkout@v4
+        with:
+          ref: dashboard-stable
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install and validate
+        run: |
+          npm ci
+          npm run validate:data
+          npm run check
+          npm run security
+
+      - name: Build dashboard artifact
+        env:
+          SITE_URL: https://dashboard.motoristaops.com.br
+          BASE_PATH: /
+        run: npm run build:domains
+
+      - name: Verify dashboard artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f dist-dashboard/index.html
+          test -f dist-dashboard/transito/index.html
+          test -f dist-dashboard/fechamento/index.html
+          test -f dist-dashboard/data/motoristaops.json
+          test ! -e dist-dashboard/motorista
+          grep -qF 'Plano operacional' dist-dashboard/index.html
+          grep -qF 'Fechamento do dia' dist-dashboard/fechamento/index.html
+
+      - name: Validate dashboard Hostinger secrets
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_DASHBOARD_TARGET_DIR: ${{ secrets.HOSTINGER_DASHBOARD_TARGET_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in HOSTINGER_HOST HOSTINGER_USERNAME HOSTINGER_PASSWORD HOSTINGER_PORT HOSTINGER_DASHBOARD_TARGET_DIR; do
+            test -n "${!name:-}" || { echo "Missing secret: $name"; exit 1; }
+          done
+
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Restore dashboard only
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_DASHBOARD_TARGET_DIR: ${{ secrets.HOSTINGER_DASHBOARD_TARGET_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" <<LFTP
+          set sftp:auto-confirm yes
+          set net:max-retries 2
+          set net:timeout 20
+          mirror --reverse --delete --verbose ./dist-dashboard "$HOSTINGER_DASHBOARD_TARGET_DIR"
+          bye
+          LFTP
+
+      - name: Verify dashboard production
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5 6; do
+            dashboard_home="$(curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 https://dashboard.motoristaops.com.br/ || true)"
+            dashboard_close="$(curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 https://dashboard.motoristaops.com.br/fechamento/ || true)"
+            if grep -qF 'Plano operacional' <<<"$dashboard_home" && grep -qF 'Fechamento do dia' <<<"$dashboard_close"; then
+              echo "Dashboard restored and verified on attempt $attempt."
+              exit 0
+            fi
+            sleep 10
+          done
+          echo 'Dashboard restore verification failed.'
+          exit 1

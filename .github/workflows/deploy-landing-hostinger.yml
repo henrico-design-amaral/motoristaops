@@ -1,28 +1,31 @@
-name: Reset and deploy MotoristaOPS clean
+name: Deploy MotoristaOPS landing only
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
-  workflow_dispatch:
+    paths:
+      - 'source/parts/**'
+      - '.github/workflows/deploy-landing-hostinger.yml'
 
 concurrency:
-  group: motoristaops-clean-production
+  group: motoristaops-public-landing
   cancel-in-progress: false
 
 jobs:
-  deploy-clean:
+  deploy-landing:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout clean source
+      - name: Checkout landing source
         uses: actions/checkout@v4
 
-      - name: Assemble approved landing
+      - name: Assemble landing
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p deploy-public
           cat source/parts/*.htmlfrag > deploy-public/index.html
-          grep -qF 'Seu compromisso começa' deploy-public/index.html
+          grep -qF 'Seu compromisso' deploy-public/index.html
           grep -qF 'Motorista particular' deploy-public/index.html
           cat > deploy-public/.htaccess <<'HTACCESS'
           RewriteEngine On
@@ -30,25 +33,24 @@ jobs:
           RewriteRule ^ https://www.motoristaops.com.br%{REQUEST_URI} [R=301,L]
           HTACCESS
 
-      - name: Validate Hostinger secrets
+      - name: Validate public Hostinger secrets
         env:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
           HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
           HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
           HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
           HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
-          HOSTINGER_DASHBOARD_TARGET_DIR: ${{ secrets.HOSTINGER_DASHBOARD_TARGET_DIR }}
         shell: bash
         run: |
           set -euo pipefail
-          for name in HOSTINGER_HOST HOSTINGER_USERNAME HOSTINGER_PASSWORD HOSTINGER_PORT HOSTINGER_PUBLIC_TARGET_DIR HOSTINGER_DASHBOARD_TARGET_DIR; do
+          for name in HOSTINGER_HOST HOSTINGER_USERNAME HOSTINGER_PASSWORD HOSTINGER_PORT HOSTINGER_PUBLIC_TARGET_DIR; do
             test -n "${!name:-}" || { echo "Missing secret: $name"; exit 1; }
           done
 
       - name: Install lftp
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
-      - name: Preserve only runtime dependencies referenced by approved landing
+      - name: Preserve approved runtime assets
         env:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
           HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
@@ -77,7 +79,7 @@ jobs:
           cp -a preserved/assets/icons-official deploy-public/assets/
           cp preserved/assets/henrico-profile.png deploy-public/assets/henrico-profile.png
 
-      - name: Hard reset public Hostinger and deploy clean landing
+      - name: Deploy public landing only
         env:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
           HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
@@ -95,44 +97,16 @@ jobs:
           bye
           LFTP
 
-      - name: Hard reset dashboard Hostinger
-        env:
-          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
-          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
-          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
-          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
-          HOSTINGER_DASHBOARD_TARGET_DIR: ${{ secrets.HOSTINGER_DASHBOARD_TARGET_DIR }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p empty-dashboard
-          lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" <<LFTP
-          set sftp:auto-confirm yes
-          set net:max-retries 2
-          set net:timeout 20
-          mirror --reverse --delete --delete-first --verbose empty-dashboard "$HOSTINGER_DASHBOARD_TARGET_DIR"
-          bye
-          LFTP
-
-      - name: Production verification
+      - name: Verify landing production
         shell: bash
         run: |
           set -euo pipefail
           for attempt in 1 2 3 4 5 6; do
             public_home="$(curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 https://www.motoristaops.com.br/ || true)"
-            if grep -qF 'Seu compromisso começa' <<<"$public_home" && grep -qF 'Motorista particular' <<<"$public_home"; then
-              break
-            fi
-            if [ "$attempt" -eq 6 ]; then
-              echo 'Public landing did not converge to approved clean version.'
-              exit 1
+            if grep -qF 'Seu compromisso' <<<"$public_home" && grep -qF 'Motorista particular' <<<"$public_home"; then
+              exit 0
             fi
             sleep 10
           done
-          dashboard_home="$(curl --silent --show-error --location --connect-timeout 10 --max-time 30 https://dashboard.motoristaops.com.br/ || true)"
-          if grep -qF 'Plano operacional' <<<"$dashboard_home" || grep -qF 'Fechamento do dia' <<<"$dashboard_home"; then
-            echo 'Legacy dashboard content still exists after reset.'
-            exit 1
-          fi
-          apex_final_url="$(curl --silent --location --output /dev/null --write-out '%{url_effective}' --connect-timeout 10 --max-time 30 https://motoristaops.com.br/)"
-          test "$apex_final_url" = 'https://www.motoristaops.com.br/'
+          echo 'Landing did not converge.'
+          exit 1
