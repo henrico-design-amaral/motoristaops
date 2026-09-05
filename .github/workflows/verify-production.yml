@@ -1,0 +1,56 @@
+name: Verify MotoristaOPS production
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/verify-production.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify public landing SEO and dashboard preservation
+        shell: bash
+        run: |
+          set -euo pipefail
+          cache="$(date +%s)"
+          public_html="$(curl -fsSL --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 30 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/?verify=${cache}")"
+          dashboard_html="$(curl -fsSL --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 30 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}")"
+          sitemap="$(curl -fsSL --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/sitemap.xml?verify=${cache}")"
+          robots="$(curl -fsSL --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/robots.txt?verify=${cache}")"
+
+          grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' <<<"$public_html"
+          grep -qF 'name="robots"' <<<"$public_html"
+          grep -qF 'index,follow,max-image-preview:large' <<<"$public_html"
+          grep -qF 'rel="canonical"' <<<"$public_html"
+          grep -qF 'https://www.motoristaops.com.br/' <<<"$public_html"
+          grep -qF 'property="og:url"' <<<"$public_html"
+          grep -qF 'property="og:image"' <<<"$public_html"
+          grep -qF 'name="twitter:card"' <<<"$public_html"
+          grep -qF 'summary_large_image' <<<"$public_html"
+          grep -qF 'application/ld+json' <<<"$public_html"
+          grep -qF 'Seu compromisso' <<<"$public_html"
+          grep -qF 'Henrico Amaral' <<<"$public_html"
+          if grep -qiF 'noindex' <<<"$public_html"; then
+            echo 'Unexpected noindex in production root.'
+            exit 1
+          fi
+          if grep -qF 'www.motoristaops.com.br/temp/' <<<"$public_html"; then
+            echo 'Unexpected temp reference in production root.'
+            exit 1
+          fi
+
+          grep -qF 'Sitemap: https://www.motoristaops.com.br/sitemap.xml' <<<"$robots"
+          grep -qF '<loc>https://www.motoristaops.com.br/</loc>' <<<"$sitemap"
+          grep -qF 'Plano operacional' <<<"$dashboard_html"
+          grep -qF 'MotoristaOPS' <<<"$dashboard_html"
+
+          hero_code="$(curl -sS -o /dev/null -w '%{http_code}' --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 30 'https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp')"
+          test "$hero_code" = '200'
+
+          echo 'Production verification passed: landing, SEO/OG, sitemap/robots and dashboard are healthy.'
