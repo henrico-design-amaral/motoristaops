@@ -7,6 +7,7 @@ on:
     paths:
       - 'source/parts/**'
       - 'release/runtime-assets/**'
+      - 'release/visual-assets/**'
       - '.github/workflows/deploy-landing-hostinger.yml'
       - '.github/workflows/verify-production.yml'
 
@@ -20,7 +21,7 @@ jobs:
       - name: Wait for landing deploy window
         run: sleep 40
 
-      - name: Verify public landing SEO, assets and dashboard preservation
+      - name: Verify public landing SEO, exact Claude visuals, assets and dashboard preservation
         shell: bash
         run: |
           set -euo pipefail
@@ -37,11 +38,13 @@ jobs:
               && grep -qF 'index,follow,max-image-preview:large' <<<"$public_html" \
               && grep -qF 'rel="canonical" href="https://www.motoristaops.com.br/"' <<<"$public_html" \
               && grep -qF 'property="og:url" content="https://www.motoristaops.com.br/"' <<<"$public_html" \
-              && grep -qF 'property="og:image"' <<<"$public_html" \
+              && grep -qF 'property="og:image" content="https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp"' <<<"$public_html" \
               && grep -qF 'name="twitter:card" content="summary_large_image"' <<<"$public_html" \
               && grep -qF 'application/ld+json' <<<"$public_html" \
               && grep -qF 'Seu compromisso' <<<"$public_html" \
               && grep -qF 'Henrico Amaral' <<<"$public_html" \
+              && grep -qF 'src="/assets/hero-claude.avif"' <<<"$public_html" \
+              && grep -qF 'src="/assets/logo-claude.avif"' <<<"$public_html" \
               && grep -qF '/assets/henrico-profile.webp' <<<"$public_html" \
               && grep -qF '/assets/icons-official/whatsapp.webp' <<<"$public_html" \
               && grep -qF 'Sitemap: https://www.motoristaops.com.br/sitemap.xml' <<<"$robots" \
@@ -52,8 +55,9 @@ jobs:
               && ! grep -qF '/temp/' <<<"$public_html" \
               && ! grep -qF 'blob:' <<<"$public_html"; then
                 for asset in \
+                  'assets/hero-claude.avif' \
+                  'assets/logo-claude.avif' \
                   'landing-v3/hero-motoristaops-v4.webp' \
-                  'landing-v3/logo-header-v3.svg' \
                   'landing-v3/logo-oficial.svg' \
                   'assets/henrico-profile.webp' \
                   'assets/icons-official/airport.webp' \
@@ -69,7 +73,7 @@ jobs:
                   code="$(curl -sS -o /dev/null -w '%{http_code}' --retry 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/${asset}")"
                   test "$code" = '200'
                 done
-                echo 'Production verification passed: Claude Design landing, SEO/OG, versioned assets and dashboard are healthy.'
+                echo 'Production verification passed: exact Claude hero/logo, SEO/OG, versioned assets and dashboard are healthy.'
                 exit 0
             fi
             sleep 10
