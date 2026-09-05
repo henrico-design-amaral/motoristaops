@@ -1,0 +1,107 @@
+name: Deploy MotoristaOPS iconography
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'source/icons-official/**'
+      - '.github/workflows/deploy-iconography-hostinger.yml'
+  workflow_run:
+    workflows: ['Deploy MotoristaOPS landing only']
+    types: [completed]
+
+concurrency:
+  group: motoristaops-public-iconography
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-icons:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout iconography source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Install icon and deploy tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq librsvg2-bin webp lftp
+
+      - name: Render safe-area SVG icons to lossless WebP
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p deploy-icons tmp-icons
+          expected='agendamento airport bagagem checklist motorista pontualidade reuniao rota seguranca whatsapp'
+          for icon in $expected; do
+            svg="source/icons-official/${icon}.svg"
+            test -s "$svg"
+            rsvg-convert -w 192 -h 192 "$svg" -o "tmp-icons/${icon}.png"
+            cwebp -quiet -lossless -z 9 "tmp-icons/${icon}.png" -o "deploy-icons/${icon}.webp"
+            test -s "deploy-icons/${icon}.webp"
+          done
+          test "$(find deploy-icons -maxdepth 1 -name '*.webp' | wc -l)" -eq 10
+
+      - name: Validate public Hostinger secrets
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in HOSTINGER_HOST HOSTINGER_USERNAME HOSTINGER_PASSWORD HOSTINGER_PORT HOSTINGER_PUBLIC_TARGET_DIR; do
+            test -n "${!name:-}" || { echo "Missing secret: $name"; exit 1; }
+          done
+
+      - name: Deploy iconography only
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" <<LFTP
+          set sftp:auto-confirm yes
+          set net:max-retries 2
+          set net:timeout 20
+          mirror --reverse --verbose deploy-icons "$HOSTINGER_PUBLIC_TARGET_DIR/assets/icons-official"
+          bye
+          LFTP
+
+      - name: Verify exact icons, landing and dashboard
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5 6; do
+            cache="$(date +%s)-${attempt}"
+            ok=1
+            for icon in agendamento airport bagagem checklist motorista pontualidade reuniao rota seguranca whatsapp; do
+              local_hash="$(sha256sum "deploy-icons/${icon}.webp" | awk '{print $1}')"
+              remote_hash="$(curl -fsSL --retry 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/assets/icons-official/${icon}.webp?verify=${cache}" | sha256sum | awk '{print $1}' || true)"
+              if [ "$local_hash" != "$remote_hash" ]; then ok=0; break; fi
+            done
+            public_home="$(curl -fsSL --retry 2 --connect-timeout 10 --max-time 30 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/?verify=${cache}" || true)"
+            dashboard_home="$(curl -fsSL --retry 2 --connect-timeout 10 --max-time 30 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
+            if [ "$ok" -eq 1 ] \
+              && grep -qF 'data-build="motoristaops-claude-design-2026-09-05"' <<<"$public_home" \
+              && grep -qF 'https://wa.me/5511988329725?' <<<"$public_home" \
+              && ! grep -qF 'Próximo trajeto' <<<"$public_home" \
+              && grep -qF 'Plano operacional' <<<"$dashboard_home" \
+              && grep -qF 'MotoristaOPS' <<<"$dashboard_home"; then
+              echo 'Iconography deployment passed: 10 exact safe-area icons are live and dashboard is preserved.'
+              exit 0
+            fi
+            sleep 10
+          done
+          echo 'Iconography deployment did not converge.'
+          exit 1
