@@ -7,6 +7,7 @@ on:
     paths:
       - 'source/parts/**'
       - 'release/runtime-assets/**'
+      - 'release/visual-assets/**'
       - '.github/workflows/deploy-landing-hostinger.yml'
 
 concurrency:
@@ -38,14 +39,27 @@ jobs:
             -e 's#/assets/icons-official/\([a-z-]*\)\.png#/assets/icons-official/\1.webp#g' \
             deploy-public/index.html
 
+          # Preserve metadata/OG URLs, but restore the exact Claude Design visual assets.
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('deploy-public/index.html')
+          s = p.read_text()
+          s = s.replace('src="/landing-v3/hero-motoristaops-v4.webp"', 'src="/assets/hero-claude.avif"')
+          s = s.replace('src="/landing-v3/logo-header-v3.svg"', 'src="/assets/logo-claude.avif"')
+          p.write_text(s)
+          PY
+
           grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' deploy-public/index.html
           grep -qF 'data-build="motoristaops-claude-design-2026-09-05"' deploy-public/index.html
           grep -qF 'Seu compromisso' deploy-public/index.html
           grep -qF 'Motorista particular' deploy-public/index.html
           grep -qF 'rel="canonical" href="https://www.motoristaops.com.br/"' deploy-public/index.html
           grep -qF 'property="og:url" content="https://www.motoristaops.com.br/"' deploy-public/index.html
+          grep -qF 'property="og:image" content="https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp"' deploy-public/index.html
           grep -qF 'name="twitter:card" content="summary_large_image"' deploy-public/index.html
           grep -qF 'application/ld+json' deploy-public/index.html
+          grep -qF 'src="/assets/hero-claude.avif"' deploy-public/index.html
+          grep -qF 'src="/assets/logo-claude.avif"' deploy-public/index.html
           grep -qF '/assets/henrico-profile.webp' deploy-public/index.html
           grep -qF '/assets/icons-official/whatsapp.webp' deploy-public/index.html
           ! grep -qiF 'noindex' deploy-public/index.html
@@ -54,6 +68,7 @@ jobs:
           ! grep -qF '<x-dc>' deploy-public/index.html
           ! grep -qF '<helmet>' deploy-public/index.html
           ! grep -qE '/assets/(henrico-profile|icons-official/[^" ]+)\.png' deploy-public/index.html
+          ! grep -qF 'src="/landing-v3/logo-header-v3.svg"' deploy-public/index.html
 
           cat > deploy-public/robots.txt <<'ROBOTS'
           User-agent: *
@@ -95,18 +110,29 @@ jobs:
             test -s "deploy-public/assets/icons-official/${icon}.webp"
           done
 
-      - name: Recover approved hero and logos from protected backup branch
+      - name: Rebuild exact Claude visual assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p deploy-public/assets
+          cat release/visual-assets/hero/part-*.bin > deploy-public/assets/hero-claude.avif
+          cat release/visual-assets/logo/part-*.bin > deploy-public/assets/logo-claude.avif
+
+          echo '7d6e679dd73dbeba90b9a02953406335ea77e1b28b9ea56354d92f17dd31477b  deploy-public/assets/hero-claude.avif' | sha256sum -c -
+          echo 'a9b0eb5462a08f9bb2004223489833315c3d2df64f3f5091b6ba08387f36a155  deploy-public/assets/logo-claude.avif' | sha256sum -c -
+          test -s deploy-public/assets/hero-claude.avif
+          test -s deploy-public/assets/logo-claude.avif
+
+      - name: Recover metadata-only social assets from protected backup branch
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p deploy-public/landing-v3
           git fetch --no-tags --depth=1 origin backup/pre-reset-2026-09-04
           git show FETCH_HEAD:public/landing-v3/hero-motoristaops-v4.webp > deploy-public/landing-v3/hero-motoristaops-v4.webp
-          git show FETCH_HEAD:public/landing-v3/logo-header-v3.svg > deploy-public/landing-v3/logo-header-v3.svg
           git show FETCH_HEAD:public/landing-v3/logo-oficial.svg > deploy-public/landing-v3/logo-oficial.svg
 
           test -s deploy-public/landing-v3/hero-motoristaops-v4.webp
-          test -s deploy-public/landing-v3/logo-header-v3.svg
           test -s deploy-public/landing-v3/logo-oficial.svg
 
       - name: Validate public Hostinger secrets
@@ -158,6 +184,8 @@ jobs:
             if grep -qF 'data-build="motoristaops-claude-design-2026-09-05"' <<<"$public_home" \
               && grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' <<<"$public_home" \
               && grep -qF 'Seu compromisso' <<<"$public_home" \
+              && grep -qF 'src="/assets/hero-claude.avif"' <<<"$public_home" \
+              && grep -qF 'src="/assets/logo-claude.avif"' <<<"$public_home" \
               && grep -qF '/assets/henrico-profile.webp' <<<"$public_home" \
               && grep -qF '/assets/icons-official/whatsapp.webp' <<<"$public_home" \
               && grep -qF 'Sitemap: https://www.motoristaops.com.br/sitemap.xml' <<<"$robots" \
@@ -165,8 +193,9 @@ jobs:
               && grep -qF 'Plano operacional' <<<"$dashboard_home" \
               && grep -qF 'MotoristaOPS' <<<"$dashboard_home"; then
               for asset in \
+                'assets/hero-claude.avif' \
+                'assets/logo-claude.avif' \
                 'landing-v3/hero-motoristaops-v4.webp' \
-                'landing-v3/logo-header-v3.svg' \
                 'landing-v3/logo-oficial.svg' \
                 'assets/henrico-profile.webp' \
                 'assets/icons-official/whatsapp.webp' \
