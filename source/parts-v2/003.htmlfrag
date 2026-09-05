@@ -1,0 +1,92 @@
+<section id="quando-faz-sentido" class="section light">
+  <div class="container">
+    <p class="eyebrow">Quando faz sentido</p>
+    <div class="split-head"><h2 class="title-lg">Quando o deslocamento faz parte de um compromisso importante.</h2><p class="copy">Nem todo trajeto precisa ser agendado. Mas alguns ficam melhores quando horário, contexto e continuidade já estão definidos antes.</p></div>
+    <div class="grid-8">
+      <article class="scenario" data-reveal="0"><span>01</span><strong>Voo com horário</strong></article>
+      <article class="scenario" data-reveal="60"><span>02</span><strong>Consulta ou exame</strong></article>
+      <article class="scenario" data-reveal="120"><span>03</span><strong>Reunião importante</strong></article>
+      <article class="scenario" data-reveal="180"><span>04</span><strong>Evento com chegada marcada</strong></article>
+      <article class="scenario" data-reveal="0"><span>05</span><strong>Cliente ou familiar para acompanhar</strong></article>
+      <article class="scenario" data-reveal="60"><span>06</span><strong>Trajeto recorrente</strong></article>
+      <article class="scenario" data-reveal="120"><span>07</span><strong>Viagem curta</strong></article>
+      <article class="scenario" data-reveal="180"><span>08</span><strong>Espera no local</strong></article>
+    </div>
+  </div>
+</section>
+
+<section id="diferenciais" class="section">
+  <div class="container">
+    <p class="eyebrow">Qualidade operacional</p>
+    <div class="split-head"><h2 class="title-lg">O valor aparece no jeito de trabalhar.</h2><p class="copy">Menos promessa. Mais comportamento percebido no atendimento.</p></div>
+    <div class="grid-5">
+      <article class="quality-item" data-reveal="0"><img src="/assets/icons-official/pontualidade.png" alt=""><h3>Pontualidade</h3><p>Não é pressa. É planejamento de tempo.</p></article>
+      <article class="quality-item" data-reveal="70"><img src="/assets/icons-official/motorista.png" alt=""><h3>Discrição</h3><p>Presença profissional sem exposição.</p></article>
+      <article class="quality-item" data-reveal="140"><img src="/assets/icons-official/whatsapp.png" alt=""><h3>Comunicação</h3><p>O combinado fica claro antes, durante e depois.</p></article>
+      <article class="quality-item" data-reveal="210"><img src="/assets/icons-official/bagagem.png" alt=""><h3>Cuidado</h3><p>Bagagem, preferências e contexto entram no atendimento.</p></article>
+      <article class="quality-item" data-reveal="280"><img src="/assets/icons-official/rota.png" alt=""><h3>Continuidade</h3><p>Atendimento recorrente melhora porque o contexto não se perde.</p></article>
+    </div>
+  </div>
+</section>
+
+<section id="quem-dirige" class="section" style="border-top:1px solid rgba(243,239,228,.06)">
+  <div class="container driver-grid">
+    <div class="driver-photo" data-reveal="0"><img src="/assets/henrico-profile.png" alt="Retrato de Henrico Amaral"></div>
+    <div>
+      <p class="eyebrow" data-reveal="100">Quem dirige</p>
+      <h2 class="title-lg" data-reveal="160">Henrico Amaral.</h2>
+      <p class="copy-light" data-reveal="220" style="font-size:17px;line-height:1.55;max-width:28em;margin:18px 0 0">O serviço leva meu nome porque a responsabilidade também é minha.</p>
+      <p class="copy" data-reveal="280" style="max-width:36em">Sou motorista particular em São Paulo. Atendo com hora marcada, comunicação direta, pontualidade, discrição e atenção ao contexto de cada deslocamento.</p>
+      <blockquote class="driver-quote" data-reveal="340">“Levando pessoas, cuidando de histórias.”</blockquote>
+    </div>
+    <div class="driver-meta">
+      <div class="driver-meta-item" data-reveal="180"><img src="/assets/icons-official/motorista.png" alt=""><div><span>Experiência</span><strong>Rotina real nas ruas</strong></div></div>
+      <div class="driver-meta-item" data-reveal="240"><img src="/assets/icons-official/whatsapp.png" alt=""><div><span>Atendimento</span><strong>Direto</strong></div></div>
+      <div class="driver-meta-item" data-reveal="300"><img src="/assets/icons-official/pontualidade.png" alt=""><div><span>Compromisso</span><strong>Hora marcada</strong></div></div>
+      <div class="driver-meta-item" data-reveal="360"><img src="/assets/icons-official/seguranca.png" alt=""><div><span>Postura</span><strong>Discrição</strong></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+  <section style="padding:clamp(64px,8vw,124px) 0; background:radial-gradient(90% 130% at 50% 0%, rgba(199,156,91,.12) 0%, rgba(10,10,12,0) 62%), #0A0A0C; border-top:1px solid rgba(199,156,91,.18)">
+  </section>
+
+  <footer data-comment-anchor="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><img class="footer-logo" src="/landing-v3/logo-header-v3.svg" alt="MotoristaOPS por Henrico Amaral"><p style="margin:14px 0 0;font-stretch:75%;font-size:12.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mo-muted-light)">Motorista particular</p><div style="width:64px;height:1px;margin:18px 0;background:rgba(199,156,91,.55)"></div><p style="margin:0;font-size:14.5px;color:var(--mo-muted)">atendimento discreto e planejado</p></div>
+      <div class="footer-mid"><p class="eyebrow" style="margin-bottom:8px">Precisa combinar</p><h2 class="title-md" style="margin-bottom:20px">Um trajeto?</h2><a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener"><img src="/assets/icons-official/whatsapp.png" alt="" style="width:18px;height:18px;object-fit:contain">Falar no WhatsApp</a><p style="margin:12px 0 0;font-size:12.5px;color:var(--mo-muted)">Atendimento direto com Henrico Amaral.</p></div>
+      <div>
+        <a class="footer-link" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener"><img src="/assets/icons-official/whatsapp.png" alt=""><span style="flex:1">WhatsApp</span><span style="color:var(--mo-champagne)">→</span></a>
+        <a class="footer-link" href="https://instagram.com/henrico.driver.amaral" target="_blank" rel="noopener"><span style="width:22px;height:22px;display:grid;place-items:center;color:var(--mo-champagne)">◎</span><span style="flex:1">Instagram</span><span style="color:var(--mo-champagne)">→</span></a>
+        <div class="footer-link" style="border-bottom:0"><span style="width:22px;height:22px;display:grid;place-items:center;color:var(--mo-champagne)">⌖</span><span>São Paulo / Brasil</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 MotoristaOPS · por Henrico Amaral</span><span style="font-stretch:75%;letter-spacing:.16em;text-transform:uppercase;color:var(--mo-champagne)">São Paulo / Brasil</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function reveal(){
+    var items=[].slice.call(document.querySelectorAll('[data-reveal]'));
+    if(reduced||!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('is-visible')});return;}
+    var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var d=parseInt(e.target.getAttribute('data-reveal')||'0',10);setTimeout(function(){e.target.classList.add('is-visible')},d);io.unobserve(e.target);}})},{threshold:.08,rootMargin:'0px 0px -6% 0px'});
+    items.forEach(function(el){io.observe(el)});
+  }
+  function timeline(){
+    var steps=[].slice.call(document.querySelectorAll('[data-step]'));
+    if(reduced||!('IntersectionObserver' in window)){steps.forEach(function(el){el.classList.add('is-active')});return;}
+    var so=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-active');so.unobserve(e.target);}})},{threshold:.35,rootMargin:'0px 0px -10% 0px'});
+    steps.forEach(function(el){so.observe(el)});
+  }
+  function header(){var h=document.querySelector('[data-header]');if(!h)return;function onScroll(){var on=window.scrollY>40;h.style.background=on?'rgba(10,10,12,.92)':'rgba(10,10,12,.46)';h.style.backdropFilter=on?'blur(16px)':'blur(8px)';h.style.borderBottomColor=on?'rgba(199,156,91,.24)':'rgba(199,156,91,.10)'}window.addEventListener('scroll',onScroll,{passive:true});onScroll();}
+  function init(){reveal();timeline();header();}
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+</body>
+</html>
