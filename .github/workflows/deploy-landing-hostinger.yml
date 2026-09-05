@@ -8,6 +8,7 @@ on:
       - 'source/parts/**'
       - 'release/runtime-assets/**'
       - 'release/visual-assets/**'
+      - 'release/service-assets/**'
       - '.github/workflows/deploy-landing-hostinger.yml'
 
 concurrency:
@@ -78,6 +79,9 @@ jobs:
           grep -qF 'src="/assets/logo-claude.avif"' deploy-public/index.html
           grep -qF '/assets/henrico-profile.webp' deploy-public/index.html
           grep -qF '/assets/icons-official/whatsapp.webp' deploy-public/index.html
+          grep -qF '/assets/service-cards.webp' deploy-public/index.html
+          grep -qF 'Transfers com pontualidade, conforto e tranquilidade.' deploy-public/index.html
+          grep -qF 'Suporte em compromissos, espera e rotinas frequentes.' deploy-public/index.html
           grep -qF 'https://wa.me/5511988329725?' deploy-public/index.html
           ! grep -qF '5511953970704' deploy-public/index.html
           ! grep -qF 'Próximo trajeto' deploy-public/index.html
@@ -142,6 +146,15 @@ jobs:
           echo 'a9b0eb5462a08f9bb2004223489833315c3d2df64f3f5091b6ba08387f36a155  deploy-public/assets/logo-claude.avif' | sha256sum -c -
           test -s deploy-public/assets/hero-claude.avif
           test -s deploy-public/assets/logo-claude.avif
+
+      - name: Rebuild approved service-card visuals
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p deploy-public/assets
+          cat release/service-assets/part-*.bin > deploy-public/assets/service-cards.webp
+          echo 'b5c520b9eb4b0e628b9544d1fc61fc9836018987fe0ff49d1c7a7aebaafd965b  deploy-public/assets/service-cards.webp' | sha256sum -c -
+          test -s deploy-public/assets/service-cards.webp
 
       - name: Recover metadata-only social assets from protected backup branch
         shell: bash
@@ -208,6 +221,9 @@ jobs:
               && grep -qF 'src="/assets/logo-claude.avif"' <<<"$public_home" \
               && grep -qF '/assets/henrico-profile.webp' <<<"$public_home" \
               && grep -qF '/assets/icons-official/whatsapp.webp' <<<"$public_home" \
+              && grep -qF '/assets/service-cards.webp' <<<"$public_home" \
+              && grep -qF 'Transfers com pontualidade, conforto e tranquilidade.' <<<"$public_home" \
+              && grep -qF 'Suporte em compromissos, espera e rotinas frequentes.' <<<"$public_home" \
               && grep -qF 'https://wa.me/5511988329725?' <<<"$public_home" \
               && ! grep -qF '5511953970704' <<<"$public_home" \
               && ! grep -qF 'Próximo trajeto' <<<"$public_home" \
@@ -219,6 +235,7 @@ jobs:
               for asset in \
                 'assets/hero-claude.avif' \
                 'assets/logo-claude.avif' \
+                'assets/service-cards.webp' \
                 'landing-v3/hero-motoristaops-v4.webp' \
                 'landing-v3/logo-oficial.svg' \
                 'assets/henrico-profile.webp' \
@@ -227,6 +244,8 @@ jobs:
                 code="$(curl -sS -o /dev/null -w '%{http_code}' --retry 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/${asset}")"
                 test "$code" = '200'
               done
+              remote_service_hash="$(curl -fsSL --retry 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/assets/service-cards.webp?verify=${cache}" | sha256sum | awk '{print $1}')"
+              test "$remote_service_hash" = 'b5c520b9eb4b0e628b9544d1fc61fc9836018987fe0ff49d1c7a7aebaafd965b'
               exit 0
             fi
             sleep 10
