@@ -1,0 +1,1 @@
+Staged V2 source fragments used to promote the current strategy revision atomically into source/parts. The canonical human-readable page source is source/index.html. Production assembly still uses source/parts until the protected deployment workflow is migrated.
