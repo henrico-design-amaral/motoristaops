@@ -1,20 +1,3 @@
-<section id="quando-faz-sentido" class="section light">
-  <div class="container">
-    <p class="eyebrow">Quando faz sentido</p>
-    <div class="split-head"><h2 class="title-lg">Quando o deslocamento faz parte de um compromisso importante.</h2><p class="copy">Nem todo trajeto precisa ser agendado. Mas alguns ficam melhores quando horário, contexto e continuidade já estão definidos antes.</p></div>
-    <div class="grid-8">
-      <article class="scenario" data-reveal="0"><span>01</span><strong>Voo com horário</strong></article>
-      <article class="scenario" data-reveal="60"><span>02</span><strong>Consulta ou exame</strong></article>
-      <article class="scenario" data-reveal="120"><span>03</span><strong>Reunião importante</strong></article>
-      <article class="scenario" data-reveal="180"><span>04</span><strong>Evento com chegada marcada</strong></article>
-      <article class="scenario" data-reveal="0"><span>05</span><strong>Cliente ou familiar para acompanhar</strong></article>
-      <article class="scenario" data-reveal="60"><span>06</span><strong>Trajeto recorrente</strong></article>
-      <article class="scenario" data-reveal="120"><span>07</span><strong>Viagem curta</strong></article>
-      <article class="scenario" data-reveal="180"><span>08</span><strong>Espera no local</strong></article>
-    </div>
-  </div>
-</section>
-
 <section id="diferenciais" class="section">
   <div class="container">
     <p class="eyebrow">Qualidade operacional</p>

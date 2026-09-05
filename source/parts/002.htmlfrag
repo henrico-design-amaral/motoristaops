@@ -48,18 +48,18 @@
 
 <section id="servicos" class="section" style="border-top:1px solid rgba(243,239,228,.06)">
   <div class="container">
-    <p class="eyebrow">O que ofereço</p>
+    <p class="eyebrow">Quando faz sentido</p>
     <div class="split-head">
       <h2 class="title-lg">Para compromissos que pedem mais controle do trajeto.</h2>
-      <p class="copy">Você informa o contexto. Eu organizo o deslocamento com atenção ao que realmente muda a experiência.</p>
+      <p class="copy">Quando horário, contexto, bagagem, espera ou continuidade importam, o serviço faz sentido porque o deslocamento já entra como parte do compromisso.</p>
     </div>
     <div class="grid-3">
-      <article class="card service-card" data-reveal="0"><div class="service-top"><span class="card-num">01</span><img class="card-icon" src="/assets/icons-official/airport.png" alt=""></div><h3>Aeroportos e rodoviárias</h3><p>Ida, chegada, bagagem e horário planejados com antecedência.</p></article>
-      <article class="card service-card" data-reveal="80"><div class="service-top"><span class="card-num">02</span><img class="card-icon" src="/assets/icons-official/reuniao.png" alt=""></div><h3>Reuniões e compromissos</h3><p>Deslocamento com hora marcada e leitura do tempo necessário.</p></article>
-      <article class="card service-card" data-reveal="160"><div class="service-top"><span class="card-num">03</span><img class="card-icon" src="/assets/icons-official/seguranca.png" alt=""></div><h3>Consultas e exames</h3><p>Trajeto com calma, cuidado e atenção ao horário.</p></article>
-      <article class="card service-card" data-reveal="0"><div class="service-top"><span class="card-num">04</span><img class="card-icon" src="/assets/icons-official/agendamento.png" alt=""></div><h3>Eventos</h3><p>Chegada e saída combinadas antes do momento crítico.</p></article>
-      <article class="card service-card" data-reveal="80"><div class="service-top"><span class="card-num">05</span><img class="card-icon" src="/assets/icons-official/rota.png" alt=""></div><h3>Viagens e deslocamentos</h3><p>Percursos particulares fora da rotina, com condições alinhadas.</p></article>
-      <article class="card service-card" data-reveal="160"><div class="service-top"><span class="card-num">06</span><img class="card-icon" src="/assets/icons-official/pontualidade.png" alt=""></div><h3>Espera e acompanhamento</h3><p>Quando contratado, permaneço disponível dentro da mesma demanda.</p></article>
+      <article class="card service-card" data-reveal="0"><div class="service-top"><span class="card-num">01</span><img class="card-icon" src="/assets/icons-official/airport.png" alt=""></div><h3>Aeroportos e rodoviárias</h3><p>Voos e embarques com horário, bagagem e margem de tempo definida.</p></article>
+      <article class="card service-card" data-reveal="80"><div class="service-top"><span class="card-num">02</span><img class="card-icon" src="/assets/icons-official/reuniao.png" alt=""></div><h3>Reuniões e compromissos</h3><p>Quando chegar no horário faz parte do resultado do compromisso.</p></article>
+      <article class="card service-card" data-reveal="160"><div class="service-top"><span class="card-num">03</span><img class="card-icon" src="/assets/icons-official/seguranca.png" alt=""></div><h3>Consultas e exames</h3><p>Deslocamento com calma, cuidado e atenção ao horário marcado.</p></article>
+      <article class="card service-card" data-reveal="0"><div class="service-top"><span class="card-num">04</span><img class="card-icon" src="/assets/icons-official/agendamento.png" alt=""></div><h3>Eventos</h3><p>Chegada e saída planejadas quando o horário não pode virar improviso.</p></article>
+      <article class="card service-card" data-reveal="80"><div class="service-top"><span class="card-num">05</span><img class="card-icon" src="/assets/icons-official/rota.png" alt=""></div><h3>Viagens e deslocamentos</h3><p>Percursos fora da rotina, com rota, condições e paradas combinadas antes.</p></article>
+      <article class="card service-card" data-reveal="160"><div class="service-top"><span class="card-num">06</span><img class="card-icon" src="/assets/icons-official/pontualidade.png" alt=""></div><h3>Acompanhamento e recorrência</h3><p>Para acompanhar cliente ou familiar, permanecer em espera ou repetir um trajeto com continuidade.</p></article>
     </div>
   </div>
 </section>
