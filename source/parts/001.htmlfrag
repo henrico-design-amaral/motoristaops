@@ -1,3 +1,7 @@
+        <img src="/assets/icons-official/motorista.png" alt="" style="width:30px; height:30px; display:block; opacity:.82; flex:none">
+        <div>
+          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:13px; letter-spacing:.18em; color:#C79C5B; margin-bottom:6px">04</span>
+          <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:17.5px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Discrição.</h3>
           <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Profissionalismo sem exposição. Presença que contribui com a sua rotina.</p>
         </div>
       </div>
@@ -16,7 +20,7 @@
         <div data-reveal="0" style="display:flex; flex-direction:column; gap:14px; padding:28px 26px 30px; border:1px solid rgba(199,156,91,.16); background:#151518; transition:transform 240ms cubic-bezier(.16,1,.3,1), border-color 240ms ease, opacity 520ms ease" style-hover="transform:translateY(-2px); border-color:rgba(199,156,91,.5)">
           <div style="display:flex; align-items:center; justify-content:space-between; gap:16px">
             <span style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#C79C5B">01</span>
-            <img src="https://www.motoristaops.com.br/assets/icons-official/airport.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
+            <img src="/assets/icons-official/airport.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
           </div>
           <h3 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Aeroportos e rodoviárias.</h3>
           <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E">Ida e chegada com horário planejado, bagagem no trajeto e atenção aos compromissos.</p>
@@ -24,7 +28,7 @@
         <div data-reveal="80" style="display:flex; flex-direction:column; gap:14px; padding:28px 26px 30px; border:1px solid rgba(199,156,91,.16); background:#151518; transition:transform 240ms cubic-bezier(.16,1,.3,1), border-color 240ms ease, opacity 520ms ease" style-hover="transform:translateY(-2px); border-color:rgba(199,156,91,.5)">
           <div style="display:flex; align-items:center; justify-content:space-between; gap:16px">
             <span style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#C79C5B">02</span>
-            <img src="https://www.motoristaops.com.br/assets/icons-official/reuniao.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
+            <img src="/assets/icons-official/reuniao.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
           </div>
           <h3 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Reuniões e compromissos</h3>
           <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E">Deslocamentos com hora marcada, leitura de contexto e atenção aos detalhes do tempo.</p>
@@ -32,7 +36,7 @@
         <div data-reveal="160" style="display:flex; flex-direction:column; gap:14px; padding:28px 26px 30px; border:1px solid rgba(199,156,91,.16); background:#151518; transition:transform 240ms cubic-bezier(.16,1,.3,1), border-color 240ms ease, opacity 520ms ease" style-hover="transform:translateY(-2px); border-color:rgba(199,156,91,.5)">
           <div style="display:flex; align-items:center; justify-content:space-between; gap:16px">
             <span style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#C79C5B">03</span>
-            <img src="https://www.motoristaops.com.br/assets/icons-official/agendamento.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
+            <img src="/assets/icons-official/agendamento.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
           </div>
           <h3 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Eventos</h3>
           <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E">Chegadas e saídas alinhadas antes para reduzir imprevistos no momento crítico.</p>
@@ -40,7 +44,7 @@
         <div data-reveal="0" style="display:flex; flex-direction:column; gap:14px; padding:28px 26px 30px; border:1px solid rgba(199,156,91,.16); background:#151518; transition:transform 240ms cubic-bezier(.16,1,.3,1), border-color 240ms ease, opacity 520ms ease" style-hover="transform:translateY(-2px); border-color:rgba(199,156,91,.5)">
           <div style="display:flex; align-items:center; justify-content:space-between; gap:16px">
             <span style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#C79C5B">04</span>
-            <img src="https://www.motoristaops.com.br/assets/icons-official/rota.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
+            <img src="/assets/icons-official/rota.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
           </div>
           <h3 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Viagens e deslocamentos</h3>
           <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E">Trajetos particulares fora da rotina com percurso e condições combinadas.</p>
@@ -48,7 +52,7 @@
         <div data-reveal="80" style="display:flex; flex-direction:column; gap:14px; padding:28px 26px 30px; border:1px solid rgba(199,156,91,.16); background:#151518; transition:transform 240ms cubic-bezier(.16,1,.3,1), border-color 240ms ease, opacity 520ms ease" style-hover="transform:translateY(-2px); border-color:rgba(199,156,91,.5)">
           <div style="display:flex; align-items:center; justify-content:space-between; gap:16px">
             <span style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#C79C5B">05</span>
-            <img src="https://www.motoristaops.com.br/assets/icons-official/pontualidade.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
+            <img src="/assets/icons-official/pontualidade.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
           </div>
           <h3 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Espera e acompanhamento</h3>
           <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E">Quando contratado, mantenho uma espera estratégica dentro da mesma demanda.</p>
@@ -56,7 +60,7 @@
         <div data-reveal="160" style="display:flex; flex-direction:column; gap:14px; padding:28px 26px 30px; border:1px solid rgba(199,156,91,.16); background:#151518; transition:transform 240ms cubic-bezier(.16,1,.3,1), border-color 240ms ease, opacity 520ms ease" style-hover="transform:translateY(-2px); border-color:rgba(199,156,91,.5)">
           <div style="display:flex; align-items:center; justify-content:space-between; gap:16px">
             <span style="font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#C79C5B">06</span>
-            <img src="https://www.motoristaops.com.br/assets/icons-official/checklist.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
+            <img src="/assets/icons-official/checklist.png" alt="" style="width:30px; height:30px; display:block; opacity:.72">
           </div>
           <h3 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Rotinas personalizadas</h3>
           <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E">Agenda recorrente com previsibilidade, conforto e continuidade de atendimento.</p>
@@ -74,25 +78,21 @@
       </div>
       <div style="position:relative; display:flex; flex-direction:column">
         <div style="position:absolute; left:23px; top:24px; bottom:24px; width:1px; background:rgba(243,239,228,.10)"></div>
-        <div data-step style="position:relative; display:flex; gap:22px; padding:0 0 34px; opacity:.45; transition:opacity 520ms ease">
-          <span data-num style="flex:none; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:999px; border:1px solid rgba(243,239,228,.16); background:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:16px; letter-spacing:.1em; color:#A6A39E; transition:color 520ms ease, border-color 520ms ease">01</span>
+        <div data-step="" style="position:relative; display:flex; gap:22px; padding:0 0 34px; opacity:.45; transition:opacity 520ms ease">
+          <span data-num="" style="flex:none; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:999px; border:1px solid rgba(243,239,228,.16); background:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:16px; letter-spacing:.1em; color:#A6A39E; transition:color 520ms ease, border-color 520ms ease">01</span>
           <div style="padding-top:6px">
             <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Você chama</h3>
             <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E; max-width:32em">Passa data, horário, origem, destino e o que precisa ser considerado no atendimento.</p>
           </div>
         </div>
-        <div data-step style="position:relative; display:flex; gap:22px; padding:0 0 34px; opacity:.45; transition:opacity 520ms ease">
-          <span data-num style="flex:none; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:999px; border:1px solid rgba(243,239,228,.16); background:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:16px; letter-spacing:.1em; color:#A6A39E; transition:color 520ms ease, border-color 520ms ease">02</span>
+        <div data-step="" style="position:relative; display:flex; gap:22px; padding:0 0 34px; opacity:.45; transition:opacity 520ms ease">
+          <span data-num="" style="flex:none; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:999px; border:1px solid rgba(243,239,228,.16); background:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:16px; letter-spacing:.1em; color:#A6A39E; transition:color 520ms ease, border-color 520ms ease">02</span>
           <div style="padding-top:6px">
             <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">A gente alinha</h3>
             <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E; max-width:32em">Rota, tempo, paradas, espera e os detalhes que realmente mudam o trajeto.</p>
           </div>
         </div>
-        <div data-step style="position:relative; display:flex; gap:22px; padding:0 0 34px; opacity:.45; transition:opacity 520ms ease">
-          <span data-num style="flex:none; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:999px; border:1px solid rgba(243,239,228,.16); background:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:16px; letter-spacing:.1em; color:#A6A39E; transition:color 520ms ease, border-color 520ms ease">03</span>
+        <div data-step="" style="position:relative; display:flex; gap:22px; padding:0 0 34px; opacity:.45; transition:opacity 520ms ease">
+          <span data-num="" style="flex:none; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:999px; border:1px solid rgba(243,239,228,.16); background:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:16px; letter-spacing:.1em; color:#A6A39E; transition:color 520ms ease, border-color 520ms ease">03</span>
           <div style="padding-top:6px">
             <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Você confirma</h3>
-            <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E; max-width:32em">Valor, condições e apontamentos são confirmados pelo canal oficial.</p>
-          </div>
-        </div>
-        <div data-step style="position:relative; display:flex; gap:22px; opacity:.45; transition:opacity 520ms ease">

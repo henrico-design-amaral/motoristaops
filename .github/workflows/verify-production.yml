@@ -5,6 +5,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'source/parts/**'
+      - '.github/workflows/deploy-landing-hostinger.yml'
       - '.github/workflows/verify-production.yml'
 
 permissions:
@@ -14,43 +16,59 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - name: Verify public landing SEO and dashboard preservation
+      - name: Wait for landing deploy window
+        run: sleep 35
+
+      - name: Verify public landing SEO, assets and dashboard preservation
         shell: bash
         run: |
           set -euo pipefail
-          cache="$(date +%s)"
-          public_html="$(curl -fsSL --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 30 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/?verify=${cache}")"
-          dashboard_html="$(curl -fsSL --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 30 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}")"
-          sitemap="$(curl -fsSL --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/sitemap.xml?verify=${cache}")"
-          robots="$(curl -fsSL --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/robots.txt?verify=${cache}")"
+          for attempt in 1 2 3 4 5 6; do
+            cache="$(date +%s)-${attempt}"
+            public_html="$(curl -fsSL --retry 2 --retry-delay 2 --connect-timeout 10 --max-time 30 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/?verify=${cache}" || true)"
+            dashboard_html="$(curl -fsSL --retry 2 --retry-delay 2 --connect-timeout 10 --max-time 30 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
+            sitemap="$(curl -fsSL --retry 2 --retry-delay 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/sitemap.xml?verify=${cache}" || true)"
+            robots="$(curl -fsSL --retry 2 --retry-delay 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/robots.txt?verify=${cache}" || true)"
 
-          grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' <<<"$public_html"
-          grep -qF 'name="robots"' <<<"$public_html"
-          grep -qF 'index,follow,max-image-preview:large' <<<"$public_html"
-          grep -qF 'rel="canonical"' <<<"$public_html"
-          grep -qF 'https://www.motoristaops.com.br/' <<<"$public_html"
-          grep -qF 'property="og:url"' <<<"$public_html"
-          grep -qF 'property="og:image"' <<<"$public_html"
-          grep -qF 'name="twitter:card"' <<<"$public_html"
-          grep -qF 'summary_large_image' <<<"$public_html"
-          grep -qF 'application/ld+json' <<<"$public_html"
-          grep -qF 'Seu compromisso' <<<"$public_html"
-          grep -qF 'Henrico Amaral' <<<"$public_html"
-          if grep -qiF 'noindex' <<<"$public_html"; then
-            echo 'Unexpected noindex in production root.'
-            exit 1
-          fi
-          if grep -qF 'www.motoristaops.com.br/temp/' <<<"$public_html"; then
-            echo 'Unexpected temp reference in production root.'
-            exit 1
-          fi
-
-          grep -qF 'Sitemap: https://www.motoristaops.com.br/sitemap.xml' <<<"$robots"
-          grep -qF '<loc>https://www.motoristaops.com.br/</loc>' <<<"$sitemap"
-          grep -qF 'Plano operacional' <<<"$dashboard_html"
-          grep -qF 'MotoristaOPS' <<<"$dashboard_html"
-
-          hero_code="$(curl -sS -o /dev/null -w '%{http_code}' --retry 3 --retry-delay 2 --connect-timeout 10 --max-time 30 'https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp')"
-          test "$hero_code" = '200'
-
-          echo 'Production verification passed: landing, SEO/OG, sitemap/robots and dashboard are healthy.'
+            if grep -qF 'data-build="motoristaops-claude-design-2026-09-05"' <<<"$public_html" \
+              && grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' <<<"$public_html" \
+              && grep -qF 'name="robots"' <<<"$public_html" \
+              && grep -qF 'index,follow,max-image-preview:large' <<<"$public_html" \
+              && grep -qF 'rel="canonical" href="https://www.motoristaops.com.br/"' <<<"$public_html" \
+              && grep -qF 'property="og:url" content="https://www.motoristaops.com.br/"' <<<"$public_html" \
+              && grep -qF 'property="og:image" content="https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp"' <<<"$public_html" \
+              && grep -qF 'name="twitter:card" content="summary_large_image"' <<<"$public_html" \
+              && grep -qF 'application/ld+json' <<<"$public_html" \
+              && grep -qF 'Seu compromisso' <<<"$public_html" \
+              && grep -qF 'Henrico Amaral' <<<"$public_html" \
+              && grep -qF 'Sitemap: https://www.motoristaops.com.br/sitemap.xml' <<<"$robots" \
+              && grep -qF '<loc>https://www.motoristaops.com.br/</loc>' <<<"$sitemap" \
+              && grep -qF 'Plano operacional' <<<"$dashboard_html" \
+              && grep -qF 'MotoristaOPS' <<<"$dashboard_html" \
+              && ! grep -qiF 'noindex' <<<"$public_html" \
+              && ! grep -qF '/temp/' <<<"$public_html" \
+              && ! grep -qF 'blob:' <<<"$public_html"; then
+                for asset in \
+                  'landing-v3/hero-motoristaops-v4.webp' \
+                  'landing-v3/logo-header-v3.svg' \
+                  'assets/henrico-profile.png' \
+                  'assets/icons-official/airport.png' \
+                  'assets/icons-official/reuniao.png' \
+                  'assets/icons-official/agendamento.png' \
+                  'assets/icons-official/rota.png' \
+                  'assets/icons-official/pontualidade.png' \
+                  'assets/icons-official/bagagem.png' \
+                  'assets/icons-official/checklist.png' \
+                  'assets/icons-official/whatsapp.png' \
+                  'assets/icons-official/seguranca.png' \
+                  'assets/icons-official/motorista.png'; do
+                  code="$(curl -sS -o /dev/null -w '%{http_code}' --retry 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/${asset}")"
+                  test "$code" = '200'
+                done
+                echo 'Production verification passed: Claude Design landing, SEO/OG, assets and dashboard are healthy.'
+                exit 0
+            fi
+            sleep 10
+          done
+          echo 'Production verification failed after convergence window.'
+          exit 1
