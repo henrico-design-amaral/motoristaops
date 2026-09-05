@@ -1,0 +1,280 @@
+name: Promote validated Hostinger temp landing
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/promote-hostinger-temp.yml'
+
+concurrency:
+  group: motoristaops-public-landing
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate public Hostinger secrets
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in HOSTINGER_HOST HOSTINGER_USERNAME HOSTINGER_PASSWORD HOSTINGER_PORT HOSTINGER_PUBLIC_TARGET_DIR; do
+            test -n "${!name:-}" || { echo "Missing secret: $name"; exit 1; }
+          done
+
+      - name: Install transfer and HTML tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lftp
+          python -m pip install --quiet beautifulsoup4
+
+      - name: Download validated temp directory
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p promoted
+          lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" <<LFTP
+          set sftp:auto-confirm yes
+          set net:max-retries 2
+          set net:timeout 25
+          cd "$HOSTINGER_PUBLIC_TARGET_DIR"
+          lcd "$GITHUB_WORKSPACE"
+          mirror --verbose temp promoted
+          bye
+          LFTP
+          test -f promoted/index.html
+          grep -qF 'Seu compromisso' promoted/index.html
+          grep -qF 'Motorista particular' promoted/index.html
+          grep -qF 'Henrico Amaral' promoted/index.html
+          find promoted -maxdepth 2 -type f -print | sort
+
+      - name: Convert preview metadata to production SEO
+        shell: bash
+        run: |
+          set -euo pipefail
+          python <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          import json
+
+          root = 'https://www.motoristaops.com.br/'
+          title = 'Motorista Particular em São Paulo | MotoristaOPS'
+          description = ('Motorista particular em São Paulo para aeroportos, reuniões, consultas, '
+                         'eventos e viagens, com hora marcada, planejamento, discrição e atendimento direto.')
+          og_image = 'https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp'
+          driver_image = 'https://www.motoristaops.com.br/landing-v3/henrico-amaral-v4.webp'
+
+          path = Path('promoted/index.html')
+          html = path.read_text(encoding='utf-8')
+
+          # Promote all preview-internal URLs to the canonical root without changing page content.
+          html = html.replace('https://www.motoristaops.com.br/temp/', root)
+          html = html.replace('https://motoristaops.com.br/temp/', root)
+          html = html.replace('/temp/', '/')
+
+          soup = BeautifulSoup(html, 'html.parser')
+          if soup.head is None:
+              raise SystemExit('HTML has no <head>.')
+          head = soup.head
+
+          if soup.title:
+              soup.title.string = title
+          else:
+              t = soup.new_tag('title')
+              t.string = title
+              head.append(t)
+
+          def replace_meta(*, name=None, prop=None, content=''):
+              attrs = {'name': name} if name else {'property': prop}
+              for tag in head.find_all('meta', attrs=attrs):
+                  tag.decompose()
+              attrs['content'] = content
+              head.append(soup.new_tag('meta', attrs=attrs))
+
+          # Search/indexing metadata.
+          replace_meta(name='description', content=description)
+          replace_meta(name='robots', content='index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1')
+          replace_meta(name='googlebot', content='index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1')
+          replace_meta(name='author', content='Henrico Amaral')
+
+          for link in head.find_all('link', rel=lambda value: value and 'canonical' in value):
+              link.decompose()
+          head.append(soup.new_tag('link', rel='canonical', href=root))
+
+          # Open Graph.
+          replace_meta(prop='og:type', content='website')
+          replace_meta(prop='og:site_name', content='MotoristaOPS')
+          replace_meta(prop='og:locale', content='pt_BR')
+          replace_meta(prop='og:title', content='MotoristaOPS | Motorista Particular em São Paulo')
+          replace_meta(prop='og:description', content=description)
+          replace_meta(prop='og:url', content=root)
+          replace_meta(prop='og:image', content=og_image)
+          replace_meta(prop='og:image:secure_url', content=og_image)
+          replace_meta(prop='og:image:type', content='image/webp')
+          replace_meta(prop='og:image:width', content='2048')
+          replace_meta(prop='og:image:height', content='868')
+          replace_meta(prop='og:image:alt', content='MotoristaOPS — motorista particular em São Paulo')
+
+          # Twitter/X cards.
+          replace_meta(name='twitter:card', content='summary_large_image')
+          replace_meta(name='twitter:title', content='MotoristaOPS | Motorista Particular em São Paulo')
+          replace_meta(name='twitter:description', content=description)
+          replace_meta(name='twitter:image', content=og_image)
+          replace_meta(name='twitter:image:alt', content='MotoristaOPS — motorista particular em São Paulo')
+
+          # Structured data: site identity, canonical page, service and responsible professional.
+          graph = {
+              '@context': 'https://schema.org',
+              '@graph': [
+                  {
+                      '@type': 'WebSite',
+                      '@id': root + '#website',
+                      'url': root,
+                      'name': 'MotoristaOPS',
+                      'alternateName': 'MotoristaOPS por Henrico Amaral',
+                      'inLanguage': 'pt-BR'
+                  },
+                  {
+                      '@type': 'WebPage',
+                      '@id': root + '#webpage',
+                      'url': root,
+                      'name': title,
+                      'description': description,
+                      'inLanguage': 'pt-BR',
+                      'isPartOf': {'@id': root + '#website'},
+                      'about': {'@id': root + '#service'},
+                      'primaryImageOfPage': {'@type': 'ImageObject', 'url': og_image}
+                  },
+                  {
+                      '@type': 'Service',
+                      '@id': root + '#service',
+                      'name': 'Motorista particular em São Paulo',
+                      'serviceType': 'Motorista particular com hora marcada',
+                      'url': root,
+                      'description': description,
+                      'areaServed': {'@type': 'City', 'name': 'São Paulo'},
+                      'provider': {'@id': root + '#henrico-amaral'}
+                  },
+                  {
+                      '@type': 'Person',
+                      '@id': root + '#henrico-amaral',
+                      'name': 'Henrico Amaral',
+                      'url': root + '#quem-dirige',
+                      'image': driver_image,
+                      'sameAs': [
+                          'https://instagram.com/henrico.driver.amaral',
+                          'https://maps.app.goo.gl/aCAXYqSYsQDSt7teA'
+                      ]
+                  }
+              ]
+          }
+          for script in head.find_all('script', attrs={'type': 'application/ld+json'}):
+              script.decompose()
+          structured = soup.new_tag('script', attrs={'type': 'application/ld+json'})
+          structured.string = json.dumps(graph, ensure_ascii=False, separators=(',', ':'))
+          head.append(structured)
+
+          path.write_text(str(soup), encoding='utf-8')
+          PY
+
+          # Keep the existing root .htaccess; temp must never override domain routing.
+          rm -f promoted/.htaccess
+
+          cat > promoted/robots.txt <<'ROBOTS'
+          User-agent: *
+          Allow: /
+
+          Sitemap: https://www.motoristaops.com.br/sitemap.xml
+          ROBOTS
+
+          cat > promoted/sitemap.xml <<'SITEMAP'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+            <url>
+              <loc>https://www.motoristaops.com.br/</loc>
+              <lastmod>2026-09-05</lastmod>
+              <changefreq>weekly</changefreq>
+              <priority>1.0</priority>
+            </url>
+          </urlset>
+          SITEMAP
+
+      - name: Validate promoted artifact before upload
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' promoted/index.html
+          grep -qF 'name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"' promoted/index.html
+          grep -qF 'rel="canonical" href="https://www.motoristaops.com.br/"' promoted/index.html
+          grep -qF 'property="og:url" content="https://www.motoristaops.com.br/"' promoted/index.html
+          grep -qF 'property="og:image" content="https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp"' promoted/index.html
+          grep -qF 'name="twitter:card" content="summary_large_image"' promoted/index.html
+          grep -qF 'application/ld+json' promoted/index.html
+          if grep -qF 'noindex' promoted/index.html; then echo 'noindex still present'; exit 1; fi
+          if grep -qF 'www.motoristaops.com.br/temp/' promoted/index.html; then echo 'temp URL still present'; exit 1; fi
+          test -s promoted/robots.txt
+          test -s promoted/sitemap.xml
+
+      - name: Promote temp contents to public root only
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" <<LFTP
+          set sftp:auto-confirm yes
+          set net:max-retries 2
+          set net:timeout 25
+          lcd "$GITHUB_WORKSPACE"
+          mirror --reverse --verbose promoted "$HOSTINGER_PUBLIC_TARGET_DIR"
+          bye
+          LFTP
+
+      - name: Production verification including dashboard protection
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5 6; do
+            public_home="$(curl --fail --silent --show-error --location --header 'Cache-Control: no-cache' --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/?release=${GITHUB_SHA}" || true)"
+            dashboard_home="$(curl --fail --silent --show-error --location --header 'Cache-Control: no-cache' --connect-timeout 10 --max-time 30 https://dashboard.motoristaops.com.br/ || true)"
+            sitemap="$(curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 https://www.motoristaops.com.br/sitemap.xml || true)"
+            og_status="$(curl --silent --output /dev/null --write-out '%{http_code}' --location --max-time 30 https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp || true)"
+
+            if grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' <<<"$public_home" \
+              && grep -qF 'content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"' <<<"$public_home" \
+              && grep -qF 'href="https://www.motoristaops.com.br/" rel="canonical"' <<<"$public_home" \
+              && grep -qF 'content="https://www.motoristaops.com.br/" property="og:url"' <<<"$public_home" \
+              && grep -qF 'Seu compromisso' <<<"$public_home" \
+              && ! grep -qF 'noindex' <<<"$public_home" \
+              && ! grep -qF 'www.motoristaops.com.br/temp/' <<<"$public_home" \
+              && grep -qF 'https://www.motoristaops.com.br/' <<<"$sitemap" \
+              && test "$og_status" = '200' \
+              && grep -qF 'Plano operacional' <<<"$dashboard_home"; then
+              echo "Production promotion verified on attempt $attempt. Dashboard unchanged."
+              exit 0
+            fi
+            echo "Production not converged on attempt $attempt (og=$og_status)."
+            sleep 10
+          done
+          echo 'Production verification failed.'
+          exit 1
