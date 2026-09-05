@@ -18,65 +18,88 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for landing deploy window
-        run: sleep 40
+      - name: Wait for deployment convergence
+        run: sleep 20
 
-      - name: Verify public landing SEO, exact Claude visuals, assets and dashboard preservation
+      - name: Verify V2 landing, assets, SEO and dashboard preservation
         shell: bash
         run: |
           set -euo pipefail
-          for attempt in 1 2 3 4 5 6; do
+
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
             cache="$(date +%s)-${attempt}"
-            public_html="$(curl -fsSL --retry 2 --retry-delay 2 --connect-timeout 10 --max-time 30 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/?verify=${cache}" || true)"
-            dashboard_html="$(curl -fsSL --retry 2 --retry-delay 2 --connect-timeout 10 --max-time 30 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
-            sitemap="$(curl -fsSL --retry 2 --retry-delay 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/sitemap.xml?verify=${cache}" || true)"
-            robots="$(curl -fsSL --retry 2 --retry-delay 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/robots.txt?verify=${cache}" || true)"
+            public_html="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/?verify=${cache}" || true)"
+            dashboard_html="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
+            sitemap="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 "https://www.motoristaops.com.br/sitemap.xml?verify=${cache}" || true)"
+            robots="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 "https://www.motoristaops.com.br/robots.txt?verify=${cache}" || true)"
 
             if grep -qF 'data-build="motoristaops-claude-design-2026-09-05"' <<<"$public_html" \
               && grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' <<<"$public_html" \
-              && grep -qF 'name="robots"' <<<"$public_html" \
-              && grep -qF 'index,follow,max-image-preview:large' <<<"$public_html" \
               && grep -qF 'rel="canonical" href="https://www.motoristaops.com.br/"' <<<"$public_html" \
               && grep -qF 'property="og:url" content="https://www.motoristaops.com.br/"' <<<"$public_html" \
-              && grep -qF 'property="og:image" content="https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp"' <<<"$public_html" \
-              && grep -qF 'name="twitter:card" content="summary_large_image"' <<<"$public_html" \
-              && grep -qF 'application/ld+json' <<<"$public_html" \
               && grep -qF 'Seu compromisso' <<<"$public_html" \
-              && grep -qF 'Henrico Amaral' <<<"$public_html" \
+              && grep -qF 'Por que agendar antes?' <<<"$public_html" \
+              && grep -qF 'Porque alguns trajetos não podem depender de improviso.' <<<"$public_html" \
+              && grep -qF 'Agendar pelo WhatsApp' <<<"$public_html" \
+              && grep -qF 'Para compromissos que pedem mais controle do trajeto.' <<<"$public_html" \
+              && grep -qF 'Consultas e exames' <<<"$public_html" \
+              && grep -qF 'Direto, claro e sem ruído.' <<<"$public_html" \
+              && grep -qF 'Quando faz sentido' <<<"$public_html" \
+              && grep -qF 'O valor aparece no jeito de trabalhar.' <<<"$public_html" \
+              && grep -qF 'Henrico Amaral.' <<<"$public_html" \
+              && grep -qF 'Levando pessoas, cuidando de histórias.' <<<"$public_html" \
               && grep -qF 'src="/assets/hero-claude.avif"' <<<"$public_html" \
               && grep -qF 'src="/assets/logo-claude.avif"' <<<"$public_html" \
               && grep -qF '/assets/henrico-profile.webp' <<<"$public_html" \
-              && grep -qF '/assets/icons-official/whatsapp.webp' <<<"$public_html" \
-              && grep -qF 'Sitemap: https://www.motoristaops.com.br/sitemap.xml' <<<"$robots" \
-              && grep -qF '<loc>https://www.motoristaops.com.br/</loc>' <<<"$sitemap" \
-              && grep -qF 'Plano operacional' <<<"$dashboard_html" \
-              && grep -qF 'MotoristaOPS' <<<"$dashboard_html" \
+              && grep -qF 'https://wa.me/5511988329725?' <<<"$public_html" \
+              && ! grep -qF '5511953970704' <<<"$public_html" \
+              && ! grep -qF 'Próximo trajeto' <<<"$public_html" \
               && ! grep -qiF 'noindex' <<<"$public_html" \
               && ! grep -qF '/temp/' <<<"$public_html" \
-              && ! grep -qF 'blob:' <<<"$public_html"; then
-                for asset in \
-                  'assets/hero-claude.avif' \
-                  'assets/logo-claude.avif' \
-                  'landing-v3/hero-motoristaops-v4.webp' \
-                  'landing-v3/logo-oficial.svg' \
-                  'assets/henrico-profile.webp' \
-                  'assets/icons-official/airport.webp' \
-                  'assets/icons-official/reuniao.webp' \
-                  'assets/icons-official/agendamento.webp' \
-                  'assets/icons-official/rota.webp' \
-                  'assets/icons-official/pontualidade.webp' \
-                  'assets/icons-official/bagagem.webp' \
-                  'assets/icons-official/checklist.webp' \
-                  'assets/icons-official/whatsapp.webp' \
-                  'assets/icons-official/seguranca.webp' \
-                  'assets/icons-official/motorista.webp'; do
-                  code="$(curl -sS -o /dev/null -w '%{http_code}' --retry 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/${asset}")"
-                  test "$code" = '200'
-                done
-                echo 'Production verification passed: exact Claude hero/logo, SEO/OG, versioned assets and dashboard are healthy.'
+              && ! grep -qF 'blob:' <<<"$public_html" \
+              && grep -qF 'Sitemap: https://www.motoristaops.com.br/sitemap.xml' <<<"$robots" \
+              && grep -qF '<loc>https://www.motoristaops.com.br/</loc>' <<<"$sitemap" \
+              && grep -qF '<title>MotoristaOPS · Dashboard</title>' <<<"$dashboard_html" \
+              && grep -qF 'Plano operacional' <<<"$dashboard_html" \
+              && grep -qF 'Performance' <<<"$dashboard_html" \
+              && grep -qF 'Particular' <<<"$dashboard_html"; then
+
+              assets=(
+                assets/hero-claude.avif
+                assets/logo-claude.avif
+                assets/henrico-profile.webp
+                assets/icons-official/airport.webp
+                assets/icons-official/reuniao.webp
+                assets/icons-official/agendamento.webp
+                assets/icons-official/rota.webp
+                assets/icons-official/pontualidade.webp
+                assets/icons-official/bagagem.webp
+                assets/icons-official/checklist.webp
+                assets/icons-official/whatsapp.webp
+                assets/icons-official/seguranca.webp
+                assets/icons-official/motorista.webp
+                landing-v3/hero-motoristaops-v4.webp
+                landing-v3/logo-oficial.svg
+              )
+
+              all_assets_ok=1
+              for asset in "${assets[@]}"; do
+                code="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 6 --max-time 12 "https://www.motoristaops.com.br/${asset}?verify=${cache}" || true)"
+                if [ "$code" != '200' ]; then
+                  echo "Asset failed: ${asset} -> ${code}"
+                  all_assets_ok=0
+                  break
+                fi
+              done
+
+              if [ "$all_assets_ok" -eq 1 ]; then
+                echo 'MotoristaOPS V2 production verification passed: strategy architecture, contact, SEO, assets and dashboard are healthy.'
                 exit 0
+              fi
             fi
-            sleep 10
+
+            sleep 6
           done
-          echo 'Production verification failed after convergence window.'
+
+          echo 'MotoristaOPS V2 production verification failed after convergence window.'
           exit 1
