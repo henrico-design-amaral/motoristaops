@@ -32,20 +32,28 @@ jobs:
             dashboard_html="$(curl -fsSL --retry 1 --connect-timeout 6 --max-time 15 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
             sitemap="$(curl -fsSL --connect-timeout 6 --max-time 15 "https://www.motoristaops.com.br/sitemap.xml?verify=${cache}" || true)"
             robots="$(curl -fsSL --connect-timeout 6 --max-time 15 "https://www.motoristaops.com.br/robots.txt?verify=${cache}" || true)"
+            services_pos="$(grep -bo 'id="servicos"' <<<"$public_html" | head -1 | cut -d: -f1 || true)"
+            why_pos="$(grep -bo 'id="por-que-agendar"' <<<"$public_html" | head -1 | cut -d: -f1 || true)"
 
             if grep -qF 'data-build="motoristaops-claude-design-2026-09-05"' <<<"$public_html" \
               && grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' <<<"$public_html" \
               && grep -qF 'rel="canonical" href="https://www.motoristaops.com.br/"' <<<"$public_html" \
               && grep -qF 'property="og:url" content="https://www.motoristaops.com.br/"' <<<"$public_html" \
               && grep -qF 'Seu compromisso' <<<"$public_html" \
-              && grep -qF 'Por que agendar antes?' <<<"$public_html" \
-              && grep -qF 'Porque alguns trajetos não podem depender de improviso.' <<<"$public_html" \
               && grep -qF 'Agendar pelo WhatsApp' <<<"$public_html" \
+              && grep -qF 'Ver serviços' <<<"$public_html" \
               && grep -qF 'Quando faz sentido' <<<"$public_html" \
               && grep -qF 'Para compromissos que pedem mais controle do trajeto.' <<<"$public_html" \
               && grep -qF 'Acompanhamento e recorrência' <<<"$public_html" \
               && grep -qF 'Consultas e exames' <<<"$public_html" \
-              && grep -qF 'Direto, claro e sem ruído.' <<<"$public_html" \
+              && grep -qF 'Por que agendar antes?' <<<"$public_html" \
+              && grep -qF 'Porque alguns trajetos não podem depender de improviso.' <<<"$public_html" \
+              && test -n "$services_pos" \
+              && test -n "$why_pos" \
+              && test "$services_pos" -lt "$why_pos" \
+              && ! grep -qF 'id="como-funciona"' <<<"$public_html" \
+              && ! grep -qF 'Ver como funciona' <<<"$public_html" \
+              && ! grep -qF 'Direto, claro e sem ruído.' <<<"$public_html" \
               && grep -qF 'O valor aparece no jeito de trabalhar.' <<<"$public_html" \
               && grep -qF 'Henrico Amaral.' <<<"$public_html" \
               && grep -qF 'Levando pessoas, cuidando de histórias.' <<<"$public_html" \
@@ -72,7 +80,7 @@ jobs:
                 test "$code" = '200' || { echo "Critical asset failed: ${asset} -> ${code}"; continue 2; }
               done
 
-              echo 'MotoristaOPS V2 landing verification passed. Strategy architecture, merged service/use-case section, contact, SEO, critical visuals and dashboard are healthy.'
+              echo 'MotoristaOPS V2 landing verification passed. Services are directly after the hero, the how-it-works section is absent, the service/use-case section precedes why-to-book, and the dashboard is healthy.'
               exit 0
             fi
 
