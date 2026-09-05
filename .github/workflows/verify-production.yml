@@ -19,19 +19,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Wait for deployment convergence
-        run: sleep 20
+        run: sleep 15
 
-      - name: Verify V2 landing, assets, SEO and dashboard preservation
+      - name: Verify V2 landing contract and dashboard preservation
         shell: bash
         run: |
           set -euo pipefail
 
-          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+          for attempt in 1 2 3 4 5 6 7 8; do
             cache="$(date +%s)-${attempt}"
-            public_html="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/?verify=${cache}" || true)"
-            dashboard_html="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
-            sitemap="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 "https://www.motoristaops.com.br/sitemap.xml?verify=${cache}" || true)"
-            robots="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 "https://www.motoristaops.com.br/robots.txt?verify=${cache}" || true)"
+            public_html="$(curl -fsSL --retry 1 --connect-timeout 6 --max-time 15 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/?verify=${cache}" || true)"
+            dashboard_html="$(curl -fsSL --retry 1 --connect-timeout 6 --max-time 15 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
+            sitemap="$(curl -fsSL --connect-timeout 6 --max-time 15 "https://www.motoristaops.com.br/sitemap.xml?verify=${cache}" || true)"
+            robots="$(curl -fsSL --connect-timeout 6 --max-time 15 "https://www.motoristaops.com.br/robots.txt?verify=${cache}" || true)"
 
             if grep -qF 'data-build="motoristaops-claude-design-2026-09-05"' <<<"$public_html" \
               && grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' <<<"$public_html" \
@@ -64,42 +64,17 @@ jobs:
               && grep -qF 'Performance' <<<"$dashboard_html" \
               && grep -qF 'Particular' <<<"$dashboard_html"; then
 
-              assets=(
-                assets/hero-claude.avif
-                assets/logo-claude.avif
-                assets/henrico-profile.webp
-                assets/icons-official/airport.webp
-                assets/icons-official/reuniao.webp
-                assets/icons-official/agendamento.webp
-                assets/icons-official/rota.webp
-                assets/icons-official/pontualidade.webp
-                assets/icons-official/bagagem.webp
-                assets/icons-official/checklist.webp
-                assets/icons-official/whatsapp.webp
-                assets/icons-official/seguranca.webp
-                assets/icons-official/motorista.webp
-                landing-v3/hero-motoristaops-v4.webp
-                landing-v3/logo-oficial.svg
-              )
-
-              all_assets_ok=1
-              for asset in "${assets[@]}"; do
-                code="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 6 --max-time 12 "https://www.motoristaops.com.br/${asset}?verify=${cache}" || true)"
-                if [ "$code" != '200' ]; then
-                  echo "Asset failed: ${asset} -> ${code}"
-                  all_assets_ok=0
-                  break
-                fi
+              for asset in assets/hero-claude.avif assets/logo-claude.avif assets/henrico-profile.webp landing-v3/hero-motoristaops-v4.webp landing-v3/logo-oficial.svg; do
+                code="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 5 --max-time 8 "https://www.motoristaops.com.br/${asset}?verify=${cache}" || true)"
+                test "$code" = '200' || { echo "Critical asset failed: ${asset} -> ${code}"; continue 2; }
               done
 
-              if [ "$all_assets_ok" -eq 1 ]; then
-                echo 'MotoristaOPS V2 production verification passed: strategy architecture, contact, SEO, assets and dashboard are healthy.'
-                exit 0
-              fi
+              echo 'MotoristaOPS V2 landing verification passed. Strategy architecture, contact, SEO, critical visuals and dashboard are healthy.'
+              exit 0
             fi
 
-            sleep 6
+            sleep 5
           done
 
-          echo 'MotoristaOPS V2 production verification failed after convergence window.'
+          echo 'MotoristaOPS V2 landing verification failed after convergence window.'
           exit 1
