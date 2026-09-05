@@ -1,0 +1,1 @@
+This directory is staging only. Promotion into source/parts is atomic.
