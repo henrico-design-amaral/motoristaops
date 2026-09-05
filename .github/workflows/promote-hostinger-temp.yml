@@ -32,11 +32,11 @@ jobs:
             test -n "${!name:-}" || { echo "Missing secret: $name"; exit 1; }
           done
 
-      - name: Install transfer and HTML tools
+      - name: Install tools
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq lftp
-          python -m pip install --quiet beautifulsoup4
+          python -m pip install --quiet beautifulsoup4 requests
 
       - name: Download validated temp directory
         env:
@@ -62,9 +62,8 @@ jobs:
           grep -qF 'Seu compromisso' promoted/index.html
           grep -qF 'Motorista particular' promoted/index.html
           grep -qF 'Henrico Amaral' promoted/index.html
-          find promoted -maxdepth 2 -type f -print | sort
 
-      - name: Convert preview metadata to production SEO
+      - name: Promote preview metadata to production SEO
         shell: bash
         run: |
           set -euo pipefail
@@ -73,136 +72,87 @@ jobs:
           from bs4 import BeautifulSoup
           import json
 
-          root = 'https://www.motoristaops.com.br/'
-          title = 'Motorista Particular em São Paulo | MotoristaOPS'
-          description = ('Motorista particular em São Paulo para aeroportos, reuniões, consultas, '
-                         'eventos e viagens, com hora marcada, planejamento, discrição e atendimento direto.')
-          og_image = 'https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp'
-          driver_image = 'https://www.motoristaops.com.br/landing-v3/henrico-amaral-v4.webp'
+          ROOT = 'https://www.motoristaops.com.br/'
+          TITLE = 'Motorista Particular em São Paulo | MotoristaOPS'
+          DESC = ('Motorista particular em São Paulo para aeroportos, reuniões, consultas, '
+                  'eventos e viagens, com hora marcada, planejamento, discrição e atendimento direto.')
+          OG = ROOT + 'landing-v3/hero-motoristaops-v4.webp'
+          DRIVER = ROOT + 'landing-v3/henrico-amaral-v4.webp'
 
-          path = Path('promoted/index.html')
-          html = path.read_text(encoding='utf-8')
-
-          # Promote all preview-internal URLs to the canonical root without changing page content.
-          html = html.replace('https://www.motoristaops.com.br/temp/', root)
-          html = html.replace('https://motoristaops.com.br/temp/', root)
+          p = Path('promoted/index.html')
+          html = p.read_text(encoding='utf-8')
+          html = html.replace('https://www.motoristaops.com.br/temp/', ROOT)
+          html = html.replace('https://motoristaops.com.br/temp/', ROOT)
           html = html.replace('/temp/', '/')
-
           soup = BeautifulSoup(html, 'html.parser')
-          if soup.head is None:
-              raise SystemExit('HTML has no <head>.')
+          if not soup.head:
+              raise SystemExit('Missing head')
           head = soup.head
 
           if soup.title:
-              soup.title.string = title
+              soup.title.string = TITLE
           else:
-              t = soup.new_tag('title')
-              t.string = title
-              head.append(t)
+              tag = soup.new_tag('title'); tag.string = TITLE; head.append(tag)
 
-          def replace_meta(*, name=None, prop=None, content=''):
+          def meta(content, name=None, prop=None):
               attrs = {'name': name} if name else {'property': prop}
-              for tag in head.find_all('meta', attrs=attrs):
-                  tag.decompose()
+              for old in list(head.find_all('meta', attrs=attrs)):
+                  old.decompose()
               attrs['content'] = content
               head.append(soup.new_tag('meta', attrs=attrs))
 
-          # Search/indexing metadata.
-          replace_meta(name='description', content=description)
-          replace_meta(name='robots', content='index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1')
-          replace_meta(name='googlebot', content='index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1')
-          replace_meta(name='author', content='Henrico Amaral')
+          meta(DESC, name='description')
+          meta('index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1', name='robots')
+          meta('index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1', name='googlebot')
+          meta('Henrico Amaral', name='author')
 
-          for link in head.find_all('link', rel=lambda value: value and 'canonical' in value):
-              link.decompose()
-          head.append(soup.new_tag('link', rel='canonical', href=root))
+          for old in list(head.find_all('link', rel=lambda x: x and 'canonical' in x)):
+              old.decompose()
+          head.append(soup.new_tag('link', rel='canonical', href=ROOT))
 
-          # Open Graph.
-          replace_meta(prop='og:type', content='website')
-          replace_meta(prop='og:site_name', content='MotoristaOPS')
-          replace_meta(prop='og:locale', content='pt_BR')
-          replace_meta(prop='og:title', content='MotoristaOPS | Motorista Particular em São Paulo')
-          replace_meta(prop='og:description', content=description)
-          replace_meta(prop='og:url', content=root)
-          replace_meta(prop='og:image', content=og_image)
-          replace_meta(prop='og:image:secure_url', content=og_image)
-          replace_meta(prop='og:image:type', content='image/webp')
-          replace_meta(prop='og:image:width', content='2048')
-          replace_meta(prop='og:image:height', content='868')
-          replace_meta(prop='og:image:alt', content='MotoristaOPS — motorista particular em São Paulo')
+          meta('website', prop='og:type')
+          meta('MotoristaOPS', prop='og:site_name')
+          meta('pt_BR', prop='og:locale')
+          meta('MotoristaOPS | Motorista Particular em São Paulo', prop='og:title')
+          meta(DESC, prop='og:description')
+          meta(ROOT, prop='og:url')
+          meta(OG, prop='og:image')
+          meta(OG, prop='og:image:secure_url')
+          meta('image/webp', prop='og:image:type')
+          meta('2048', prop='og:image:width')
+          meta('868', prop='og:image:height')
+          meta('MotoristaOPS — motorista particular em São Paulo', prop='og:image:alt')
 
-          # Twitter/X cards.
-          replace_meta(name='twitter:card', content='summary_large_image')
-          replace_meta(name='twitter:title', content='MotoristaOPS | Motorista Particular em São Paulo')
-          replace_meta(name='twitter:description', content=description)
-          replace_meta(name='twitter:image', content=og_image)
-          replace_meta(name='twitter:image:alt', content='MotoristaOPS — motorista particular em São Paulo')
+          meta('summary_large_image', name='twitter:card')
+          meta('MotoristaOPS | Motorista Particular em São Paulo', name='twitter:title')
+          meta(DESC, name='twitter:description')
+          meta(OG, name='twitter:image')
+          meta('MotoristaOPS — motorista particular em São Paulo', name='twitter:image:alt')
 
-          # Structured data: site identity, canonical page, service and responsible professional.
           graph = {
-              '@context': 'https://schema.org',
-              '@graph': [
-                  {
-                      '@type': 'WebSite',
-                      '@id': root + '#website',
-                      'url': root,
-                      'name': 'MotoristaOPS',
-                      'alternateName': 'MotoristaOPS por Henrico Amaral',
-                      'inLanguage': 'pt-BR'
-                  },
-                  {
-                      '@type': 'WebPage',
-                      '@id': root + '#webpage',
-                      'url': root,
-                      'name': title,
-                      'description': description,
-                      'inLanguage': 'pt-BR',
-                      'isPartOf': {'@id': root + '#website'},
-                      'about': {'@id': root + '#service'},
-                      'primaryImageOfPage': {'@type': 'ImageObject', 'url': og_image}
-                  },
-                  {
-                      '@type': 'Service',
-                      '@id': root + '#service',
-                      'name': 'Motorista particular em São Paulo',
-                      'serviceType': 'Motorista particular com hora marcada',
-                      'url': root,
-                      'description': description,
-                      'areaServed': {'@type': 'City', 'name': 'São Paulo'},
-                      'provider': {'@id': root + '#henrico-amaral'}
-                  },
-                  {
-                      '@type': 'Person',
-                      '@id': root + '#henrico-amaral',
-                      'name': 'Henrico Amaral',
-                      'url': root + '#quem-dirige',
-                      'image': driver_image,
-                      'sameAs': [
-                          'https://instagram.com/henrico.driver.amaral',
-                          'https://maps.app.goo.gl/aCAXYqSYsQDSt7teA'
-                      ]
-                  }
-              ]
+            '@context': 'https://schema.org',
+            '@graph': [
+              {'@type':'WebSite','@id':ROOT+'#website','url':ROOT,'name':'MotoristaOPS','alternateName':'MotoristaOPS por Henrico Amaral','inLanguage':'pt-BR'},
+              {'@type':'WebPage','@id':ROOT+'#webpage','url':ROOT,'name':TITLE,'description':DESC,'inLanguage':'pt-BR','isPartOf':{'@id':ROOT+'#website'},'about':{'@id':ROOT+'#service'},'primaryImageOfPage':{'@type':'ImageObject','url':OG}},
+              {'@type':'Service','@id':ROOT+'#service','name':'Motorista particular em São Paulo','serviceType':'Motorista particular com hora marcada','url':ROOT,'description':DESC,'areaServed':{'@type':'City','name':'São Paulo'},'provider':{'@id':ROOT+'#henrico-amaral'}},
+              {'@type':'Person','@id':ROOT+'#henrico-amaral','name':'Henrico Amaral','url':ROOT+'#quem-dirige','image':DRIVER,'sameAs':['https://instagram.com/henrico.driver.amaral','https://maps.app.goo.gl/aCAXYqSYsQDSt7teA']}
+            ]
           }
-          for script in head.find_all('script', attrs={'type': 'application/ld+json'}):
-              script.decompose()
-          structured = soup.new_tag('script', attrs={'type': 'application/ld+json'})
-          structured.string = json.dumps(graph, ensure_ascii=False, separators=(',', ':'))
-          head.append(structured)
-
-          path.write_text(str(soup), encoding='utf-8')
+          for old in list(head.find_all('script', attrs={'type':'application/ld+json'})):
+              old.decompose()
+          ld = soup.new_tag('script', attrs={'type':'application/ld+json'})
+          ld.string = json.dumps(graph, ensure_ascii=False, separators=(',', ':'))
+          head.append(ld)
+          p.write_text(str(soup), encoding='utf-8')
           PY
 
-          # Keep the existing root .htaccess; temp must never override domain routing.
           rm -f promoted/.htaccess
-
           cat > promoted/robots.txt <<'ROBOTS'
           User-agent: *
           Allow: /
 
           Sitemap: https://www.motoristaops.com.br/sitemap.xml
           ROBOTS
-
           cat > promoted/sitemap.xml <<'SITEMAP'
           <?xml version="1.0" encoding="UTF-8"?>
           <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -215,21 +165,35 @@ jobs:
           </urlset>
           SITEMAP
 
-      - name: Validate promoted artifact before upload
+      - name: Validate promoted artifact semantically
         shell: bash
         run: |
           set -euo pipefail
-          grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' promoted/index.html
-          grep -qF 'name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"' promoted/index.html
-          grep -qF 'rel="canonical" href="https://www.motoristaops.com.br/"' promoted/index.html
-          grep -qF 'property="og:url" content="https://www.motoristaops.com.br/"' promoted/index.html
-          grep -qF 'property="og:image" content="https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp"' promoted/index.html
-          grep -qF 'name="twitter:card" content="summary_large_image"' promoted/index.html
-          grep -qF 'application/ld+json' promoted/index.html
-          if grep -qF 'noindex' promoted/index.html; then echo 'noindex still present'; exit 1; fi
-          if grep -qF 'www.motoristaops.com.br/temp/' promoted/index.html; then echo 'temp URL still present'; exit 1; fi
-          test -s promoted/robots.txt
-          test -s promoted/sitemap.xml
+          python <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+          import json
+          html = Path('promoted/index.html').read_text(encoding='utf-8')
+          soup = BeautifulSoup(html, 'html.parser')
+          assert soup.title and soup.title.get_text(strip=True) == 'Motorista Particular em São Paulo | MotoristaOPS'
+          def m(name=None, prop=None):
+              tag = soup.find('meta', attrs={'name':name} if name else {'property':prop})
+              assert tag, (name, prop)
+              return tag.get('content','')
+          assert m(name='robots').startswith('index,follow')
+          assert 'noindex' not in html.lower()
+          canonical = soup.find('link', rel='canonical')
+          assert canonical and canonical.get('href') == 'https://www.motoristaops.com.br/'
+          assert m(prop='og:url') == 'https://www.motoristaops.com.br/'
+          assert m(prop='og:image') == 'https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp'
+          assert m(name='twitter:card') == 'summary_large_image'
+          assert soup.find('script', attrs={'type':'application/ld+json'})
+          assert 'www.motoristaops.com.br/temp/' not in html
+          assert 'Seu compromisso' in html and 'Henrico Amaral' in html
+          assert Path('promoted/robots.txt').stat().st_size > 0
+          assert Path('promoted/sitemap.xml').stat().st_size > 0
+          print('Semantic pre-deploy validation passed.')
+          PY
 
       - name: Promote temp contents to public root only
         env:
@@ -250,31 +214,40 @@ jobs:
           bye
           LFTP
 
-      - name: Production verification including dashboard protection
+      - name: Verify production and dashboard isolation
         shell: bash
         run: |
           set -euo pipefail
-          for attempt in 1 2 3 4 5 6; do
-            public_home="$(curl --fail --silent --show-error --location --header 'Cache-Control: no-cache' --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/?release=${GITHUB_SHA}" || true)"
-            dashboard_home="$(curl --fail --silent --show-error --location --header 'Cache-Control: no-cache' --connect-timeout 10 --max-time 30 https://dashboard.motoristaops.com.br/ || true)"
-            sitemap="$(curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 https://www.motoristaops.com.br/sitemap.xml || true)"
-            og_status="$(curl --silent --output /dev/null --write-out '%{http_code}' --location --max-time 30 https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp || true)"
-
-            if grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' <<<"$public_home" \
-              && grep -qF 'content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"' <<<"$public_home" \
-              && grep -qF 'href="https://www.motoristaops.com.br/" rel="canonical"' <<<"$public_home" \
-              && grep -qF 'content="https://www.motoristaops.com.br/" property="og:url"' <<<"$public_home" \
-              && grep -qF 'Seu compromisso' <<<"$public_home" \
-              && ! grep -qF 'noindex' <<<"$public_home" \
-              && ! grep -qF 'www.motoristaops.com.br/temp/' <<<"$public_home" \
-              && grep -qF 'https://www.motoristaops.com.br/' <<<"$sitemap" \
-              && test "$og_status" = '200' \
-              && grep -qF 'Plano operacional' <<<"$dashboard_home"; then
-              echo "Production promotion verified on attempt $attempt. Dashboard unchanged."
-              exit 0
-            fi
-            echo "Production not converged on attempt $attempt (og=$og_status)."
-            sleep 10
-          done
-          echo 'Production verification failed.'
-          exit 1
+          python <<'PY'
+          import time, requests
+          from bs4 import BeautifulSoup
+          ROOT='https://www.motoristaops.com.br/'
+          for attempt in range(1,7):
+              try:
+                  r=requests.get(ROOT, params={'release':'${{ github.sha }}'}, headers={'Cache-Control':'no-cache'}, timeout=30)
+                  d=requests.get('https://dashboard.motoristaops.com.br/', headers={'Cache-Control':'no-cache'}, timeout=30)
+                  sm=requests.get(ROOT+'sitemap.xml', timeout=30)
+                  og=requests.get(ROOT+'landing-v3/hero-motoristaops-v4.webp', timeout=30)
+                  r.raise_for_status(); d.raise_for_status(); sm.raise_for_status()
+                  soup=BeautifulSoup(r.text,'html.parser')
+                  canonical=soup.find('link',rel='canonical')
+                  robots=soup.find('meta',attrs={'name':'robots'})
+                  ogurl=soup.find('meta',attrs={'property':'og:url'})
+                  ok=(soup.title and soup.title.get_text(strip=True)=='Motorista Particular em São Paulo | MotoristaOPS'
+                      and canonical and canonical.get('href')==ROOT
+                      and robots and robots.get('content','').startswith('index,follow')
+                      and ogurl and ogurl.get('content')==ROOT
+                      and 'noindex' not in r.text.lower()
+                      and 'www.motoristaops.com.br/temp/' not in r.text
+                      and 'Seu compromisso' in r.text
+                      and ROOT in sm.text
+                      and og.status_code==200
+                      and 'Plano operacional' in d.text)
+                  if ok:
+                      print(f'Production promotion verified on attempt {attempt}. Dashboard unchanged.')
+                      raise SystemExit(0)
+              except Exception as e:
+                  print(f'Attempt {attempt}: {e}')
+              time.sleep(10)
+          raise SystemExit('Production verification failed.')
+          PY
