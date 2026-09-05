@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motorista Particular em São Paulo | MotoristaOPS</title>
+<meta name="description" content="Motorista particular em São Paulo para aeroportos, reuniões, consultas, eventos e viagens, com hora marcada, planejamento, discrição e atendimento direto.">
+<meta name="author" content="Henrico Amaral">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="theme-color" content="#0A0A0C">
+<link rel="canonical" href="https://www.motoristaops.com.br/">
+<link rel="icon" type="image/svg+xml" href="/landing-v3/logo-oficial.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MotoristaOPS">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="MotoristaOPS | Motorista Particular em São Paulo">
+<meta property="og:description" content="Motorista particular em São Paulo para aeroportos, reuniões, consultas, eventos e viagens, com hora marcada, planejamento, discrição e atendimento direto.">
+<meta property="og:url" content="https://www.motoristaops.com.br/">
+<meta property="og:image" content="https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp">
+<meta property="og:image:secure_url" content="https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp">
+<meta property="og:image:type" content="image/webp">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="868">
+<meta property="og:image:alt" content="MotoristaOPS — Seu compromisso começa antes do destino.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MotoristaOPS | Motorista Particular em São Paulo">
+<meta name="twitter:description" content="Motorista particular em São Paulo para aeroportos, reuniões, consultas, eventos e viagens, com hora marcada, planejamento, discrição e atendimento direto.">
+<meta name="twitter:image" content="https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp">
+<meta name="twitter:image:alt" content="MotoristaOPS — Seu compromisso começa antes do destino.">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://www.motoristaops.com.br/#website","url":"https://www.motoristaops.com.br/","name":"MotoristaOPS","alternateName":"MotoristaOPS por Henrico Amaral","inLanguage":"pt-BR"},{"@type":"WebPage","@id":"https://www.motoristaops.com.br/#webpage","url":"https://www.motoristaops.com.br/","name":"Motorista Particular em São Paulo | MotoristaOPS","description":"Motorista particular em São Paulo para aeroportos, reuniões, consultas, eventos e viagens, com hora marcada, planejamento, discrição e atendimento direto.","inLanguage":"pt-BR","isPartOf":{"@id":"https://www.motoristaops.com.br/#website"},"about":{"@id":"https://www.motoristaops.com.br/#service"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp","width":2048,"height":868}},{"@type":"Service","@id":"https://www.motoristaops.com.br/#service","name":"Motorista particular em São Paulo","serviceType":"Motorista particular com hora marcada","areaServed":{"@type":"City","name":"São Paulo"},"provider":{"@id":"https://www.motoristaops.com.br/#henrico"}},{"@type":"Person","@id":"https://www.motoristaops.com.br/#henrico","name":"Henrico Amaral","url":"https://www.motoristaops.com.br/#quem-dirige","image":"https://www.motoristaops.com.br/assets/henrico-profile.png","sameAs":["https://instagram.com/henrico.driver.amaral","https://maps.app.goo.gl/aCAXYqSYsQDSt7teA"]}]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mo-night:#0A0A0C;--mo-graphite:#151518;--mo-champagne:#C79C5B;--mo-champagne-soft:#E3C79A;
+  --mo-ivory:#F3EFE4;--mo-muted:#A6A39E;--mo-muted-light:#C9C5BF;--mo-ink:#151518;
+  --mo-fast:160ms;--mo-base:240ms;--mo-slow:520ms;--mo-ease:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth;background:var(--mo-night)}
+html,body{margin:0;padding:0;background:var(--mo-night)}
+body{font-family:'Instrument Sans',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;color:var(--mo-ivory)}
+*{box-sizing:border-box}a{color:inherit;text-decoration:none}button,a{-webkit-tap-highlight-color:transparent}
+.container{width:100%;max-width:1440px;margin:0 auto;padding:0 clamp(18px,3.2vw,48px)}
+.eyebrow{margin:0 0 20px;font-stretch:75%;font-size:13px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--mo-champagne)}
+.section{padding:clamp(64px,7.5vw,116px) 0}.section-tight{padding:clamp(48px,5.5vw,82px) 0}
+.title-xl,.title-lg,.title-md{margin:0;font-stretch:75%;font-weight:700;text-transform:uppercase;letter-spacing:-.016em}
+.title-xl{font-size:clamp(46px,6.4vw,92px);line-height:.96}.title-lg{font-size:clamp(34px,4.2vw,58px);line-height:1.02}.title-md{font-size:clamp(28px,3.3vw,46px);line-height:1.04}
+.copy{font-size:15.5px;line-height:1.7;color:var(--mo-muted)}.copy-light{color:var(--mo-muted-light)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:14px 22px;font-stretch:75%;font-size:13.5px;font-weight:700;letter-spacing:.11em;text-transform:uppercase;border:1px solid transparent;transition:transform var(--mo-fast) var(--mo-ease),background-color var(--mo-fast) var(--mo-ease),border-color var(--mo-fast) var(--mo-ease),color var(--mo-fast) var(--mo-ease)}
+.btn:hover{transform:translateY(-1px)}.btn-primary{background:var(--mo-champagne);color:var(--mo-night)}.btn-primary:hover{background:var(--mo-champagne-soft);color:var(--mo-night)}.btn-secondary{border-color:rgba(243,239,228,.2);color:var(--mo-ivory);background:rgba(10,10,12,.26)}.btn-secondary:hover{border-color:rgba(199,156,91,.55);color:var(--mo-ivory)}
+header{position:fixed;inset:0 0 auto;z-index:50;background:rgba(10,10,12,.46);backdrop-filter:blur(8px);border-bottom:1px solid rgba(199,156,91,.10);transition:background-color 220ms ease,border-color 220ms ease,backdrop-filter 220ms ease}
+.header-inner{max-width:1440px;margin:auto;padding:12px clamp(18px,3.2vw,48px);display:flex;align-items:center;gap:12px clamp(14px,2.2vw,28px)}
+.header-logo{height:44px;width:auto;display:block;opacity:.95}.nav{margin-left:auto;display:flex;align-items:center;gap:8px clamp(13px,1.8vw,26px);font-stretch:75%;font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}.nav a{color:var(--mo-muted-light);white-space:nowrap;transition:color var(--mo-fast)}.nav a:hover{color:var(--mo-ivory)}
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:132px 0 72px;overflow:hidden}.hero-media{position:absolute;inset:0;overflow:hidden}.hero-media img{width:100%;height:100%;object-fit:cover;object-position:72% center;animation:heroImageIn 1200ms var(--mo-ease) both}.hero-shade-a,.hero-shade-b{position:absolute;inset:0}.hero-shade-a{background:linear-gradient(96deg,rgba(10,10,12,.97) 0%,rgba(10,10,12,.90) 27%,rgba(10,10,12,.46) 57%,rgba(10,10,12,.22) 100%)}.hero-shade-b{background:linear-gradient(180deg,rgba(10,10,12,.64) 0%,rgba(10,10,12,0) 28%,rgba(10,10,12,.5) 78%,var(--mo-night) 100%)}
