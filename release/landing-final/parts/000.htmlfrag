@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="/landing-v3/logo-oficial.svg" type="image/svg+xml">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MotoristaOPS — Motorista particular em São Paulo | por Henrico Amaral</title>
+<meta name="description" content="Motorista particular em São Paulo com hora marcada: aeroportos, reuniões, eventos, viagens e rotinas. Planejamento do trajeto, comunicação direta, pontualidade e discrição.">
+<meta name="author" content="Henrico Amaral">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0A0A0C">
+<link rel="canonical" href="https://www.motoristaops.com.br/">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MotoristaOPS">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://www.motoristaops.com.br/">
+<meta property="og:title" content="MotoristaOPS — Motorista particular em São Paulo">
+<meta property="og:description" content="Seu compromisso começa antes do destino. Corridas particulares com hora marcada: aeroportos, reuniões, eventos e viagens.">
+<meta property="og:image" content="https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp">
+<meta property="og:image:secure_url" content="https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp">
+<meta property="og:image:type" content="image/webp">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MotoristaOPS — Seu compromisso começa antes do destino.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MotoristaOPS — Motorista particular em São Paulo">
+<meta name="twitter:description" content="Corridas particulares com hora marcada: aeroportos, reuniões, eventos e viagens.">
+<meta name="twitter:image" content="https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","additionalType":"https://schema.org/TaxiService","name":"MotoristaOPS","alternateName":"MotoristaOPS por Henrico Amaral","description":"Motorista particular em São Paulo com atendimento por hora marcada para aeroportos, reuniões, eventos, viagens e rotinas personalizadas.","url":"https://www.motoristaops.com.br/","image":"https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp","logo":"https://www.motoristaops.com.br/landing-v3/logo-header-v3.svg","priceRange":"$$","areaServed":{"@type":"City","name":"São Paulo"},"address":{"@type":"PostalAddress","addressLocality":"São Paulo","addressRegion":"SP","addressCountry":"BR"},"founder":{"@type":"Person","name":"Henrico Amaral"},"sameAs":["https://www.instagram.com/motoristaops/"],"knowsLanguage":"pt-BR"}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; background:#0A0A0C; }
+  body { font-family:'Instrument Sans', Helvetica, Arial, sans-serif; -webkit-font-smoothing:antialiased; }
+  * { box-sizing:border-box; }
+  a { color:#C79C5B; text-decoration:none; }
+  a:hover { color:#E3C79A; }
+  [data-footer-grid] { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  [data-footer-mid] { border-left:1px solid rgba(243,239,228,.08); border-right:1px solid rgba(243,239,228,.08); }
+  @media (max-width: 780px) {
+    [data-footer-grid] { grid-template-columns:minmax(0,1fr); }
+    [data-footer-mid] { border-left:0; border-right:0; border-top:1px solid rgba(243,239,228,.08); border-bottom:1px solid rgba(243,239,228,.08); padding-top:28px; padding-bottom:28px; text-align:left; }
+  }
+  @keyframes heroImageIn { from { transform:scale(1.05); } to { transform:scale(1); } }
+  @keyframes heroFade { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration:1ms !important; animation-delay:0ms !important; transition-duration:1ms !important; }
+  }
+</style>
+</head>
+<body>
+<div style="background:#0A0A0C; color:#F3EFE4; overflow-x:hidden">
+
+  <header data-header style="position:fixed; top:0; left:0; right:0; z-index:50; background:rgba(10,10,12,.44); backdrop-filter:blur(8px); border-bottom:1px solid rgba(199,156,91,.10); transition:background-color 220ms ease, border-color 220ms ease, backdrop-filter 220ms ease">
+    <div style="max-width:1440px; margin:0 auto; padding:12px clamp(16px,3vw,40px); display:flex; align-items:center; flex-wrap:wrap; gap:12px clamp(16px,2.5vw,32px)">
+      <a href="#topo" style="display:flex; align-items:center">
+        <img data-logo src="/landing-v3/logo-header-v3.svg" alt="MotoristaOPS por Henrico Amaral" style="height:44px; width:auto; display:block; opacity:.95; transition:opacity 220ms ease">
+      </a>
+      <nav style="flex:1 1 auto; min-width:0; display:flex; align-items:center; justify-content:flex-end; flex-wrap:wrap; gap:8px clamp(14px,2vw,30px); font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:13.5px; font-weight:500; letter-spacing:.1em; text-transform:uppercase">
+        <a href="#servicos" style="white-space:nowrap; color:#C9C5BF" style-hover="color:#F3EFE4">Serviços</a>
+        <a href="#como-funciona" style="white-space:nowrap; color:#C9C5BF" style-hover="color:#F3EFE4">Como funciona</a>
+        <a href="#quem-dirige" style="white-space:nowrap; color:#C9C5BF" style-hover="color:#F3EFE4">Quem dirige</a>
+        <a href="#diferenciais" style="white-space:nowrap; color:#C9C5BF" style-hover="color:#F3EFE4">Diferenciais</a>
+      </nav>
+      <a href="https://wa.me/5511953970704?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20falar%20sobre%20uma%20corrida%20particular." target="_blank" rel="noopener" style="flex:none; display:inline-flex; align-items:center; white-space:nowrap; padding:11px 18px; background:#C79C5B; color:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:13.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; transition:background-color 220ms ease, transform 220ms cubic-bezier(.16,1,.3,1)" style-hover="background:#E3C79A; transform:translateY(-1px); color:#0A0A0C">Orçamento</a>
+    </div>
+  </header>
+
+  <section id="topo" style="position:relative; min-height:100vh; height:100vh; display:flex; align-items:center; padding:120px 0 clamp(40px,6vw,80px); overflow:hidden">
+    <div style="position:absolute; inset:0; overflow:hidden">
+      <img src="/landing-v3/hero-motoristaops-v4.webp" alt="" style="width:100%; height:100%; object-fit:cover; object-position:72% center; animation:heroImageIn 1400ms cubic-bezier(.16,1,.3,1) forwards; will-change:transform">
+      <div style="position:absolute; inset:0; background:linear-gradient(96deg, rgba(10,10,12,.96) 0%, rgba(10,10,12,.88) 26%, rgba(10,10,12,.42) 56%, rgba(10,10,12,.28) 100%)"></div>
+      <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(10,10,12,.7) 0%, rgba(10,10,12,0) 30%, rgba(10,10,12,.55) 78%, #0A0A0C 100%)"></div>
+    </div>
+
+    <div style="position:relative; width:100%; max-width:1440px; margin:0 auto; padding:0 clamp(16px,3vw,40px)">
+      <p style="margin:0 0 26px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.22em; text-transform:uppercase; color:#C79C5B; animation:heroFade 600ms cubic-bezier(.16,1,.3,1) 120ms both">Motorista particular • atendimento com hora marcada</p>
+      <h1 style="margin:0 0 28px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:clamp(42px,6.4vw,88px); line-height:.98; letter-spacing:-.015em; font-weight:600; text-transform:uppercase; max-width:14em">
+        <span style="display:block; animation:heroFade 700ms cubic-bezier(.16,1,.3,1) 220ms both">Seu compromisso</span>
+        <span style="display:block; animation:heroFade 700ms cubic-bezier(.16,1,.3,1) 320ms both">começa antes</span>
+        <span style="display:block; color:#C79C5B; animation:heroFade 700ms cubic-bezier(.16,1,.3,1) 420ms both">do destino.</span>
+      </h1>
+      <p style="margin:0; max-width:31em; font-size:clamp(15px,1.3vw,17px); line-height:1.62; color:#C9C5BF; animation:heroFade 700ms cubic-bezier(.16,1,.3,1) 480ms both">Corridas particulares com hora marcada para aeroportos, reuniões, eventos, viagens e compromissos — com planejamento, discrição e cuidado do início ao fim.</p>
+    </div>
+  </section>
+
+  <section style="padding:clamp(36px,4.5vw,60px) 0; background:#0A0A0C; border-top:1px solid rgba(199,156,91,.14); border-bottom:1px solid rgba(243,239,228,.06)">
+    <div style="max-width:1440px; margin:0 auto; padding:0 clamp(16px,3vw,40px); display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:clamp(20px,2.4vw,34px)">
+      <div data-reveal="0" style="display:flex; gap:16px; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
+        <img src="https://www.motoristaops.com.br/assets/icons-official/checklist.png" alt="" style="width:30px; height:30px; display:block; opacity:.82; flex:none">
+        <div>
+          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:13px; letter-spacing:.18em; color:#C79C5B; margin-bottom:6px">01</span>
+          <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:17.5px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">É compromisso.</h3>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">O planejamento começa antes do percurso e termina na hora combinada.</p>
+        </div>
+      </div>
+      <div data-reveal="80" style="display:flex; gap:16px; padding-left:clamp(0px,2vw,28px); border-left:1px solid rgba(243,239,228,.08); transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
+        <img src="https://www.motoristaops.com.br/assets/icons-official/whatsapp.png" alt="" style="width:30px; height:30px; display:block; opacity:.82; flex:none">
+        <div>
+          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:13px; letter-spacing:.18em; color:#C79C5B; margin-bottom:6px">02</span>
+          <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:17.5px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Comunicação clara.</h3>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Combinamos o trajeto, ritmo e expectativas. Ajustamos quando necessário.</p>
+        </div>
+      </div>
+      <div data-reveal="160" style="display:flex; gap:16px; padding-left:clamp(0px,2vw,28px); border-left:1px solid rgba(243,239,228,.08); transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
+        <img src="https://www.motoristaops.com.br/assets/icons-official/seguranca.png" alt="" style="width:30px; height:30px; display:block; opacity:.82; flex:none">
+        <div>
+          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:13px; letter-spacing:.18em; color:#C79C5B; margin-bottom:6px">03</span>
+          <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:17.5px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Cuidado no trajeto.</h3>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Rota, bagagem, espera e contexto entram na leitura do atendimento.</p>
+        </div>
+      </div>
+      <div data-reveal="240" style="display:flex; gap:16px; padding-left:clamp(0px,2vw,28px); border-left:1px solid rgba(243,239,228,.08); transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
+        <img src="https://www.motoristaops.com.br/assets/icons-official/motorista.png" alt="" style="width:30px; height:30px; display:block; opacity:.82; flex:none">
+        <div>
+          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:13px; letter-spacing:.18em; color:#C79C5B; margin-bottom:6px">04</span>
+          <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:17.5px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Discrição.</h3>

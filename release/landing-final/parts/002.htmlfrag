@@ -1,0 +1,95 @@
+          <span data-num style="flex:none; width:48px; height:48px; display:flex; align-items:center; justify-content:center; border-radius:999px; border:1px solid rgba(243,239,228,.16); background:#0A0A0C; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:16px; letter-spacing:.1em; color:#A6A39E; transition:color 520ms ease, border-color 520ms ease">04</span>
+          <div style="padding-top:6px">
+            <h3 style="margin:0 0 8px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:20px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Eu cuido do trajeto</h3>
+            <p style="margin:0; font-size:14.5px; line-height:1.62; color:#A6A39E; max-width:32em">O serviço acontece conforme o combinado, com comunicação e atenção ao contexto.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(56px,7vw,108px) 0">
+    <div style="max-width:1440px; margin:0 auto; padding:0 clamp(16px,3vw,40px)">
+      <p style="margin:0 0 22px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.22em; text-transform:uppercase; color:#C79C5B">Qualidade operacional</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(20px,4vw,64px); align-items:start; margin-bottom:clamp(38px,4.5vw,64px)">
+        <h2 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:clamp(30px,4vw,52px); line-height:1.04; letter-spacing:-.012em; font-weight:700; text-transform:uppercase; max-width:15em">Rotina que funciona, execução que tranquiliza.</h2>
+        <p style="margin:0; font-size:15.5px; line-height:1.68; color:#A6A39E; max-width:28em">Mais do que dirigir, o que entrego é organização, leitura de contexto e presença calma no que realmente importa.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:clamp(22px,3vw,40px)">
+        <div data-reveal="0" style="text-align:center; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
+          <img src="https://www.motoristaops.com.br/assets/icons-official/motorista.png" alt="" style="width:38px; height:38px; display:block; margin:0 auto 18px; opacity:.8">
+          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:18px; font-weight:600; letter-spacing:.02em; text-transform:uppercase">Discrição</h3>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Presença profissional com reserva e respeito ao contexto.</p>
+        </div>
+        <div data-reveal="80" style="text-align:center; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
+          <img src="https://www.motoristaops.com.br/assets/icons-official/pontualidade.png" alt="" style="width:38px; height:38px; display:block; margin:0 auto 18px; opacity:.8">
+          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:18px; font-weight:600; letter-spacing:.02em; text-transform:uppercase">Pontualidade</h3>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Compromisso com o horário combinado e com o seu tempo.</p>
+        </div>
+        <div data-reveal="160" style="text-align:center; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
+          <img src="https://www.motoristaops.com.br/assets/icons-official/whatsapp.png" alt="" style="width:38px; height:38px; display:block; margin:0 auto 18px; opacity:.8">
+          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:18px; font-weight:600; letter-spacing:.02em; text-transform:uppercase">Comunicação</h3>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Informações claras antes, durante e depois do percurso.</p>
+        </div>
+        <div data-reveal="240" style="text-align:center; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
+          <img src="https://www.motoristaops.com.br/assets/icons-official/bagagem.png" alt="" style="width:38px; height:38px; display:block; margin:0 auto 18px; opacity:.8">
+          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:18px; font-weight:600; letter-spacing:.02em; text-transform:uppercase">Cuidado</h3>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Atenção com bagagem, pertences e preferências do trajeto.</p>
+        </div>
+        <div data-reveal="320" style="text-align:center; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">
+          <img src="https://www.motoristaops.com.br/assets/icons-official/rota.png" alt="" style="width:38px; height:38px; display:block; margin:0 auto 18px; opacity:.8">
+          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:18px; font-weight:600; letter-spacing:.02em; text-transform:uppercase">Continuidade</h3>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:#A6A39E">Atendimento recorrente com consistência e adaptação.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="diferenciais" style="padding:clamp(56px,7vw,108px) 0; background:#F3EFE4; color:#151518">
+    <div style="max-width:1440px; margin:0 auto; padding:0 clamp(16px,3vw,40px)">
+      <p style="margin:0 0 22px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.22em; text-transform:uppercase; color:#947546">Experiência e diferenciais</p>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:clamp(20px,4vw,64px); align-items:start; margin-bottom:clamp(34px,4vw,56px)">
+        <h2 style="margin:0; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:clamp(32px,4.2vw,56px); line-height:1.04; letter-spacing:-.012em; font-weight:700; text-transform:uppercase; max-width:14em">O valor aparece no jeito de trabalhar.</h2>
+        <p style="margin:0; font-size:15.5px; line-height:1.68; color:#4A4845; max-width:26em">Menos adjetivo. Mais comportamento que pode ser percebido no atendimento.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px">
+        <div data-reveal="0" style="padding:26px 24px 30px; border:1px solid rgba(21,21,23,.12); background:#FAF8F3; transition:border-color 240ms ease, transform 240ms cubic-bezier(.16,1,.3,1), opacity 520ms ease" style-hover="border-color:rgba(156,118,56,.55); transform:translateY(-2px)">
+          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#947546; margin-bottom:18px">01</span>
+          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:19px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Rotina real</h3>
+          <p style="margin:0; font-size:14.5px; line-height:1.6; color:#4A4845">O que vem antes da prática é leitura de contexto, rotina e necessidade.</p>
+        </div>
+        <div data-reveal="80" style="padding:26px 24px 30px; border:1px solid rgba(21,21,23,.12); background:#FAF8F3; transition:border-color 240ms ease, transform 240ms cubic-bezier(.16,1,.3,1), opacity 520ms ease" style-hover="border-color:rgba(156,118,56,.55); transform:translateY(-2px)">
+          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#947546; margin-bottom:18px">02</span>
+          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:19px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Comunicação</h3>
+          <p style="margin:0; font-size:14.5px; line-height:1.6; color:#4A4845">O que foi combinado fica claro antes, no trajeto e quando muda.</p>
+        </div>
+        <div data-reveal="160" style="padding:26px 24px 30px; border:1px solid rgba(21,21,23,.12); background:#FAF8F3; transition:border-color 240ms ease, transform 240ms cubic-bezier(.16,1,.3,1), opacity 520ms ease" style-hover="border-color:rgba(156,118,56,.55); transform:translateY(-2px)">
+          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#947546; margin-bottom:18px">03</span>
+          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:19px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Pontualidade com método</h3>
+          <p style="margin:0; font-size:14.5px; line-height:1.6; color:#4A4845">Horário certo é reflexo de ritmo, rota e leitura fina do tempo.</p>
+        </div>
+        <div data-reveal="240" style="padding:26px 24px 30px; border:1px solid rgba(21,21,23,.12); background:#FAF8F3; transition:border-color 240ms ease, transform 240ms cubic-bezier(.16,1,.3,1), opacity 520ms ease" style-hover="border-color:rgba(156,118,56,.55); transform:translateY(-2px)">
+          <span style="display:block; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.18em; color:#947546; margin-bottom:18px">04</span>
+          <h3 style="margin:0 0 10px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:19px; font-weight:600; letter-spacing:.005em; text-transform:uppercase">Discrição e cuidado</h3>
+          <p style="margin:0; font-size:14.5px; line-height:1.6; color:#4A4845">O passageiro recebe atenção com profissionalismo sem excesso de exposição.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quem-dirige" style="padding:clamp(56px,7vw,108px) 0; background:#0A0A0C">
+    <div style="max-width:1440px; margin:0 auto; padding:0 clamp(16px,3vw,40px); display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:clamp(28px,4vw,60px); align-items:center">
+      <div data-reveal="0" style="padding:12px; border:1px solid rgba(199,156,91,.34); transition:opacity 720ms ease, transform 720ms cubic-bezier(.16,1,.3,1)">
+        <img src="https://www.motoristaops.com.br/assets/henrico-profile.png" alt="Retrato de Henrico Amaral" style="width:100%; height:auto; display:block">
+      </div>
+      <div>
+        <p data-reveal="120" style="margin:0 0 20px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:14px; letter-spacing:.22em; text-transform:uppercase; color:#C79C5B; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">Quem dirige</p>
+        <h2 data-reveal="180" style="margin:0 0 18px; font-family:'Instrument Sans', Helvetica, sans-serif; font-stretch:75%; font-size:clamp(32px,4vw,52px); line-height:1.02; letter-spacing:-.012em; font-weight:700; text-transform:uppercase; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">Henrico Amaral.</h2>
+        <p data-reveal="240" style="margin:0 0 16px; font-size:17.5px; line-height:1.5; color:#F3EFE4; max-width:24em; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">O serviço leva meu nome porque a responsabilidade também é minha.</p>
+        <p data-reveal="300" style="margin:0 0 22px; font-size:15px; line-height:1.68; color:#A6A39E; max-width:32em; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">Motorista particular. A proposta é simples: troca clara, deslocamento como parte do que você precisa realizar, com comunicação direta, pontualidade, discrição e atenção ao contexto.</p>
+        <blockquote data-reveal="360" style="margin:0; padding-left:16px; border-left:2px solid rgba(199,156,91,.5); font-size:16px; line-height:1.5; color:#C79C5B; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1)">“Levando pessoas, cuidando de histórias.”</blockquote>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:14px">
+        <div data-reveal="200" style="display:flex; align-items:center; gap:16px; padding:20px 22px; border:1px solid rgba(199,156,91,.18); background:#151518; transition:opacity 520ms ease, transform 520ms cubic-bezier(.16,1,.3,1), border-color 240ms ease" style-hover="border-color:rgba(199,156,91,.45)">
+          <img src="https://www.motoristaops.com.br/assets/icons-official/motorista.png" alt="" style="width:30px; height:30px; display:block; opacity:.75; flex:none">
+          <div>
