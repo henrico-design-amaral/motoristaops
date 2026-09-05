@@ -1,0 +1,97 @@
+name: Deploy MotoristaOPS service-card visuals
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Deploy MotoristaOPS landing only"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: motoristaops-service-card-visuals
+  cancel-in-progress: true
+
+jobs:
+  deploy-service-visuals:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current production source
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Rebuild and validate service-card sprite
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat release/service-assets/part-*.bin > service-cards.webp
+          echo 'b5c520b9eb4b0e628b9544d1fc61fc9836018987fe0ff49d1c7a7aebaafd965b  service-cards.webp' | sha256sum -c -
+          test -s service-cards.webp
+
+      - name: Validate public Hostinger secrets
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in HOSTINGER_HOST HOSTINGER_USERNAME HOSTINGER_PASSWORD HOSTINGER_PORT HOSTINGER_PUBLIC_TARGET_DIR; do
+            test -n "${!name:-}" || { echo "Missing secret: $name"; exit 1; }
+          done
+
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Deploy service-card sprite only
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" <<LFTP
+          set sftp:auto-confirm yes
+          set net:max-retries 2
+          set net:timeout 20
+          mkdir -p "$HOSTINGER_PUBLIC_TARGET_DIR/assets"
+          put service-cards.webp -o "$HOSTINGER_PUBLIC_TARGET_DIR/assets/service-cards.webp"
+          bye
+          LFTP
+
+      - name: Verify visual asset, landing contract and dashboard preservation
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5 6; do
+            cache="$(date +%s)-${attempt}"
+            curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' \
+              "https://www.motoristaops.com.br/assets/service-cards.webp?verify=${cache}" -o remote-service-cards.webp || true
+            public_html="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/?verify=${cache}" || true)"
+            dashboard_html="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
+
+            if test -s remote-service-cards.webp \
+              && echo 'b5c520b9eb4b0e628b9544d1fc61fc9836018987fe0ff49d1c7a7aebaafd965b  remote-service-cards.webp' | sha256sum -c - \
+              && grep -qF '/assets/service-cards.webp' <<<"$public_html" \
+              && grep -qF 'Aeroportos e rodoviárias' <<<"$public_html" \
+              && grep -qF 'Acompanhamento e recorrência' <<<"$public_html" \
+              && ! grep -qF 'Ver todos os serviços' <<<"$public_html" \
+              && grep -qF '<title>MotoristaOPS · Dashboard</title>' <<<"$dashboard_html" \
+              && grep -qF 'Plano operacional' <<<"$dashboard_html"; then
+              echo 'Service-card visuals published. Six-card section and dashboard are healthy.'
+              exit 0
+            fi
+            sleep 5
+          done
+
+          echo 'Service-card visual validation failed.'
+          exit 1
