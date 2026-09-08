@@ -1,0 +1,12 @@
+import crypto from 'node:crypto';
+import http from 'node:http';
+import { getConfig } from './config.mjs';
+import { createPrivateStorage } from './storage.mjs';
+import { buildAuthorizationUrl, exchangeAuthorizationCode } from './oauth.mjs';
+const config = getConfig({ requireOAuthSecret: true }); const storage = createPrivateStorage(config.privateRoot); const redirect = new URL(config.redirectUri);
+if (!['127.0.0.1','localhost','[::1]'].includes(redirect.hostname)) throw new Error('O POC local exige UBER_REDIRECT_URI em localhost/127.0.0.1.');
+const state = crypto.randomBytes(32).toString('hex'); const authorizationUrl = buildAuthorizationUrl(config,state); const port=Number(redirect.port||80); const host='127.0.0.1';
+console.log('\nMotoristaOPS · Uber Driver API OAuth\nAbra esta URL no navegador e autorize sua conta Uber:\n'); console.log(authorizationUrl); console.log(`\nAguardando callback em ${config.redirectUri}...`);
+const server=http.createServer(async(req,res)=>{ try { const requestUrl=new URL(req.url||'/',`http://${req.headers.host}`); if(requestUrl.pathname!==redirect.pathname){res.writeHead(404);res.end('Not found');return;} if(requestUrl.searchParams.get('state')!==state) throw new Error('OAuth state inválido.'); const code=requestUrl.searchParams.get('code'); if(!code) throw new Error(`Callback sem code: ${requestUrl.searchParams.get('error')||'unknown'}`); const tokens=await exchangeAuthorizationCode(config,code); storage.writeTokens(tokens); res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'}); res.end('<h1>Uber conectada ao MotoristaOPS.</h1><p>Você já pode fechar esta janela.</p>'); console.log(`\nAutorização concluída. Tokens privados: ${storage.tokenPath}`); server.close(); } catch(error){res.writeHead(400);res.end('Falha na autorização.');console.error(error.message);process.exitCode=1;server.close();} });
+server.listen(port,host);
+setTimeout(()=>{if(server.listening){console.error('Tempo esgotado.');server.close();process.exitCode=1;}},10*60*1000).unref();
