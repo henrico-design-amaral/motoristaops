@@ -1,0 +1,106 @@
+name: Deploy MotoristaOPS hero preview only
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'source/hero/**'
+      - '.github/workflows/deploy-hero-preview-hostinger.yml'
+
+concurrency:
+  group: motoristaops-hero-preview
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-hero:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Validate isolated hero package
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s source/hero/index.html
+          test -s source/hero/metrics.json
+          grep -qF 'data-build="motoristaops-hero-preview-v1"' source/hero/index.html
+          grep -qF "Instrument Sans" source/hero/index.html
+          grep -qF 'Levando pessoas,' source/hero/index.html
+          grep -qF 'cuidando de histórias.' source/hero/index.html
+          grep -qF 'https://maps.app.goo.gl/aCAXYqSYsQDSt7teA' source/hero/index.html
+          grep -qF 'https://www.instagram.com/motoristaops/' source/hero/index.html
+          grep -qF 'https://wa.me/5511988329725?' source/hero/index.html
+          grep -qF 'noindex,nofollow' source/hero/index.html
+          ! grep -qiE 'Bebas Neue|Georgia|Times New Roman' source/hero/index.html
+
+      - name: Validate Hostinger secrets
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in HOSTINGER_HOST HOSTINGER_USERNAME HOSTINGER_PASSWORD HOSTINGER_PORT HOSTINGER_PUBLIC_TARGET_DIR; do
+            test -n "${!name:-}" || { echo "Missing secret: $name"; exit 1; }
+          done
+
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Deploy /hero only
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          REMOTE_HERO_DIR="${HOSTINGER_PUBLIC_TARGET_DIR%/}/hero"
+          lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" <<LFTP
+          set sftp:auto-confirm yes
+          set net:max-retries 2
+          set net:timeout 20
+          mkdir -p "$REMOTE_HERO_DIR"
+          mirror --reverse --delete --delete-first --verbose source/hero "$REMOTE_HERO_DIR"
+          bye
+          LFTP
+
+      - name: Verify /hero, home and dashboard isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5 6; do
+            cache="$(date +%s)-${attempt}"
+            hero="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/hero/?verify=${cache}" || true)"
+            metrics="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/hero/metrics.json?verify=${cache}" || true)"
+            home="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/?verify=${cache}" || true)"
+            dashboard="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
+
+            if grep -qF 'data-build="motoristaops-hero-preview-v1"' <<<"$hero" \
+              && grep -qF 'Instrument Sans' <<<"$hero" \
+              && grep -qF 'Levando pessoas,' <<<"$hero" \
+              && grep -qF 'cuidando de histórias.' <<<"$hero" \
+              && grep -qF 'noindex,nofollow' <<<"$hero" \
+              && grep -qF '"reviews": 8' <<<"$metrics" \
+              && grep -qF '"followers": 102' <<<"$metrics" \
+              && grep -qF 'data-build="motoristaops-claude-design-2026-09-05"' <<<"$home" \
+              && grep -qF 'Seu compromisso' <<<"$home" \
+              && grep -qF 'Plano operacional' <<<"$dashboard" \
+              && grep -qF 'MotoristaOPS' <<<"$dashboard"; then
+                echo 'Isolated /hero preview deployed. Home and dashboard preserved.'
+                exit 0
+            fi
+            sleep 8
+          done
+          echo 'Hero preview did not converge or isolation verification failed.'
+          exit 1
