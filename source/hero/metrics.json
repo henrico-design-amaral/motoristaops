@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-09-08T18:57:00-03:00",
+  "updatedAt": "2026-09-08T20:20:00-03:00",
   "google": {
-    "rating": 5.0,
+    "rating": "5,0",
     "reviews": 8,
     "url": "https://maps.app.goo.gl/aCAXYqSYsQDSt7teA"
   },
   "uber": {
-    "rating": 4.98,
-    "trips": 3453,
+    "rating": "4,98",
+    "trips": "3.453",
     "tenure": "3 anos e 5 meses"
   },
   "instagram": {
