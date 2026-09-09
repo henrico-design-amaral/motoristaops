@@ -22,29 +22,25 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Validate isolated hero waterfall package
+      - name: Validate isolated rebuilt hero
         shell: bash
         run: |
           set -euo pipefail
           test -s source/hero/index.html
           test -s source/hero/metrics.json
-          test -s source/hero/hero-approved-reference.webp
-          grep -qE 'data-build="motoristaops-hero-waterfall-phase-[1-5]"' source/hero/index.html
+          grep -qF 'data-build="motoristaops-hero-rebuild-v2"' source/hero/index.html
           grep -qF 'noindex,nofollow' source/hero/index.html
+          grep -qF 'Instrument Sans' source/hero/index.html
+          grep -qF 'Levando pessoas,' source/hero/index.html
+          grep -qF 'cuidando de histórias.' source/hero/index.html
+          grep -qF '/assets/hero-claude.avif' source/hero/index.html
+          grep -qF '/assets/icons-official/whatsapp.webp' source/hero/index.html
+          grep -qF 'https://wa.me/5511988329725?' source/hero/index.html
+          grep -qF 'https://maps.app.goo.gl/aCAXYqSYsQDSt7teA' source/hero/index.html
+          grep -qF 'https://www.instagram.com/motoristaops/' source/hero/index.html
+          ! grep -qF 'hero-approved-reference.webp' source/hero/index.html
+          ! grep -qE 'mask-header|mask-left|mask-right|mask-bottom|container-type:inline-size|font-stretch:75%' source/hero/index.html
           ! grep -qiE 'Bebas Neue|Georgia|Times New Roman' source/hero/index.html
-
-          phase="$(grep -oE 'motoristaops-hero-waterfall-phase-[1-5]' source/hero/index.html | head -1 | grep -oE '[1-5]$')"
-          test -n "$phase"
-          if [ "$phase" -ge 2 ]; then grep -qF 'Instrument Sans' source/hero/index.html; fi
-          if [ "$phase" -ge 3 ]; then
-            grep -qF 'Levando pessoas,' source/hero/index.html
-            grep -qF 'cuidando de histórias.' source/hero/index.html
-          fi
-          if [ "$phase" -ge 4 ]; then grep -qF 'https://wa.me/5511988329725?' source/hero/index.html; fi
-          if [ "$phase" -ge 5 ]; then
-            grep -qF 'https://maps.app.goo.gl/aCAXYqSYsQDSt7teA' source/hero/index.html
-            grep -qF 'https://www.instagram.com/motoristaops/' source/hero/index.html
-          fi
 
       - name: Validate Hostinger secrets
         env:
@@ -83,7 +79,7 @@ jobs:
           bye
           LFTP
 
-      - name: Verify waterfall phase, home and dashboard isolation
+      - name: Verify rebuilt hero, home and dashboard isolation
         shell: bash
         run: |
           set -euo pipefail
@@ -93,21 +89,25 @@ jobs:
             metrics="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/hero/metrics.json?verify=${cache}" || true)"
             home="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/?verify=${cache}" || true)"
             dashboard="$(curl -fsSL --retry 1 --connect-timeout 8 --max-time 20 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
-            asset_code="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 8 --max-time 20 "https://www.motoristaops.com.br/hero/hero-approved-reference.webp?verify=${cache}" || true)"
+            photo_code="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 8 --max-time 20 "https://www.motoristaops.com.br/assets/hero-claude.avif?verify=${cache}" || true)"
+            icon_code="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 8 --max-time 20 "https://www.motoristaops.com.br/assets/icons-official/whatsapp.webp?verify=${cache}" || true)"
 
-            if grep -qE 'data-build="motoristaops-hero-waterfall-phase-[1-5]"' <<<"$hero" \
+            if grep -qF 'data-build="motoristaops-hero-rebuild-v2"' <<<"$hero" \
+              && grep -qF 'Levando pessoas,' <<<"$hero" \
+              && grep -qF 'cuidando de histórias.' <<<"$hero" \
               && grep -qF 'noindex,nofollow' <<<"$hero" \
-              && test "$asset_code" = '200' \
+              && test "$photo_code" = '200' \
+              && test "$icon_code" = '200' \
               && grep -qF '"reviews": 8' <<<"$metrics" \
               && grep -qF '"followers": 102' <<<"$metrics" \
               && grep -qF 'data-build="motoristaops-claude-design-2026-09-05"' <<<"$home" \
               && grep -qF 'Seu compromisso' <<<"$home" \
               && grep -qF 'Plano operacional' <<<"$dashboard" \
               && grep -qF 'MotoristaOPS' <<<"$dashboard"; then
-                echo 'Isolated /hero waterfall phase deployed. Home and dashboard preserved.'
+                echo 'Rebuilt /hero preview deployed. Home and dashboard preserved.'
                 exit 0
             fi
             sleep 8
           done
-          echo 'Hero waterfall phase did not converge or isolation verification failed.'
+          echo 'Rebuilt hero did not converge or isolation verification failed.'
           exit 1
