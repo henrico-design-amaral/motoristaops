@@ -34,32 +34,31 @@ jobs:
           mkdir -p deploy-public
           cat source/parts/*.htmlfrag > deploy-public/index.html
 
-          # Runtime profile/icon assets are versioned as WebP in this release.
+          # Runtime profile/icon assets kept for backward compatibility.
           sed -i \
             -e 's#/assets/henrico-profile\.png#/assets/henrico-profile.webp#g' \
             -e 's#/assets/icons-official/\([a-z-]*\)\.png#/assets/icons-official/\1.webp#g' \
             deploy-public/index.html
 
-          # Production content overrides maintained by MotoristaOPS.
-          # 1) Canonical WhatsApp contact.
-          # 2) Remove the duplicate pre-footer CTA section requested for removal.
           python - <<'PY'
           from pathlib import Path
 
           p = Path('deploy-public/index.html')
           s = p.read_text(encoding='utf-8')
 
+          # Canonical contact.
           s = s.replace('5511953970704', '5511988329725')
 
+          # Remove the intentionally empty source-only pre-footer marker section.
           start_marker = '  <section style="padding:clamp(64px,8vw,124px) 0; background:radial-gradient'
           footer_marker = '  <footer data-comment-anchor="footer"'
           start = s.find(start_marker)
           end = s.find(footer_marker, start if start >= 0 else 0)
           if start < 0 or end < 0:
-              raise SystemExit('Expected pre-footer CTA section/footer markers were not found.')
+              raise SystemExit('Expected pre-footer marker/footer were not found.')
           s = s[:start] + s[end:]
 
-          # Preserve metadata/OG URLs, but restore the exact Claude Design visual assets.
+          # Normalize legacy references if an older fragment is ever restored.
           s = s.replace('src="/landing-v3/hero-motoristaops-v4.webp"', 'src="/assets/hero-claude.avif"')
           s = s.replace('src="/landing-v3/logo-header-v3.svg"', 'src="/assets/logo-claude.avif"')
 
@@ -68,31 +67,39 @@ jobs:
 
           grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' deploy-public/index.html
           grep -qF 'data-build="motoristaops-claude-design-2026-09-05"' deploy-public/index.html
-          grep -qF 'Seu compromisso' deploy-public/index.html
-          grep -qF 'Motorista particular' deploy-public/index.html
           grep -qF 'rel="canonical" href="https://www.motoristaops.com.br/"' deploy-public/index.html
           grep -qF 'property="og:url" content="https://www.motoristaops.com.br/"' deploy-public/index.html
-          grep -qF 'property="og:image" content="https://www.motoristaops.com.br/landing-v3/hero-motoristaops-v4.webp"' deploy-public/index.html
+          grep -qF 'property="og:image" content="https://www.motoristaops.com.br/assets/hero-claude.avif"' deploy-public/index.html
           grep -qF 'name="twitter:card" content="summary_large_image"' deploy-public/index.html
           grep -qF 'application/ld+json' deploy-public/index.html
           grep -qF 'src="/assets/hero-claude.avif"' deploy-public/index.html
           grep -qF 'src="/assets/logo-claude.avif"' deploy-public/index.html
           grep -qF '/assets/henrico-profile.webp' deploy-public/index.html
-          grep -qF '/assets/icons-official/whatsapp.webp' deploy-public/index.html
           grep -qF '/assets/service-cards.webp' deploy-public/index.html
-          grep -qF 'Transfers com pontualidade, conforto e tranquilidade.' deploy-public/index.html
-          grep -qF 'Suporte em compromissos, espera e rotinas frequentes.' deploy-public/index.html
+          grep -qF 'Pular para o conteúdo' deploy-public/index.html
+          grep -qF 'https://www.instagram.com/motoristaops/' deploy-public/index.html
+          grep -qF 'Ida, chegada, bagagem e horário planejados com antecedência.' deploy-public/index.html
+          grep -qF 'Espera e acompanhamento' deploy-public/index.html
+          grep -qF 'Quando combinado, permaneço disponível dentro da mesma demanda.' deploy-public/index.html
+          grep -qF 'O que faz diferença é o básico bem feito, em todas as etapas.' deploy-public/index.html
           grep -qF 'https://wa.me/5511988329725?' deploy-public/index.html
+          grep -qF 'data:image/png;base64,' deploy-public/index.html
+          grep -qF '<meta name="theme-color" content="#070709">' deploy-public/index.html
           ! grep -qF '5511953970704' deploy-public/index.html
-          ! grep -qF 'Próximo trajeto' deploy-public/index.html
-          ! grep -qF 'Fale comigo pelo WhatsApp.' deploy-public/index.html
+          ! grep -qF 'henrico.driver.amaral' deploy-public/index.html
+          ! grep -qF 'Transfers com pontualidade, conforto e tranquilidade.' deploy-public/index.html
+          ! grep -qF 'Suporte em compromissos, espera e rotinas frequentes.' deploy-public/index.html
+          ! grep -qF '>IG<' deploy-public/index.html
+          ! grep -qF '>G<' deploy-public/index.html
+          ! grep -qF '◎' deploy-public/index.html
+          ! grep -qF '⌖' deploy-public/index.html
+          ! grep -qE 'Georgia|Times New Roman' deploy-public/index.html
+          ! grep -qF '/assets/icons-official/' deploy-public/index.html
           ! grep -qiF 'noindex' deploy-public/index.html
           ! grep -qF '/temp/' deploy-public/index.html
           ! grep -qF 'blob:' deploy-public/index.html
           ! grep -qF '<x-dc>' deploy-public/index.html
           ! grep -qF '<helmet>' deploy-public/index.html
-          ! grep -qE '/assets/(henrico-profile|icons-official/[^" ]+)\.png' deploy-public/index.html
-          ! grep -qF 'src="/landing-v3/logo-header-v3.svg"' deploy-public/index.html
 
           cat > deploy-public/robots.txt <<'ROBOTS'
           User-agent: *
@@ -106,7 +113,7 @@ jobs:
           <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
             <url>
               <loc>https://www.motoristaops.com.br/</loc>
-              <lastmod>2026-09-05</lastmod>
+              <lastmod>2026-09-14</lastmod>
               <changefreq>weekly</changefreq>
               <priority>1.0</priority>
             </url>
@@ -128,11 +135,7 @@ jobs:
           echo 'a711c244f0e24ff36f12a28e76a865f62f15c813c974adc9cb843515639af40a  runtime-bundle/runtime-assets.zip' | sha256sum -c -
           unzip -q runtime-bundle/runtime-assets.zip -d runtime-bundle/extracted
           cp -a runtime-bundle/extracted/assets deploy-public/
-
           test -s deploy-public/assets/henrico-profile.webp
-          for icon in checklist whatsapp seguranca motorista airport reuniao agendamento rota pontualidade bagagem; do
-            test -s "deploy-public/assets/icons-official/${icon}.webp"
-          done
 
       - name: Rebuild exact Claude visual assets
         shell: bash
@@ -141,7 +144,6 @@ jobs:
           mkdir -p deploy-public/assets
           cat release/visual-assets/hero/part-*.bin > deploy-public/assets/hero-claude.avif
           cat release/visual-assets/logo/part-*.bin > deploy-public/assets/logo-claude.avif
-
           echo '2b5dd109d05d31dc211b11256cf267d2f99b9d85b95addf5637b84a02890057b  deploy-public/assets/hero-claude.avif' | sha256sum -c -
           echo 'a9b0eb5462a08f9bb2004223489833315c3d2df64f3f5091b6ba08387f36a155  deploy-public/assets/logo-claude.avif' | sha256sum -c -
           test -s deploy-public/assets/hero-claude.avif
@@ -156,16 +158,13 @@ jobs:
           echo 'b5c520b9eb4b0e628b9544d1fc61fc9836018987fe0ff49d1c7a7aebaafd965b  deploy-public/assets/service-cards.webp' | sha256sum -c -
           test -s deploy-public/assets/service-cards.webp
 
-      - name: Recover metadata-only social assets from protected backup branch
+      - name: Recover favicon compatibility asset
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p deploy-public/landing-v3
           git fetch --no-tags --depth=1 origin backup/pre-reset-2026-09-04
-          git show FETCH_HEAD:public/landing-v3/hero-motoristaops-v4.webp > deploy-public/landing-v3/hero-motoristaops-v4.webp
           git show FETCH_HEAD:public/landing-v3/logo-oficial.svg > deploy-public/landing-v3/logo-oficial.svg
-
-          test -s deploy-public/landing-v3/hero-motoristaops-v4.webp
           test -s deploy-public/landing-v3/logo-oficial.svg
 
       - name: Validate public Hostinger secrets
@@ -220,14 +219,18 @@ jobs:
               && grep -qF 'src="/assets/hero-claude.avif"' <<<"$public_home" \
               && grep -qF 'src="/assets/logo-claude.avif"' <<<"$public_home" \
               && grep -qF '/assets/henrico-profile.webp' <<<"$public_home" \
-              && grep -qF '/assets/icons-official/whatsapp.webp' <<<"$public_home" \
               && grep -qF '/assets/service-cards.webp' <<<"$public_home" \
-              && grep -qF 'Transfers com pontualidade, conforto e tranquilidade.' <<<"$public_home" \
-              && grep -qF 'Suporte em compromissos, espera e rotinas frequentes.' <<<"$public_home" \
+              && grep -qF 'Pular para o conteúdo' <<<"$public_home" \
+              && grep -qF 'Ida, chegada, bagagem e horário planejados com antecedência.' <<<"$public_home" \
+              && grep -qF 'Espera e acompanhamento' <<<"$public_home" \
+              && grep -qF 'O que faz diferença é o básico bem feito, em todas as etapas.' <<<"$public_home" \
+              && grep -qF 'https://www.instagram.com/motoristaops/' <<<"$public_home" \
               && grep -qF 'https://wa.me/5511988329725?' <<<"$public_home" \
               && ! grep -qF '5511953970704' <<<"$public_home" \
-              && ! grep -qF 'Próximo trajeto' <<<"$public_home" \
-              && ! grep -qF 'Fale comigo pelo WhatsApp.' <<<"$public_home" \
+              && ! grep -qF 'henrico.driver.amaral' <<<"$public_home" \
+              && ! grep -qE 'Georgia|Times New Roman' <<<"$public_home" \
+              && ! grep -qF '◎' <<<"$public_home" \
+              && ! grep -qF '⌖' <<<"$public_home" \
               && grep -qF 'Sitemap: https://www.motoristaops.com.br/sitemap.xml' <<<"$robots" \
               && grep -qF '<loc>https://www.motoristaops.com.br/</loc>' <<<"$sitemap" \
               && grep -qF 'Plano operacional' <<<"$dashboard_home" \
@@ -236,11 +239,8 @@ jobs:
                 'assets/hero-claude.avif' \
                 'assets/logo-claude.avif' \
                 'assets/service-cards.webp' \
-                'landing-v3/hero-motoristaops-v4.webp' \
                 'landing-v3/logo-oficial.svg' \
-                'assets/henrico-profile.webp' \
-                'assets/icons-official/whatsapp.webp' \
-                'assets/icons-official/airport.webp'; do
+                'assets/henrico-profile.webp'; do
                 code="$(curl -sS -o /dev/null -w '%{http_code}' --retry 2 --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/${asset}")"
                 test "$code" = '200'
               done
