@@ -1,4 +1,19 @@
-@media(max-width:780px){.header-inner{flex-wrap:wrap}.header-logo{height:38px}.nav{order:3;width:100%;justify-content:space-between;gap:10px;overflow:auto;padding-top:2px}.nav a{font-size:11px}.header-inner>.btn{margin-left:auto;min-height:42px;padding:11px 15px;font-size:11px}.hero{padding-top:164px}.hero-content{max-width:100%}.hero-media img{object-position:68% center}.split-head,.timeline-wrap{grid-template-columns:1fr}.grid-3,.grid-4,.grid-5,.grid-8{grid-template-columns:1fr}.driver-grid{grid-template-columns:1fr}.driver-meta{grid-column:auto;grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.footer-mid{border-left:0;border-right:0;border-top:1px solid rgba(243,239,228,.08);border-bottom:1px solid rgba(243,239,228,.08);padding:28px 0;text-align:left}.hero-actions .btn{width:100%}.hero-proof{gap:10px 16px}}
+/* Hero contact controls — isolated module */
+[data-header]{position:absolute;inset:0 0 auto;z-index:50;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;border-bottom:0}
+[data-header] .header-inner{padding-top:20px;padding-bottom:20px;justify-content:space-between}
+[data-header] .header-logo{height:54px;opacity:1}
+[data-header] .nav{display:none}
+.header-whatsapp{margin-left:auto;min-height:52px;padding:0 22px;gap:12px}
+.header-whatsapp-icon{width:19px;height:19px;object-fit:contain;filter:brightness(.12)}
+.header-whatsapp-arrow{font-size:18px;line-height:1;margin-left:4px}
+.hero-socials{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;animation:heroFade 680ms var(--mo-ease) 500ms both}
+.hero-social-link{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;min-width:238px;padding:14px 16px;border:1px solid rgba(199,156,91,.34);background:rgba(10,10,12,.48);transition:transform var(--mo-fast) var(--mo-ease),border-color var(--mo-fast) var(--mo-ease),background-color var(--mo-fast) var(--mo-ease)}
+.hero-social-link:hover{transform:translateY(-1px);border-color:rgba(199,156,91,.62);background:rgba(21,21,24,.74)}
+.hero-social-mark{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid rgba(199,156,91,.62);font-stretch:75%;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--mo-champagne)}
+.hero-social-copy{display:flex;flex-direction:column;gap:2px;min-width:0}.hero-social-copy strong{font-size:14px;font-weight:650;color:var(--mo-ivory)}.hero-social-copy small{font-size:12px;line-height:1.25;color:var(--mo-muted-light)}
+.hero-social-arrow{font-size:17px;line-height:1;color:var(--mo-champagne)}
+
+@media(max-width:780px){[data-header] .header-inner{flex-wrap:nowrap}[data-header] .header-logo{height:38px}.header-whatsapp{min-width:44px;min-height:42px;padding:10px 13px}.header-whatsapp-label,.header-whatsapp-arrow{display:none}.hero{padding-top:132px}.hero-content{max-width:100%}.hero-media img{object-position:68% center}.split-head,.timeline-wrap{grid-template-columns:1fr}.grid-3,.grid-4,.grid-5,.grid-8{grid-template-columns:1fr}.driver-grid{grid-template-columns:1fr}.driver-meta{grid-column:auto;grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.footer-mid{border-left:0;border-right:0;border-top:1px solid rgba(243,239,228,.08);border-bottom:1px solid rgba(243,239,228,.08);padding:28px 0;text-align:left}.hero-socials{display:grid;grid-template-columns:1fr;gap:10px}.hero-social-link{min-width:0;width:100%}.hero-proof{gap:10px 16px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}[data-reveal]{opacity:1!important;transform:none!important}}
 </style>
 </head>
@@ -6,12 +21,11 @@
 <header data-header>
   <div class="header-inner">
     <a href="#topo" aria-label="MotoristaOPS — início"><img data-logo class="header-logo" src="/landing-v3/logo-header-v3.svg" alt="MotoristaOPS por Henrico Amaral"></a>
-    <nav class="nav" aria-label="Navegação principal">
-      <a href="#servicos">Serviços</a>
-      <a href="#por-que-agendar">Por que agendar</a>
-      <a href="#quem-dirige">Quem dirige</a>
-    </nav>
-    <a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener">Agendar</a>
+    <a class="btn btn-primary header-whatsapp" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener" aria-label="Agendar pelo WhatsApp">
+      <img class="header-whatsapp-icon" src="/assets/icons-official/whatsapp.png" alt="">
+      <span class="header-whatsapp-label">Agendar pelo WhatsApp</span>
+      <span class="header-whatsapp-arrow" aria-hidden="true">→</span>
+    </a>
   </div>
 </header>
 <main>
@@ -21,9 +35,17 @@
     <p class="eyebrow">Motorista particular • São Paulo • hora marcada</p>
     <h1 class="title-xl"><span>Seu compromisso</span><span>começa antes</span><span>do destino.</span></h1>
     <p class="hero-copy">Corridas particulares para aeroportos, reuniões, consultas, eventos e viagens — com planejamento, comunicação direta e cuidado do início ao fim.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
-      <a class="btn btn-secondary" href="#servicos">Ver serviços</a>
+    <div class="hero-socials" aria-label="Canais MotoristaOPS">
+      <a class="hero-social-link" href="https://www.instagram.com/motoristaops/" target="_blank" rel="noopener" aria-label="Seguir MotoristaOPS no Instagram">
+        <span class="hero-social-mark" aria-hidden="true">IG</span>
+        <span class="hero-social-copy"><strong>Instagram</strong><small>Siga nosso perfil</small></span>
+        <span class="hero-social-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="hero-social-link" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações do MotoristaOPS no Google">
+        <span class="hero-social-mark" aria-hidden="true">G</span>
+        <span class="hero-social-copy"><strong>Google Meu Negócio</strong><small>Ver avaliações</small></span>
+        <span class="hero-social-arrow" aria-hidden="true">↗</span>
+      </a>
     </div>
     <div class="hero-proof" aria-label="Principais benefícios"><span>Hora marcada</span><span>Atendimento direto</span><span>Planejamento de rota</span><span>Discrição</span></div>
   </div></div>
