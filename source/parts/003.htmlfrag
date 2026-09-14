@@ -1,13 +1,13 @@
 <section id="diferenciais" class="section">
   <div class="container">
     <p class="eyebrow">Qualidade operacional</p>
-    <div class="split-head"><h2 class="title-lg">O valor aparece no jeito de trabalhar.</h2><p class="copy">Menos promessa. Mais comportamento percebido no atendimento.</p></div>
+    <div class="split-head"><h2 class="title-lg">O valor aparece no jeito de trabalhar.</h2><p class="copy">O que faz diferença é o básico bem feito, em todas as etapas.</p></div>
     <div class="grid-5">
-      <article class="quality-item" data-reveal="0"><img src="/assets/icons-official/pontualidade.png" alt=""><h3>Pontualidade</h3><p>Não é pressa. É planejamento de tempo.</p></article>
-      <article class="quality-item" data-reveal="70"><img src="/assets/icons-official/motorista.png" alt=""><h3>Discrição</h3><p>Presença profissional sem exposição.</p></article>
-      <article class="quality-item" data-reveal="140"><img src="/assets/icons-official/whatsapp.png" alt=""><h3>Comunicação</h3><p>O combinado fica claro antes, durante e depois.</p></article>
-      <article class="quality-item" data-reveal="210"><img src="/assets/icons-official/bagagem.png" alt=""><h3>Cuidado</h3><p>Bagagem, preferências e contexto entram no atendimento.</p></article>
-      <article class="quality-item" data-reveal="280"><img src="/assets/icons-official/rota.png" alt=""><h3>Continuidade</h3><p>Atendimento recorrente melhora porque o contexto não se perde.</p></article>
+      <article class="quality-item" data-reveal="0"><h3>Pontualidade</h3><p>Chego com antecedência e planejo o tempo do trajeto.</p></article>
+      <article class="quality-item" data-reveal="70"><h3>Discrição</h3><p>Atendimento profissional, sem excesso e sem exposição.</p></article>
+      <article class="quality-item" data-reveal="140"><h3>Comunicação</h3><p>Você sabe com quem falar antes, durante e depois da corrida.</p></article>
+      <article class="quality-item" data-reveal="210"><h3>Cuidado</h3><p>Bagagem, preferências e detalhes do compromisso são considerados.</p></article>
+      <article class="quality-item" data-reveal="280"><h3>Continuidade</h3><p>Em corridas recorrentes, eu já conheço horários, endereços e preferências.</p></article>
     </div>
   </div>
 </section>
@@ -23,27 +23,27 @@
       <blockquote class="driver-quote" data-reveal="340">“Levando pessoas, cuidando de histórias.”</blockquote>
     </div>
     <div class="driver-meta">
-      <div class="driver-meta-item" data-reveal="180"><img src="/assets/icons-official/motorista.png" alt=""><div><span>Experiência</span><strong>Rotina real nas ruas</strong></div></div>
-      <div class="driver-meta-item" data-reveal="240"><img src="/assets/icons-official/whatsapp.png" alt=""><div><span>Atendimento</span><strong>Direto</strong></div></div>
-      <div class="driver-meta-item" data-reveal="300"><img src="/assets/icons-official/pontualidade.png" alt=""><div><span>Compromisso</span><strong>Hora marcada</strong></div></div>
-      <div class="driver-meta-item" data-reveal="360"><img src="/assets/icons-official/seguranca.png" alt=""><div><span>Postura</span><strong>Discrição</strong></div></div>
+      <div class="driver-meta-item" data-reveal="180"><div><span>Experiência</span><strong>Rotina real nas ruas</strong></div></div>
+      <div class="driver-meta-item" data-reveal="240"><div><span>Atendimento</span><strong>Direto</strong></div></div>
+      <div class="driver-meta-item" data-reveal="300"><div><span>Compromisso</span><strong>Hora marcada</strong></div></div>
+      <div class="driver-meta-item" data-reveal="360"><div><span>Postura</span><strong>Discrição</strong></div></div>
     </div>
   </div>
 </section>
 </main>
 
-  <section style="padding:clamp(64px,8vw,124px) 0; background:radial-gradient(90% 130% at 50% 0%, rgba(199,156,91,.12) 0%, rgba(10,10,12,0) 62%), #0A0A0C; border-top:1px solid rgba(199,156,91,.18)">
+  <section style="padding:clamp(64px,8vw,124px) 0; background:radial-gradient(90% 130% at 50% 0%, rgba(199,156,91,.12) 0%, rgba(7,7,9,0) 62%), #070709; border-top:1px solid rgba(199,156,91,.18)">
   </section>
 
   <footer data-comment-anchor="footer">
   <div class="container">
     <div class="footer-grid">
-      <div><img class="footer-logo" src="/landing-v3/logo-header-v3.svg" alt="MotoristaOPS por Henrico Amaral"><p style="margin:14px 0 0;font-stretch:75%;font-size:12.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mo-muted-light)">Motorista particular</p><div style="width:64px;height:1px;margin:18px 0;background:rgba(199,156,91,.55)"></div><p style="margin:0;font-size:14.5px;color:var(--mo-muted)">atendimento discreto e planejado</p></div>
-      <div class="footer-mid"><p class="eyebrow" style="margin-bottom:8px">Precisa combinar</p><h2 class="title-md" style="margin-bottom:20px">Um trajeto?</h2><a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener"><img src="/assets/icons-official/whatsapp.png" alt="" style="width:18px;height:18px;object-fit:contain">Falar no WhatsApp</a><p style="margin:12px 0 0;font-size:12.5px;color:var(--mo-muted)">Atendimento direto com Henrico Amaral.</p></div>
+      <div><img class="footer-logo" src="/assets/logo-claude.avif" alt="MotoristaOPS por Henrico Amaral"><p style="margin:14px 0 0;font-stretch:75%;font-size:12.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mo-muted-light)">Motorista particular</p><div style="width:64px;height:1px;margin:18px 0;background:rgba(199,156,91,.55)"></div><p style="margin:0;font-size:15.5px;color:var(--mo-muted)">Atendimento discreto e planejado.</p></div>
+      <div class="footer-mid"><p class="eyebrow" style="margin-bottom:8px">Agendamento</p><h2 class="title-md" style="margin-bottom:20px">Vamos combinar seu trajeto?</h2><a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAOCAYAAADwikbvAAAA3klEQVR4nKXSsUoDQRDG8Z8ihKCCBLv0guQFtJKQRtKlSqH4CPbp7EKwE0sri4Mgae1ErGJhJ7aChY8gVyhicRM4jj2U+MEws8P+d2dmd2V+dWRZrS5NYq0mf4ot5PjEFy5/g7sY4AkXpfwBRnjH9SJZLbuHx/KG0APG2EW/Dn5GFpbSCHspuIePiHcUfaeUp+A7dCI+x2EN3FgE1YG1w0/xrei9GfsGisGtp26meJZhxDc4wUuAcIz7OriF/UruLHyGV9ymyh5iA2+YYDPWObYDnpVPLcPTsD/rX3/7B8xPJROJUGZDAAAAAElFTkSuQmCC" alt="" style="width:18px;height:18px;object-fit:contain">Falar no WhatsApp</a><p style="margin:12px 0 0;font-size:13px;color:var(--mo-muted)">Atendimento direto comigo, Henrico Amaral.</p></div>
       <div>
-        <a class="footer-link" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener"><img src="/assets/icons-official/whatsapp.png" alt=""><span style="flex:1">WhatsApp</span><span style="color:var(--mo-champagne)">→</span></a>
-        <a class="footer-link" href="https://instagram.com/henrico.driver.amaral" target="_blank" rel="noopener"><span style="width:22px;height:22px;display:grid;place-items:center;color:var(--mo-champagne)">◎</span><span style="flex:1">Instagram</span><span style="color:var(--mo-champagne)">→</span></a>
-        <div class="footer-link" style="border-bottom:0"><span style="width:22px;height:22px;display:grid;place-items:center;color:var(--mo-champagne)">⌖</span><span>São Paulo / Brasil</span></div>
+        <a class="footer-link" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAOCAYAAADwikbvAAAA3klEQVR4nKXSsUoDQRDG8Z8ihKCCBLv0guQFtJKQRtKlSqH4CPbp7EKwE0sri4Mgae1ErGJhJ7aChY8gVyhicRM4jj2U+MEws8P+d2dmd2V+dWRZrS5NYq0mf4ot5PjEFy5/g7sY4AkXpfwBRnjH9SJZLbuHx/KG0APG2EW/Dn5GFpbSCHspuIePiHcUfaeUp+A7dCI+x2EN3FgE1YG1w0/xrei9GfsGisGtp26meJZhxDc4wUuAcIz7OriF/UruLHyGV9ymyh5iA2+YYDPWObYDnpVPLcPTsD/rX3/7B8xPJROJUGZDAAAAAElFTkSuQmCC" alt=""><span style="flex:1">WhatsApp</span><span style="color:var(--mo-champagne)">→</span></a>
+        <a class="footer-link" href="https://www.instagram.com/motoristaops/" target="_blank" rel="noopener"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAA/ElEQVR4nKXTPS/EQRDH8Y9DRI7raMQbICqNTuEhIhKlhGspdSqNTqfQaBQqiVyrkKhEcS9ApxeKK0SIKIjiPxd7/+xdcSaZZGZnvzu/fRponu/o1yp9kxjKjB3Hom+o4QNf4U9odIMv8YijyBeT2h1OMY2Tsuw6XhNwHZPh8zG2j9k2kMLjeIj4EKsYwSf2sB21Vk72IL4jHkMTw7jGAkbLDdPOlYDEIi8J0IotdVja+QfViKcwg7PIl7HRC37HXMRX2FLsdwL3yby2mg74AptYw0142Q5S+bl7rmMJz4pDrCpuohZzdrvBDX8vaCXgnIIsnNptjxr++TF+ASjNKnD44pFHAAAAAElFTkSuQmCC" alt=""><span style="flex:1">Instagram</span><span style="color:var(--mo-champagne)">→</span></a>
+        <div class="footer-link" style="border-bottom:0"><span>São Paulo / Brasil</span></div>
       </div>
     </div>
     <div class="footer-bottom"><span>© 2026 MotoristaOPS · por Henrico Amaral</span><span style="font-stretch:75%;letter-spacing:.16em;text-transform:uppercase;color:var(--mo-champagne)">São Paulo / Brasil</span></div>
@@ -66,7 +66,7 @@
     var so=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-active');so.unobserve(e.target);}})},{threshold:.35,rootMargin:'0px 0px -10% 0px'});
     steps.forEach(function(el){so.observe(el)});
   }
-  function header(){var h=document.querySelector('[data-header]');if(!h)return;function onScroll(){var on=window.scrollY>40;h.style.background=on?'rgba(10,10,12,.92)':'rgba(10,10,12,.46)';h.style.backdropFilter=on?'blur(16px)':'blur(8px)';h.style.borderBottomColor=on?'rgba(199,156,91,.24)':'rgba(199,156,91,.10)'}window.addEventListener('scroll',onScroll,{passive:true});onScroll();}
+  function header(){var h=document.querySelector('[data-header]');if(!h)return;function onScroll(){var on=window.scrollY>40;h.style.background=on?'rgba(7,7,9,.92)':'rgba(7,7,9,.46)';h.style.backdropFilter=on?'blur(16px)':'blur(8px)';h.style.borderBottomColor=on?'rgba(199,156,91,.24)':'rgba(199,156,91,.10)'}window.addEventListener('scroll',onScroll,{passive:true});onScroll();}
   function init(){reveal();timeline();header();}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

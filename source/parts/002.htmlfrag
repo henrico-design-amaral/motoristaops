@@ -7,9 +7,10 @@
 .header-whatsapp-icon{width:19px;height:19px;object-fit:contain;filter:brightness(.12)}
 .header-whatsapp-arrow{font-size:18px;line-height:1;margin-left:4px}
 .hero-socials{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;animation:heroFade 680ms var(--mo-ease) 500ms both}
-.hero-social-link{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;min-width:238px;padding:14px 16px;border:1px solid rgba(199,156,91,.34);background:rgba(10,10,12,.48);transition:transform var(--mo-fast) var(--mo-ease),border-color var(--mo-fast) var(--mo-ease),background-color var(--mo-fast) var(--mo-ease)}
+.hero-social-link{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;min-width:238px;padding:14px 16px;border:1px solid rgba(199,156,91,.34);background:rgba(7,7,9,.48);transition:transform var(--mo-fast) var(--mo-ease),border-color var(--mo-fast) var(--mo-ease),background-color var(--mo-fast) var(--mo-ease)}
+.hero-social-link--text{grid-template-columns:1fr auto}
 .hero-social-link:hover{transform:translateY(-1px);border-color:rgba(199,156,91,.62);background:rgba(21,21,24,.74)}
-.hero-social-mark{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border:1px solid rgba(199,156,91,.62);font-stretch:75%;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--mo-champagne)}
+.hero-social-icon{display:block;width:22px;height:22px;object-fit:contain}
 .hero-social-copy{display:flex;flex-direction:column;gap:2px;min-width:0}.hero-social-copy strong{font-size:14px;font-weight:650;color:var(--mo-ivory)}.hero-social-copy small{font-size:12px;line-height:1.25;color:var(--mo-muted-light)}
 .hero-social-arrow{font-size:17px;line-height:1;color:var(--mo-champagne)}
 
@@ -18,32 +19,32 @@
 </style>
 </head>
 <body data-build="motoristaops-claude-design-2026-09-05">
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 <header data-header>
   <div class="header-inner">
-    <a href="#topo" aria-label="MotoristaOPS — início"><img data-logo class="header-logo" src="/landing-v3/logo-header-v3.svg" alt="MotoristaOPS por Henrico Amaral"></a>
+    <a href="#topo" aria-label="MotoristaOPS — início"><img data-logo class="header-logo" src="/assets/logo-claude.avif" alt="MotoristaOPS por Henrico Amaral"></a>
     <a class="btn btn-primary header-whatsapp" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener" aria-label="Agendar pelo WhatsApp">
-      <img class="header-whatsapp-icon" src="/assets/icons-official/whatsapp.png" alt="">
+      <img class="header-whatsapp-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAOCAYAAADwikbvAAAA3klEQVR4nKXSsUoDQRDG8Z8ihKCCBLv0guQFtJKQRtKlSqH4CPbp7EKwE0sri4Mgae1ErGJhJ7aChY8gVyhicRM4jj2U+MEws8P+d2dmd2V+dWRZrS5NYq0mf4ot5PjEFy5/g7sY4AkXpfwBRnjH9SJZLbuHx/KG0APG2EW/Dn5GFpbSCHspuIePiHcUfaeUp+A7dCI+x2EN3FgE1YG1w0/xrei9GfsGisGtp26meJZhxDc4wUuAcIz7OriF/UruLHyGV9ymyh5iA2+YYDPWObYDnpVPLcPTsD/rX3/7B8xPJROJUGZDAAAAAElFTkSuQmCC" alt="">
       <span class="header-whatsapp-label">Agendar pelo WhatsApp</span>
       <span class="header-whatsapp-arrow" aria-hidden="true">→</span>
     </a>
   </div>
 </header>
-<main>
+<main id="conteudo">
 <section id="topo" class="hero">
-  <div class="hero-media" aria-hidden="true"><img src="/landing-v3/hero-motoristaops-v4.webp" alt=""><div class="hero-shade-a"></div><div class="hero-shade-b"></div></div>
+  <div class="hero-media" aria-hidden="true"><img src="/assets/hero-claude.avif" alt=""><div class="hero-shade-a"></div><div class="hero-shade-b"></div></div>
   <div class="container"><div class="hero-content">
     <p class="eyebrow">Motorista particular • São Paulo • hora marcada</p>
     <h1 class="title-xl"><span>Seu compromisso</span><span>começa antes</span><span>do destino.</span></h1>
     <p class="hero-copy">Corridas particulares para aeroportos, reuniões, consultas, eventos e viagens — com planejamento, comunicação direta e cuidado do início ao fim.</p>
     <div class="hero-socials" aria-label="Canais MotoristaOPS">
       <a class="hero-social-link" href="https://www.instagram.com/motoristaops/" target="_blank" rel="noopener" aria-label="Seguir MotoristaOPS no Instagram">
-        <span class="hero-social-mark" aria-hidden="true">IG</span>
+        <img class="hero-social-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAA/ElEQVR4nKXTPS/EQRDH8Y9DRI7raMQbICqNTuEhIhKlhGspdSqNTqfQaBQqiVyrkKhEcS9ApxeKK0SIKIjiPxd7/+xdcSaZZGZnvzu/fRponu/o1yp9kxjKjB3Hom+o4QNf4U9odIMv8YijyBeT2h1OMY2Tsuw6XhNwHZPh8zG2j9k2kMLjeIj4EKsYwSf2sB21Vk72IL4jHkMTw7jGAkbLDdPOlYDEIi8J0IotdVja+QfViKcwg7PIl7HRC37HXMRX2FLsdwL3yby2mg74AptYw0142Q5S+bl7rmMJz4pDrCpuohZzdrvBDX8vaCXgnIIsnNptjxr++TF+ASjNKnD44pFHAAAAAElFTkSuQmCC" alt="">
         <span class="hero-social-copy"><strong>Instagram</strong><small>Siga nosso perfil</small></span>
         <span class="hero-social-arrow" aria-hidden="true">↗</span>
       </a>
-      <a class="hero-social-link" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações do MotoristaOPS no Google">
-        <span class="hero-social-mark" aria-hidden="true">G</span>
-        <span class="hero-social-copy"><strong>Google Meu Negócio</strong><small>Ver avaliações</small></span>
+      <a class="hero-social-link hero-social-link--text" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações do MotoristaOPS no Google">
+        <span class="hero-social-copy"><strong>Google</strong><small>Ver avaliações</small></span>
         <span class="hero-social-arrow" aria-hidden="true">↗</span>
       </a>
     </div>
@@ -56,15 +57,15 @@
     <p class="eyebrow">Quando faz sentido</p>
     <div class="split-head">
       <h2 class="title-lg">Para compromissos que pedem mais controle do trajeto.</h2>
-      <p class="copy">Quando horário, contexto, bagagem, espera ou continuidade importam, o serviço faz sentido porque o deslocamento já entra como parte do compromisso.</p>
+      <p class="copy">Quando horário, bagagem, espera ou continuidade importam, o trajeto precisa ser combinado com antecedência.</p>
     </div>
     <div class="grid-3">
-      <article class="card service-card" data-reveal="0"><div class="service-top"><span class="card-num">01</span><img class="card-icon" src="/assets/icons-official/airport.png" alt=""></div><h3>Aeroportos e rodoviárias</h3><p>Transfers com pontualidade, conforto e tranquilidade.</p></article>
-      <article class="card service-card" data-reveal="80"><div class="service-top"><span class="card-num">02</span><img class="card-icon" src="/assets/icons-official/reuniao.png" alt=""></div><h3>Reuniões e compromissos</h3><p>Chegue bem, no horário, com mais foco.</p></article>
-      <article class="card service-card" data-reveal="160"><div class="service-top"><span class="card-num">03</span><img class="card-icon" src="/assets/icons-official/seguranca.png" alt=""></div><h3>Consultas e exames</h3><p>Deslocamento seguro e sem preocupações.</p></article>
-      <article class="card service-card" data-reveal="0"><div class="service-top"><span class="card-num">04</span><img class="card-icon" src="/assets/icons-official/agendamento.png" alt=""></div><h3>Eventos</h3><p>Do início ao fim, com planejamento e discrição.</p></article>
-      <article class="card service-card" data-reveal="80"><div class="service-top"><span class="card-num">05</span><img class="card-icon" src="/assets/icons-official/rota.png" alt=""></div><h3>Viagens e deslocamentos</h3><p>Rotas planejadas para viagens curtas ou longas.</p></article>
-      <article class="card service-card" data-reveal="160"><div class="service-top"><span class="card-num">06</span><img class="card-icon" src="/assets/icons-official/pontualidade.png" alt=""></div><h3>Acompanhamento e recorrência</h3><p>Suporte em compromissos, espera e rotinas frequentes.</p></article>
+      <article class="card service-card" data-reveal="0"><div class="service-top"><span class="card-num">01</span><img class="card-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAdCAYAAAC9pNwMAAACBklEQVR4nMXXz4fUcRzH8cdWSqJIIpEk0T+QlCSJ1IoOmShZxuiy9pa1JnvIJiOxEh22vSQpSZe9dVjpULp1SJfVJR0So1RWUTq8Z7Tznfl+v5/ZHfZ1Gb6f93yfn/fn/evzHXp174LV0JpVoWJdwVoVh/AJk4MG53n8FNvwDE3UUVnG+yvCgS718vhs67eReX6xtYHfuFkCnMBmLOALpvAWT9oGQznJNYJduNZjbRj7sSXzslPYI07xPZ5n/ncFb/CiCEx49w138h1TaW3il8iF+wW2x3AZ58vARHzW426RUYKGcRBX2w/KymkWHzG+AmgtC00BwxxeiyM/0Sd0Aluz0FQwkRCjOC1KLUWTWNRdHX2B22rib4JdDX8wnWfQD/gMNuJcgu2MKLVcpYJHcFjELE/Z+G9YKbiOnYozu6q7YRQq2zLHRAw/YLvoXu/kJ9RJ0Uof9lhbTAUPY5/I3hSNij78UpTMssFzOJAIHddZJjN4kLGZTwUTtVfFJnzG4wQo/CzbaVa9kmsWt7FDjLOlqveAEnnQS0f7Abc1je9inBExvZ5ju+D/HE9SWTk1xJHfUjwe50XJDQxMzNhmgt3AwbA2wearzpgeL3p/KvhHgk1Dp9dHFJRUKng3Limfx+0ONqXk6Ivu1Us1hhuKR+IjcfHbK7pWbRBgiicTrUtcqlbtE+YfrDhjFqqNneAAAAAASUVORK5CYII=" alt=""></div><h3>Aeroportos e rodoviárias</h3><p>Ida, chegada, bagagem e horário planejados com antecedência.</p></article>
+      <article class="card service-card" data-reveal="80"><div class="service-top"><span class="card-num">02</span><img class="card-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAbCAYAAACAyoQSAAAByElEQVR4nMXWT4iNURjH8Y87c0lEKWElG2UhG9lZTSarkZ0QSbKZxd0qC0lZKQspUWrSbCyUlZ2sbJSVjaSwkCEN0XTn/sninJfTfd/rvXdyrl+9nfd0zvN8z3PO85z3Xff83imTVmPiREyvweYC+mjHtoHveJwDehyX8BbvEnAHOzCL+X8Nnccibg4Zv4bWX8Z/a9QzvY2tNQ6XhGhrNRhpC0fxJRn7hgPx/aE/C/2JH1gVtnl3tLmPZjKvjcN4gCuD0DkcitE8GWXFY2gR5wpour278DoDUPT5ueik0GX56rYpHFMJOpURuiKUVgmaUyvoVkGnhWhzaX0VtI89NYZzawTOYHvRSUumg31YwHvh8JeFOtuMnUJJncDJxO4IzuINXmETtsQgtqGHg9hYBd2AFzhfs+oFPBLuYriMl2INDtESLhadwUT6UAOEM0I0t3A92rRqbO4KyVSCdisWMUyzwuo/4fQI82ck2Ztuby8dGEFXx5jbFc4Y5eztjeFoHD1LfU/yd2V1GLSZEdqugjbxNSO0UXrBR+zPBLyRstLsfYq9whe+I2Rc0RZJNpXYNWNbOOvHpzPQbws31LEqKNyJT1b9l5/tX+gRYZlm7M40AAAAAElFTkSuQmCC" alt=""></div><h3>Reuniões e compromissos</h3><p>Deslocamento com hora marcada e tempo de trajeto pensado antes.</p></article>
+      <article class="card service-card" data-reveal="160"><div class="service-top"><span class="card-num">03</span><img class="card-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAYAAABWk2cPAAACDUlEQVR4nMXXP2gUURDH8U9Om5BCkWgj8U8QtREJWEggxSFKCKIcIkIUUcRCwRSCBBFEBBERglhooYKIpA1IkCBokIA2ioXYWWgRYiEiqKQyWLw9s9nc7r31Qvw1C7uz830782bmbdvr+0cttyrLTsTKkvZD6MU2dOAXPuENrsU6if3Sp/iMHRhDD7Ym11oCf5XA9zZz1tYkp5dwEncwErnA5/iNfXkGReGdwGpsiYTVtQcn8A3XcTNrkBfeqQS4uySwrodYg9O4HAO9hQ0tAOECZtGF8+hPP2wU3hrOtQAkhPSDkJoeIVW50Ht4gSctQgk7vqGy0PUYWAJgodI5PYW5Eu9ewe1I2wW1W8k8mC0BncOzSNsVON4I2od1kU4O4KdQFjGaEDoYFua0A+2RTjYp3zT++k5Dz+J7xMtnMC10nO5I4CGp1KXDO6pgm6e0Fl/xWAhxjLrxpRE0VlexEUfED4EuYQRicZ3WsF0YY6MFTh5FL5GqsF/G86C9QpOeFnLXV8J5ng7iY/pGNrwzWJWsaimA/dgsjLhc6AjeykyFFjQk0+wbQWEXduJGi8ApvMfdGGhdw0JZDJaEHRZKaizxsUjNToPHhF08gAeYLLCtCifCCjqLnMYcQQexP1nAsNBZfpjvMO3CSJzBRbxs5jD23Dtuvs6qQs47hVb4TnEE/hma1mRZSFb/5bfiD9Y3WpwXItc0AAAAAElFTkSuQmCC" alt=""></div><h3>Consultas e exames</h3><p>Trajeto com calma, cuidado e atenção ao horário.</p></article>
+      <article class="card service-card" data-reveal="0"><div class="service-top"><span class="card-num">04</span><img class="card-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAaCAYAAABGiCfwAAACG0lEQVR4nL3WP2hVMRQG8J+vtqWIIKKDg4oihQ6luLiKuDgJIrWgIBYH0UWXIqKIg+BQFCkdFUFcpINQRYoi0kFcBXFwEgWxghSxlKL9g0NyJc2Lz2uh/SDcfMnJ+XKSk+Sue33nhLVCY82Uaog9w6WavsZwvZXB+qQ+gGP4jC70oQfb0ItZzEfbpVga2BBt+mLZih/Rx3dcKYmdxxs8xo4oOotpvIwDG2iL9ovx24aN2ITNeI8P0fdR3MfJXOwTzmWRX4yiD4rrshzdmMKtpG0Mo6XIZgoO3uJpDSGYwPNC+7eqkiZIZ8GwrpC/CBGWGMsj68YIvmALfgmbvBjrHcL+VGPm8FNIlPbodDq2V/09koBSsa9Cqj/5j2jgoLAqXUK2tscJPMIF7C6JTa1ACF606LuNGxVJ92y1bpPqbLYUOIzjCT+D/oQPSNI6YqTgZ6mqpMuYC49n/KOQ3hVm8C6zma4r1l4wTDGR8dKxuFZoazRVMmHCFXMk4f3Yn9mczfipumJLmVEvdiV8H/Ym/DQOZWPyySzzm0eTYugf/G4sKQYLfoqRrST1S5HUEssxgqsJv4nLCR/OONwr+KmV+q+EW6XCOCYTPqR5zx4WxP4gFZvL+vKBk5qRH4ecw0JVSaPZgwOtZrYCDGB7RdLIxoVDOSg8J51xVtVNvhh5I/J54YlZEPalem46hCcJdgq/FE1iw7GsGtb0v/E327Nrpygku8kAAAAASUVORK5CYII=" alt=""></div><h3>Eventos</h3><p>Chegada e saída combinadas antes do evento.</p></article>
+      <article class="card service-card" data-reveal="80"><div class="service-top"><span class="card-num">05</span><img class="card-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAoCAYAAADpE0oSAAACmElEQVR4nMXYTYhOURgH8B/jI735WCDK0s5CKAubSZnSqNH0xhQiTZJSPjbTbGZhIws1aTailDSZJI00yRuaUsoOCxYSaYpIFqZJZmRx7uT0uve+H/fKv27ve57zPPd/zr3nPM//3AVPrx70P7Cw5Pt1Nuu4qCBRFduxNGnPoQe/MIXhf0F8ARXcx72U/sM4j8nEpxTiYfzAyRyf69EA51CLO9t5xwewFgNN+g9gT72xHeLTCXkashbXOxwvQrwbz1PshzGOftxM6R/G1iLEvXicYj+EvckAnuBSis/KIsQVfK6zdeFD1B4R1kA9OooQf8L6OlsNq6L2ZSxOiZ0rQnwXO1PsVTzDjPBIq41u1Oo+nhQeZRq258R14X1saGc7TWCoxZhePChKPIDuFmM68LAoMdzBxSZ9r+FRvbFd4gvYJFSiPJwQFtxYWcSEJHGmgc8u3ErrKEI8gTe4kdF/TUivaZmusAI5hs3CI40xiBU4lxVYhvS5jCNRu1PYPqN5QWUQjwgLaDBp9+M1bucFFdVc87iSEK7GRuxoFFCWyhzFd5yVXo//QlkzJtTjPil7Ng1l6+qmSGl/xp1YhzVYhiXJ73yxr2B58n8WX/xZfE0Tn8Q2QbR/w0dBEHwVRNy0jCQRYV6lHJNo7CziQexPiMZxtIkB5qGGDYI6TSXuwylBTWwpSBbjOl4IYlA98T4hAzXcgxnoEV5HXBS6BUn8LCatJ+7XIM3l4DVeCoOPMZFcfyHeThV/zjut4pWwHppGPOMpYfXVMnzz0NtqQDzjO7LPRKUjnvGYIMxvC+9rUuP92TYWZHwDGRKOIbPCu5vCW3VKsQiyEkisHKpCuduUXD+FTw0zQtaalnLib5c4Rm5BbxdlV6em8RsO2XngULUw1AAAAABJRU5ErkJggg==" alt=""></div><h3>Viagens e deslocamentos</h3><p>Percursos fora da rotina, com rota e condições alinhadas antes.</p></article>
+      <article class="card service-card" data-reveal="160"><div class="service-top"><span class="card-num">06</span><img class="card-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAdCAYAAABWk2cPAAACE0lEQVR4nMXXT4hNYRjH8c+MKSnNQjLJYjYWSjaykNJko0kiaaLIVkkWJLGykLIwJAt/F2rSIE0y3WYzSbMgkWRjMU0kC5ImNWkMsnguHfeec897Zqbxq1P3vu/vvt/zvuc5z/Pctic39llotS84ER0V/WewHivq339gEq9xPHWR1J2O4TGmcAEb6tdG9OJL3fMKB8oWayt5pg+wGofq0BQN4yd2Fhla7fQzPmBtBSBsRw0TRYaiZzqBs+ivAMvqKj7hDdY0Tubt9B7uJAAvY0+L+SFcw8sy6C5M42QJEJZgaYmnHx9xPjvYeLw9eJgAJF6V6QRfL55lBxp32iGONkXfMJPofYejedD9ImJTNYXvid4R8RY0QZdpEeY5+iV9pzfRmQclwjxV7SJxVFYjNPXOieDYjB2J/o6mD+K4Opu9hRpFl0iRXbhe4v+7wSx0Bt0VoHAbX3EMq3C6wLdbJuiyx/seKytCiQS/RURnEXQr3uZBa1g8C+gf9YkSl6d1eJQHVb+bI3MAX8oZOyESSa0IelEU5/nUQVzJDuRVmVu4P0/A53ghKldL6KgoS2NzBA6JVNnXOFHUOQyIQjwuOoGqGhYVqCdvslW7MiDS3CkMJsIOi4C5i71FppQWdJOoiYMiY42LwjCJRVgukkonnmJb2YKpfe9I/SK6i26RSKZFUjmXuE4laFZDs/jNP/ovfyt+Az3SZjftBeqKAAAAAElFTkSuQmCC" alt=""></div><h3>Espera e acompanhamento</h3><p>Quando combinado, permaneço disponível dentro da mesma demanda.</p></article>
     </div>
   </div>
 </section>
@@ -74,14 +75,13 @@
     <p class="eyebrow">Por que agendar antes?</p>
     <div class="split-head">
       <h2 class="title-lg">Porque alguns trajetos não podem depender de improviso.</h2>
-      <p class="copy">Quando existe horário, bagagem, reunião, consulta, voo, evento ou espera, o deslocamento precisa ser pensado antes. A diferença está no que acontece antes do carro chegar.</p>
+      <p class="copy">Se há voo, reunião, consulta, evento ou tempo de espera, combinamos antes o horário, a rota e os detalhes que fazem diferença.</p>
     </div>
     <div class="grid-4">
-      <article class="card reason-card" data-reveal="0"><span class="card-num">01</span><h3>Horário combinado</h3><p>A agenda é alinhada antes do atendimento.</p></article>
-      <article class="card reason-card" data-reveal="80"><span class="card-num">02</span><h3>Rota pensada</h3><p>Tempo, trânsito e contexto entram na decisão.</p></article>
-      <article class="card reason-card" data-reveal="160"><span class="card-num">03</span><h3>Comunicação direta</h3><p>Você fala com quem vai te atender.</p></article>
-      <article class="card reason-card" data-reveal="240"><span class="card-num">04</span><h3>Menos ruído</h3><p>Origem, destino, espera e detalhes ficam claros antes.</p></article>
+      <article class="card reason-card" data-reveal="0"><span class="card-num">01</span><h3>Horário combinado</h3><p>Definimos o horário antes da corrida.</p></article>
+      <article class="card reason-card" data-reveal="80"><span class="card-num">02</span><h3>Rota pensada</h3><p>Trânsito, tempo e contexto entram no planejamento.</p></article>
+      <article class="card reason-card" data-reveal="160"><span class="card-num">03</span><h3>Comunicação direta</h3><p>Você fala comigo do agendamento ao desembarque.</p></article>
+      <article class="card reason-card" data-reveal="240"><span class="card-num">04</span><h3>Menos ruído</h3><p>Origem, destino, espera e outros detalhes ficam alinhados antes.</p></article>
     </div>
   </div>
 </section>
-
