@@ -142,7 +142,7 @@ jobs:
           cat release/visual-assets/hero/part-*.bin > deploy-public/assets/hero-claude.avif
           cat release/visual-assets/logo/part-*.bin > deploy-public/assets/logo-claude.avif
 
-          echo '7d6e679dd73dbeba90b9a02953406335ea77e1b28b9ea56354d92f17dd31477b  deploy-public/assets/hero-claude.avif' | sha256sum -c -
+          echo '2b5dd109d05d31dc211b11256cf267d2f99b9d85b95addf5637b84a02890057b  deploy-public/assets/hero-claude.avif' | sha256sum -c -
           echo 'a9b0eb5462a08f9bb2004223489833315c3d2df64f3f5091b6ba08387f36a155  deploy-public/assets/logo-claude.avif' | sha256sum -c -
           test -s deploy-public/assets/hero-claude.avif
           test -s deploy-public/assets/logo-claude.avif
