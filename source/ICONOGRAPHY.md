@@ -64,5 +64,5 @@ Não usar PNG funcional, SVG copiado manualmente, emoji, caracteres pictográfic
 | Compromisso | `clock` | 32 | Champagne |
 | Postura | `shield-check` | 32 | Champagne |
 | Ação seguinte | `arrow-right` | 24 | Champagne/currentColor |
-| Link externo | `arrow-up-right` | 20–24 | Champagne |
+| Link externo | `arrow-up-right` | 24 | Champagne |
 | Localização | `map-pin` | 32 | Âmbar |
