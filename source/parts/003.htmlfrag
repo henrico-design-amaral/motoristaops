@@ -23,10 +23,10 @@
       <blockquote class="driver-quote" data-reveal="340">“Levando pessoas, cuidando de histórias.”</blockquote>
     </div>
     <div class="driver-meta">
-      <div class="driver-meta-item" data-reveal="180"><span class="mo-icon mo-icon--sm" data-mo-icon="experience" aria-hidden="true"></span><div><span>Experiência</span><strong>Rotina real nas ruas</strong></div></div>
-      <div class="driver-meta-item" data-reveal="240"><span class="mo-icon mo-icon--sm" data-mo-icon="communication" aria-hidden="true"></span><div><span>Atendimento</span><strong>Direto</strong></div></div>
-      <div class="driver-meta-item" data-reveal="300"><span class="mo-icon mo-icon--sm" data-mo-icon="commitment" aria-hidden="true"></span><div><span>Compromisso</span><strong>Hora marcada</strong></div></div>
-      <div class="driver-meta-item" data-reveal="360"><span class="mo-icon mo-icon--sm" data-mo-icon="posture" aria-hidden="true"></span><div><span>Postura</span><strong>Discrição</strong></div></div>
+      <div class="driver-meta-item" data-reveal="180"><span class="mo-icon mo-icon--md" data-mo-icon="experience" aria-hidden="true"></span><div><span>Experiência</span><strong>Rotina real nas ruas</strong></div></div>
+      <div class="driver-meta-item" data-reveal="240"><span class="mo-icon mo-icon--md" data-mo-icon="communication" aria-hidden="true"></span><div><span>Atendimento</span><strong>Direto</strong></div></div>
+      <div class="driver-meta-item" data-reveal="300"><span class="mo-icon mo-icon--md" data-mo-icon="commitment" aria-hidden="true"></span><div><span>Compromisso</span><strong>Hora marcada</strong></div></div>
+      <div class="driver-meta-item" data-reveal="360"><span class="mo-icon mo-icon--md" data-mo-icon="posture" aria-hidden="true"></span><div><span>Postura</span><strong>Discrição</strong></div></div>
     </div>
   </div>
 </section>
@@ -39,11 +39,11 @@
   <div class="container">
     <div class="footer-grid">
       <div><img class="footer-logo" src="/assets/logo-claude.avif" alt="MotoristaOPS por Henrico Amaral"><p style="margin:14px 0 0;font-stretch:75%;font-size:12.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mo-muted-light)">Motorista particular</p><div style="width:64px;height:1px;margin:18px 0;background:rgba(199,156,91,.55)"></div><p style="margin:0;font-size:15.5px;color:var(--mo-muted)">Atendimento discreto e planejado.</p></div>
-      <div class="footer-mid"><p class="eyebrow" style="margin-bottom:8px">Agendamento</p><h2 class="title-md" style="margin-bottom:20px">Vamos combinar seu trajeto?</h2><a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener"><img class="brand-icon" src="/assets/icons-official/whatsapp.webp" alt="">Falar no WhatsApp</a><p style="margin:12px 0 0;font-size:13px;color:var(--mo-muted)">Atendimento direto comigo, Henrico Amaral.</p></div>
+      <div class="footer-mid"><p class="eyebrow" style="margin-bottom:8px">Agendamento</p><h2 class="title-md" style="margin-bottom:20px">Vamos combinar seu trajeto?</h2><a class="btn btn-primary" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener"><span class="brand-icon brand-icon--button" data-brand-icon="whatsapp" aria-hidden="true"></span>Falar no WhatsApp</a><p style="margin:12px 0 0;font-size:13px;color:var(--mo-muted)">Atendimento direto comigo, Henrico Amaral.</p></div>
       <div>
-        <a class="footer-link" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener"><img class="brand-icon" src="/assets/icons-official/whatsapp.webp" alt=""><span style="flex:1">WhatsApp</span><span class="mo-icon mo-icon--sm footer-action-icon" data-mo-icon="external" aria-hidden="true"></span></a>
-        <a class="footer-link" href="https://www.instagram.com/motoristaops/" target="_blank" rel="noopener"><img class="brand-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAA/ElEQVR4nKXTPS/EQRDH8Y9DRI7raMQbICqNTuEhIhKlhGspdSqNTqfQaBQqiVyrkKhEcS9ApxeKK0SIKIjiPxd7/+xdcSaZZGZnvzu/fRponu/o1yp9kxjKjB3Hom+o4QNf4U9odIMv8YijyBeT2h1OMY2Tsuw6XhNwHZPh8zG2j9k2kMLjeIj4EKsYwSf2sB21Vk72IL4jHkMTw7jGAkbLDdPOlYDEIi8J0IotdVja+QfViKcwg7PIl7HRC37HXMRX2FLsdwL3yby2mg74AptYw0142Q5S+bl7rmMJz4pDrCpuohZzdrvBDX8vaCXgnIIsnNptjxr++TF+ASjNKnD44pFHAAAAAElFTkSuQmCC" alt=""><span style="flex:1">Instagram</span><span class="mo-icon mo-icon--sm footer-action-icon" data-mo-icon="external" aria-hidden="true"></span></a>
-        <div class="footer-link" style="border-bottom:0"><span class="mo-icon mo-icon--sm mo-icon--route" data-mo-icon="location" aria-hidden="true"></span><span>São Paulo / Brasil</span></div>
+        <a class="footer-link" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener"><span class="brand-icon brand-icon--footer" data-brand-icon="whatsapp" aria-hidden="true"></span><span style="flex:1">WhatsApp</span><span class="mo-icon mo-icon--sm footer-action-icon" data-mo-icon="external" aria-hidden="true"></span></a>
+        <a class="footer-link" href="https://www.instagram.com/motoristaops/" target="_blank" rel="noopener"><span class="brand-icon brand-icon--footer" data-brand-icon="instagram" aria-hidden="true"></span><span style="flex:1">Instagram</span><span class="mo-icon mo-icon--sm footer-action-icon" data-mo-icon="external" aria-hidden="true"></span></a>
+        <div class="footer-link" style="border-bottom:0"><span class="mo-icon mo-icon--md mo-icon--route footer-leading-icon" data-mo-icon="location" aria-hidden="true"></span><span>São Paulo / Brasil</span></div>
       </div>
     </div>
     <div class="footer-bottom"><span>© 2026 MotoristaOPS · por Henrico Amaral</span><span style="font-stretch:75%;letter-spacing:.16em;text-transform:uppercase;color:var(--mo-champagne)">São Paulo / Brasil</span></div>

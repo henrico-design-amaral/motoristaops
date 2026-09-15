@@ -3,26 +3,26 @@
 [data-header] .header-inner{padding-top:20px;padding-bottom:20px;justify-content:space-between}
 [data-header] .header-logo{height:54px;opacity:1}
 [data-header] .nav{display:none}
-.header-whatsapp{margin-left:auto;min-height:52px;padding:0 22px;gap:12px}
-.header-whatsapp-icon{width:24px;height:24px;object-fit:contain;filter:brightness(.12)}
+.header-whatsapp{margin-left:auto;min-height:56px;padding:0 24px;gap:14px}
+.header-whatsapp-icon{width:28px;height:28px}
 .hero-socials{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;animation:heroFade 680ms var(--mo-ease) 500ms both}
-.hero-social-link{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;min-width:238px;padding:14px 16px;border:1px solid rgba(199,156,91,.34);background:rgba(7,7,9,.48);transition:transform var(--mo-fast) var(--mo-ease),border-color var(--mo-fast) var(--mo-ease),background-color var(--mo-fast) var(--mo-ease)}
+.hero-social-link{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;min-width:252px;min-height:68px;padding:16px 18px;border:1px solid rgba(199,156,91,.34);background:rgba(7,7,9,.48);transition:transform var(--mo-fast) var(--mo-ease),border-color var(--mo-fast) var(--mo-ease),background-color var(--mo-fast) var(--mo-ease)}
 .hero-social-link--text{grid-template-columns:1fr auto}
 .hero-social-link:hover{transform:translateY(-1px);border-color:rgba(199,156,91,.62);background:rgba(21,21,24,.74)}
-.hero-social-icon{display:block;width:24px;height:24px;object-fit:contain}
-.hero-social-copy{display:flex;flex-direction:column;gap:2px;min-width:0}.hero-social-copy strong{font-size:14px;font-weight:650;color:var(--mo-ivory)}.hero-social-copy small{font-size:12px;line-height:1.25;color:var(--mo-muted-light)}
+.hero-social-icon{display:inline-grid;width:30px;height:30px}
+.hero-social-copy{display:flex;flex-direction:column;gap:3px;min-width:0}.hero-social-copy strong{font-size:14.5px;font-weight:650;color:var(--mo-ivory)}.hero-social-copy small{font-size:12.5px;line-height:1.25;color:var(--mo-muted-light)}
 
-@media(max-width:780px){[data-header] .header-inner{flex-wrap:nowrap}[data-header] .header-logo{height:38px}.header-whatsapp{min-width:44px;min-height:42px;padding:9px 12px}.header-whatsapp-label{display:none}.hero{padding-top:132px}.hero-content{max-width:100%}.hero-media img{object-position:68% center}.split-head,.timeline-wrap{grid-template-columns:1fr}.grid-3,.grid-4,.grid-5,.grid-8{grid-template-columns:1fr}.driver-grid{grid-template-columns:1fr}.driver-meta{grid-column:auto;grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.footer-mid{border-left:0;border-right:0;border-top:1px solid rgba(243,239,228,.08);border-bottom:1px solid rgba(243,239,228,.08);padding:28px 0;text-align:left}.hero-socials{display:grid;grid-template-columns:1fr;gap:10px}.hero-social-link{min-width:0;width:100%}.hero-proof{gap:10px 16px}}
+@media(max-width:780px){[data-header] .header-inner{flex-wrap:nowrap}[data-header] .header-logo{height:38px}.header-whatsapp{min-width:48px;min-height:46px;padding:9px 12px}.header-whatsapp-label{display:none}.hero{padding-top:132px}.hero-content{max-width:100%}.hero-media img{object-position:68% center}.split-head,.timeline-wrap{grid-template-columns:1fr}.grid-3,.grid-4,.grid-5,.grid-8{grid-template-columns:1fr}.driver-grid{grid-template-columns:1fr}.driver-meta{grid-column:auto;grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.footer-mid{border-left:0;border-right:0;border-top:1px solid rgba(243,239,228,.08);border-bottom:1px solid rgba(243,239,228,.08);padding:28px 0;text-align:left}.hero-socials{display:grid;grid-template-columns:1fr;gap:10px}.hero-social-link{min-width:0;width:100%}.hero-proof{gap:10px 16px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}[data-reveal]{opacity:1!important;transform:none!important}}
 </style>
 </head>
-<body data-build="motoristaops-claude-design-2026-09-05" data-icon-system="lucide">
+<body data-build="motoristaops-claude-design-2026-09-05" data-icon-system="lucide" data-brand-system="brand-glyphs">
 <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 <header data-header>
   <div class="header-inner">
     <a href="#topo" aria-label="MotoristaOPS — início"><img data-logo class="header-logo" src="/assets/logo-claude.avif" alt="MotoristaOPS por Henrico Amaral"></a>
     <a class="btn btn-primary header-whatsapp" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener" aria-label="Agendar pelo WhatsApp">
-      <img class="header-whatsapp-icon brand-icon" src="/assets/icons-official/whatsapp.webp" alt="">
+      <span class="brand-icon brand-icon--header header-whatsapp-icon" data-brand-icon="whatsapp" aria-hidden="true"></span>
       <span class="header-whatsapp-label">Agendar pelo WhatsApp</span>
       <span class="mo-icon mo-icon--sm header-whatsapp-arrow" data-mo-icon="arrow-right" aria-hidden="true"></span>
     </a>
@@ -37,11 +37,12 @@
     <p class="hero-copy">Corridas particulares para aeroportos, reuniões, consultas, eventos e viagens — com planejamento, comunicação direta e cuidado do início ao fim.</p>
     <div class="hero-socials" aria-label="Canais MotoristaOPS">
       <a class="hero-social-link" href="https://www.instagram.com/motoristaops/" target="_blank" rel="noopener" aria-label="Seguir MotoristaOPS no Instagram">
-        <img class="hero-social-icon brand-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAA/ElEQVR4nKXTPS/EQRDH8Y9DRI7raMQbICqNTuEhIhKlhGspdSqNTqfQaBQqiVyrkKhEcS9ApxeKK0SIKIjiPxd7/+xdcSaZZGZnvzu/fRponu/o1yp9kxjKjB3Hom+o4QNf4U9odIMv8YijyBeT2h1OMY2Tsuw6XhNwHZPh8zG2j9k2kMLjeIj4EKsYwSf2sB21Vk72IL4jHkMTw7jGAkbLDdPOlYDEIi8J0IotdVja+QfViKcwg7PIl7HRC37HXMRX2FLsdwL3yby2mg74AptYw0142Q5S+bl7rmMJz4pDrCpuohZzdrvBDX8vaCXgnIIsnNptjxr++TF+ASjNKnD44pFHAAAAAElFTkSuQmCC" alt="">
+        <span class="brand-icon brand-icon--hero hero-social-icon" data-brand-icon="instagram" aria-hidden="true"></span>
         <span class="hero-social-copy"><strong>Instagram</strong><small>Siga nosso perfil</small></span>
         <span class="mo-icon mo-icon--sm hero-social-arrow" data-mo-icon="external" aria-hidden="true"></span>
       </a>
-      <a class="hero-social-link hero-social-link--text" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações do MotoristaOPS no Google">
+      <a class="hero-social-link" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações do MotoristaOPS no Google">
+        <span class="brand-icon brand-icon--hero hero-social-icon" data-brand-icon="google" aria-hidden="true"></span>
         <span class="hero-social-copy"><strong>Google</strong><small>Ver avaliações</small></span>
         <span class="mo-icon mo-icon--sm hero-social-arrow" data-mo-icon="external" aria-hidden="true"></span>
       </a>

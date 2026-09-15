@@ -53,22 +53,30 @@ jobs:
 
           grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' deploy-public/index.html
           grep -qF 'data-icon-system="lucide"' deploy-public/index.html
+          grep -qF 'data-brand-system="brand-glyphs"' deploy-public/index.html
           grep -qF 'https://unpkg.com/lucide@0.574.0' deploy-public/index.html
           grep -qF -- '--mo-icon-stroke:1.75' deploy-public/index.html
           grep -qF -- '--mo-icon-size-sm:24px' deploy-public/index.html
           grep -qF -- '--mo-icon-size-md:32px' deploy-public/index.html
           grep -qF -- '--mo-icon-size-lg:42px' deploy-public/index.html
+          grep -qF -- '--mo-brand-size-header:28px' deploy-public/index.html
+          grep -qF -- '--mo-brand-size-hero:30px' deploy-public/index.html
+          grep -qF -- '--mo-brand-size-footer:30px' deploy-public/index.html
           grep -qF 'MotoristaIconSystem' deploy-public/index.html
+          grep -qF 'MotoristaBrandSystem' deploy-public/index.html
           for semantic in airport meeting health event travel wait schedule route communication details punctuality discretion care continuity experience commitment posture arrow-right external location; do
             grep -qF "data-mo-icon=\"${semantic}\"" deploy-public/index.html
           done
-          grep -qF '/assets/icons-official/whatsapp.webp' deploy-public/index.html
+          for brand in whatsapp instagram google; do
+            grep -qF "data-brand-icon=\"${brand}\"" deploy-public/index.html
+          done
           grep -qF 'https://www.instagram.com/motoristaops/' deploy-public/index.html
           grep -qF 'Ida, chegada, bagagem e horário planejados com antecedência.' deploy-public/index.html
           grep -qF 'Espera e acompanhamento' deploy-public/index.html
           grep -qF 'O que faz diferença é o básico bem feito, em todas as etapas.' deploy-public/index.html
           ! grep -qF '<img class="card-icon"' deploy-public/index.html
-          ! grep -qE '/assets/icons-official/(agendamento|airport|bagagem|checklist|motorista|pontualidade|reuniao|rota|seguranca)' deploy-public/index.html
+          ! grep -qF '/assets/icons-official/' deploy-public/index.html
+          ! grep -qF 'data:image/png;base64,' deploy-public/index.html
           ! grep -qE 'Georgia|Times New Roman|henrico\.driver\.amaral|5511953970704' deploy-public/index.html
 
           cat > deploy-public/robots.txt <<'ROBOTS'
@@ -83,7 +91,7 @@ jobs:
           <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
             <url>
               <loc>https://www.motoristaops.com.br/</loc>
-              <lastmod>2026-09-14</lastmod>
+              <lastmod>2026-09-15</lastmod>
               <changefreq>weekly</changefreq>
               <priority>1.0</priority>
             </url>
@@ -106,11 +114,9 @@ jobs:
           unzip -q runtime-bundle/runtime-assets.zip -d runtime-bundle/extracted
           cp -a runtime-bundle/extracted/assets deploy-public/
 
-          # Lucide owns functional iconography. Preserve only the WhatsApp brand asset.
-          if [ -d deploy-public/assets/icons-official ]; then
-            find deploy-public/assets/icons-official -maxdepth 1 -type f ! -name 'whatsapp.webp' -delete
-          fi
-          test -s deploy-public/assets/icons-official/whatsapp.webp
+          # Functional icons render through Lucide and external marks through MotoristaBrandSystem.
+          # Purge the legacy raster icon directory so old low-fidelity glyphs cannot reappear.
+          rm -rf deploy-public/assets/icons-official
           test -s deploy-public/assets/henrico-profile.webp
 
           cat release/visual-assets/hero/part-*.bin > deploy-public/assets/hero-claude.avif
@@ -166,19 +172,24 @@ jobs:
             public_home="$(curl -fsSL --connect-timeout 10 --max-time 30 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/?verify=${cache}" || true)"
             dashboard_home="$(curl -fsSL --connect-timeout 10 --max-time 30 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
             if grep -qF 'data-icon-system="lucide"' <<<"$public_home" \
+              && grep -qF 'data-brand-system="brand-glyphs"' <<<"$public_home" \
               && grep -qF 'https://unpkg.com/lucide@0.574.0' <<<"$public_home" \
               && grep -qF 'MotoristaIconSystem' <<<"$public_home" \
+              && grep -qF 'MotoristaBrandSystem' <<<"$public_home" \
               && grep -qF 'data-mo-icon="airport"' <<<"$public_home" \
               && grep -qF 'data-mo-icon="location"' <<<"$public_home" \
-              && grep -qF '/assets/icons-official/whatsapp.webp' <<<"$public_home" \
+              && grep -qF 'data-brand-icon="whatsapp"' <<<"$public_home" \
+              && grep -qF 'data-brand-icon="instagram"' <<<"$public_home" \
+              && grep -qF 'data-brand-icon="google"' <<<"$public_home" \
               && ! grep -qF '<img class="card-icon"' <<<"$public_home" \
-              && ! grep -qE '/assets/icons-official/(agendamento|airport|bagagem|checklist|motorista|pontualidade|reuniao|rota|seguranca)' <<<"$public_home" \
+              && ! grep -qF '/assets/icons-official/' <<<"$public_home" \
+              && ! grep -qF 'data:image/png;base64,' <<<"$public_home" \
               && grep -qF 'Plano operacional' <<<"$dashboard_home" \
               && grep -qF 'MotoristaOPS' <<<"$dashboard_home"; then
-              for asset in assets/hero-claude.avif assets/logo-claude.avif assets/service-cards.webp assets/henrico-profile.webp assets/icons-official/whatsapp.webp landing-v3/logo-oficial.svg; do
+              for asset in assets/hero-claude.avif assets/logo-claude.avif assets/service-cards.webp assets/henrico-profile.webp landing-v3/logo-oficial.svg; do
                 test "$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/${asset}")" = '200'
               done
-              echo 'Landing deployment passed with canonical Lucide functional iconography and preserved brand marks/dashboard.'
+              echo 'Landing deployment passed with rebuilt social brand glyphs, larger driver metadata icons, canonical Lucide functional icons and preserved dashboard.'
               exit 0
             fi
             sleep 10

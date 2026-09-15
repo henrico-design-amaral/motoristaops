@@ -4,6 +4,10 @@
   --mo-icon-size-sm:24px;
   --mo-icon-size-md:32px;
   --mo-icon-size-lg:42px;
+  --mo-brand-size-header:28px;
+  --mo-brand-size-hero:30px;
+  --mo-brand-size-footer:30px;
+  --mo-brand-size-button:28px;
 }
 .mo-icon{
   --mo-icon-size:var(--mo-icon-size-sm);
@@ -32,6 +36,25 @@
 .light .mo-icon{color:var(--mo-graphite)}
 .light .mo-icon--route{color:var(--mo-amber)}
 
+/* External brands are not functional pictograms. Their glyphs are rendered by MotoristaBrandSystem. */
+.brand-icon{
+  --mo-brand-size:var(--mo-brand-size-hero);
+  display:inline-grid;
+  place-items:center;
+  flex:0 0 var(--mo-brand-size);
+  width:var(--mo-brand-size);
+  height:var(--mo-brand-size);
+  color:var(--mo-champagne);
+  line-height:0;
+}
+.brand-icon--header{--mo-brand-size:var(--mo-brand-size-header)}
+.brand-icon--hero{--mo-brand-size:var(--mo-brand-size-hero)}
+.brand-icon--footer{--mo-brand-size:var(--mo-brand-size-footer)}
+.brand-icon--button{--mo-brand-size:var(--mo-brand-size-button)}
+.brand-icon>svg,.brand-icon svg{display:block;width:100%;height:100%;fill:currentColor;stroke:none}
+.header-whatsapp .brand-icon,.footer-mid .btn-primary .brand-icon{color:var(--mo-night)}
+.hero-social-link .brand-icon,.footer-link .brand-icon{color:var(--mo-champagne)}
+
 .header-whatsapp-arrow,.hero-social-arrow,.footer-action-icon{color:currentColor}
 .header-whatsapp-arrow{margin-left:4px}
 .hero-social-arrow{color:var(--mo-champagne)}
@@ -40,15 +63,14 @@
 .reason-card .mo-icon{color:var(--mo-champagne)}
 .reason-card .mo-icon--route{color:var(--mo-amber)}
 .quality-item .mo-icon{margin:0 auto 20px;color:var(--mo-champagne)}
-.driver-meta-item{display:flex;align-items:center;gap:14px}
+.driver-meta-item{display:grid;grid-template-columns:32px minmax(0,1fr);align-items:center;gap:16px;min-height:82px}
 .driver-meta-item .mo-icon{color:var(--mo-champagne)}
 .footer-link .mo-icon{color:var(--mo-champagne)}
 .footer-link .mo-icon--route{color:var(--mo-amber)}
-.brand-icon{display:block;width:24px;height:24px;object-fit:contain;flex:0 0 24px}
-.header-whatsapp-icon{width:24px;height:24px;object-fit:contain}
-.hero-social-icon{width:24px;height:24px;object-fit:contain}
-.footer-link img.brand-icon{width:24px;height:24px}
+.footer-leading-icon{--mo-icon-size:32px}
+.footer-action-icon{--mo-icon-size:24px;color:var(--mo-muted-light)}
 
 @media(max-width:780px){
   .header-whatsapp-arrow{display:none}
+  .driver-meta-item{min-height:76px}
 }
