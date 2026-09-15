@@ -51,6 +51,106 @@
   </div></div>
 </section>
 
+<section id="prova-social" class="section social-proof" aria-labelledby="prova-social-title">
+  <div class="container">
+    <div class="social-proof-head">
+      <div>
+        <p class="eyebrow">Prova social</p>
+        <h2 id="prova-social-title" class="title-lg social-proof-title"><span>Confiança que</span><span>vem da <span class="social-proof-title-accent">experiência.</span></span></h2>
+      </div>
+      <p class="social-proof-intro">São milhares de viagens, avaliações reais e histórias que reforçam um mesmo compromisso: oferecer um trajeto seguro, pontual e de qualidade, sempre.</p>
+    </div>
+
+    <div class="social-proof-metrics" aria-label="Indicadores de confiança">
+      <article class="social-proof-metric" data-reveal="0">
+        <div class="social-proof-metric-mark"><span class="brand-icon" data-brand-icon="google" aria-hidden="true"></span></div>
+        <div class="social-proof-metric-copy">
+          <span class="social-proof-kicker">Avaliação no Google</span>
+          <p class="social-proof-value"><span>5,0</span><span class="social-proof-stars" aria-label="5 de 5 estrelas">★★★★★</span></p>
+          <span class="social-proof-sub">8 avaliações</span>
+        </div>
+      </article>
+
+      <article class="social-proof-metric" data-reveal="80">
+        <div class="social-proof-metric-mark social-proof-uber-mark" aria-hidden="true">Uber</div>
+        <div class="social-proof-metric-copy">
+          <span class="social-proof-kicker">Avaliação na Uber</span>
+          <p class="social-proof-value"><span>4,98</span><span class="social-proof-stars" aria-label="5 estrelas">★★★★★</span></p>
+        </div>
+      </article>
+
+      <article class="social-proof-metric" data-reveal="160">
+        <div class="social-proof-metric-mark"><span class="mo-icon mo-icon--route" aria-hidden="true"><i data-lucide="route"></i></span></div>
+        <div class="social-proof-metric-copy">
+          <span class="social-proof-kicker">Viagens realizadas</span>
+          <p class="social-proof-value">3.453</p>
+          <span class="social-proof-sub">Mais de 3.400 viagens</span>
+        </div>
+      </article>
+
+      <article class="social-proof-metric" data-reveal="240">
+        <div class="social-proof-metric-mark"><span class="mo-icon" aria-hidden="true"><i data-lucide="calendar-days"></i></span></div>
+        <div class="social-proof-metric-copy">
+          <span class="social-proof-kicker">Tempo no app</span>
+          <p class="social-proof-value social-proof-value--stacked"><span>3 anos</span><span>e 5 meses</span></p>
+          <span class="social-proof-sub">Na Uber</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="social-proof-reviews" aria-label="Avaliações de clientes no Google">
+      <article class="social-proof-review" data-reveal="0">
+        <div class="social-proof-review-head">
+          <div><p class="social-proof-review-name">Thaís Barbosa</p><span class="social-proof-review-source">Google</span></div>
+          <a class="social-proof-review-link" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações no Google"><span>5 estrelas</span><span class="mo-icon" data-mo-icon="external" aria-hidden="true"></span></a>
+        </div>
+        <div class="social-proof-stars social-proof-review-stars" aria-label="5 de 5 estrelas">★★★★★</div>
+        <blockquote>“Bom atendimento, cordialidade e pontualidade, super recomendo de olhos fechados.”</blockquote>
+        <div class="social-proof-review-quote" aria-hidden="true">“</div>
+      </article>
+
+      <article class="social-proof-review" data-reveal="80">
+        <div class="social-proof-review-head">
+          <div><p class="social-proof-review-name">Ricardo Melo</p><span class="social-proof-review-source">Google</span></div>
+          <a class="social-proof-review-link" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações no Google"><span>5 estrelas</span><span class="mo-icon" data-mo-icon="external" aria-hidden="true"></span></a>
+        </div>
+        <div class="social-proof-stars social-proof-review-stars" aria-label="5 de 5 estrelas">★★★★★</div>
+        <blockquote>“Eu sempre opto pelo Henrrique quando eu vou em festivais em São Paulo ele levar eu e a minha esposa e amigos, no final do festival, deixar cada um em casa. Ele é sempre pontual e seguro!”</blockquote>
+        <div class="social-proof-review-quote" aria-hidden="true">“</div>
+      </article>
+
+      <article class="social-proof-review" data-reveal="160">
+        <div class="social-proof-review-head">
+          <div><p class="social-proof-review-name">Dani Stefanini</p><span class="social-proof-review-source">Google</span></div>
+          <a class="social-proof-review-link" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações no Google"><span>5 estrelas</span><span class="mo-icon" data-mo-icon="external" aria-hidden="true"></span></a>
+        </div>
+        <div class="social-proof-stars social-proof-review-stars" aria-label="5 de 5 estrelas">★★★★★</div>
+        <blockquote>“Excelente profissional! Recomendo sempre, pontualidade, flexibilidade, organização e limpeza do veículo. Cuidadoso no trânsito e ótimo papo.”</blockquote>
+        <div class="social-proof-review-quote" aria-hidden="true">“</div>
+      </article>
+
+      <article class="social-proof-review" data-reveal="240">
+        <div class="social-proof-review-head">
+          <div><p class="social-proof-review-name">Fernanda Josias</p><span class="social-proof-review-source">Google</span></div>
+          <a class="social-proof-review-link" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações no Google"><span>5 estrelas</span><span class="mo-icon" data-mo-icon="external" aria-hidden="true"></span></a>
+        </div>
+        <div class="social-proof-stars social-proof-review-stars" aria-label="5 de 5 estrelas">★★★★★</div>
+        <blockquote>“Excelente profissional, super pontual e cuidadoso no trânsito.”</blockquote>
+        <div class="social-proof-review-quote" aria-hidden="true">“</div>
+      </article>
+    </div>
+
+    <div class="social-proof-recognition" aria-label="Reconhecimentos recebidos na Uber">
+      <div class="social-proof-recognition-lead"><span>Mais que viagens,<strong>reconhecimento.</strong></span></div>
+      <div class="social-proof-recognition-item"><span class="mo-icon" aria-hidden="true"><i data-lucide="shield-check"></i></span><span>Motorista<br>parceiro</span></div>
+      <div class="social-proof-recognition-item"><span class="mo-icon" aria-hidden="true"><i data-lucide="thumbs-up"></i></span><span>Ótimo<br>atendimento</span></div>
+      <div class="social-proof-recognition-item"><span class="mo-icon" aria-hidden="true"><i data-lucide="car-front"></i></span><span>Carro limpo<br>e confortável</span></div>
+      <div class="social-proof-recognition-item"><span class="mo-icon" aria-hidden="true"><i data-lucide="traffic-lights"></i></span><span>Cuidadoso<br>no trânsito</span></div>
+      <div class="social-proof-recognition-end">Avaliações reais.<br>Resultados reais.</div>
+    </div>
+  </div>
+</section>
+
 <section id="servicos" class="section" style="border-top:1px solid rgba(243,239,228,.06)">
   <div class="container">
     <p class="eyebrow">Quando faz sentido</p>
