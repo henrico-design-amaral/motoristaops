@@ -18,16 +18,17 @@
     width:100%;
     max-width:none!important;
     margin-top:14px;
+    font-family:'Instrument Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
     font-size:15.5px;
-    font-stretch:85%;
+    font-weight:400;
+    font-stretch:normal;
     line-height:1.58;
-    letter-spacing:-.01em;
-    color:#D4D0C8;
+    letter-spacing:normal;
+    color:var(--mo-muted-light);
   }
   .mo-mobile-hero-copy span{display:block;white-space:nowrap}
 }
 
 @media(max-width:340px){
-  .mo-mobile-hero-copy{font-size:15.5px}
   .mo-mobile-hero-copy span{white-space:normal}
 }
