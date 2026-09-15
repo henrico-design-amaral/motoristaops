@@ -36,16 +36,24 @@ jobs:
             why_pos="$(grep -bo 'id="por-que-agendar"' <<<"$public_html" | head -1 | cut -d: -f1 || true)"
 
             if grep -qF 'data-icon-system="lucide"' <<<"$public_html" \
+              && grep -qF 'data-brand-system="brand-glyphs"' <<<"$public_html" \
               && grep -qF 'https://unpkg.com/lucide@0.574.0' <<<"$public_html" \
               && grep -qF -- '--mo-icon-stroke:1.75' <<<"$public_html" \
               && grep -qF -- '--mo-icon-size-sm:24px' <<<"$public_html" \
               && grep -qF -- '--mo-icon-size-md:32px' <<<"$public_html" \
               && grep -qF -- '--mo-icon-size-lg:42px' <<<"$public_html" \
+              && grep -qF -- '--mo-brand-size-header:28px' <<<"$public_html" \
+              && grep -qF -- '--mo-brand-size-hero:30px' <<<"$public_html" \
+              && grep -qF -- '--mo-brand-size-footer:30px' <<<"$public_html" \
               && grep -qF 'MotoristaIconSystem' <<<"$public_html" \
+              && grep -qF 'MotoristaBrandSystem' <<<"$public_html" \
               && grep -qF 'data-mo-icon="airport"' <<<"$public_html" \
               && grep -qF 'data-mo-icon="travel"' <<<"$public_html" \
               && grep -qF 'data-mo-icon="punctuality"' <<<"$public_html" \
               && grep -qF 'data-mo-icon="location"' <<<"$public_html" \
+              && grep -qF 'data-brand-icon="whatsapp"' <<<"$public_html" \
+              && grep -qF 'data-brand-icon="instagram"' <<<"$public_html" \
+              && grep -qF 'data-brand-icon="google"' <<<"$public_html" \
               && grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' <<<"$public_html" \
               && grep -qF 'property="og:image" content="https://www.motoristaops.com.br/assets/hero-claude.avif"' <<<"$public_html" \
               && grep -qF 'Pular para o conteúdo' <<<"$public_html" \
@@ -54,10 +62,10 @@ jobs:
               && grep -qF 'O valor aparece no jeito de trabalhar.' <<<"$public_html" \
               && grep -qF 'Henrico Amaral.' <<<"$public_html" \
               && grep -qF 'https://www.instagram.com/motoristaops/' <<<"$public_html" \
-              && grep -qF '/assets/icons-official/whatsapp.webp' <<<"$public_html" \
               && test -n "$services_pos" && test -n "$why_pos" && test "$services_pos" -lt "$why_pos" \
               && ! grep -qF '<img class="card-icon"' <<<"$public_html" \
-              && ! grep -qE '/assets/icons-official/(agendamento|airport|bagagem|checklist|motorista|pontualidade|reuniao|rota|seguranca)' <<<"$public_html" \
+              && ! grep -qF '/assets/icons-official/' <<<"$public_html" \
+              && ! grep -qF 'data:image/png;base64,' <<<"$public_html" \
               && ! grep -qE 'Georgia|Times New Roman|henrico\.driver\.amaral|5511953970704' <<<"$public_html" \
               && grep -qF 'Sitemap: https://www.motoristaops.com.br/sitemap.xml' <<<"$robots" \
               && grep -qF '<loc>https://www.motoristaops.com.br/</loc>' <<<"$sitemap" \
@@ -65,7 +73,7 @@ jobs:
               && grep -qF 'Plano operacional' <<<"$dashboard_html" \
               && grep -qF 'Performance' <<<"$dashboard_html" \
               && grep -qF 'Particular' <<<"$dashboard_html"; then
-              echo 'MotoristaOPS production verification passed: Lucide is canonical (24/32/42, stroke 1.75), brand marks are separate, and the dashboard is preserved.'
+              echo 'MotoristaOPS production verification passed: social brand glyphs are centralized and larger, driver metadata uses 32 px icons, Lucide remains canonical, and the dashboard is preserved.'
               exit 0
             fi
             sleep 5
