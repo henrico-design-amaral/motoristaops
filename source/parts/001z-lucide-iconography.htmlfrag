@@ -1,0 +1,54 @@
+/* MotoristaOPS canonical functional icon system — Lucide Icons */
+:root{
+  --mo-icon-stroke:1.75;
+  --mo-icon-size-sm:24px;
+  --mo-icon-size-md:32px;
+  --mo-icon-size-lg:42px;
+}
+.mo-icon{
+  --mo-icon-size:var(--mo-icon-size-sm);
+  display:inline-grid;
+  place-items:center;
+  flex:0 0 var(--mo-icon-size);
+  width:var(--mo-icon-size);
+  height:var(--mo-icon-size);
+  color:var(--mo-champagne);
+  line-height:0;
+}
+.mo-icon--sm{--mo-icon-size:var(--mo-icon-size-sm)}
+.mo-icon--md{--mo-icon-size:var(--mo-icon-size-md)}
+.mo-icon--lg{--mo-icon-size:var(--mo-icon-size-lg)}
+.mo-icon--route{color:var(--mo-amber)}
+.mo-icon>svg,.mo-icon svg{
+  display:block;
+  width:100%;
+  height:100%;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:var(--mo-icon-stroke);
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.light .mo-icon{color:var(--mo-graphite)}
+.light .mo-icon--route{color:var(--mo-amber)}
+
+.header-whatsapp-arrow,.hero-social-arrow,.footer-action-icon{color:currentColor}
+.header-whatsapp-arrow{margin-left:4px}
+.hero-social-arrow{color:var(--mo-champagne)}
+.reason-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}
+.reason-top .card-num{margin:4px 0 0}
+.reason-card .mo-icon{color:var(--mo-champagne)}
+.reason-card .mo-icon--route{color:var(--mo-amber)}
+.quality-item .mo-icon{margin:0 auto 20px;color:var(--mo-champagne)}
+.driver-meta-item{display:flex;align-items:center;gap:14px}
+.driver-meta-item .mo-icon{color:var(--mo-champagne)}
+.footer-link .mo-icon{color:var(--mo-champagne)}
+.footer-link .mo-icon--route{color:var(--mo-amber)}
+.brand-icon{display:block;width:24px;height:24px;object-fit:contain;flex:0 0 24px}
+.header-whatsapp-icon{width:24px;height:24px;object-fit:contain}
+.hero-social-icon{width:24px;height:24px;object-fit:contain}
+.footer-link img.brand-icon{width:24px;height:24px}
+
+@media(max-width:780px){
+  .header-whatsapp-arrow{display:none}
+}

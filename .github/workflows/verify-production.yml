@@ -37,6 +37,21 @@ jobs:
             why_pos="$(grep -bo 'id="por-que-agendar"' <<<"$public_html" | head -1 | cut -d: -f1 || true)"
 
             if grep -qF 'data-build="motoristaops-claude-design-2026-09-05"' <<<"$public_html" \
+              && grep -qF 'data-icon-system="lucide"' <<<"$public_html" \
+              && grep -qF 'https://unpkg.com/lucide@1.46.0' <<<"$public_html" \
+              && grep -qF -- '--mo-icon-stroke:1.75' <<<"$public_html" \
+              && grep -qF -- '--mo-icon-size-sm:24px' <<<"$public_html" \
+              && grep -qF -- '--mo-icon-size-md:32px' <<<"$public_html" \
+              && grep -qF -- '--mo-icon-size-lg:42px' <<<"$public_html" \
+              && grep -qF 'MotoristaIconSystem' <<<"$public_html" \
+              && grep -qF 'data-mo-icon="airport"' <<<"$public_html" \
+              && grep -qF 'data-mo-icon="meeting"' <<<"$public_html" \
+              && grep -qF 'data-mo-icon="health"' <<<"$public_html" \
+              && grep -qF 'data-mo-icon="event"' <<<"$public_html" \
+              && grep -qF 'data-mo-icon="travel"' <<<"$public_html" \
+              && grep -qF 'data-mo-icon="wait"' <<<"$public_html" \
+              && grep -qF 'data-mo-icon="punctuality"' <<<"$public_html" \
+              && grep -qF 'data-mo-icon="location"' <<<"$public_html" \
               && grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' <<<"$public_html" \
               && grep -qF 'rel="canonical" href="https://www.motoristaops.com.br/"' <<<"$public_html" \
               && grep -qF 'property="og:url" content="https://www.motoristaops.com.br/"' <<<"$public_html" \
@@ -61,16 +76,16 @@ jobs:
               && grep -qF 'src="/assets/hero-claude.avif"' <<<"$public_html" \
               && grep -qF 'src="/assets/logo-claude.avif"' <<<"$public_html" \
               && grep -qF '/assets/henrico-profile.webp' <<<"$public_html" \
+              && grep -qF '/assets/icons-official/whatsapp.webp' <<<"$public_html" \
               && grep -qF 'https://wa.me/5511988329725?' <<<"$public_html" \
-              && grep -qF 'data:image/png;base64,' <<<"$public_html" \
               && grep -qF '<meta name="theme-color" content="#070709">' <<<"$public_html" \
               && test -n "$services_pos" \
               && test -n "$why_pos" \
               && test "$services_pos" -lt "$why_pos" \
+              && ! grep -qF '<img class="card-icon"' <<<"$public_html" \
+              && ! grep -qE '/assets/icons-official/(agendamento|airport|bagagem|checklist|motorista|pontualidade|reuniao|rota|seguranca)' <<<"$public_html" \
               && ! grep -qF 'id="como-funciona"' <<<"$public_html" \
               && ! grep -qF 'henrico.driver.amaral' <<<"$public_html" \
-              && ! grep -qF 'Transfers com pontualidade, conforto e tranquilidade.' <<<"$public_html" \
-              && ! grep -qF 'Suporte em compromissos, espera e rotinas frequentes.' <<<"$public_html" \
               && ! grep -qE 'Georgia|Times New Roman' <<<"$public_html" \
               && ! grep -qF '>IG<' <<<"$public_html" \
               && ! grep -qF '>G<' <<<"$public_html" \
@@ -87,12 +102,12 @@ jobs:
               && grep -qF 'Performance' <<<"$dashboard_html" \
               && grep -qF 'Particular' <<<"$dashboard_html"; then
 
-              for asset in assets/hero-claude.avif assets/logo-claude.avif assets/henrico-profile.webp assets/service-cards.webp landing-v3/logo-oficial.svg; do
+              for asset in assets/hero-claude.avif assets/logo-claude.avif assets/henrico-profile.webp assets/service-cards.webp assets/icons-official/whatsapp.webp landing-v3/logo-oficial.svg; do
                 code="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 5 --max-time 8 "https://www.motoristaops.com.br/${asset}?verify=${cache}" || true)"
                 test "$code" = '200' || { echo "Critical asset failed: ${asset} -> ${code}"; continue 2; }
               done
 
-              echo 'MotoristaOPS landing verification passed: copy, social icon family, typography, accessibility, assets and dashboard preservation are healthy.'
+              echo 'MotoristaOPS landing verification passed: canonical Lucide iconography (24/32/42, stroke 1.75), brand marks, copy, accessibility, assets and dashboard are healthy.'
               exit 0
             fi
 

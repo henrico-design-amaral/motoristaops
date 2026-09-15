@@ -1,0 +1,58 @@
+<script src="https://unpkg.com/lucide@1.46.0" crossorigin="anonymous"></script>
+<script>
+(function(){
+  'use strict';
+  var ICONS={
+    'airport':'plane',
+    'meeting':'briefcase',
+    'health':'stethoscope',
+    'event':'calendar-days',
+    'travel':'route',
+    'wait':'hourglass',
+    'schedule':'calendar-check',
+    'route':'route',
+    'communication':'message-circle',
+    'details':'clipboard-check',
+    'punctuality':'timer',
+    'discretion':'eye-off',
+    'care':'heart',
+    'continuity':'repeat-2',
+    'experience':'car-front',
+    'commitment':'clock',
+    'posture':'shield-check',
+    'arrow-right':'arrow-right',
+    'external':'arrow-up-right',
+    'location':'map-pin'
+  };
+
+  function render(root){
+    root=root||document;
+    var nodes=[].slice.call(root.querySelectorAll('[data-mo-icon]'));
+    nodes.forEach(function(host){
+      if(host.getAttribute('data-mo-rendered')==='true')return;
+      var semantic=host.getAttribute('data-mo-icon');
+      var icon=ICONS[semantic];
+      if(!icon)return;
+      var placeholder=document.createElement('i');
+      placeholder.setAttribute('data-lucide',icon);
+      host.textContent='';
+      host.appendChild(placeholder);
+      host.setAttribute('data-mo-rendered','true');
+    });
+    if(window.lucide&&typeof window.lucide.createIcons==='function'){
+      window.lucide.createIcons({attrs:{
+        'aria-hidden':'true',
+        'focusable':'false',
+        'fill':'none',
+        'stroke':'currentColor',
+        'stroke-width':'1.75',
+        'stroke-linecap':'round',
+        'stroke-linejoin':'round'
+      }});
+    }
+  }
+
+  window.MotoristaIconSystem={family:'Lucide',base:24,stroke:1.75,sizes:{sm:24,md:32,lg:42},icons:ICONS,render:render};
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){render(document)});else render(document);
+})();
+</script>
