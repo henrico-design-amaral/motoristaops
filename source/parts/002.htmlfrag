@@ -51,15 +51,18 @@
   </div></div>
 </section>
 
-<section id="prova-social" class="section social-proof" aria-labelledby="prova-social-title">
-  <div class="container">
-    <div class="social-proof-head">
+<section id="prova-social" class="social-proof" aria-labelledby="prova-social-title">
+  <div class="social-proof-shell">
+    <header class="social-proof-head">
       <div>
         <p class="eyebrow">Prova social</p>
-        <h2 id="prova-social-title" class="title-lg social-proof-title"><span>Confiança que</span><span>vem da <span class="social-proof-title-accent">experiência.</span></span></h2>
+        <h2 id="prova-social-title" class="title-lg social-proof-title">
+          <span>Confiança que</span>
+          <span>vem da <span class="social-proof-title-accent">experiência.</span></span>
+        </h2>
       </div>
       <p class="social-proof-intro">São milhares de viagens, avaliações reais e histórias que reforçam um mesmo compromisso: oferecer um trajeto seguro, pontual e de qualidade, sempre.</p>
-    </div>
+    </header>
 
     <div class="social-proof-metrics" aria-label="Indicadores de confiança">
       <article class="social-proof-metric" data-reveal="0">
@@ -101,8 +104,10 @@
     <div class="social-proof-reviews" aria-label="Avaliações de clientes no Google">
       <article class="social-proof-review" data-reveal="0">
         <div class="social-proof-review-head">
-          <div><p class="social-proof-review-name">Thaís Barbosa</p><span class="social-proof-review-source">Google</span></div>
-          <a class="social-proof-review-link" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações no Google"><span>5 estrelas</span><span class="mo-icon" data-mo-icon="external" aria-hidden="true"></span></a>
+          <a class="social-proof-review-author" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliação de Thaís Barbosa no Google">
+            <span class="social-proof-review-name">Thaís Barbosa</span><span class="mo-icon" data-mo-icon="external" aria-hidden="true"></span>
+          </a>
+          <div class="social-proof-review-meta"><span>Google</span><time>Há 3 semanas</time></div>
         </div>
         <div class="social-proof-stars social-proof-review-stars" aria-label="5 de 5 estrelas">★★★★★</div>
         <blockquote>“Bom atendimento, cordialidade e pontualidade, super recomendo de olhos fechados.”</blockquote>
@@ -111,8 +116,10 @@
 
       <article class="social-proof-review" data-reveal="80">
         <div class="social-proof-review-head">
-          <div><p class="social-proof-review-name">Ricardo Melo</p><span class="social-proof-review-source">Google</span></div>
-          <a class="social-proof-review-link" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações no Google"><span>5 estrelas</span><span class="mo-icon" data-mo-icon="external" aria-hidden="true"></span></a>
+          <a class="social-proof-review-author" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliação de Ricardo Melo no Google">
+            <span class="social-proof-review-name">Ricardo Melo</span><span class="mo-icon" data-mo-icon="external" aria-hidden="true"></span>
+          </a>
+          <div class="social-proof-review-meta"><span>Google</span><time>Há 3 semanas</time></div>
         </div>
         <div class="social-proof-stars social-proof-review-stars" aria-label="5 de 5 estrelas">★★★★★</div>
         <blockquote>“Eu sempre opto pelo Henrrique quando eu vou em festivais em São Paulo ele levar eu e a minha esposa e amigos, no final do festival, deixar cada um em casa. Ele é sempre pontual e seguro!”</blockquote>
@@ -121,8 +128,10 @@
 
       <article class="social-proof-review" data-reveal="160">
         <div class="social-proof-review-head">
-          <div><p class="social-proof-review-name">Dani Stefanini</p><span class="social-proof-review-source">Google</span></div>
-          <a class="social-proof-review-link" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações no Google"><span>5 estrelas</span><span class="mo-icon" data-mo-icon="external" aria-hidden="true"></span></a>
+          <a class="social-proof-review-author" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliação de Dani Stefanini no Google">
+            <span class="social-proof-review-name">Dani Stefanini</span><span class="mo-icon" data-mo-icon="external" aria-hidden="true"></span>
+          </a>
+          <div class="social-proof-review-meta"><span>Google</span><time>Há 3 semanas</time></div>
         </div>
         <div class="social-proof-stars social-proof-review-stars" aria-label="5 de 5 estrelas">★★★★★</div>
         <blockquote>“Excelente profissional! Recomendo sempre, pontualidade, flexibilidade, organização e limpeza do veículo. Cuidadoso no trânsito e ótimo papo.”</blockquote>
@@ -131,8 +140,10 @@
 
       <article class="social-proof-review" data-reveal="240">
         <div class="social-proof-review-head">
-          <div><p class="social-proof-review-name">Fernanda Josias</p><span class="social-proof-review-source">Google</span></div>
-          <a class="social-proof-review-link" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações no Google"><span>5 estrelas</span><span class="mo-icon" data-mo-icon="external" aria-hidden="true"></span></a>
+          <a class="social-proof-review-author" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliação de Fernanda Josias no Google">
+            <span class="social-proof-review-name">Fernanda Josias</span><span class="mo-icon" data-mo-icon="external" aria-hidden="true"></span>
+          </a>
+          <div class="social-proof-review-meta"><span>Google</span><time>Há 5 semanas</time></div>
         </div>
         <div class="social-proof-stars social-proof-review-stars" aria-label="5 de 5 estrelas">★★★★★</div>
         <blockquote>“Excelente profissional, super pontual e cuidadoso no trânsito.”</blockquote>
