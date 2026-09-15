@@ -1,4 +1,4 @@
-<script src="https://unpkg.com/lucide@1.46.0" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.574.0" crossorigin="anonymous"></script>
 <script>
 (function(){
   'use strict';
