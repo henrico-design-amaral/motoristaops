@@ -68,7 +68,7 @@
 .footer-link .mo-icon{color:var(--mo-champagne)}
 .footer-link .mo-icon--route{color:var(--mo-amber)}
 .footer-leading-icon{--mo-icon-size:32px}
-.footer-action-icon{--mo-icon-size:20px;color:var(--mo-muted-light)}
+.footer-action-icon{--mo-icon-size:24px;color:var(--mo-muted-light)}
 
 @media(max-width:780px){
   .header-whatsapp-arrow{display:none}
