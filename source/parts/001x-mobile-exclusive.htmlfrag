@@ -1,0 +1,111 @@
+/* MotoristaOPS — landing exclusiva para mobile.
+   Desktop permanece intocado: este modulo so existe visualmente <= 780px. */
+.mo-mobile-site{display:none}
+
+@media(max-width:780px){
+  body{padding-bottom:92px;overflow-x:hidden}
+
+  /* Desktop preservado e apenas oculto no viewport mobile. */
+  [data-header],
+  #topo,
+  #prova-social,
+  #servicos,
+  #por-que-agendar,
+  #diferenciais,
+  #quem-dirige,
+  body>section,
+  footer[data-comment-anchor="footer"]{display:none!important}
+
+  .mo-mobile-site{
+    display:block;
+    width:100%;
+    overflow:hidden;
+    background:var(--mo-night);
+    color:var(--mo-ivory);
+  }
+  .mo-mobile-shell{width:100%;padding:0 18px}
+  .mo-mobile-section{padding:46px 0;border-top:1px solid rgba(243,239,228,.08)}
+  .mo-mobile-eyebrow{margin:0 0 10px;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mo-champagne)}
+  .mo-mobile-title{margin:0;font-stretch:75%;font-size:34px;font-weight:700;line-height:.98;letter-spacing:-.02em;text-transform:uppercase}
+  .mo-mobile-copy{margin:14px 0 0;font-size:15.5px;line-height:1.58;color:var(--mo-muted-light)}
+
+  .mo-mobile-hero{position:relative;min-height:74svh;display:flex;align-items:flex-end;overflow:hidden;border-bottom:1px solid rgba(199,156,91,.16)}
+  .mo-mobile-hero-media{position:absolute;inset:0}
+  .mo-mobile-hero-media img{width:100%;height:100%;display:block;object-fit:cover;object-position:72% center}
+  .mo-mobile-hero-media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,9,.24) 0%,rgba(7,7,9,.18) 22%,rgba(7,7,9,.62) 58%,rgba(7,7,9,.98) 100%)}
+  .mo-mobile-hero-top{position:absolute;z-index:2;left:18px;right:18px;top:max(18px,env(safe-area-inset-top));display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .mo-mobile-logo{width:auto;height:42px;display:block}
+  .mo-mobile-location{display:inline-flex;align-items:center;gap:7px;font-size:10.5px;font-weight:650;letter-spacing:.11em;text-transform:uppercase;color:var(--mo-muted-light)}
+  .mo-mobile-location .mo-icon{width:24px;height:24px;color:var(--mo-amber)}
+  .mo-mobile-hero-content{position:relative;z-index:2;width:100%;padding:0 18px 26px}
+  .mo-mobile-hero .mo-mobile-title{max-width:330px;font-size:clamp(40px,12vw,54px)}
+  .mo-mobile-hero .mo-mobile-copy{max-width:330px;color:#D4D0C8}
+
+  .mo-mobile-channels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:22px}
+  .mo-mobile-channel{min-width:0;min-height:84px;padding:12px 8px;border:1px solid rgba(199,156,91,.28);background:rgba(7,7,9,.68);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;text-align:center}
+  .mo-mobile-channel .brand-icon{width:30px;height:30px;color:var(--mo-champagne)}
+  .mo-mobile-channel strong{font-size:12px;font-weight:700;line-height:1}
+  .mo-mobile-channel small{font-size:9.5px;line-height:1.15;color:var(--mo-muted)}
+
+  .mo-mobile-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:20px}
+  .mo-mobile-metric{min-width:0;padding:15px 10px;border:1px solid rgba(199,156,91,.22);background:var(--mo-graphite)}
+  .mo-mobile-metric-kicker{display:block;margin-bottom:7px;font-size:8.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mo-muted)}
+  .mo-mobile-metric strong{display:block;font-size:22px;line-height:1;font-weight:700;color:var(--mo-ivory)}
+  .mo-mobile-metric span:last-child{display:block;margin-top:5px;font-size:9.5px;line-height:1.25;color:var(--mo-muted-light)}
+  .mo-mobile-stars{color:#FFB900;letter-spacing:.02em}
+
+  .mo-mobile-carousel{display:grid;grid-auto-flow:column;grid-auto-columns:88%;gap:12px;margin:20px -18px 0;padding:0 18px 6px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-left:18px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .mo-mobile-carousel::-webkit-scrollbar{display:none}
+  .mo-mobile-carousel>*{scroll-snap-align:start}
+  .mo-mobile-review{min-height:202px;padding:20px;border:1px solid rgba(199,156,91,.24);background:linear-gradient(180deg,#151518 0%,#0F0F11 100%);display:flex;flex-direction:column}
+  .mo-mobile-review-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  .mo-mobile-review-name{font-size:14px;font-weight:700;color:var(--mo-ivory)}
+  .mo-mobile-review-source{font-size:10.5px;color:var(--mo-muted)}
+  .mo-mobile-review-stars{margin-top:14px;font-size:14px;color:#FFB900;letter-spacing:.05em}
+  .mo-mobile-review blockquote{margin:14px 0 0;font-size:15px;line-height:1.48;color:#E4E0D8}
+  .mo-mobile-review-foot{margin-top:auto;padding-top:16px;display:flex;align-items:center;justify-content:space-between;font-size:10.5px;color:var(--mo-muted)}
+  .mo-mobile-review-foot .brand-icon{width:22px;height:22px;color:var(--mo-champagne)}
+
+  .mo-mobile-service-carousel{grid-auto-columns:82%}
+  .mo-mobile-service{position:relative;overflow:hidden;min-height:328px;border:1px solid rgba(199,156,91,.24);background:#0F0F11;display:flex;flex-direction:column;justify-content:flex-end}
+  .mo-mobile-service::before{content:'';position:absolute;inset:0 0 122px;background-image:linear-gradient(180deg,rgba(7,7,9,.02) 0%,rgba(7,7,9,.02) 52%,rgba(7,7,9,.88) 100%),url('/assets/service-cards.webp');background-repeat:no-repeat;background-size:100% 100%,300% 200%;background-color:#111216}
+  .mo-mobile-service:nth-child(1)::before{background-position:center,0% 0%}
+  .mo-mobile-service:nth-child(2)::before{background-position:center,50% 0%}
+  .mo-mobile-service:nth-child(3)::before{background-position:center,100% 0%}
+  .mo-mobile-service:nth-child(4)::before{background-position:center,0% 100%}
+  .mo-mobile-service:nth-child(5)::before{background-position:center,50% 100%}
+  .mo-mobile-service:nth-child(6)::before{background-position:center,100% 100%}
+  .mo-mobile-service-content{position:relative;z-index:1;padding:18px 18px 20px;background:linear-gradient(180deg,rgba(7,7,9,0) 0%,rgba(7,7,9,.94) 18%,rgba(7,7,9,1) 100%)}
+  .mo-mobile-service-icon{width:32px;height:32px;margin-bottom:10px;color:var(--mo-champagne)}
+  .mo-mobile-service-icon.mo-icon--route{color:var(--mo-amber)}
+  .mo-mobile-service h3{margin:0;font-stretch:75%;font-size:20px;font-weight:700;line-height:1.05;text-transform:uppercase}
+  .mo-mobile-service p{margin:7px 0 0;font-size:13px;line-height:1.45;color:var(--mo-muted-light)}
+
+  .mo-mobile-trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:22px}
+  .mo-mobile-trust-item{padding:16px 8px;background:var(--mo-graphite);border:1px solid rgba(243,239,228,.07);text-align:center}
+  .mo-mobile-trust-item .mo-icon{width:30px;height:30px;margin:0 auto 8px;color:var(--mo-champagne)}
+  .mo-mobile-trust-item .mo-icon--route{color:var(--mo-amber)}
+  .mo-mobile-trust-item strong{display:block;font-size:15px;line-height:1.05}
+  .mo-mobile-trust-item span{display:block;margin-top:5px;font-size:9.5px;line-height:1.25;color:var(--mo-muted)}
+
+  .mo-mobile-final{padding:48px 18px 38px;border-top:1px solid rgba(199,156,91,.16);background:linear-gradient(180deg,#0C0C0E 0%,#070709 100%);text-align:center}
+  .mo-mobile-final .mo-mobile-title{font-size:38px}
+  .mo-mobile-final .mo-mobile-copy{max-width:320px;margin-left:auto;margin-right:auto}
+  .mo-mobile-final-logo{height:44px;width:auto;margin:28px auto 0;display:block;opacity:.95}
+  .mo-mobile-final-links{display:flex;justify-content:center;gap:22px;margin-top:24px}
+  .mo-mobile-final-link{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;color:var(--mo-muted-light)}
+  .mo-mobile-final-link .brand-icon{width:24px;height:24px;color:var(--mo-champagne)}
+  .mo-mobile-legal{margin-top:28px;font-size:10px;color:#696661}
+
+  .mo-mobile-sticky{position:fixed;z-index:80;left:0;right:0;bottom:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(7,7,9,.94);border-top:1px solid rgba(199,156,91,.2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .mo-mobile-sticky a{width:100%;min-height:58px;display:flex;align-items:center;justify-content:center;gap:12px;background:var(--mo-champagne);color:var(--mo-night);font-stretch:75%;font-size:13px;font-weight:750;letter-spacing:.09em;text-transform:uppercase}
+  .mo-mobile-sticky .brand-icon{width:26px;height:26px}
+  .mo-mobile-sticky .mo-icon{width:24px;height:24px;margin-left:4px}
+}
+
+@media(max-width:390px){
+  .mo-mobile-shell{padding-left:16px;padding-right:16px}
+  .mo-mobile-channels{gap:6px}.mo-mobile-channel{padding-left:5px;padding-right:5px}
+  .mo-mobile-hero-content{padding-left:16px;padding-right:16px}
+  .mo-mobile-carousel{margin-left:-16px;margin-right:-16px;padding-left:16px;scroll-padding-left:16px}
+}

@@ -1,0 +1,144 @@
+<section class="mo-mobile-site" id="mobile-top" aria-label="MotoristaOPS mobile">
+  <section class="mo-mobile-hero" aria-labelledby="mobile-hero-title">
+    <div class="mo-mobile-hero-media" aria-hidden="true">
+      <img src="/assets/hero-claude.avif" alt="">
+    </div>
+    <div class="mo-mobile-hero-top">
+      <a href="#mobile-top" aria-label="MotoristaOPS — início"><img class="mo-mobile-logo" src="/assets/logo-claude.avif" alt="MotoristaOPS por Henrico Amaral"></a>
+      <span class="mo-mobile-location"><span class="mo-icon mo-icon--route" data-mo-icon="location" aria-hidden="true"></span>São Paulo</span>
+    </div>
+    <div class="mo-mobile-hero-content">
+      <p class="mo-mobile-eyebrow">São Paulo e região</p>
+      <h1 class="mo-mobile-title" id="mobile-hero-title">Seu destino<br>em boas mãos.</h1>
+      <p class="mo-mobile-copy">Do aeroporto ao próximo compromisso, com hora marcada, comunicação direta e cuidado em cada trajeto.</p>
+
+      <nav class="mo-mobile-channels" aria-label="Canais MotoristaOPS">
+        <a class="mo-mobile-channel" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener" aria-label="Falar com Henrico pelo WhatsApp">
+          <span class="brand-icon" data-brand-icon="whatsapp" aria-hidden="true"></span>
+          <strong>WhatsApp</strong><small>Fale agora</small>
+        </a>
+        <a class="mo-mobile-channel" href="https://www.instagram.com/motoristaops/" target="_blank" rel="noopener" aria-label="Abrir Instagram do MotoristaOPS">
+          <span class="brand-icon" data-brand-icon="instagram" aria-hidden="true"></span>
+          <strong>Instagram</strong><small>Acompanhe</small>
+        </a>
+        <a class="mo-mobile-channel" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener" aria-label="Ver avaliações do MotoristaOPS no Google">
+          <span class="brand-icon" data-brand-icon="google" aria-hidden="true"></span>
+          <strong>Google</strong><small>5,0 ★★★★★</small>
+        </a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="mo-mobile-section" id="mobile-prova-social" aria-labelledby="mobile-proof-title">
+    <div class="mo-mobile-shell">
+      <p class="mo-mobile-eyebrow">Prova social</p>
+      <h2 class="mo-mobile-title" id="mobile-proof-title">Confiança que vem da experiência.</h2>
+      <p class="mo-mobile-copy">Avaliações reais, milhares de viagens e uma rotina construída nas ruas de São Paulo.</p>
+
+      <div class="mo-mobile-metrics" aria-label="Indicadores de confiança">
+        <div class="mo-mobile-metric">
+          <span class="mo-mobile-metric-kicker">Google</span>
+          <strong>5,0</strong>
+          <span class="mo-mobile-stars">★★★★★</span>
+        </div>
+        <div class="mo-mobile-metric">
+          <span class="mo-mobile-metric-kicker">Uber</span>
+          <strong>4,98</strong>
+          <span class="mo-mobile-stars">★★★★★</span>
+        </div>
+        <div class="mo-mobile-metric">
+          <span class="mo-mobile-metric-kicker">Viagens</span>
+          <strong>3.453</strong>
+          <span>Mais de 3.400</span>
+        </div>
+      </div>
+
+      <div class="mo-mobile-carousel" aria-label="Avaliações de clientes no Google">
+        <article class="mo-mobile-review">
+          <div class="mo-mobile-review-top">
+            <div><div class="mo-mobile-review-name">Thaís Barbosa</div><div class="mo-mobile-review-source">Google</div></div>
+            <span class="brand-icon" data-brand-icon="google" aria-hidden="true"></span>
+          </div>
+          <div class="mo-mobile-review-stars" aria-label="5 de 5 estrelas">★★★★★</div>
+          <blockquote>“Bom atendimento, cordialidade e pontualidade, super recomendo de olhos fechados.”</blockquote>
+          <div class="mo-mobile-review-foot"><span>Há 3 semanas</span><a href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener">Ver no Google</a></div>
+        </article>
+
+        <article class="mo-mobile-review">
+          <div class="mo-mobile-review-top">
+            <div><div class="mo-mobile-review-name">Ricardo Melo</div><div class="mo-mobile-review-source">Google</div></div>
+            <span class="brand-icon" data-brand-icon="google" aria-hidden="true"></span>
+          </div>
+          <div class="mo-mobile-review-stars" aria-label="5 de 5 estrelas">★★★★★</div>
+          <blockquote>“Eu sempre opto pelo Henrrique quando eu vou em festivais em São Paulo... Ele é sempre pontual e seguro!”</blockquote>
+          <div class="mo-mobile-review-foot"><span>Há 3 semanas</span><a href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener">Ver no Google</a></div>
+        </article>
+
+        <article class="mo-mobile-review">
+          <div class="mo-mobile-review-top">
+            <div><div class="mo-mobile-review-name">Dani Stefanini</div><div class="mo-mobile-review-source">Google</div></div>
+            <span class="brand-icon" data-brand-icon="google" aria-hidden="true"></span>
+          </div>
+          <div class="mo-mobile-review-stars" aria-label="5 de 5 estrelas">★★★★★</div>
+          <blockquote>“Excelente profissional! Recomendo sempre, pontualidade, flexibilidade, organização e limpeza do veículo.”</blockquote>
+          <div class="mo-mobile-review-foot"><span>Há 3 semanas</span><a href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener">Ver no Google</a></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="mo-mobile-section" id="mobile-servicos" aria-labelledby="mobile-services-title">
+    <div class="mo-mobile-shell">
+      <p class="mo-mobile-eyebrow">Nossos serviços</p>
+      <h2 class="mo-mobile-title" id="mobile-services-title">Trajetos pensados antes de começar.</h2>
+      <p class="mo-mobile-copy">Deslize para ver onde o MotoristaOPS faz mais sentido.</p>
+
+      <div class="mo-mobile-carousel mo-mobile-service-carousel" aria-label="Serviços MotoristaOPS">
+        <article class="mo-mobile-service">
+          <div class="mo-mobile-service-content"><span class="mo-icon mo-mobile-service-icon" data-mo-icon="airport" aria-hidden="true"></span><h3>Aeroportos</h3><p>Ida, chegada, bagagem e horário planejados com antecedência.</p></div>
+        </article>
+        <article class="mo-mobile-service">
+          <div class="mo-mobile-service-content"><span class="mo-icon mo-mobile-service-icon" data-mo-icon="meeting" aria-hidden="true"></span><h3>Reuniões</h3><p>Deslocamento com hora marcada e tempo de trajeto pensado antes.</p></div>
+        </article>
+        <article class="mo-mobile-service">
+          <div class="mo-mobile-service-content"><span class="mo-icon mo-mobile-service-icon" data-mo-icon="health" aria-hidden="true"></span><h3>Consultas</h3><p>Trajeto com calma, cuidado e atenção ao horário.</p></div>
+        </article>
+        <article class="mo-mobile-service">
+          <div class="mo-mobile-service-content"><span class="mo-icon mo-mobile-service-icon" data-mo-icon="event" aria-hidden="true"></span><h3>Eventos</h3><p>Chegada e saída combinadas antes do evento.</p></div>
+        </article>
+        <article class="mo-mobile-service">
+          <div class="mo-mobile-service-content"><span class="mo-icon mo-mobile-service-icon mo-icon--route" data-mo-icon="travel" aria-hidden="true"></span><h3>Viagens</h3><p>Percursos fora da rotina, com rota e condições alinhadas antes.</p></div>
+        </article>
+        <article class="mo-mobile-service">
+          <div class="mo-mobile-service-content"><span class="mo-icon mo-mobile-service-icon" data-mo-icon="wait" aria-hidden="true"></span><h3>Espera</h3><p>Quando combinado, permaneço disponível dentro da mesma demanda.</p></div>
+        </article>
+      </div>
+
+      <div class="mo-mobile-trust" aria-label="Experiência MotoristaOPS">
+        <div class="mo-mobile-trust-item"><span class="mo-icon" data-mo-icon="experience" aria-hidden="true"></span><strong>+3.400</strong><span>viagens realizadas</span></div>
+        <div class="mo-mobile-trust-item"><span class="mo-icon" data-mo-icon="schedule" aria-hidden="true"></span><strong>3 anos</strong><span>na Uber</span></div>
+        <div class="mo-mobile-trust-item"><span class="mo-icon mo-icon--route" data-mo-icon="location" aria-hidden="true"></span><strong>São Paulo</strong><span>e região</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mo-mobile-final" aria-labelledby="mobile-final-title">
+    <p class="mo-mobile-eyebrow">Agendamento</p>
+    <h2 class="mo-mobile-title" id="mobile-final-title">Vamos combinar seu trajeto?</h2>
+    <p class="mo-mobile-copy">Atendimento direto comigo, Henrico Amaral. Sem central, sem intermediário.</p>
+    <img class="mo-mobile-final-logo" src="/assets/logo-claude.avif" alt="MotoristaOPS por Henrico Amaral">
+    <div class="mo-mobile-final-links">
+      <a class="mo-mobile-final-link" href="https://www.instagram.com/motoristaops/" target="_blank" rel="noopener"><span class="brand-icon" data-brand-icon="instagram" aria-hidden="true"></span>Instagram</a>
+      <a class="mo-mobile-final-link" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener"><span class="brand-icon" data-brand-icon="google" aria-hidden="true"></span>Google</a>
+    </div>
+    <div class="mo-mobile-legal">© 2026 MotoristaOPS · São Paulo / Brasil</div>
+  </section>
+
+  <div class="mo-mobile-sticky" aria-label="Agendamento rápido">
+    <a href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener">
+      <span class="brand-icon" data-brand-icon="whatsapp" aria-hidden="true"></span>
+      Quero agendar agora
+      <span class="mo-icon" data-mo-icon="arrow-right" aria-hidden="true"></span>
+    </a>
+  </div>
+</section>
