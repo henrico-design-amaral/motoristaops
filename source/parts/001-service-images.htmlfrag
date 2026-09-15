@@ -43,7 +43,7 @@
 #servicos .service-card:nth-child(6)::before{background-position:center,100% 100%}
 #servicos .service-card:hover::before{filter:brightness(1.025)}
 
-/* Iconografia social MotoristaOPS: uma família única, sem máscara ou ícones improvisados. */
+/* Lucide e a familia canonica de iconografia funcional MotoristaOPS. */
 #servicos .service-top{
   position:relative;
   left:auto;
@@ -61,18 +61,9 @@
   box-shadow:none;
 }
 #servicos .service-top .card-num{display:none!important}
-#servicos .service-top .card-icon{
-  display:block!important;
-  width:30px;
-  height:30px;
-  margin:0;
-  padding:0;
-  border:0;
-  border-radius:0;
-  background:transparent;
-  box-shadow:none;
-  object-fit:contain;
-  opacity:1;
+#servicos .service-top .mo-icon{
+  width:var(--mo-icon-size-md);
+  height:var(--mo-icon-size-md);
 }
 #servicos .service-top::before{content:none!important;display:none!important}
 
@@ -105,7 +96,6 @@
   #servicos .service-card{padding:0 20px 24px}
   #servicos .service-card::before{height:clamp(210px,58vw,260px);margin:0 -20px}
   #servicos .service-top{margin-top:18px;margin-bottom:13px}
-  #servicos .service-top .card-icon{width:30px;height:30px}
   #servicos .service-card h3{font-size:21px}
   #servicos .service-card p{font-size:16px}
 }
