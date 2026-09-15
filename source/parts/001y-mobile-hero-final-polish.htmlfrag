@@ -18,9 +18,9 @@
     width:100%;
     max-width:none!important;
     margin-top:14px;
-    font-size:clamp(12.5px,3.45vw,13.5px);
+    font-size:15.5px;
     font-stretch:85%;
-    line-height:1.45;
+    line-height:1.58;
     letter-spacing:-.01em;
     color:#D4D0C8;
   }
@@ -28,6 +28,6 @@
 }
 
 @media(max-width:340px){
-  .mo-mobile-hero-copy{font-size:12px}
+  .mo-mobile-hero-copy{font-size:15.5px}
   .mo-mobile-hero-copy span{white-space:normal}
 }
