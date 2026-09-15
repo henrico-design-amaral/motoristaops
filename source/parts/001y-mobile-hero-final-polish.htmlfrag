@@ -1,0 +1,33 @@
+/* MotoristaOPS — acabamento final da Hero mobile.
+   Escopo isolado: badge de localidade e copy de apoio em duas linhas. */
+@media(max-width:780px){
+  .mo-mobile-hero .mo-mobile-eyebrow{
+    display:inline-flex;
+    align-items:center;
+    width:max-content;
+    margin:0 0 12px;
+    padding:7px 10px 6px;
+    background:var(--mo-amber);
+    color:var(--mo-night);
+    font-size:10px;
+    font-weight:750;
+    line-height:1;
+    letter-spacing:.16em;
+  }
+  .mo-mobile-hero-copy{
+    width:100%;
+    max-width:none!important;
+    margin-top:14px;
+    font-size:clamp(12.5px,3.45vw,13.5px);
+    font-stretch:85%;
+    line-height:1.45;
+    letter-spacing:-.01em;
+    color:#D4D0C8;
+  }
+  .mo-mobile-hero-copy span{display:block;white-space:nowrap}
+}
+
+@media(max-width:340px){
+  .mo-mobile-hero-copy{font-size:12px}
+  .mo-mobile-hero-copy span{white-space:normal}
+}
