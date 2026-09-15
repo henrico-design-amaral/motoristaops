@@ -9,7 +9,7 @@
     <div class="mo-mobile-hero-content">
       <p class="mo-mobile-eyebrow">São Paulo e região</p>
       <h1 class="mo-mobile-title" id="mobile-hero-title"><span>Seu compromisso</span><span>começa antes</span><span>do destino.</span></h1>
-      <p class="mo-mobile-copy">Do aeroporto ao próximo compromisso, com hora marcada, comunicação direta e cuidado em cada trajeto.</p>
+      <p class="mo-mobile-copy mo-mobile-hero-copy"><span>Do aeroporto ao próximo compromisso, com hora marcada.</span><span>Comunicação direta e cuidado em cada trajeto.</span></p>
 
       <nav class="mo-mobile-channels" aria-label="Canais MotoristaOPS">
         <a class="mo-mobile-channel" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20Henrico.%20Gostaria%20de%20alinhar%20um%20trajeto%20particular." target="_blank" rel="noopener" aria-label="Falar com Henrico pelo WhatsApp">
