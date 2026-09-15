@@ -194,7 +194,7 @@
 .social-proof-review-quote{
   margin-top:auto;
   padding-top:18px;
-  font-family:Georgia,'Times New Roman',serif;
+  font-family:'Instrument Sans',sans-serif;
   font-size:50px;
   font-weight:700;
   line-height:.58;
