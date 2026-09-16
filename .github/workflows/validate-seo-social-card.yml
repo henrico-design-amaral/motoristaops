@@ -1,0 +1,67 @@
+name: Validate MotoristaOPS social card
+
+on:
+  pull_request:
+    paths:
+      - 'source/parts/**'
+      - 'release/visual-assets/hero/**'
+      - '.github/workflows/deploy-landing-hostinger.yml'
+      - '.github/workflows/verify-production.yml'
+      - '.github/workflows/validate-seo-social-card.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-social-card:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Assemble SEO head and hero asset
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p qa/assets
+          cat source/parts/*.htmlfrag > qa/index.html
+          cat release/visual-assets/hero/part-*.bin > qa/assets/hero-claude.avif
+          echo '2b5dd109d05d31dc211b11256cf267d2f99b9d85b95addf5637b84a02890057b  qa/assets/hero-claude.avif' | sha256sum -c -
+
+          grep -qF '<link rel="canonical" href="https://www.motoristaops.com.br/">' qa/index.html
+          grep -qF 'property="og:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916"' qa/index.html
+          grep -qF 'property="og:image:type" content="image/jpeg"' qa/index.html
+          grep -qF 'property="og:image:width" content="1200"' qa/index.html
+          grep -qF 'property="og:image:height" content="630"' qa/index.html
+          grep -qF 'name="twitter:card" content="summary_large_image"' qa/index.html
+          grep -qF 'name="twitter:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916"' qa/index.html
+
+      - name: Install image tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
+
+      - name: Generate and validate JPEG social card
+        shell: bash
+        run: |
+          set -euo pipefail
+          ffmpeg -hide_banner -loglevel error -y \
+            -i qa/assets/hero-claude.avif \
+            -vf "scale=1200:630:force_original_aspect_ratio=increase,crop=1200:630:(in_w-out_w)*0.72:0" \
+            -frames:v 1 -q:v 2 \
+            qa/og-motoristaops.jpg
+
+          test -s qa/og-motoristaops.jpg
+          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=p=0 qa/og-motoristaops.jpg)" = '1200'
+          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 qa/og-motoristaops.jpg)" = '630'
+          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of csv=p=0 qa/og-motoristaops.jpg)" = 'mjpeg'
+
+      - name: Upload social-card preview
+        uses: actions/upload-artifact@v4
+        with:
+          name: motoristaops-og-preview
+          path: qa/og-motoristaops.jpg
+          if-no-files-found: error
+          retention-days: 3
