@@ -52,6 +52,15 @@ jobs:
           PY
 
           grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' deploy-public/index.html
+          grep -qF '<link rel="canonical" href="https://www.motoristaops.com.br/">' deploy-public/index.html
+          grep -qF '<link rel="alternate" hreflang="pt-BR" href="https://www.motoristaops.com.br/">' deploy-public/index.html
+          grep -qF 'property="og:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916"' deploy-public/index.html
+          grep -qF 'property="og:image:type" content="image/jpeg"' deploy-public/index.html
+          grep -qF 'property="og:image:width" content="1200"' deploy-public/index.html
+          grep -qF 'property="og:image:height" content="630"' deploy-public/index.html
+          grep -qF 'name="twitter:card" content="summary_large_image"' deploy-public/index.html
+          grep -qF 'name="twitter:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916"' deploy-public/index.html
+          grep -qF '"encodingFormat":"image/jpeg"' deploy-public/index.html
           grep -qF 'data-icon-system="lucide"' deploy-public/index.html
           grep -qF 'data-brand-system="brand-glyphs"' deploy-public/index.html
           grep -qF 'https://unpkg.com/lucide@0.574.0' deploy-public/index.html
@@ -86,22 +95,32 @@ jobs:
           Sitemap: https://www.motoristaops.com.br/sitemap.xml
           ROBOTS
 
-          cat > deploy-public/sitemap.xml <<'SITEMAP'
+          lastmod="$(date -u +%F)"
+          cat > deploy-public/sitemap.xml <<SITEMAP
           <?xml version="1.0" encoding="UTF-8"?>
-          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
             <url>
               <loc>https://www.motoristaops.com.br/</loc>
-              <lastmod>2026-09-15</lastmod>
+              <lastmod>${lastmod}</lastmod>
               <changefreq>weekly</changefreq>
               <priority>1.0</priority>
+              <image:image>
+                <image:loc>https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916</image:loc>
+                <image:title>MotoristaOPS — motorista particular em São Paulo</image:title>
+                <image:caption>MotoristaOPS — Seu compromisso começa antes do destino.</image:caption>
+              </image:image>
             </url>
           </urlset>
           SITEMAP
 
           cat > deploy-public/.htaccess <<'HTACCESS'
           RewriteEngine On
-          RewriteCond %{HTTP_HOST} ^motoristaops\.com\.br$ [NC]
-          RewriteRule ^ https://www.motoristaops.com.br%{REQUEST_URI} [R=301,L]
+          RewriteCond %{HTTPS} !=on [OR]
+          RewriteCond %{HTTP_HOST} !^www\.motoristaops\.com\.br$ [NC]
+          RewriteRule ^ https://www.motoristaops.com.br%{REQUEST_URI} [R=301,L,NE]
+
+          DirectoryIndex index.html
+          AddDefaultCharset UTF-8
           HTACCESS
 
       - name: Rebuild production assets
@@ -130,7 +149,7 @@ jobs:
           git show FETCH_HEAD:public/landing-v3/logo-oficial.svg > deploy-public/landing-v3/logo-oficial.svg
           test -s deploy-public/landing-v3/logo-oficial.svg
 
-      - name: Install deploy tools and validate secrets
+      - name: Install deploy and image tools and validate secrets
         env:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
           HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
@@ -143,7 +162,22 @@ jobs:
           for name in HOSTINGER_HOST HOSTINGER_USERNAME HOSTINGER_PASSWORD HOSTINGER_PORT HOSTINGER_PUBLIC_TARGET_DIR; do
             test -n "${!name:-}" || { echo "Missing secret: $name"; exit 1; }
           done
-          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+          sudo apt-get update -qq && sudo apt-get install -y -qq lftp ffmpeg
+
+      - name: Generate Open Graph JPEG
+        shell: bash
+        run: |
+          set -euo pipefail
+          ffmpeg -hide_banner -loglevel error -y \
+            -i deploy-public/assets/hero-claude.avif \
+            -vf "scale=1200:630:force_original_aspect_ratio=increase,crop=1200:630:(in_w-out_w)*0.72:0" \
+            -frames:v 1 -q:v 2 \
+            deploy-public/assets/og-motoristaops.jpg
+
+          test -s deploy-public/assets/og-motoristaops.jpg
+          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=p=0 deploy-public/assets/og-motoristaops.jpg)" = '1200'
+          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 deploy-public/assets/og-motoristaops.jpg)" = '630'
+          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of csv=p=0 deploy-public/assets/og-motoristaops.jpg)" = 'mjpeg'
 
       - name: Deploy public landing only
         env:
@@ -181,15 +215,18 @@ jobs:
               && grep -qF 'data-brand-icon="whatsapp"' <<<"$public_home" \
               && grep -qF 'data-brand-icon="instagram"' <<<"$public_home" \
               && grep -qF 'data-brand-icon="google"' <<<"$public_home" \
+              && grep -qF 'property="og:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916"' <<<"$public_home" \
+              && grep -qF 'property="og:image:type" content="image/jpeg"' <<<"$public_home" \
               && ! grep -qF '<img class="card-icon"' <<<"$public_home" \
               && ! grep -qF '/assets/icons-official/' <<<"$public_home" \
               && ! grep -qF 'data:image/png;base64,' <<<"$public_home" \
               && grep -qF 'Plano operacional' <<<"$dashboard_home" \
               && grep -qF 'MotoristaOPS' <<<"$dashboard_home"; then
-              for asset in assets/hero-claude.avif assets/logo-claude.avif assets/service-cards.webp assets/henrico-profile.webp landing-v3/logo-oficial.svg; do
+              for asset in assets/hero-claude.avif assets/og-motoristaops.jpg assets/logo-claude.avif assets/service-cards.webp assets/henrico-profile.webp landing-v3/logo-oficial.svg; do
                 test "$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/${asset}")" = '200'
               done
-              echo 'Landing deployment passed with rebuilt social brand glyphs, larger driver metadata icons, canonical Lucide functional icons and preserved dashboard.'
+              curl -fsSI --connect-timeout 10 --max-time 30 'https://www.motoristaops.com.br/assets/og-motoristaops.jpg' | grep -qi '^content-type: image/jpeg'
+              echo 'Landing deployment passed with canonical SEO, JPEG Open Graph social card, preserved icon system and preserved dashboard.'
               exit 0
             fi
             sleep 10
