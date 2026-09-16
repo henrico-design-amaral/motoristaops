@@ -32,6 +32,9 @@ jobs:
             dashboard_html="$(curl -fsSL --connect-timeout 6 --max-time 15 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
             robots="$(curl -fsSL --connect-timeout 6 --max-time 15 "https://www.motoristaops.com.br/robots.txt?verify=${cache}" || true)"
             sitemap="$(curl -fsSL --connect-timeout 6 --max-time 15 "https://www.motoristaops.com.br/sitemap.xml?verify=${cache}" || true)"
+            canonical_effective="$(curl -sS -L -o /dev/null -w '%{url_effective}' --connect-timeout 6 --max-time 15 'http://motoristaops.com.br/' || true)"
+            og_status="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 6 --max-time 15 'https://www.motoristaops.com.br/assets/og-motoristaops.jpg' || true)"
+            og_type="$(curl -sSI --connect-timeout 6 --max-time 15 'https://www.motoristaops.com.br/assets/og-motoristaops.jpg' | tr -d '\r' | awk 'BEGIN{IGNORECASE=1} /^content-type:/ {print $2; exit}' || true)"
             services_pos="$(grep -bo 'id="servicos"' <<<"$public_html" | head -1 | cut -d: -f1 || true)"
             why_pos="$(grep -bo 'id="por-que-agendar"' <<<"$public_html" | head -1 | cut -d: -f1 || true)"
 
@@ -55,7 +58,14 @@ jobs:
               && grep -qF 'data-brand-icon="instagram"' <<<"$public_html" \
               && grep -qF 'data-brand-icon="google"' <<<"$public_html" \
               && grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' <<<"$public_html" \
-              && grep -qF 'property="og:image" content="https://www.motoristaops.com.br/assets/hero-claude.avif"' <<<"$public_html" \
+              && grep -qF '<link rel="canonical" href="https://www.motoristaops.com.br/">' <<<"$public_html" \
+              && grep -qF '<link rel="alternate" hreflang="pt-BR" href="https://www.motoristaops.com.br/">' <<<"$public_html" \
+              && grep -qF 'property="og:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916"' <<<"$public_html" \
+              && grep -qF 'property="og:image:type" content="image/jpeg"' <<<"$public_html" \
+              && grep -qF 'property="og:image:width" content="1200"' <<<"$public_html" \
+              && grep -qF 'property="og:image:height" content="630"' <<<"$public_html" \
+              && grep -qF 'name="twitter:card" content="summary_large_image"' <<<"$public_html" \
+              && grep -qF 'name="twitter:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916"' <<<"$public_html" \
               && grep -qF 'Pular para o conteúdo' <<<"$public_html" \
               && grep -qF 'Aeroportos e rodoviárias' <<<"$public_html" \
               && grep -qF 'Espera e acompanhamento' <<<"$public_html" \
@@ -69,11 +79,15 @@ jobs:
               && ! grep -qE 'Georgia|Times New Roman|henrico\.driver\.amaral|5511953970704' <<<"$public_html" \
               && grep -qF 'Sitemap: https://www.motoristaops.com.br/sitemap.xml' <<<"$robots" \
               && grep -qF '<loc>https://www.motoristaops.com.br/</loc>' <<<"$sitemap" \
+              && grep -qF '<image:loc>https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916</image:loc>' <<<"$sitemap" \
+              && test "$canonical_effective" = 'https://www.motoristaops.com.br/' \
+              && test "$og_status" = '200' \
+              && test "$og_type" = 'image/jpeg' \
               && grep -qF '<title>MotoristaOPS · Dashboard</title>' <<<"$dashboard_html" \
               && grep -qF 'Plano operacional' <<<"$dashboard_html" \
               && grep -qF 'Performance' <<<"$dashboard_html" \
               && grep -qF 'Particular' <<<"$dashboard_html"; then
-              echo 'MotoristaOPS production verification passed: social brand glyphs are centralized and larger, driver metadata uses 32 px icons, Lucide remains canonical, and the dashboard is preserved.'
+              echo 'MotoristaOPS production verification passed: canonical redirects, SEO metadata, JPEG social card, icon system and dashboard are preserved.'
               exit 0
             fi
             sleep 5
