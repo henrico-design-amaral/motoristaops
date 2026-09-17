@@ -5,6 +5,7 @@ const root = process.cwd();
 const source = join(root, 'dist');
 const publicOut = join(root, 'dist-public');
 const dashboardOut = join(root, 'dist-dashboard');
+const socialOut = join(root, 'dist-socialmedia');
 const finalParts = join(root, 'release', 'landing-final', 'parts');
 
 async function assertExists(path, label) {
@@ -14,17 +15,25 @@ async function assertExists(path, label) {
 await assertExists(join(source, 'index.html'), 'Dashboard index');
 await assertExists(join(source, 'motorista', 'index.html'), 'Landing legado index');
 await assertExists(join(source, 'temp', 'index.html'), 'Temp Landing Page index');
+await assertExists(join(source, 'socialmedia', 'index.html'), 'Social Media Control Center index');
 await assertExists(join(source, 'landing-v3'), 'Landing static assets');
 await assertExists(join(source, '_astro'), 'Astro assets');
 await assertExists(finalParts, 'Landing final parts');
 
 await rm(publicOut, { recursive: true, force: true });
 await rm(dashboardOut, { recursive: true, force: true });
+await rm(socialOut, { recursive: true, force: true });
 await mkdir(publicOut, { recursive: true });
+await mkdir(socialOut, { recursive: true });
 
 await cp(source, dashboardOut, { recursive: true });
 await rm(join(dashboardOut, 'motorista'), { recursive: true, force: true });
 await rm(join(dashboardOut, 'temp'), { recursive: true, force: true });
+await rm(join(dashboardOut, 'socialmedia'), { recursive: true, force: true });
+
+// Social Media Control Center is isolated from the daily dashboard.
+await cp(join(source, 'socialmedia'), socialOut, { recursive: true });
+await cp(join(source, '_astro'), join(socialOut, '_astro'), { recursive: true });
 
 const partNames = (await readdir(finalParts))
   .filter((name) => name.endsWith('.htmlfrag'))
@@ -53,5 +62,7 @@ await assertExists(join(publicOut, 'temp', 'index.html'), 'Public temp index');
 await assertExists(join(publicOut, '_astro'), 'Public temp assets');
 await assertExists(join(publicOut, '.htaccess'), 'Public canonical redirect');
 await assertExists(join(dashboardOut, 'index.html'), 'Dashboard output');
+await assertExists(join(socialOut, 'index.html'), 'Social Media Control Center output');
+await assertExists(join(socialOut, '_astro'), 'Social Media Control Center assets');
 
-console.log('OK: landing final aprovada montada de fonte versionada; dashboard e /temp preservados isoladamente.');
+console.log('OK: landing, dashboard, /temp e Social Media Control Center montados em artefatos isolados.');
