@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - 'source/parts/**'
+      - 'brand-system-v2/**'
       - 'release/runtime-assets/**'
       - 'release/visual-assets/**'
       - 'release/service-assets/**'
@@ -124,6 +125,17 @@ jobs:
           AddDefaultCharset UTF-8
           HTACCESS
 
+          # Brand System V2 is part of the public production bundle.
+          # Keeping it inside deploy-public ensures future --delete deploys preserve it.
+          mkdir -p deploy-public/brand-system-v2
+          cp -a brand-system-v2/. deploy-public/brand-system-v2/
+          test -s deploy-public/brand-system-v2/index.html
+          test -s deploy-public/brand-system-v2/brandbook-v2.html
+          test -s deploy-public/brand-system-v2/style-guide-v2.html
+          test -s deploy-public/brand-system-v2/design-system-v2.html
+          test -s deploy-public/brand-system-v2/assets/docs.css
+          test -s deploy-public/brand-system-v2/tokens/tokens.dtcg.json
+
       - name: Rebuild production assets
         shell: bash
         run: |
@@ -201,3 +213,12 @@ jobs:
       - name: Verify landing production and dashboard preservation
         shell: bash
         run: bash scripts/verify-public-landing.sh
+
+      - name: Verify Brand System V2 production
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/ | grep -qF 'BRAND SYSTEM V2'
+          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/brandbook-v2.html | grep -qF 'Brand Book V2'
+          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/style-guide-v2.html | grep -qF 'Visual & Editorial Style Guide'
+          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/design-system-v2.html | grep -qF 'Design System V2'
