@@ -45,3 +45,14 @@ Se uma fonte antiga divergir do canon atual:
 ## Reuso
 
 Não perguntar novamente por uma decisão já resolvida se a tarefa estiver dentro do mesmo domínio e nenhuma decisão mais recente a tiver revogado.
+
+
+## Propagação para o ecossistema
+
+Toda decisão material registrada aqui é `ecosystem-visible` por padrão.
+
+Classificar em `GLOBAL`, `DOMAIN`, `PROJECT`, `SURFACE` ou `TASK` conforme o padrão canônico do HenricoOPS.
+
+Decisões GLOBAL/DOMAIN devem ser promovidas ao HenricoOPS. Decisões PROJECT/SURFACE permanecem MotoristaOPS, mas o mecanismo reutilizável deve subir quando houver.
+
+Nunca copiar identidade, paleta, logo, pricing, facts ou regras comerciais específicas para outro projeto apenas porque nasceram aqui.

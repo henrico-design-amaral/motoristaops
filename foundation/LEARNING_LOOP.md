@@ -50,8 +50,14 @@ Corrigir o nível mais baixo capaz de impedir repetição:
 Reproduzir o cenário ou usar validação equivalente.
 
 ### PROPAGATE
-Se a mudança é universal, atualizar o kernel/template para projetos futuros.
-Se é MotoristaOPS-only, manter no perfil/regra da marca.
+Toda decisão material deve ser classificada segundo o padrão global do HenricoOPS:
+`GLOBAL | DOMAIN | PROJECT | SURFACE | TASK`.
+
+- GLOBAL/DOMAIN: promover para `henrico-design-amaral/henricoops:governance/ECOSYSTEM_DECISION_PROPAGATION_STANDARD.md` e herdar nos projetos aplicáveis.
+- PROJECT/SURFACE: manter a regra MotoristaOPS scoped, mas registrar o aprendizado portátil no HenricoOPS quando existir.
+- TASK: manter local, salvo promoção explícita ou evidência recorrente.
+
+A MotoristaOPS é proving ground de infraestrutura; aprendizado portátil não pode permanecer somente neste repositório.
 
 ### OBSERVE
 Monitorar próximas execuções semelhantes.

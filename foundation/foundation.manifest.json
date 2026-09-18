@@ -78,5 +78,18 @@
   "schemas": [
     "foundation/request-contract.schema.json",
     "foundation/quality-gates.json"
-  ]
+  ],
+  "ecosystem_propagation": {
+    "authority": "henrico-design-amaral/henricoops:governance/ECOSYSTEM_DECISION_PROPAGATION_STANDARD.md",
+    "default": "ecosystem-visible",
+    "scopes": [
+      "GLOBAL",
+      "DOMAIN",
+      "PROJECT",
+      "SURFACE",
+      "TASK"
+    ],
+    "portable_learning": "promote-upstream-to-henricoops",
+    "project_identity": "remain-scoped"
+  }
 }
