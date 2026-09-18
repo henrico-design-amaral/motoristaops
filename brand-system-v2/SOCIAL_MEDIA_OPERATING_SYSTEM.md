@@ -459,6 +459,8 @@ Cada canal recebe adaptação própria.
 
 ## 23. Curadoria de referências
 
+Quando a referência for visual ou estrutural, aplicar também `REFERENCE_INTAKE_PROTOCOL.md`.
+
 Quando uma referência externa é enviada ao projeto:
 
 1. Ler a fonte.
