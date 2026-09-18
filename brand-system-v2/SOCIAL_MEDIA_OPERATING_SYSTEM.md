@@ -327,6 +327,8 @@ Para cada canal, decidir:
 
 ## 15. Assinatura social
 
+A assinatura cotidiana é validada primeiro em preview mobile. O alvo perceptivo é equivalente a um controle mobile padrão: aproximadamente **44–48 CSS px de altura a 390 px de largura**. Em exportações 1080, a escala deve ser derivada proporcionalmente; 45 px brutos de canvas não atendem essa regra.
+
 Regra obrigatória para comunicação cotidiana:
 
 **brasão oficial + “MotoristaOPS”**.
@@ -481,6 +483,8 @@ Referência externa não altera regra automaticamente.
 - LinkedIn Pages Best Practices. Uso: formatos nativos, análise de desempenho, participação em conversas e consistência.
 
 ## 25. Gate social
+
+Antes do gate, consultar `foundation/FAILURE_MEMORY.md` para bloquear regressões já conhecidas.
 
 Antes de publicar:
 
