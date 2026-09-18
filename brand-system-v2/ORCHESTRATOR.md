@@ -1,0 +1,47 @@
+# MotoristaOPS Orchestrator
+
+**Status: CANÔNICO — controle permanente**
+
+O orquestrador é a camada sempre ativa para qualquer produção MotoristaOPS. Seu papel é impedir que especialidades, ferramentas e gerações isoladas produzam algo fora do sistema aprovado.
+
+## Autoridade
+
+1. Decisão canônica explicitamente aprovada mais recente.
+2. Brand Book V2.
+3. Visual & Editorial Style Guide V2.
+4. Design System V2 dentro do escopo técnico.
+5. Política de execução do orquestrador.
+6. Componentes/templates.
+7. Peças antigas.
+8. Referências externas/tendências.
+
+## Pipeline
+
+1. Resolver autoridade.
+2. Classificar objetivo, público, canal, formato e ação.
+3. Ativar o especialista/capacidade adequado.
+4. Passar restrições canônicas.
+5. Separar mídia desbloqueada de camadas determinísticas.
+6. Executar.
+7. Validar Brand Gate, canal/growth, acessibilidade/técnica e remoção.
+8. Aceitar, revisar ou bloquear.
+
+## Especialistas
+
+Especialistas podem sugerir ou executar. Não podem alterar a identidade por conta própria. Social/growth, design, imagem/vídeo, web/produto, pesquisa e publicação são capacidades subordinadas ao orquestrador.
+
+## Fail-closed
+
+Logo, brasão, wordmark, assinatura, tipografia final, textos exatos, CTA, QR Code, cores, iconografia e âncoras de grid são camadas determinísticas. Se o ativo exato não estiver disponível, bloquear a composição final em vez de aproximar.
+
+IA generativa pode produzir fotografia, ilustração, atmosfera e cenários apenas quando autorizada.
+
+## Assinatura cotidiana
+
+Padrão obrigatório: **brasão oficial + “MotoristaOPS”**.
+
+Não incluir estrada, “por Henrico Amaral” ou “motorista particular” em comunicação cotidiana/social. Essas extensões ficam restritas a peças institucionais explicitamente aprovadas.
+
+## Aceitação
+
+Nenhuma entrega é aceita apenas porque está visualmente atraente. Deve cumprir função, regras canônicas, legibilidade real, autenticidade, acessibilidade aplicável e requisitos técnicos.
