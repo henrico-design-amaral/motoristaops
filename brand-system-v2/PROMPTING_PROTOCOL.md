@@ -295,3 +295,20 @@ Não aceitar como prompt final:
 **Prompt bom não compensa sistema ruim; sistema bom não compensa briefing vago.**
 
 O orquestrador deve transformar pedidos soltos em contratos PACIF+RV antes da execução quando a complexidade justificar.
+
+
+## 13. Mídia generativa: estrutura visual
+
+Para prompts de imagem, complementar PACIF+RV com uma descrição visual em sete blocos:
+
+1. **Sujeito** — o que existe na cena.
+2. **Composição** — enquadramento, perspectiva, distância e área negativa.
+3. **Tratamento visual** — fotografia/ilustração, materialidade e nível de realismo.
+4. **Luz e atmosfera** — hora, fonte de luz, contraste e humor.
+5. **Pista narrativa** — o que está acontecendo sem transformar o prompt em roteiro longo.
+6. **Restrições negativas** — o que deve estar ausente.
+7. **Output** — proporção, resolução, continuidade e uso posterior.
+
+Para MotoristaOPS, a mídia deve reservar área para a composição determinística quando texto/CTA/assinatura forem adicionados depois.
+
+Consultar `REFERENCE_INTAKE_PROTOCOL.md` quando a geração parte de uma referência externa.
