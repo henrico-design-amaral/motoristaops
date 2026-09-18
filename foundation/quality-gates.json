@@ -1,0 +1,35 @@
+{
+  "schema": "henricoops.quality-gates.v1",
+  "project": "MotoristaOPS",
+  "universal": [
+    "literal_match",
+    "authority_resolved",
+    "functional_fit",
+    "system_consistency",
+    "authenticity",
+    "accessibility_applicable",
+    "technical_correctness",
+    "removal_pass",
+    "failure_memory_check",
+    "evidence_for_claimed_validation"
+  ],
+  "social_static": {
+    "preview_width_css_px": 390,
+    "signature": {
+      "content": "official crest + MotoristaOPS only",
+      "position": ["bottom-right","bottom-left"],
+      "perceived_height_css_px": [44,48],
+      "forbidden": ["road","por Henrico Amaral","motorista particular","generative redraw"]
+    },
+    "checks": ["native_format","headline_scan","support_copy_legibility","cta_clarity","safe_margins","no_microcopy_noise","contrast"]
+  },
+  "carousel": {
+    "checks": ["cover_hook","one_function_per_slide","distributed_cognitive_load","sequence_without_caption","closing_action_when_needed"]
+  },
+  "reel_story": {
+    "checks": ["platform_safe_area","initial_hook","minimum_text","motion_supports_hierarchy","privacy","clear_ending"]
+  },
+  "web_product": {
+    "checks": ["reflow_320","keyboard_focus","contrast","states","links_cta","browser_qa","surface_isolation"]
+  }
+}
