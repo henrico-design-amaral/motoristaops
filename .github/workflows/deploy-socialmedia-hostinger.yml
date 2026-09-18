@@ -96,23 +96,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" <<LFTP
-          set sftp:auto-confirm yes
-          set net:max-retries 2
-          set net:timeout 20
-          mkdir -p "$SOCIAL_TARGET_DIR"
-          mirror --reverse --delete --verbose ./dist-socialmedia "$SOCIAL_TARGET_DIR"
-          bye
-          LFTP
+          lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" -e "set sftp:auto-confirm yes; set net:max-retries 2; set net:timeout 20; mkdir -p '$SOCIAL_TARGET_DIR'; mirror --reverse --delete --verbose ./dist-socialmedia '$SOCIAL_TARGET_DIR'; bye"
           if [ "$SOCIAL_DEPLOY_MODE" = "dashboard-path" ]; then
-            lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" <<LFTP
-            set sftp:auto-confirm yes
-            set net:max-retries 2
-            set net:timeout 20
-            mkdir -p "${HOSTINGER_DASHBOARD_TARGET_DIR%/}/_astro"
-            mirror --reverse --only-newer --verbose ./dist-socialmedia/_astro "${HOSTINGER_DASHBOARD_TARGET_DIR%/}/_astro"
-            bye
-            LFTP
+            ROOT_ASSET_DIR="${HOSTINGER_DASHBOARD_TARGET_DIR%/}/_astro"
+            lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" -e "set sftp:auto-confirm yes; set net:max-retries 2; set net:timeout 20; mkdir -p '$ROOT_ASSET_DIR'; mirror --reverse --only-newer --verbose ./dist-socialmedia/_astro '$ROOT_ASSET_DIR'; bye"
           fi
 
       - name: Verify production
