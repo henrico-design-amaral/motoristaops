@@ -22,6 +22,17 @@
 - `REFERENCE_INTAKE_PROTOCOL.md` — engenharia reversa de referências em Reference Specs sem copiar identidade alheia.
 - `DESIGN_CAPABILITY_MATRIX.md` — mapa de capacidades sêniores de design, UX, social/growth, pesquisa, mídia e QA.
 
+## Infraestrutura
+
+- `../foundation/KERNEL.md` — núcleo permanente de orquestração.
+- `../foundation/REQUEST_RESOLVER.md` — literalidade e inferência controlada.
+- `../foundation/DECISION_MEMORY.md` — memória de decisão.
+- `../foundation/CURATION_SYSTEM.md` — curadoria acumulativa.
+- `../foundation/EXECUTION_PROTOCOL.md` — execução e roteamento.
+- `../foundation/QUALITY_GATES.md` — critérios de aceite.
+- `../foundation/FAILURE_MEMORY.md` — bloqueios para erros recorrentes.
+- `../foundation/PROJECT_BOOTSTRAP.md` — herança para novos projetos.
+
 ## Regra de governança
 
 Toda nova produção MotoristaOPS deve herdar o Brand Book V2. Style Guide, Design System, templates, automações e agentes podem detalhar regras, mas não contradizê-las.
