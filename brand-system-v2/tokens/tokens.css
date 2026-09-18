@@ -1,0 +1,74 @@
+:root {
+  /* Primitive brand colors */
+  --mops-color-noite: #070709;
+  --mops-color-grafite: #151518;
+  --mops-color-champagne: #C79C5B;
+  --mops-color-champagne-shadow: #947546;
+  --mops-color-marfim: #F3EFE4;
+  --mops-color-pedra: #A6A39E;
+  --mops-color-route-amber: #F0B44D;
+
+  /* Light semantic theme */
+  --mops-surface-canvas: var(--mops-color-marfim);
+  --mops-surface-subtle: rgba(7, 7, 9, 0.035);
+  --mops-surface-inverse: var(--mops-color-noite);
+  --mops-text-primary: var(--mops-color-noite);
+  --mops-text-secondary: var(--mops-color-grafite);
+  --mops-text-inverse: var(--mops-color-marfim);
+  --mops-accent-brand: var(--mops-color-champagne);
+  --mops-accent-brand-readable: var(--mops-color-champagne-shadow);
+  --mops-route-signal: var(--mops-color-route-amber);
+  --mops-border-subtle: rgba(7, 7, 9, 0.16);
+  --mops-border-strong: rgba(7, 7, 9, 0.32);
+
+  /* Functional status colors — product layer, not brand colors */
+  --mops-status-success: #116329;
+  --mops-status-danger: #9A3412;
+  --mops-status-info: #1D4ED8;
+  --mops-status-warning: #7A4E00;
+
+  /* Spacing */
+  --mops-space-050: 4px;
+  --mops-space-100: 8px;
+  --mops-space-150: 12px;
+  --mops-space-200: 16px;
+  --mops-space-300: 24px;
+  --mops-space-400: 32px;
+  --mops-space-600: 48px;
+  --mops-space-800: 64px;
+  --mops-space-1200: 96px;
+  --mops-space-1600: 128px;
+
+  /* Radius — no shadows/gradients */
+  --mops-radius-sm: 4px;
+  --mops-radius-md: 8px;
+  --mops-radius-lg: 12px;
+  --mops-radius-pill: 999px;
+
+  /* Type */
+  --mops-font-sans: 'Instrument Sans', system-ui, sans-serif;
+  --mops-font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --mops-type-body-size: 1rem;
+  --mops-type-body-leading: 1.5;
+
+  /* Layout */
+  --mops-grid-unit: 8px;
+  --mops-grid-subunit: 4px;
+  --mops-content-max: 1280px;
+}
+
+[data-mops-theme='dark'] {
+  --mops-surface-canvas: var(--mops-color-noite);
+  --mops-surface-subtle: rgba(243, 239, 228, 0.06);
+  --mops-surface-inverse: var(--mops-color-marfim);
+  --mops-text-primary: var(--mops-color-marfim);
+  --mops-text-secondary: var(--mops-color-pedra);
+  --mops-text-inverse: var(--mops-color-noite);
+  --mops-accent-brand-readable: var(--mops-color-champagne);
+  --mops-border-subtle: rgba(243, 239, 228, 0.16);
+  --mops-border-strong: rgba(243, 239, 228, 0.32);
+  --mops-status-success: #75D69C;
+  --mops-status-danger: #FF8A80;
+  --mops-status-info: #8AB4F8;
+  --mops-status-warning: #F5C26B;
+}
