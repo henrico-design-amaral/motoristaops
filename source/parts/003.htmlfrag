@@ -46,7 +46,7 @@
         <div class="footer-link" style="border-bottom:0"><span class="mo-icon mo-icon--md mo-icon--route footer-leading-icon" data-mo-icon="location" aria-hidden="true"></span><span>São Paulo / Brasil</span></div>
       </div>
     </div>
-    <div class="footer-bottom"><span>© 2026 MotoristaOPS · por Henrico Amaral</span><span style="font-stretch:75%;letter-spacing:.16em;text-transform:uppercase;color:var(--mo-champagne)">São Paulo / Brasil</span></div>
+    <div class="footer-bottom"><span>CNPJ: 69.099.839/0001-25</span><span>Powered by <a href="https://henrico.works" target="_blank" rel="noopener" style="color:var(--mo-champagne)">henrico.works</a></span></div>
   </div>
 </footer>
 
