@@ -45,3 +45,10 @@ Não incluir estrada, “por Henrico Amaral” ou “motorista particular” em 
 ## Aceitação
 
 Nenhuma entrega é aceita apenas porque está visualmente atraente. Deve cumprir função, regras canônicas, legibilidade real, autenticidade, acessibilidade aplicável e requisitos técnicos.
+
+
+## Social media
+
+Qualquer trabalho de conteúdo, growth, calendário, campanha ou publicação deve consultar `SOCIAL_MEDIA_OPERATING_SYSTEM.md` após resolver Brand Book/Style Guide/Design System.
+
+O orquestrador deve exigir objetivo, público, canal, formato, hook, narrativa, CTA, evidência e métrica antes da produção final. Prompts externos e repertórios são insumos; não substituem estratégia nem regras canônicas.
