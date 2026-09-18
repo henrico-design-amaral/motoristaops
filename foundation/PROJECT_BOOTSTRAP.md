@@ -54,3 +54,10 @@ Usar MotoristaOPS como projeto-laboratório e infraestrutura de referência para
 ## Regra
 
 Novo projeto herda **infraestrutura**, nunca herda identidade por acidente.
+
+
+## Upstream HenricoOPS
+
+Este bootstrap é subordinado a `henrico-design-amaral/henricoops:governance/ECOSYSTEM_DECISION_PROPAGATION_STANDARD.md`.
+
+MotoristaOPS fornece experimentação e aprendizado; HenricoOPS é a autoridade de distribuição global. O que for portátil sobe primeiro para HenricoOPS e então é herdado pelos demais projetos.
