@@ -13,7 +13,16 @@
     "curation",
     "external-references"
   ],
-  "cycle": ["INTAKE","RESOLVE","CONTEXT","ROUTE","PLAN","EXECUTE","VERIFY","LEARN"],
+  "cycle": [
+    "INTAKE",
+    "RESOLVE",
+    "CONTEXT",
+    "ROUTE",
+    "PLAN",
+    "EXECUTE",
+    "VERIFY",
+    "LEARN"
+  ],
   "portable": [
     "orchestration",
     "request-resolution",
@@ -45,5 +54,29 @@
   "fail_closed": true,
   "literal_first": true,
   "brand_book": "MotoristaOPS Brand Book V2",
-  "invalid_legacy_aliases": ["Brand Book V12"]
+  "invalid_legacy_aliases": [
+    "Brand Book V12"
+  ],
+  "entrypoints": [
+    "AGENTS.md",
+    "PROJECT_PROFILE.md",
+    "foundation/KERNEL.md",
+    "foundation/REQUEST_RESOLVER.md",
+    "foundation/DECISION_MEMORY.md",
+    "foundation/LEARNING_LOOP.md",
+    "foundation/CAPABILITY_MATRIX.md",
+    "foundation/CONNECTOR_POLICY.md",
+    "foundation/EXECUTION_PROTOCOL.md",
+    "foundation/QUALITY_GATES.md",
+    "foundation/FAILURE_MEMORY.md"
+  ],
+  "enforcement": {
+    "validator": "scripts/validate-foundation.sh",
+    "workflow": ".github/workflows/foundation-gate.yml",
+    "deploy_preflight": ".github/workflows/deploy-landing-hostinger.yml"
+  },
+  "schemas": [
+    "foundation/request-contract.schema.json",
+    "foundation/quality-gates.json"
+  ]
 }
