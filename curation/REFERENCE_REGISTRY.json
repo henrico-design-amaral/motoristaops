@@ -1,0 +1,37 @@
+{
+  "schema": "henricoops.curation-registry.v1",
+  "project": "MotoristaOPS",
+  "raw_library": {
+    "name": "MotoristaOps_Refs",
+    "provider": "Google Drive",
+    "folder_id": "1Iv48QcsgzZ_9ZAvkx9SYCLQNJvzvCBjV",
+    "reference_count": 46,
+    "status": "HISTORICAL_RAW",
+    "authority": "NONE"
+  },
+  "project_sources": [
+    {
+      "title": "MotoristaOPS V2 — 05 REFERÊNCIAS",
+      "provider": "Google Drive",
+      "id": "1IJWJ0RZaL4NiQqoA3evRbeFV9wX8PlnsoD8WOy9z3tE",
+      "status": "HISTORICAL_VALIDATION_INPUT",
+      "note": "Useful curation conclusions are superseded by the current Foundation and Brand System where conflicts exist."
+    },
+    {
+      "title": "MotoristaOPS V2 — SOURCES",
+      "provider": "Google Drive",
+      "id": "11FtvT031AgIJN4GZbhJ5rr-w1f0R-NPpFQcmZS_ZpjE",
+      "status": "HISTORICAL_SOURCE_MAP",
+      "note": "Legacy references to V12 are invalid; Brand Book V2 is the only current brand-book authority."
+    }
+  ],
+  "external_repertoire": [
+    {"url":"https://www.mlabs.com.br/blog/chatgpt-para-social-medias/","role":"social prompting and workflow repertoire","authority":"REFERENCE_ONLY"},
+    {"url":"https://dfolloni.substack.com/p/os-prompts-que-eu-uso-para-fazer","role":"reference deconstruction / design.json repertoire","authority":"REFERENCE_ONLY"},
+    {"url":"https://openart.ai/pt/blog/artigo/prompts-do-midjourney-para-design-grafico","role":"visual prompt repertoire","authority":"REFERENCE_ONLY"},
+    {"url":"https://usoia.com.br/profissoes/designer","role":"design capability repertoire","authority":"REFERENCE_ONLY"},
+    {"url":"https://br.pinterest.com/pin/113504853104932809/","role":"visual reference supplied by operator","authority":"PENDING_REFERENCE_SPEC"}
+  ],
+  "classification": ["TRANSFERABLE","ADAPTABLE","HYPOTHESIS","INCOMPATIBLE","PROPRIETARY"],
+  "knowledge_files": ["curation/PATTERN_LIBRARY.md","curation/ANTI_PATTERNS.md"]
+}
