@@ -59,3 +59,10 @@ O orquestrador deve exigir objetivo, público, canal, formato, hook, narrativa, 
 Para tarefas não triviais, o orquestrador deve converter a solicitação em um contrato `PACIF + R + V` antes da execução: Papel, Ação, Contexto/Conteúdo, Intenção, Formato, Regras/Restrições e Validação.
 
 Consultar `PROMPTING_PROTOCOL.md` para análise de referências, geração de mídia, social, landing/UI e uso de prompts externos.
+
+
+## Design intelligence
+
+Toda referência visual, repertório de design, benchmark ou técnica externa deve passar por `DESIGN_INTELLIGENCE_PROTOCOL.md`.
+
+O orquestrador deve extrair variáveis/princípios, comparar contra Brand Book/Style Guide/Design System e classificar cada elemento como adotar, adaptar, rejeitar ou testar. Referência externa nunca altera tokens ou identidade automaticamente.
