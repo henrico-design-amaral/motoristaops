@@ -295,3 +295,10 @@ Não aceitar como prompt final:
 **Prompt bom não compensa sistema ruim; sistema bom não compensa briefing vago.**
 
 O orquestrador deve transformar pedidos soltos em contratos PACIF+RV antes da execução quando a complexidade justificar.
+
+
+## 13. Engenharia reversa avançada
+
+Quando o trabalho partir de referência visual, consultar também `DESIGN_INTELLIGENCE_PROTOCOL.md`.
+
+A saída pode usar um `Reference Profile`/JSON experimental para estruturar hierarquia, grid, spacing, tipografia, cor, imagem, componentes e motion. Esses valores nunca substituem automaticamente os tokens canônicos.

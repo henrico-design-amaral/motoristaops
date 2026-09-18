@@ -45,3 +45,8 @@ Assinatura cotidiana/social: **brasão oficial + “MotoristaOPS”**, sem estra
 ## Social media
 
 Conteúdo e growth seguem `SOCIAL_MEDIA_OPERATING_SYSTEM.md`: objetivo → público → tensão/insight → hook → narrativa → formato nativo → CTA → métrica → produção → QA → aprendizado. IA acelera execução; não substitui estratégia. LinkedIn privilegia autenticidade/evidência; Instagram privilegia fotografia real, Reels observacionais, carrossel utilitário e Stories contextuais.
+
+
+## Design intelligence
+
+Referências externas são decompostas em variáveis e princípios antes de influenciar produção. Fluxo: referência → Reference Profile/design.json experimental → comparação com tokens/regras → adotar/adaptar/rejeitar/testar. Default genérico de IA/ferramenta não é aceito como direção criativa.

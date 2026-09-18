@@ -19,6 +19,7 @@
 - `ORCHESTRATOR.md` — camada permanente de controle, roteamento de especialistas e fail-closed.
 - `SOCIAL_MEDIA_OPERATING_SYSTEM.md` — estratégia de conteúdo, formatos nativos, hooks, CTA, growth, analytics e aprendizado.
 - `PROMPTING_PROTOCOL.md` — contrato PACIF+RV para briefing, referências, IA, social e produto.
+- `DESIGN_INTELLIGENCE_PROTOCOL.md` — engenharia reversa de referências, anti-generic gate, capacidades de design e QA.
 
 ## Regra de governança
 
