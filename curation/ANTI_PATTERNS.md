@@ -1,0 +1,24 @@
+# Anti-patterns
+
+- marca antes da mensagem em conteúdo cotidiano;
+- black/gold por reflexo;
+- microcopy decorativa;
+- texto lateral ilegível;
+- CTA pequeno;
+- assinatura completa em todo post;
+- logo sintetizado por IA;
+- carro executivo genérico;
+- chauffeur de terno;
+- driver-as-hero;
+- luxo ostensivo;
+- cyberpunk/neon;
+- dashboard visual em comunicação pública;
+- múltiplos pins/rotas decorativos;
+- card wall;
+- borda Champagne automática;
+- stock substituindo evidência;
+- copy "premium/exclusivo/impecável" sem prova;
+- referência copiada;
+- mesmo layout em todos os canais;
+- arte sem objetivo/métrica;
+- claim, avaliação ou métrica inventada.
