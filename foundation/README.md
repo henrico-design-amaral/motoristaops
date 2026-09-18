@@ -13,7 +13,10 @@ MotoristaOPS é o projeto-base do ecossistema. Esta pasta contém o núcleo port
 5. `EXECUTION_PROTOCOL.md` — roteamento de capacidades, ferramentas e produção fail-closed.
 6. `QUALITY_GATES.md` — gates por modalidade.
 7. `FAILURE_MEMORY.md` — erros recorrentes que passam a ser bloqueios explícitos.
-8. `PROJECT_BOOTSTRAP.md` — como novos projetos herdam a infraestrutura sem herdar a identidade MotoristaOPS.
+8. `CAPABILITY_MATRIX.md` — mapa transversal de capacidades.
+9. `CONNECTOR_POLICY.md` — papel de GitHub, Drive, Hostinger, publicação e ferramentas criativas.
+10. `LEARNING_LOOP.md` — recorrência e melhoria acumulativa.
+11. `PROJECT_BOOTSTRAP.md` — como novos projetos herdam a infraestrutura sem herdar a identidade MotoristaOPS.
 9. `foundation.manifest.json` — mapa legível por agentes.
 
 ## Regra
