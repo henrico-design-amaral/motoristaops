@@ -1,0 +1,14 @@
+@import url('../tokens/tokens.css');
+.mops-ui{font-family:var(--mops-font-sans);background:var(--mops-surface-canvas);color:var(--mops-text-primary)}
+.mops-btn{min-height:44px;padding:0 var(--mops-space-300);border-radius:var(--mops-radius-md);font:600 15px/1 var(--mops-font-sans);border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.mops-btn--primary{background:var(--mops-color-noite);color:var(--mops-color-marfim)}
+[data-mops-theme='dark'] .mops-btn--primary{background:var(--mops-color-marfim);color:var(--mops-color-noite)}
+.mops-btn--secondary{background:transparent;color:var(--mops-text-primary);border-color:var(--mops-border-strong)}
+.mops-btn--brand{background:var(--mops-color-champagne);color:var(--mops-color-noite)}
+.mops-btn:focus-visible,.mops-input:focus-visible{outline:3px solid var(--mops-accent-brand-readable);outline-offset:2px}
+.mops-card{border:1px solid var(--mops-border-subtle);border-radius:var(--mops-radius-lg);padding:var(--mops-space-400);background:transparent}
+.mops-input{min-height:48px;border:1px solid var(--mops-border-strong);border-radius:var(--mops-radius-md);padding:0 var(--mops-space-200);font:400 16px/1.3 var(--mops-font-sans);background:transparent;color:var(--mops-text-primary)}
+.mops-label{display:block;font:600 13px/1.3 var(--mops-font-sans);margin-bottom:8px}
+.mops-chip{display:inline-flex;min-height:32px;align-items:center;padding:0 12px;border:1px solid var(--mops-border-subtle);border-radius:var(--mops-radius-pill);font:600 12px/1 var(--mops-font-sans)}
+.mops-stat__value{font:600 36px/1.1 var(--mops-font-sans);font-variant-numeric:tabular-nums;letter-spacing:-.02em}.mops-stat__label{font-size:13px;color:var(--mops-text-secondary)}
+.mops-table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}.mops-table th,.mops-table td{padding:14px 12px;border-bottom:1px solid var(--mops-border-subtle);text-align:left}.mops-table th{font-size:12px;text-transform:uppercase;letter-spacing:.06em}
