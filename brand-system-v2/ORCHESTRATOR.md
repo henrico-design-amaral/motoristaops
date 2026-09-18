@@ -59,3 +59,12 @@ O orquestrador deve exigir objetivo, público, canal, formato, hook, narrativa, 
 Para tarefas não triviais, o orquestrador deve converter a solicitação em um contrato `PACIF + R + V` antes da execução: Papel, Ação, Contexto/Conteúdo, Intenção, Formato, Regras/Restrições e Validação.
 
 Consultar `PROMPTING_PROTOCOL.md` para análise de referências, geração de mídia, social, landing/UI e uso de prompts externos.
+
+
+## Reference intake
+
+Pinterest, Instagram, sites, campanhas, interfaces e outras referências externas devem passar por `REFERENCE_INTAKE_PROTOCOL.md` quando forem usadas como base estrutural.
+
+O orquestrador extrai lógica e classifica cada achado como transferível, adaptável, hipótese, incompatível ou proprietário. Referência externa nunca sobrescreve tokens ou regras canônicas.
+
+Consultar `DESIGN_CAPABILITY_MATRIX.md` para selecionar as capacidades de design, UX, social/growth, pesquisa, mídia e QA necessárias para cada tarefa.
