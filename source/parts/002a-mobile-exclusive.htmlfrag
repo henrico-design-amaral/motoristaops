@@ -130,7 +130,7 @@
       <a class="mo-mobile-final-link" href="https://www.instagram.com/motoristaops/" target="_blank" rel="noopener"><span class="brand-icon" data-brand-icon="instagram" aria-hidden="true"></span>Instagram</a>
       <a class="mo-mobile-final-link" href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener"><span class="brand-icon" data-brand-icon="google" aria-hidden="true"></span>Google</a>
     </div>
-    <div class="mo-mobile-legal">© 2026 MotoristaOPS · São Paulo / Brasil</div>
+    <div class="mo-mobile-legal" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><span>CNPJ: 69.099.839/0001-25</span><span>Powered by <a href="https://henrico.works" target="_blank" rel="noopener" style="color:var(--mo-champagne)">henrico.works</a></span></div>
   </section>
 
   <div class="mo-mobile-sticky" aria-label="Agendamento rápido">
