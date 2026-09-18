@@ -1,5 +1,34 @@
 # MotoristaOPS — Regras operacionais para agentes
 
+## HenricoOPS + Brand Book V2 visual gate
+
+For every MotoristaOPS visual request, the executor must resolve these sources before production:
+
+1. current HenricoOPS governance;
+2. `VISUAL_LOCK.json`;
+3. `DESIGN.md`;
+4. `design/tokens.json`;
+5. `source/ICONOGRAPHY.md` when iconography is in scope;
+6. exact official assets and applicable approved baseline/Pattern Master.
+
+Brand Book V2 decisions effective 2026-09-18 are the current brand authority. Brand Book V12 is historical support only where V2 is silent and non-conflicting.
+
+Normal visual production requires `VISUAL_LOCK.status = READY`. Otherwise fail closed and reconcile the visual foundation first.
+
+### Locked brand rendering
+
+Do not ask a free-form image/video generator to synthesize the MotoristaOPS logo, wordmark, crest, signature, final branded typography, QR code or other protected identity layer.
+
+Use generative tooling only for explicitly unlocked photography/illustration/atmosphere. Compose locked brand layers deterministically from the official assets and tokens.
+
+If the active renderer cannot ingest the exact official asset, do not approximate it. Split the workflow into generative media + deterministic composition. If deterministic composition is unavailable, report the output as blocked/partial instead of inventing a branded substitute.
+
+Starting from a generic/blank template, Canva-like default aesthetic or provider-native style is not an acceptable MotoristaOPS workflow.
+
+### Point of view
+
+The passenger/service/context is the center of the brand communication. Henrico is the discreet operator behind the experience and should not become the default visual protagonist.
+
 ## Acesso direto pelo chat
 
 Este repositório deve ser operado diretamente por agentes conectados ao GitHub sempre que o conector estiver disponível. Para mudanças normais no projeto, não pedir ao usuário para baixar ZIP, editar arquivos manualmente, subir arquivos no painel da Hostinger ou fazer upload por FTP/SFTP.

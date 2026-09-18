@@ -1,0 +1,269 @@
+{
+  "schema": "henricoops.visual-lock.v1",
+  "project": "MotoristaOPS",
+  "status": "READY",
+  "version": "2.0.0-2026-09-18",
+  "authority": {
+    "sources": [
+      "Operator-approved MotoristaOPS Brand Book V2 decisions effective 2026-09-18",
+      "DESIGN.md",
+      "design/tokens.json",
+      "source/ICONOGRAPHY.md",
+      "HenricoOPS governance/VISUAL_CONSISTENCY_LOCK_STANDARD.md"
+    ],
+    "last_reviewed": "2026-09-18",
+    "legacy_note": "Brand Book V12 is subordinate historical support where V2 is silent and non-conflicting."
+  },
+  "tokens": {
+    "source": "design/tokens.json",
+    "format": "JSON",
+    "generated_targets": [
+      "web",
+      "social",
+      "print",
+      "video",
+      "presentation"
+    ]
+  },
+  "identity": {
+    "locked": [
+      "Canonical public name MotoristaOPS",
+      "Use exact approved logo/wordmark/crest/signature assets; no redraw or generative approximation",
+      "Current production logo bundle: release/visual-assets/logo/part-*.bin -> deployed /assets/logo-claude.avif",
+      "MotoristaOPS identity layer must be deterministic"
+    ],
+    "bounded": [
+      "Logo presence level L1 Silent, L2 Support or L3 Protagonist as selected by task/master"
+    ],
+    "forbidden": [
+      "invented logo",
+      "redrawn wordmark",
+      "AI-generated crest/signature",
+      "provider template identity",
+      "arbitrary logo scale/placement drift"
+    ]
+  },
+  "typography": {
+    "locked": [
+      "Instrument Sans dominant for body/UI/labels",
+      "Bebas Neue editorial/display only"
+    ],
+    "bounded": [
+      "Scale and line breaks may transform only within approved format/master rules"
+    ],
+    "forbidden": [
+      "substitute brand fonts",
+      "Bebas Neue for body or functional UI",
+      "generative rendering of final branded text"
+    ]
+  },
+  "color": {
+    "locked": [
+      "Noite #070709",
+      "Grafite #151518",
+      "Champagne #C79C5B",
+      "Champagne Sombra #947546",
+      "Marfim #F3EFE4",
+      "Pedra #A6A39E",
+      "Âmbar #F0B44D route/location/path only"
+    ],
+    "bounded": [
+      "Light/dark surface balance may vary by approved family"
+    ],
+    "forbidden": [
+      "off-palette decorative colors",
+      "generic use of Âmbar",
+      "Champagne flood",
+      "provider-default palette"
+    ]
+  },
+  "geometry": {
+    "locked": [
+      "4/8 px spacing rhythm",
+      "Social baseline: 6 columns, 72 px outer margin, 24 px gutter where applicable",
+      "One dominant area per composition"
+    ],
+    "bounded": [
+      "Format-specific reflow/crop under declared transform"
+    ],
+    "forbidden": [
+      "cramped density",
+      "dashboard/card-wall aesthetic for public brand pieces",
+      "arbitrary per-artifact grid"
+    ]
+  },
+  "graphic_language": {
+    "locked": [
+      "Lucide functional icon family per source/ICONOGRAPHY.md",
+      "Real evidence preferred",
+      "Service/passenger first; driver is discreet operator",
+      "Narrative grammar situation -> idea -> service -> signature"
+    ],
+    "bounded": [
+      "Route/path motif only when semantically relevant",
+      "Photography crop/treatment that preserves reality"
+    ],
+    "forbidden": [
+      "mixed icon packs",
+      "invented vectors",
+      "generic limousine/luxury clichés",
+      "cyberpunk/neon",
+      "stock replacing real proof",
+      "beautification/slimming/smoothing of Henrico"
+    ]
+  },
+  "composition": {
+    "locked": [
+      "Protected hierarchy keeps service/message ahead of operator",
+      "Logo presence must follow L1/L2/L3 intent",
+      "Brand signature closes/supports composition rather than randomly dominating"
+    ],
+    "bounded": [
+      "Crop, stacking and scale may change by format while hierarchy remains traceable"
+    ],
+    "forbidden": [
+      "blank-canvas reinterpretation",
+      "driver-as-hero by default",
+      "logo repetition",
+      "provider/editor template composition overriding project authority"
+    ]
+  },
+  "content_slots": [
+    {
+      "id": "copy",
+      "mode": "CONTENT_SLOT",
+      "rule": "Text may change by task after content approval; final rendering is deterministic."
+    },
+    {
+      "id": "real_media",
+      "mode": "CONTENT_SLOT",
+      "rule": "Use real service/vehicle/operator proof when available."
+    },
+    {
+      "id": "generated_media",
+      "mode": "BOUNDED",
+      "rule": "Allowed only for unlocked photo/illustration/atmosphere layers; never synthesize official identity."
+    },
+    {
+      "id": "logo_signature",
+      "mode": "LOCKED",
+      "rule": "Exact official asset only."
+    },
+    {
+      "id": "typography_layout",
+      "mode": "LOCKED",
+      "rule": "Approved type families/roles and deterministic composition."
+    },
+    {
+      "id": "format_reflow",
+      "mode": "FORMAT_TRANSFORM",
+      "rule": "Transform layout natively without changing brand grammar."
+    }
+  ],
+  "format_transforms": [
+    {
+      "id": "social_feed",
+      "canvas": "channel-native feed",
+      "rules": [
+        "preserve 6-column social grammar where applicable",
+        "one dominant area",
+        "exact brand assets",
+        "native crop/reflow only"
+      ]
+    },
+    {
+      "id": "story_reel",
+      "canvas": "9:16",
+      "rules": [
+        "safe-area aware",
+        "service/context remains primary",
+        "exact brand assets/text are deterministic layers"
+      ]
+    },
+    {
+      "id": "linkedin_document",
+      "canvas": "document/carousel native",
+      "rules": [
+        "text-first hierarchy",
+        "same palette/type/icon rules",
+        "page-to-page rhythm is consistent"
+      ]
+    },
+    {
+      "id": "wallpaper_tablet",
+      "canvas": "device-native landscape",
+      "rules": [
+        "brand presence normally L1 or L2 unless explicitly L3",
+        "preserve clear focal area and breathing room",
+        "no generic template composition"
+      ]
+    },
+    {
+      "id": "print",
+      "canvas": "product specification",
+      "rules": [
+        "respect bleed/safe area/production constraints",
+        "exact official assets",
+        "deterministic typography and QR codes"
+      ]
+    },
+    {
+      "id": "web",
+      "canvas": "responsive desktop/tablet/mobile",
+      "rules": [
+        "use approved responsive contract",
+        "no independent mobile identity",
+        "browser QA required"
+      ]
+    }
+  ],
+  "pattern_masters": [
+    {
+      "master_id": "motoristaops-core-brand-v2",
+      "version": "2026-09-18",
+      "status": "ACTIVE",
+      "source": "DESIGN.md",
+      "approval": "Operator-approved Brand Book V2 decisions",
+      "protected_anchors": [
+        "identity",
+        "type roles",
+        "semantic palette",
+        "service/passenger-first hierarchy",
+        "Lucide iconography",
+        "real-evidence photography"
+      ],
+      "variation_budget": {
+        "locked": [
+          "identity",
+          "type families",
+          "core palette",
+          "icon family",
+          "point of view"
+        ],
+        "bounded": [
+          "crop",
+          "content media",
+          "format reflow",
+          "logo presence L1-L3"
+        ],
+        "flexible": [
+          "approved copy slots",
+          "task-specific factual content"
+        ]
+      }
+    }
+  ],
+  "baselines": [
+    {
+      "kind": "GOLDEN_SCREEN",
+      "reference": "source/parts/*.htmlfrag (canonical production landing source)",
+      "viewport_or_format": "responsive web"
+    },
+    {
+      "kind": "GOLDEN_ARTIFACT",
+      "reference": "Brand Book V2 approved visual decisions captured in DESIGN.md",
+      "viewport_or_format": "cross-channel core"
+    }
+  ],
+  "exceptions": []
+}
