@@ -1,0 +1,49 @@
+{
+  "schema": "henricoops.foundation.v1",
+  "project": "MotoristaOPS",
+  "status": "CANONICAL",
+  "role": "reference-infrastructure",
+  "authority": [
+    "current_explicit_operator_decision",
+    "latest_canonical_decision",
+    "brand-system-v2",
+    "foundation-kernel",
+    "domain-protocols",
+    "approved-baselines",
+    "curation",
+    "external-references"
+  ],
+  "cycle": ["INTAKE","RESOLVE","CONTEXT","ROUTE","PLAN","EXECUTE","VERIFY","LEARN"],
+  "portable": [
+    "orchestration",
+    "request-resolution",
+    "decision-memory",
+    "curation-system",
+    "prompting",
+    "reference-intake",
+    "capability-routing",
+    "execution-protocol",
+    "quality-gates",
+    "failure-memory",
+    "learning-loop"
+  ],
+  "brand_specific": [
+    "identity",
+    "palette",
+    "typography",
+    "assets",
+    "photography",
+    "service-rules",
+    "channel-specific-brand-behavior"
+  ],
+  "curation": {
+    "raw_library": "Google Drive / MotoristaOps_Refs",
+    "raw_reference_count": 46,
+    "knowledge_path": "curation/",
+    "intake_protocol": "brand-system-v2/REFERENCE_INTAKE_PROTOCOL.md"
+  },
+  "fail_closed": true,
+  "literal_first": true,
+  "brand_book": "MotoristaOPS Brand Book V2",
+  "invalid_legacy_aliases": ["Brand Book V12"]
+}
