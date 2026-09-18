@@ -1,0 +1,42 @@
+name: MotoristaOPS Foundation Gate
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'AGENTS.md'
+      - 'DESIGN.md'
+      - 'VISUAL_LOCK.json'
+      - 'foundation/**'
+      - 'curation/**'
+      - 'brand-system-v2/**'
+      - 'design/**'
+      - 'source/**'
+      - 'scripts/validate-foundation.sh'
+      - '.github/workflows/foundation-gate.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'AGENTS.md'
+      - 'DESIGN.md'
+      - 'VISUAL_LOCK.json'
+      - 'foundation/**'
+      - 'curation/**'
+      - 'brand-system-v2/**'
+      - 'design/**'
+      - 'source/**'
+      - 'scripts/validate-foundation.sh'
+      - '.github/workflows/foundation-gate.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  foundation-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate MotoristaOPS Foundation
+        shell: bash
+        run: bash scripts/validate-foundation.sh
