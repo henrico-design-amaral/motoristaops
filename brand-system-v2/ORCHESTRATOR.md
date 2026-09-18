@@ -52,3 +52,10 @@ Nenhuma entrega é aceita apenas porque está visualmente atraente. Deve cumprir
 Qualquer trabalho de conteúdo, growth, calendário, campanha ou publicação deve consultar `SOCIAL_MEDIA_OPERATING_SYSTEM.md` após resolver Brand Book/Style Guide/Design System.
 
 O orquestrador deve exigir objetivo, público, canal, formato, hook, narrativa, CTA, evidência e métrica antes da produção final. Prompts externos e repertórios são insumos; não substituem estratégia nem regras canônicas.
+
+
+## Prompting protocol
+
+Para tarefas não triviais, o orquestrador deve converter a solicitação em um contrato `PACIF + R + V` antes da execução: Papel, Ação, Contexto/Conteúdo, Intenção, Formato, Regras/Restrições e Validação.
+
+Consultar `PROMPTING_PROTOCOL.md` para análise de referências, geração de mídia, social, landing/UI e uso de prompts externos.
