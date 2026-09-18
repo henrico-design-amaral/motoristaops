@@ -218,7 +218,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/ | grep -qF 'BRAND SYSTEM V2'
-          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/brandbook-v2.html | grep -qF 'Brand Book V2'
-          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/style-guide-v2.html | grep -qF 'Visual & Editorial Style Guide'
-          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/design-system-v2.html | grep -qF 'Design System V2'
+          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/ -o /tmp/brand-system-index.html
+          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/brandbook-v2.html -o /tmp/brandbook-v2.html
+          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/style-guide-v2.html -o /tmp/style-guide-v2.html
+          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/design-system-v2.html -o /tmp/design-system-v2.html
+          grep -qF 'BRAND SYSTEM V2' /tmp/brand-system-index.html
+          grep -qF 'Brand Book V2' /tmp/brandbook-v2.html
+          grep -qF 'Visual & Editorial Style Guide' /tmp/style-guide-v2.html
+          grep -qF 'Design System V2' /tmp/design-system-v2.html
