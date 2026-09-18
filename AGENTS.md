@@ -8,8 +8,10 @@ Antes de qualquer execução MotoristaOPS, resolver nesta ordem operacional:
 2. `foundation/REQUEST_RESOLVER.md`;
 3. `foundation/DECISION_MEMORY.md`;
 4. `foundation/FAILURE_MEMORY.md`;
-5. fontes canônicas específicas do domínio;
-6. curadoria somente quando relevante.
+5. `PROJECT_PROFILE.md`;
+6. `foundation/CAPABILITY_MATRIX.md` e `foundation/CONNECTOR_POLICY.md` quando houver roteamento de ferramentas;
+7. fontes canônicas específicas do domínio;
+8. curadoria somente quando relevante.
 
 O pedido do operador é literal-first. Não reinterpretar restrições explícitas para caber em preferências de ferramenta. Não pedir novamente informação já resolvida no canon, no projeto, na curadoria ou em decisão anterior.
 
