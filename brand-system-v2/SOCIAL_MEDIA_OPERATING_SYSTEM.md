@@ -40,6 +40,8 @@ Antes de arte, vídeo ou legenda:
 
 ## 3. Contrato de briefing/prompt
 
+O contrato segue `PROMPTING_PROTOCOL.md` e sua estrutura PACIF + R + V.
+
 Qualquer agente, IA ou especialista recebe no mínimo:
 
 - objetivo;
