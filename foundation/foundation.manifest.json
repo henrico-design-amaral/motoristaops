@@ -1,0 +1,82 @@
+{
+  "schema": "henricoops.foundation.v1",
+  "project": "MotoristaOPS",
+  "status": "CANONICAL",
+  "role": "reference-infrastructure",
+  "authority": [
+    "current_explicit_operator_decision",
+    "latest_canonical_decision",
+    "brand-system-v2",
+    "foundation-kernel",
+    "domain-protocols",
+    "approved-baselines",
+    "curation",
+    "external-references"
+  ],
+  "cycle": [
+    "INTAKE",
+    "RESOLVE",
+    "CONTEXT",
+    "ROUTE",
+    "PLAN",
+    "EXECUTE",
+    "VERIFY",
+    "LEARN"
+  ],
+  "portable": [
+    "orchestration",
+    "request-resolution",
+    "decision-memory",
+    "curation-system",
+    "prompting",
+    "reference-intake",
+    "capability-routing",
+    "execution-protocol",
+    "quality-gates",
+    "failure-memory",
+    "learning-loop"
+  ],
+  "brand_specific": [
+    "identity",
+    "palette",
+    "typography",
+    "assets",
+    "photography",
+    "service-rules",
+    "channel-specific-brand-behavior"
+  ],
+  "curation": {
+    "raw_library": "Google Drive / MotoristaOps_Refs",
+    "raw_reference_count": 46,
+    "knowledge_path": "curation/",
+    "intake_protocol": "brand-system-v2/REFERENCE_INTAKE_PROTOCOL.md"
+  },
+  "fail_closed": true,
+  "literal_first": true,
+  "brand_book": "MotoristaOPS Brand Book V2",
+  "invalid_legacy_aliases": [
+    "Brand Book V12"
+  ],
+  "entrypoints": [
+    "AGENTS.md",
+    "PROJECT_PROFILE.md",
+    "foundation/KERNEL.md",
+    "foundation/REQUEST_RESOLVER.md",
+    "foundation/DECISION_MEMORY.md",
+    "foundation/LEARNING_LOOP.md",
+    "foundation/CAPABILITY_MATRIX.md",
+    "foundation/CONNECTOR_POLICY.md",
+    "foundation/EXECUTION_PROTOCOL.md",
+    "foundation/QUALITY_GATES.md",
+    "foundation/FAILURE_MEMORY.md"
+  ],
+  "enforcement": {
+    "validator": "scripts/validate-foundation.sh",
+    "workflow": ".github/workflows/foundation-gate.yml",
+    "deploy_preflight": ".github/workflows/deploy-landing-hostinger.yml"
+  },
+  "schemas": [
+    "foundation/request-contract.schema.json",
+    "foundation/quality-gates.json"
+  ]
+}

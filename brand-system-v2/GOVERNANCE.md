@@ -45,3 +45,19 @@ Ferramenta, template, especialista, tendência ou conveniência nunca prevalece 
 ### Assinatura cotidiana
 
 Em produção diária/social, a assinatura padrão é exclusivamente **brasão oficial + “MotoristaOPS”**. Estrada, “por Henrico Amaral” e “motorista particular” ficam restritos a contextos institucionais explicitamente autorizados. A assinatura é camada determinística e não deve ser redesenhada por IA generativa.
+
+
+## Infraestrutura base
+
+MotoristaOPS funciona como projeto de referência para a infraestrutura do ecossistema.
+
+O kernel em `foundation/` governa processo, interpretação, decisão, curadoria, execução, QA e aprendizado. Ele é sempre ativo, mas não substitui regras específicas de marca.
+
+Futuros projetos podem herdar o kernel conforme `foundation/PROJECT_BOOTSTRAP.md`; não podem herdar por acidente a identidade MotoristaOPS.
+
+### Literalidade e memória
+- pedidos explícitos são literal-first;
+- inferência é controlada;
+- decisões aprovadas são reutilizadas;
+- correções recorrentes viram gates;
+- informação já disponível deve ser recuperada antes de ser solicitada novamente.

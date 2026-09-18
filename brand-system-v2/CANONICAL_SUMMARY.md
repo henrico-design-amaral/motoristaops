@@ -45,3 +45,14 @@ Assinatura cotidiana/social: **brasão oficial + “MotoristaOPS”**, sem estra
 ## Social media
 
 Conteúdo e growth seguem `SOCIAL_MEDIA_OPERATING_SYSTEM.md`: objetivo → público → tensão/insight → hook → narrativa → formato nativo → CTA → métrica → produção → QA → aprendizado. IA acelera execução; não substitui estratégia. LinkedIn privilegia autenticidade/evidência; Instagram privilegia fotografia real, Reels observacionais, carrossel utilitário e Stories contextuais.
+
+
+## Foundation
+
+MotoristaOPS é o projeto-base da infraestrutura. O ciclo permanente é:
+
+`INTAKE → RESOLVE → CONTEXT → ROUTE → PLAN → EXECUTE → VERIFY → LEARN`.
+
+Pedido literal é resolvido por `foundation/REQUEST_RESOLVER.md`; decisões por `foundation/DECISION_MEMORY.md`; erros recorrentes por `foundation/FAILURE_MEMORY.md`; curadoria por `foundation/CURATION_SYSTEM.md`.
+
+Não existe Brand Book V12.

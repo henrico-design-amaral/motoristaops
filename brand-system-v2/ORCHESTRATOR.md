@@ -2,7 +2,11 @@
 
 **Status: CANÔNICO — controle permanente**
 
-O orquestrador é a camada sempre ativa para qualquer produção MotoristaOPS. Seu papel é impedir que especialidades, ferramentas e gerações isoladas produzam algo fora do sistema aprovado.
+O orquestrador é a camada sempre ativa para qualquer produção MotoristaOPS.
+
+## Foundation kernel
+
+O ponto de entrada obrigatório é `foundation/KERNEL.md`. O orquestrador deve resolver o pedido por `foundation/REQUEST_RESOLVER.md`, consultar `foundation/DECISION_MEMORY.md` e bloquear regressões conhecidas por `foundation/FAILURE_MEMORY.md` antes de acionar especialistas. Seu papel é impedir que especialidades, ferramentas e gerações isoladas produzam algo fora do sistema aprovado.
 
 ## Autoridade
 
@@ -68,3 +72,20 @@ Pinterest, Instagram, sites, campanhas, interfaces e outras referências externa
 O orquestrador extrai lógica e classifica cada achado como transferível, adaptável, hipótese, incompatível ou proprietário. Referência externa nunca sobrescreve tokens ou regras canônicas.
 
 Consultar `DESIGN_CAPABILITY_MATRIX.md` para selecionar as capacidades de design, UX, social/growth, pesquisa, mídia e QA necessárias para cada tarefa.
+
+
+## Recorrência e aprendizado
+
+Correção estrutural não fica somente na conversa. O orquestrador deve decidir se ela é:
+
+- local;
+- reutilizável;
+- canônica.
+
+Quando reutilizável/canônica, atualizar fonte, gate ou failure memory apropriado.
+
+Antes de perguntar algo ao operador, verificar canon, decisões, assets, curadoria e fontes conectadas aplicáveis. O objetivo é reduzir repetição sem inventar fatos.
+
+## Literalidade
+
+O operador comunica requisitos literalmente. Restrições explícitas têm prioridade sobre defaults de ferramenta, estética ou hábito do agente. Inferências só podem preencher detalhes não materiais e reversíveis.

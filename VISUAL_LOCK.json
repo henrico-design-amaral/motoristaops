@@ -2,17 +2,21 @@
   "schema": "henricoops.visual-lock.v1",
   "project": "MotoristaOPS",
   "status": "READY",
-  "version": "2.0.0-2026-09-18",
+  "version": "2.1.0-2026-09-18",
   "authority": {
     "sources": [
-      "Operator-approved MotoristaOPS Brand Book V2 decisions effective 2026-09-18",
+      "Current explicit operator-approved decision",
+      "foundation/KERNEL.md",
+      "foundation/REQUEST_RESOLVER.md",
+      "foundation/DECISION_MEMORY.md",
+      "foundation/FAILURE_MEMORY.md",
+      "MotoristaOPS Brand Book V2",
       "DESIGN.md",
       "design/tokens.json",
-      "source/ICONOGRAPHY.md",
-      "HenricoOPS governance/VISUAL_CONSISTENCY_LOCK_STANDARD.md"
+      "source/ICONOGRAPHY.md"
     ],
     "last_reviewed": "2026-09-18",
-    "legacy_note": "Brand Book V12 is subordinate historical support where V2 is silent and non-conflicting."
+    "legacy_note": "No Brand Book V12 exists. Any legacy V12 reference is invalid and has no authority."
   },
   "tokens": {
     "source": "design/tokens.json",
@@ -30,7 +34,10 @@
       "Canonical public name MotoristaOPS",
       "Use exact approved logo/wordmark/crest/signature assets; no redraw or generative approximation",
       "Current production logo bundle: release/visual-assets/logo/part-*.bin -> deployed /assets/logo-claude.avif",
-      "MotoristaOPS identity layer must be deterministic"
+      "MotoristaOPS identity layer must be deterministic",
+      "Everyday/social signature = exact official crest + MotoristaOPS only",
+      "Everyday/social signature excludes road, por Henrico Amaral and motorista particular",
+      "Everyday/social signature perceived height target = 44-48 CSS px at a 390 px reference preview; raster scale must preserve perception"
     ],
     "bounded": [
       "Logo presence level L1 Silent, L2 Support or L3 Protagonist as selected by task/master"
@@ -40,7 +47,9 @@
       "redrawn wordmark",
       "AI-generated crest/signature",
       "provider template identity",
-      "arbitrary logo scale/placement drift"
+      "arbitrary logo scale/placement drift",
+      "legacy V12 authority",
+      "full institutional signature in ordinary social content unless explicitly authorized"
     ]
   },
   "typography": {
@@ -168,7 +177,10 @@
         "preserve 6-column social grammar where applicable",
         "one dominant area",
         "exact brand assets",
-        "native crop/reflow only"
+        "native crop/reflow only",
+        "mobile-first QA at approximately 390 CSS px",
+        "everyday signature uses official crest + MotoristaOPS only",
+        "no unreadable microcopy"
       ]
     },
     {
@@ -265,5 +277,7 @@
       "viewport_or_format": "cross-channel core"
     }
   ],
-  "exceptions": []
+  "exceptions": [],
+  "failure_memory": "foundation/FAILURE_MEMORY.md",
+  "request_resolver": "foundation/REQUEST_RESOLVER.md"
 }

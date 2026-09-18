@@ -1,5 +1,20 @@
 # MotoristaOPS — Regras operacionais para agentes
 
+## Foundation Kernel — obrigatório
+
+Antes de qualquer execução MotoristaOPS, resolver nesta ordem operacional:
+
+1. `foundation/KERNEL.md`;
+2. `foundation/REQUEST_RESOLVER.md`;
+3. `foundation/DECISION_MEMORY.md`;
+4. `foundation/FAILURE_MEMORY.md`;
+5. `PROJECT_PROFILE.md`;
+6. `foundation/CAPABILITY_MATRIX.md` e `foundation/CONNECTOR_POLICY.md` quando houver roteamento de ferramentas;
+7. fontes canônicas específicas do domínio;
+8. curadoria somente quando relevante.
+
+O pedido do operador é literal-first. Não reinterpretar restrições explícitas para caber em preferências de ferramenta. Não pedir novamente informação já resolvida no canon, no projeto, na curadoria ou em decisão anterior.
+
 ## HenricoOPS + Brand Book V2 visual gate
 
 For every MotoristaOPS visual request, the executor must resolve these sources before production:
@@ -11,7 +26,7 @@ For every MotoristaOPS visual request, the executor must resolve these sources b
 5. `source/ICONOGRAPHY.md` when iconography is in scope;
 6. exact official assets and applicable approved baseline/Pattern Master.
 
-Brand Book V2 decisions effective 2026-09-18 are the current brand authority. Brand Book V12 is historical support only where V2 is silent and non-conflicting.
+Brand Book V2 decisions effective 2026-09-18 are the current brand authority. Não existe Brand Book V12. Qualquer menção antiga a V12 é erro legado sem autoridade; a fonte correta é Brand Book V2.
 
 Normal visual production requires `VISUAL_LOCK.status = READY`. Otherwise fail closed and reconcile the visual foundation first.
 

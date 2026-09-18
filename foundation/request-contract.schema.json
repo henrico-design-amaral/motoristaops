@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motoristaops.com.br/schemas/request-contract.v1.json",
+  "title": "MotoristaOPS Request Contract",
+  "type": "object",
+  "required": ["action","object","outcome","hard_constraints","authority","acceptance"],
+  "properties": {
+    "action": {"type":"string","minLength":1},
+    "object": {"type":"string","minLength":1},
+    "scope": {"type":"string"},
+    "outcome": {"type":"string","minLength":1},
+    "hard_constraints": {"type":"array","items":{"type":"string"}},
+    "preferences": {"type":"array","items":{"type":"string"}},
+    "literal_data": {"type":"object"},
+    "authority": {"type":"array","items":{"type":"string"}},
+    "dependencies": {"type":"array","items":{"type":"string"}},
+    "safe_inferences": {"type":"array","items":{"type":"string"}},
+    "blocked_inferences": {"type":"array","items":{"type":"string"}},
+    "acceptance": {"type":"array","items":{"type":"string"}}
+  },
+  "additionalProperties": false
+}

@@ -19,7 +19,7 @@ This file is the executable visual resolver for MotoristaOPS. It does not create
 7. Approved task-specific references.
 8. External references and provider-native defaults.
 
-Brand Book V12 is historical/legacy support only where Brand Book V2 is silent and no conflict exists. It may not silently override a newer V2 decision.
+Não existe Brand Book V12. Qualquer menção antiga a V12 é erro legado e deve ser ignorada; Brand Book V2 é a autoridade de marca.
 
 ## Identity and point of view
 
@@ -72,6 +72,20 @@ Three approved presence levels:
 The task must select one level. Logo scale/position may not drift arbitrarily between artifacts.
 
 Official identity assets are protected. If an exact asset is unavailable to the renderer, do not redraw, approximate, rebuild or ask a generative model to synthesize it.
+
+## Social everyday signature
+
+Para comunicação cotidiana/social, a assinatura padrão é somente **brasão oficial + MotoristaOPS**.
+
+- sem estrada;
+- sem “por Henrico Amaral”;
+- sem “motorista particular”;
+- posição inferior direita ou inferior esquerda conforme composição;
+- alinhamento ao limite inferior da área segura;
+- percepção alvo equivalente a um controle mobile padrão: aproximadamente 44–48 CSS px de altura na visualização de referência a 390 px de largura;
+- em canvas raster, escalar proporcionalmente para preservar essa percepção; não usar 45 px brutos em 1080 px.
+
+A assinatura é camada determinística. Nunca pedir ao gerador de imagem que a sintetize.
 
 ## Iconography
 
@@ -166,6 +180,10 @@ A feed post, Story, LinkedIn document, print piece, wallpaper, landing page, das
 - approved service/passenger point of view.
 
 ## Required preflight
+
+Resolver também `foundation/REQUEST_RESOLVER.md` e `foundation/FAILURE_MEMORY.md` antes de produzir. Uma falha conhecida não pode reaparecer como variação criativa.
+
+
 
 Before visual production:
 1. Resolve `VISUAL_LOCK.json`.

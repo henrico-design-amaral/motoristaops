@@ -11,6 +11,7 @@ on:
       - 'release/visual-assets/**'
       - 'release/service-assets/**'
       - 'scripts/verify-public-landing.sh'
+      - 'scripts/validate-foundation.sh'
       - '.github/workflows/deploy-landing-hostinger.yml'
 
 concurrency:
@@ -28,6 +29,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+
+      - name: Validate MotoristaOPS Foundation
+        shell: bash
+        run: bash scripts/validate-foundation.sh
 
       - name: Assemble and validate landing
         shell: bash
