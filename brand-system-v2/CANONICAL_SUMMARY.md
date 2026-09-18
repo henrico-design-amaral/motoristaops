@@ -34,3 +34,9 @@ Contexto, percurso, evidências de cuidado e operador silencioso. Corrigir, não
 
 ## Produção
 Todo material passa pelo Brand Gate. Nenhuma entrega é pequena demais para escapar do sistema.
+
+## Orquestração
+
+O MotoristaOPS Orchestrator é a camada permanente de controle: resolve autoridade, seleciona especialistas/ferramentas, impõe regras canônicas e valida a saída. Especialistas executam; o orquestrador aceita, revisa ou bloqueia.
+
+Assinatura cotidiana/social: **brasão oficial + “MotoristaOPS”**, sem estrada, sem “por Henrico Amaral” e sem “motorista particular”, salvo decisão institucional explícita.
