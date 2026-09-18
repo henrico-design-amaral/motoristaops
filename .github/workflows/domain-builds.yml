@@ -23,7 +23,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       - name: Validate data snapshot
         run: npm run validate:data
@@ -66,8 +66,19 @@ jobs:
           test -f dist-dashboard/fontes-contexto/index.html
           test -f dist-dashboard/data/motoristaops.json
           test ! -e dist-dashboard/motorista
+          test ! -e dist-dashboard/socialmedia
           grep -q "MotoristaOps" dist-dashboard/index.html
           grep -q "Plano operacional" dist-dashboard/index.html
+
+      - name: Verify social media artifact
+        run: |
+          test -f dist-socialmedia/index.html
+          test -d dist-socialmedia/_astro
+          grep -q "Social Media" dist-socialmedia/index.html
+          grep -q "Calendário editorial" dist-socialmedia/index.html
+          grep -q "Saúde das ferramentas" dist-socialmedia/index.html
+          test ! -e dist-socialmedia/fechamento
+          test ! -e dist-socialmedia/transito
 
       - name: Upload public artifact
         if: github.event_name != 'pull_request'
@@ -83,4 +94,12 @@ jobs:
         with:
           name: motoristaops-dashboard
           path: dist-dashboard
+          if-no-files-found: error
+
+      - name: Upload social media artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: motoristaops-socialmedia
+          path: dist-socialmedia
           if-no-files-found: error

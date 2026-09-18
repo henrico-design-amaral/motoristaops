@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
-    "astro": "^7.1.6",
+    "astro": "^7.3.3",
     "exceljs": "^4.4.0"
   },
   "devDependencies": {
@@ -25,10 +25,14 @@
     "typescript": "^5.8.3"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.9.0"
   },
   "overrides": {
     "uuid": "11.1.1",
-    "nanoid": "^3.3.17"
+    "nanoid": "^3.3.17",
+    "js-yaml": "4.3.2",
+    "sharp": "0.35.4",
+    "svgo": "4.1.0",
+    "devalue": "5.9.2"
   }
 }

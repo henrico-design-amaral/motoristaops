@@ -1,0 +1,175 @@
+---
+import SocialMediaLayout from '../layouts/SocialMediaLayout.astro';
+import { socialMediaSnapshot as data } from '../data/social-media-snapshot';
+
+const publicationRate = data.summary.plannedThisMonth > 0
+  ? Math.round((data.summary.publishedObservedLast30d / data.summary.plannedThisMonth) * 100)
+  : null;
+---
+<SocialMediaLayout title="MotoristaOPS · Social Media Control Center">
+  <div class="social-shell">
+    <aside class="social-sidebar" aria-label="Navegação do Social Media Control Center">
+      <div class="social-brand">
+        <strong>MotoristaOPS</strong>
+        <small>Social Media Control Center</small>
+      </div>
+      <nav class="social-nav">
+        <a class="active" href="#overview">Overview</a>
+        <a href="#calendar">Calendário</a>
+        <a href="#campaigns">Campanhas</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#performance">Performance</a>
+        <a href="#references">Repertório</a>
+        <a href="#tools">Ferramentas</a>
+        <a href="#learnings">Aprendizados</a>
+      </nav>
+      <div class="social-meta">
+        Fonte operacional: Drive + Metricool + Windsor.<br />
+        Snapshot: {new Date(data.sourcedAt).toLocaleString('pt-BR')}
+      </div>
+    </aside>
+
+    <main class="social-main">
+      <header class="social-topbar" id="overview">
+        <div>
+          <div class="social-kicker">Planejamento e execução</div>
+          <h1>Social Media</h1>
+          <p>Um cockpit para saber o que publicar, o que está bloqueado, o que já saiu e o que os dados estão ensinando.</p>
+        </div>
+        <div class="social-actions">
+          <a href={data.sources.controlPlane} target="_blank" rel="noreferrer">Abrir Control Plane</a>
+          <a href={data.sources.toolTest} target="_blank" rel="noreferrer">Abrir teste de ferramentas</a>
+          <a class="primary" href="https://app.metricool.com/" target="_blank" rel="noreferrer">Abrir Metricool</a>
+        </div>
+      </header>
+
+      <section class="social-section" aria-labelledby="overview-title">
+        <div class="social-section-head">
+          <div>
+            <div class="social-kicker">Hoje</div>
+            <h2 id="overview-title">Estado editorial</h2>
+          </div>
+          <span class="social-muted">Sem preenchimento artificial: ausência de dado permanece explícita.</span>
+        </div>
+        <div class="kpi-grid">
+          <article class="kpi"><span>Planejado no mês</span><strong>{data.summary.plannedThisMonth}</strong><small>Itens no Content Control Plane</small></article>
+          <article class="kpi"><span>Publicados observados</span><strong>{data.summary.publishedObservedLast30d}</strong><small>Retorno do Windsor nos últimos 30 dias</small></article>
+          <article class="kpi attention"><span>Bloqueado hoje</span><strong>{data.summary.blockedToday}</strong><small>Asset pendente / Brand Gate</small></article>
+          <article class="kpi"><span>Taxa observada</span><strong>{publicationRate === null ? '—' : `${publicationRate}%`}</strong><small>Indicador parcial, não taxa final do mês</small></article>
+        </div>
+      </section>
+
+      <section class="social-section grid-2">
+        <article class="panel-social">
+          <div class="social-section-head">
+            <div><div class="social-kicker">Ação imediata</div><h2>Hoje</h2></div>
+          </div>
+          <div class="agenda">
+            {data.today.map((item) => (
+              <div class="agenda-row">
+                <time>{item.time}</time>
+                <b>{item.format}</b>
+                <div>
+                  <strong>{item.theme}</strong>
+                  <p>{item.action}</p>
+                </div>
+                <span class:list={['badge', item.status === 'BLOCKED_ASSET' && 'blocked', item.status === 'PUBLISHED' && 'published']}>{item.status}</span>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article class="panel-social" id="campaigns">
+          <div class="social-kicker">Campanhas</div>
+          <h3>Dados ainda não estruturados como entidade</h3>
+          <p class="social-muted">O calendário tem temas, objetivos e pilares, mas ainda não existe uma tabela canônica de campanhas com início, fim, verba, leads e bookings. O dashboard não inventa esses números.</p>
+          <p class="social-muted"><strong>Próxima implementação:</strong> campanhas de Eventos, À Disposição, Aeroporto, Médico e Noite com IDs próprios e vínculo aos conteúdos.</p>
+        </article>
+      </section>
+
+      <section class="social-section" id="calendar">
+        <div class="social-section-head">
+          <div><div class="social-kicker">Próximos 7 dias</div><h2>Calendário editorial</h2></div>
+          <span class="social-muted">Fonte: Instagram Content Control Plane</span>
+        </div>
+        <div class="table-wrap">
+          <table class="social-table">
+            <thead><tr><th>Data</th><th>Hora</th><th>Canal</th><th>Formato</th><th>Tema</th><th>Objetivo</th><th>Status</th></tr></thead>
+            <tbody>
+              {data.upcoming.map((item) => (
+                <tr>
+                  <td>{new Date(`${item.date}T12:00:00-03:00`).toLocaleDateString('pt-BR')}</td>
+                  <td>{item.time}</td>
+                  <td>{item.channel}</td>
+                  <td>{item.format}</td>
+                  <td>{item.theme}</td>
+                  <td>{item.objective}</td>
+                  <td><span class="badge">{item.status}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="social-section" id="pipeline">
+        <div class="social-section-head">
+          <div><div class="social-kicker">Workflow</div><h2>Pipeline de produção</h2></div>
+        </div>
+        <div class="panel-social">
+          <p><strong>IDEA → COPY → BRAND_GATE → ASSET → READY → SCHEDULED → PUBLISHED → MEASURED → LEARNING</strong></p>
+          <p class="social-muted">Bloqueios permanecem explícitos. Hoje, MOPS-IG-2026-026 está em <strong>BLOCKED_ASSET</strong> porque não existe asset final aprovado registrado.</p>
+        </div>
+      </section>
+
+      <section class="social-section grid-2" id="performance">
+        <article class="panel-social">
+          <div class="social-kicker">Instagram · 30 dias</div>
+          <h3>Conteúdo observado</h3>
+          {data.performance.map((item) => (
+            <div class="performance-row">
+              <div><strong><a href={item.url} target="_blank" rel="noreferrer">{item.label}</a></strong><br /><span>{item.type} · {new Date(`${item.date}T12:00:00-03:00`).toLocaleDateString('pt-BR')}</span></div>
+              <span><b>{item.reach}</b><br />alcance</span>
+              <span><b>{item.views}</b><br />views</span>
+              <span><b>{item.engagement}</b><br />interações</span>
+            </div>
+          ))}
+        </article>
+        <article class="panel-social" id="references">
+          <div class="social-kicker">Repertório</div>
+          <h3>Referências externas</h3>
+          <p class="social-muted">Hermoso Free ainda não está executável neste runtime. O módulo permanece preparado para receber fonte, hook, padrão narrativo, motion, CTA e aplicabilidade sem substituir o Brand Book.</p>
+          <p class="social-muted">Primeiro teste previsto: Reel ou motion de carrossel aprovado, 9:16, 8–15s, com movimento apenas para conduzir leitura.</p>
+        </article>
+      </section>
+
+      <section class="social-section" id="tools">
+        <div class="social-section-head"><div><div class="social-kicker">Stack</div><h2>Saúde das ferramentas</h2></div></div>
+        <div class="tool-grid">
+          {data.tools.map((tool) => (
+            <article class="tool-card">
+              <header><h3>{tool.name}</h3><span class="badge">{tool.state}</span></header>
+              <p>{tool.note}</p>
+              <dl><dt>Papel</dt><dd>{tool.role}</dd><dt>Canais</dt><dd>{tool.channels}</dd><dt>Custo</dt><dd>{tool.monthlyCost}</dd></dl>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="social-section" id="learnings">
+        <div class="social-section-head"><div><div class="social-kicker">Loop de aprendizado</div><h2>Evidência → inferência → teste</h2></div></div>
+        <div class="learning-list">
+          {data.learnings.map((item) => (
+            <article class="learning">
+              <p><b>Evidência:</b> {item.evidence}</p>
+              <p><b>Inferência:</b> {item.inference}</p>
+              <p><b>Próximo teste:</b> {item.nextTest}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <footer class="footer-note">Social Media Control Center v1 · snapshot operacional em {new Date(data.sourcedAt).toLocaleString('pt-BR')} · valores não disponíveis não são estimados.</footer>
+    </main>
+  </div>
+</SocialMediaLayout>

@@ -1,0 +1,73 @@
+export const socialMediaSnapshot = {
+  sourcedAt: '2026-09-17T11:58:00-03:00',
+  sources: {
+    controlPlane: 'https://docs.google.com/spreadsheets/d/14Ts9YicCLM6h6-nAz6qzglPhWek2Lh_vRVpd64qAHYA/edit',
+    toolTest: 'https://docs.google.com/spreadsheets/d/1C_u9hfegv75PmL5v-yA6yJpKlnafLQ_y_R_JR2Fsh8Q/edit',
+  },
+  summary: {
+    plannedThisMonth: 44,
+    publishedObservedLast30d: 13,
+    blockedToday: 1,
+    activeCampaigns: null,
+    leads: null,
+    bookings: null,
+  },
+  today: [
+    {
+      id: 'MOPS-IG-2026-026',
+      time: '08:00',
+      channel: 'Instagram',
+      format: 'STORY',
+      theme: 'Bastidor de acompanhamento',
+      hook: 'A espera também faz parte do planejamento.',
+      status: 'BLOCKED_ASSET',
+      action: 'Produzir/validar asset oficial antes de publicar.',
+    },
+    {
+      id: 'IG-2026-09-17-1303',
+      time: '10:03',
+      channel: 'Instagram',
+      format: 'CAROUSEL',
+      theme: 'Eventos em São Paulo',
+      hook: 'Antes de sair, confirme três pontos.',
+      status: 'PUBLISHED',
+      action: 'Acompanhar alcance e engajamento nas próximas 24–72h.',
+      url: 'https://www.instagram.com/p/DdY7Ek7DVTm/',
+    },
+  ],
+  upcoming: [
+    { id:'MOPS-IG-2026-027', date:'2026-09-18', time:'08:00', channel:'Instagram', format:'STORY', theme:'Quando contratar', objective:'ENGAGEMENT', status:'PLANNED' },
+    { id:'MOPS-IG-2026-028', date:'2026-09-18', time:'19:30', channel:'Instagram', format:'CAROUSEL', theme:'Momento de contratar motorista particular', objective:'CONVERSION', status:'PLANNED' },
+    { id:'MOPS-IG-2026-029', date:'2026-09-19', time:'08:00', channel:'Instagram', format:'STORY', theme:'Agenda da próxima semana', objective:'CONVERSION', status:'PLANNED' },
+    { id:'MOPS-IG-2026-030', date:'2026-09-20', time:'08:00', channel:'Instagram', format:'STORY', theme:'Bastidor invisível', objective:'DISCOVERY', status:'PLANNED' },
+    { id:'MOPS-IG-2026-031', date:'2026-09-20', time:'18:00', channel:'Instagram', format:'REEL', theme:'Preparação invisível', objective:'DISCOVERY', status:'PLANNED' },
+    { id:'MOPS-IG-2026-032', date:'2026-09-21', time:'08:00', channel:'Instagram', format:'STORY', theme:'Compromisso profissional', objective:'ENGAGEMENT', status:'PLANNED' },
+    { id:'MOPS-IG-2026-033', date:'2026-09-21', time:'19:30', channel:'Instagram', format:'CAROUSEL', theme:'Planejamento para reunião', objective:'B2B_CONSIDERATION', status:'PLANNED' },
+    { id:'MOPS-IG-2026-034', date:'2026-09-22', time:'08:00', channel:'Instagram', format:'STORY', theme:'Trânsito real de São Paulo', objective:'RELEVANCE', status:'PLANNED' },
+    { id:'MOPS-IG-2026-035', date:'2026-09-23', time:'08:00', channel:'Instagram', format:'STORY', theme:'Cuidado pré-embarque', objective:'TRUST', status:'PLANNED' },
+    { id:'MOPS-IG-2026-036', date:'2026-09-23', time:'19:30', channel:'Instagram', format:'FIXED_POST', theme:'Cuidado e conforto', objective:'POSITIONING', status:'PLANNED' },
+  ],
+  performance: [
+    { label:'MotoristaOPS Noite', type:'CAROUSEL', date:'2026-09-13', reach:49, views:113, engagement:16, saved:0, shares:0, url:'https://www.instagram.com/p/DdNTk0miPcw/' },
+    { label:'Rotina escolar', type:'CAROUSEL', date:'2026-09-16', reach:8, views:16, engagement:1, saved:0, shares:0, url:'https://www.instagram.com/p/DdXMRUSilaL/' },
+    { label:'Eventos — checklist', type:'CAROUSEL', date:'2026-09-17', reach:3, views:13, engagement:0, saved:0, shares:0, url:'https://www.instagram.com/p/DdY7Ek7DVTm/' },
+    { label:'iFood Move', type:'IMAGE', date:'2026-09-16', reach:6, views:10, engagement:0, saved:0, shares:0, url:'https://www.instagram.com/p/DdWWSu5iPcJ/' },
+  ],
+  tools: [
+    { name:'Metricool Starter', role:'Scheduler principal', state:'ACTIVE', channels:'Instagram · LinkedIn · Google Business', monthlyCost:'US$ 25 + impostos', note:'Publicação e agendamento principal.' },
+    { name:'Windsor.ai Free', role:'Analytics complementar', state:'ACTIVE · Instagram', channels:'Instagram', monthlyCost:'R$ 0 observado', note:'Leitura de reach, views, engagement, saves, shares e métricas de Reels quando houver.' },
+    { name:'Hermoso Free', role:'Pesquisa e repertório', state:'PENDING_RUNTIME', channels:'Referências · Reels · Ads', monthlyCost:'R$ 0', note:'Entra como inteligência; não altera identidade nem assets aprovados.' },
+  ],
+  learnings: [
+    {
+      evidence: 'MotoristaOPS Noite alcançou 49 contas, 113 views e 16 interações na amostra Windsor de 30 dias.',
+      inference: 'Oferta concreta de serviço pode estar respondendo melhor do que conteúdo circunstancial de evento.',
+      nextTest: 'Comparar novas peças de serviço específico contra posts de agenda/evento, mantendo formato e janela comparáveis.',
+    },
+    {
+      evidence: 'Não há Reel observado no conjunto dos últimos 30 dias retornado pelo Windsor.',
+      inference: 'O mix atual não testa retenção e descoberta em vídeo.',
+      nextTest: 'Publicar Reel real ou motion derivado de carrossel aprovado e medir watch/skip quando disponível.',
+    },
+  ],
+} as const;
