@@ -40,3 +40,8 @@ Todo material passa pelo Brand Gate. Nenhuma entrega é pequena demais para esca
 O MotoristaOPS Orchestrator é a camada permanente de controle: resolve autoridade, seleciona especialistas/ferramentas, impõe regras canônicas e valida a saída. Especialistas executam; o orquestrador aceita, revisa ou bloqueia.
 
 Assinatura cotidiana/social: **brasão oficial + “MotoristaOPS”**, sem estrada, sem “por Henrico Amaral” e sem “motorista particular”, salvo decisão institucional explícita.
+
+
+## Social media
+
+Conteúdo e growth seguem `SOCIAL_MEDIA_OPERATING_SYSTEM.md`: objetivo → público → tensão/insight → hook → narrativa → formato nativo → CTA → métrica → produção → QA → aprendizado. IA acelera execução; não substitui estratégia. LinkedIn privilegia autenticidade/evidência; Instagram privilegia fotografia real, Reels observacionais, carrossel utilitário e Stories contextuais.
