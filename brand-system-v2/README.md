@@ -16,6 +16,8 @@
 - `playground.html` — demonstração prática e responsiva dos componentes.
 - `ASSET_REGISTRY.md` — registro das versões oficiais e integridade de ativos.
 - `GOVERNANCE.md` — regra-mãe, precedência e Brand Gate.
+- `ORCHESTRATOR.md` — camada permanente de controle, roteamento de especialistas e fail-closed.
+- `SOCIAL_MEDIA_OPERATING_SYSTEM.md` — estratégia de conteúdo, formatos nativos, hooks, CTA, growth, analytics e aprendizado.
 
 ## Regra de governança
 
