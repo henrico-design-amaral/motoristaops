@@ -1,0 +1,111 @@
+name: Deploy MotoristaOPS Social Media Control Center
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [dashboard-stable]
+    paths:
+      - 'src/pages/socialmedia/**'
+      - 'src/styles/socialmedia-control.css'
+      - 'src/data/socialmedia-control.ts'
+      - 'scripts/split-domain-builds.mjs'
+      - 'package.json'
+      - '.github/workflows/deploy-socialmedia-hostinger.yml'
+
+concurrency:
+  group: motoristaops-socialmedia
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-socialmedia:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout stable source
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Validate source and security
+        run: |
+          npm run validate:data
+          npm run check
+          npm run security
+
+      - name: Build domain artifacts
+        env:
+          SITE_URL: https://socialmedia.motoristaops.com.br
+          BASE_PATH: /
+        run: npm run build:domains
+
+      - name: Verify social media artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f dist-socialmedia/index.html
+          test -d dist-socialmedia/_astro
+          grep -qF 'Social Media' dist-socialmedia/index.html
+          grep -qF 'Calendário editorial' dist-socialmedia/index.html
+          grep -qF 'Saúde das ferramentas' dist-socialmedia/index.html
+          test ! -e dist-socialmedia/fechamento
+          test ! -e dist-socialmedia/transito
+
+      - name: Validate Hostinger deployment settings
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_SOCIAL_TARGET_DIR: ${{ secrets.HOSTINGER_SOCIAL_TARGET_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for name in HOSTINGER_HOST HOSTINGER_USERNAME HOSTINGER_PASSWORD HOSTINGER_PORT HOSTINGER_SOCIAL_TARGET_DIR; do
+            test -n "${!name:-}" || { echo "Missing secret: $name"; exit 1; }
+          done
+
+      - name: Install lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+
+      - name: Deploy social media artifact only
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_SOCIAL_TARGET_DIR: ${{ secrets.HOSTINGER_SOCIAL_TARGET_DIR }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" <<LFTP
+          set sftp:auto-confirm yes
+          set net:max-retries 2
+          set net:timeout 20
+          mkdir -p "$HOSTINGER_SOCIAL_TARGET_DIR"
+          mirror --reverse --delete --verbose ./dist-socialmedia "$HOSTINGER_SOCIAL_TARGET_DIR"
+          bye
+          LFTP
+
+      - name: Verify production
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in 1 2 3 4 5 6; do
+            html="$(curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 https://socialmedia.motoristaops.com.br/ || true)"
+            if grep -qF 'Social Media' <<<"$html" && grep -qF 'Calendário editorial' <<<"$html"; then
+              echo "Social Media Control Center published and verified on attempt $attempt."
+              exit 0
+            fi
+            sleep 10
+          done
+          echo 'Social Media Control Center production verification failed.'
+          exit 1
