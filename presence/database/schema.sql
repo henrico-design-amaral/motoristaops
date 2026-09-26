@@ -1150,17 +1150,19 @@ using (
 grant usage on schema public to anon, authenticated;
 
 grant select on public.driver_pages, public.vehicles, public.driver_services,
-  public.social_links, public.products, public.product_inclusions
+  public.driver_service_areas, public.social_links, public.products, public.product_inclusions
 to anon;
 
 grant select on public.profiles, public.driver_pages, public.vehicles,
-  public.driver_services, public.social_links, public.google_business_connections,
+  public.driver_services, public.driver_service_areas, public.shipping_addresses,
+  public.social_links, public.google_business_connections,
   public.products, public.product_inclusions, public.orders, public.order_events,
   public.print_jobs, public.shipments, public.shipment_events
 to authenticated;
 
 grant insert on public.profiles, public.driver_pages, public.vehicles,
-  public.driver_services, public.social_links
+  public.driver_services, public.driver_service_areas, public.shipping_addresses,
+  public.social_links
 to authenticated;
 
 grant update (display_name, phone, whatsapp, locale)
@@ -1174,6 +1176,12 @@ on public.vehicles to authenticated;
 
 grant update (label, sort_order)
 on public.driver_services to authenticated;
+
+grant update (label, sort_order)
+on public.driver_service_areas to authenticated;
+
+grant update (label, postal_code, street, number, complement, neighborhood, city, state, is_default)
+on public.shipping_addresses to authenticated;
 
 grant update (url)
 on public.social_links to authenticated;
