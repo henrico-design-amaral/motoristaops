@@ -4,7 +4,14 @@
   "title": "MotoristaOPS Driver Profile",
   "type": "object",
   "additionalProperties": false,
-  "required": ["slug", "displayName", "email", "whatsapp", "services", "socialLinks"],
+  "required": [
+    "slug",
+    "displayName",
+    "email",
+    "whatsapp",
+    "services",
+    "socialLinks"
+  ],
   "properties": {
     "slug": {
       "type": "string",
@@ -12,21 +19,57 @@
       "minLength": 3,
       "maxLength": 64
     },
-    "displayName": { "type": "string", "minLength": 2, "maxLength": 120 },
-    "fullName": { "type": "string", "maxLength": 160 },
-    "email": { "type": "string", "format": "email" },
-    "phone": { "type": "string", "maxLength": 32 },
-    "whatsapp": { "type": "string", "maxLength": 32 },
-    "bio": { "type": "string", "maxLength": 1200 },
+    "displayName": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 120
+    },
+    "fullName": {
+      "type": "string",
+      "maxLength": 160
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "phone": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "whatsapp": {
+      "type": "string",
+      "maxLength": 32
+    },
+    "bio": {
+      "type": "string",
+      "maxLength": 1200
+    },
     "vehicle": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "brand": { "type": "string", "maxLength": 80 },
-        "model": { "type": "string", "maxLength": 80 },
-        "year": { "type": "integer", "minimum": 1990, "maximum": 2100 },
-        "color": { "type": "string", "maxLength": 40 },
-        "capacity": { "type": "integer", "minimum": 1, "maximum": 20 }
+        "brand": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "model": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "year": {
+          "type": "integer",
+          "minimum": 1990,
+          "maximum": 2100
+        },
+        "color": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "capacity": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        }
       }
     },
     "services": {
@@ -34,29 +77,85 @@
       "uniqueItems": true,
       "items": {
         "type": "string",
-        "enum": ["particular", "executive", "airport", "events", "corporate", "travel", "scheduled", "recurring", "other"]
+        "enum": [
+          "particular",
+          "executive",
+          "airport",
+          "events",
+          "corporate",
+          "travel",
+          "scheduled",
+          "recurring",
+          "other"
+        ]
       }
     },
     "serviceAreas": {
       "type": "array",
-      "items": { "type": "string", "maxLength": 120 }
+      "items": {
+        "type": "string",
+        "maxLength": 120
+      }
     },
     "socialLinks": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "instagram": { "type": ["string", "null"], "format": "uri" },
-        "linkedin": { "type": ["string", "null"], "format": "uri" },
-        "tiktok": { "type": ["string", "null"], "format": "uri" },
-        "youtube": { "type": ["string", "null"], "format": "uri" }
+        "instagram": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "linkedin": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "tiktok": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "youtube": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri",
+          "pattern": "^https://"
+        }
       }
     },
     "googleBusiness": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "mode": { "type": "string", "enum": ["not_requested", "create", "connect_existing"] },
-        "authorizationStatus": { "type": "string", "enum": ["not_requested", "pending", "authorized", "revoked"] }
+        "mode": {
+          "type": "string",
+          "enum": [
+            "not_requested",
+            "create",
+            "connect_existing"
+          ]
+        },
+        "authorizationStatus": {
+          "type": "string",
+          "enum": [
+            "not_requested",
+            "pending",
+            "authorized",
+            "revoked"
+          ]
+        }
       }
     }
   }
