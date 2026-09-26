@@ -162,7 +162,7 @@ jobs:
         run: |
           set -euo pipefail
           result="$(
-            psql -At <<'SQL'
+            psql -qAt <<'SQL'
           insert into auth.users (id, email)
           values ('33333333-3333-4333-8333-333333333333', 'other@example.com');
 
