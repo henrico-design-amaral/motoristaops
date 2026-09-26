@@ -96,3 +96,12 @@ Após o recebimento dos materiais gráficos, a MotoristaOPS terá 2 a 3 dias út
 ### D-015 — Rastreamento
 
 O painel deve exibir previsão e rastreamento do pacote com atualização automática quando a integração logística fornecer eventos verificáveis.
+
+
+### D-016 — Publicação estática das páginas de motorista
+
+As páginas públicas em `motoristaops.com.br/{slug}` serão renderizadas de forma determinística no momento da publicação.
+
+O PostgreSQL permanece fonte da verdade. O HTML é artefato derivado, versionado e reproduzível.
+
+Visitas públicas não devem depender de consulta ao banco em tempo real na arquitetura inicial.
