@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motoristaops.com.br/contracts/order-state.schema.json",
+  "title": "MotoristaOPS Presence Order State",
+  "type": "string",
+  "enum": [
+    "ACCOUNT_CREATED",
+    "PRODUCT_SELECTED",
+    "PAYMENT_PENDING",
+    "PAID",
+    "ONBOARDING",
+    "DATA_VALID",
+    "PREVIEW_READY",
+    "CUSTOMER_CONFIRMED",
+    "SITE_GENERATED",
+    "SITE_PUBLISHED",
+    "PRINT_ASSETS_GENERATED",
+    "PRINT_PREFLIGHT_PASSED",
+    "PRINT_READY",
+    "PRINTI_ORDERED",
+    "GRAPHICS_RECEIVED",
+    "KIT_ASSEMBLY",
+    "KIT_PACKED",
+    "SHIPPING_QUOTED",
+    "LABEL_PURCHASED",
+    "READY_FOR_CARRIER",
+    "POSTED",
+    "IN_TRANSIT",
+    "OUT_FOR_DELIVERY",
+    "DELIVERED",
+    "ACTIVE"
+  ]
+}
