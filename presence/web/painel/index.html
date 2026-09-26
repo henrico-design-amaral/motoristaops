@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Painel | MotoristaOPS Presença</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="stylesheet" href="../assets/presence.css">
+</head>
+<body>
+  <header class="mo-shell mo-header">
+    <a class="mo-brand" href="/"><img src="/landing-v3/logo-oficial.svg" alt="">MotoristaOPS</a>
+    <nav class="mo-nav"><a href="/presenca/">Sobre o produto</a></nav>
+  </header>
+
+  <main class="mo-shell mo-auth-wrap">
+    <section class="mo-auth-card" aria-labelledby="login-title">
+      <div class="mo-eyebrow">MotoristaOPS Presença</div>
+      <h1 id="login-title">Entrar no painel</h1>
+      <p>Use sua conta para criar e acompanhar sua presença profissional.</p>
+
+      <div class="mo-stack">
+        <button class="mo-button google" type="button" data-auth-action="google" disabled>
+          Continuar com Google
+        </button>
+        <p class="mo-note">A autenticação será ativada somente após o ambiente PostgreSQL/Supabase de desenvolvimento estar validado.</p>
+
+        <div class="mo-divider">ou</div>
+
+        <div class="mo-field">
+          <label for="email">E-mail</label>
+          <input id="email" type="email" autocomplete="email" disabled>
+        </div>
+        <div class="mo-field">
+          <label for="password">Senha</label>
+          <input id="password" type="password" autocomplete="current-password" disabled>
+        </div>
+        <button class="mo-button" type="button" disabled>Entrar</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

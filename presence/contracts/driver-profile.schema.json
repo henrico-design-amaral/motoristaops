@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motoristaops.com.br/contracts/driver-profile.schema.json",
+  "title": "MotoristaOPS Driver Profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slug", "displayName", "email", "whatsapp", "services", "socialLinks"],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "minLength": 3,
+      "maxLength": 64
+    },
+    "displayName": { "type": "string", "minLength": 2, "maxLength": 120 },
+    "fullName": { "type": "string", "maxLength": 160 },
+    "email": { "type": "string", "format": "email" },
+    "phone": { "type": "string", "maxLength": 32 },
+    "whatsapp": { "type": "string", "maxLength": 32 },
+    "bio": { "type": "string", "maxLength": 1200 },
+    "vehicle": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "brand": { "type": "string", "maxLength": 80 },
+        "model": { "type": "string", "maxLength": 80 },
+        "year": { "type": "integer", "minimum": 1990, "maximum": 2100 },
+        "color": { "type": "string", "maxLength": 40 },
+        "capacity": { "type": "integer", "minimum": 1, "maximum": 20 }
+      }
+    },
+    "services": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": ["particular", "executive", "airport", "events", "corporate", "travel", "scheduled", "recurring", "other"]
+      }
+    },
+    "serviceAreas": {
+      "type": "array",
+      "items": { "type": "string", "maxLength": 120 }
+    },
+    "socialLinks": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "instagram": { "type": ["string", "null"], "format": "uri" },
+        "linkedin": { "type": ["string", "null"], "format": "uri" },
+        "tiktok": { "type": ["string", "null"], "format": "uri" },
+        "youtube": { "type": ["string", "null"], "format": "uri" }
+      }
+    },
+    "googleBusiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": { "type": "string", "enum": ["not_requested", "create", "connect_existing"] },
+        "authorizationStatus": { "type": "string", "enum": ["not_requested", "pending", "authorized", "revoked"] }
+      }
+    }
+  }
+}

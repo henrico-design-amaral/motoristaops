@@ -1,0 +1,183 @@
+name: Validate MotoristaOPS Presence
+
+on:
+  pull_request:
+    paths:
+      - 'presence/**'
+      - '.github/workflows/validate-presence.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'presence/**'
+      - '.github/workflows/validate-presence.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          files = sorted(Path('presence/contracts').glob('*.json'))
+          if not files:
+              raise SystemExit('No Presence contracts found')
+
+          for path in files:
+              json.loads(path.read_text(encoding='utf-8'))
+              print(f'OK {path}')
+          PY
+
+  postgres-schema:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: motoristaops_presence_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGDATABASE: motoristaops_presence_ci
+      PGUSER: postgres
+      PGPASSWORD: postgres
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PostgreSQL client
+        shell: bash
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq postgresql-client
+
+      - name: Create Supabase-compatible auth stubs
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -v ON_ERROR_STOP=1 <<'SQL'
+          create role anon nologin;
+          create role authenticated nologin;
+
+          create schema auth;
+
+          create table auth.users (
+            id uuid primary key,
+            email text
+          );
+
+          create or replace function auth.uid()
+          returns uuid
+          language sql
+          stable
+          as $$
+            select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid;
+          $$;
+
+          grant usage on schema auth to anon, authenticated;
+          grant execute on function auth.uid() to anon, authenticated;
+          SQL
+
+      - name: Apply canonical Presence schema
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -v ON_ERROR_STOP=1 -f presence/database/schema.sql
+
+      - name: Verify RLS on exposed Presence tables
+        shell: bash
+        run: |
+          set -euo pipefail
+          missing="$(
+            psql -At <<'SQL'
+          select c.relname
+          from pg_class c
+          join pg_namespace n on n.oid = c.relnamespace
+          where n.nspname = 'public'
+            and c.relkind = 'r'
+            and c.relname in (
+              'profiles','driver_pages','vehicles','driver_services','social_links',
+              'google_business_connections','products','product_inclusions','orders',
+              'order_events','print_jobs','shipments','shipment_events'
+            )
+            and not c.relrowsecurity
+          order by c.relname;
+          SQL
+          )"
+          test -z "$missing" || {
+            echo "Tables without RLS:"
+            echo "$missing"
+            exit 1
+          }
+
+      - name: Verify deterministic order transition gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -v ON_ERROR_STOP=1 <<'SQL'
+          insert into auth.users (id, email)
+          values ('11111111-1111-4111-8111-111111111111', 'ci@example.com');
+
+          insert into public.profiles (user_id, display_name, whatsapp)
+          values ('11111111-1111-4111-8111-111111111111', 'CI Driver', '5511000000000');
+
+          insert into public.orders (id, user_id)
+          values (
+            '22222222-2222-4222-8222-222222222222',
+            '11111111-1111-4111-8111-111111111111'
+          );
+
+          update public.orders
+          set state = 'PRODUCT_SELECTED'
+          where id = '22222222-2222-4222-8222-222222222222';
+          SQL
+
+          if psql -v ON_ERROR_STOP=1 -c "update public.orders set state = 'PAID' where id = '22222222-2222-4222-8222-222222222222';"; then
+            echo "Invalid transition unexpectedly succeeded"
+            exit 1
+          else
+            echo "Invalid transition correctly blocked"
+          fi
+
+      - name: Verify profile RLS isolation
+        shell: bash
+        run: |
+          set -euo pipefail
+          result="$(
+            psql -qAt <<'SQL'
+          insert into auth.users (id, email)
+          values ('33333333-3333-4333-8333-333333333333', 'other@example.com');
+
+          insert into public.profiles (user_id, display_name, whatsapp)
+          values ('33333333-3333-4333-8333-333333333333', 'Other Driver', '5511999999999');
+
+          set role authenticated;
+          set request.jwt.claim.sub = '11111111-1111-4111-8111-111111111111';
+
+          select count(*) from public.profiles;
+
+          reset role;
+          SQL
+          )"
+          test "$result" = "1" || {
+            echo "RLS isolation failed: expected 1 row, got $result"
+            exit 1
+          }

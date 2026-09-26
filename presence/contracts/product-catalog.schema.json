@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://motoristaops.com.br/contracts/product-catalog.schema.json",
+  "title": "MotoristaOPS Presence Product Catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["sku", "version", "name", "status", "digital", "physicalBom"],
+  "properties": {
+    "sku": { "type": "string", "pattern": "^[A-Z0-9_-]+$" },
+    "version": { "type": "integer", "minimum": 1 },
+    "name": { "type": "string", "minLength": 3 },
+    "status": { "type": "string", "enum": ["draft", "active", "retired"] },
+    "digital": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "landingPage": { "type": "boolean" },
+        "googleBusiness": { "type": "boolean" },
+        "instagram": { "type": "boolean" },
+        "linkedin": { "type": "boolean" },
+        "tiktok": { "type": "boolean" },
+        "youtube": { "type": "boolean" }
+      }
+    },
+    "physicalBom": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["itemCode", "quantity"],
+        "properties": {
+          "itemCode": { "type": "string" },
+          "quantity": { "type": "integer", "minimum": 1 },
+          "personalized": { "type": "boolean", "default": false }
+        }
+      }
+    }
+  }
+}

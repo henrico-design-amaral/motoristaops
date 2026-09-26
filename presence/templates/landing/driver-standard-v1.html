@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{driver.display_name}} | MotoristaOPS</title>
+  <meta name="description" content="{{driver.meta_description}}">
+  <link rel="stylesheet" href="../../web/assets/presence.css">
+</head>
+<body data-template="driver-standard" data-template-version="1">
+  <header class="mo-shell mo-header">
+    <a class="mo-brand" href="/"><img src="/landing-v3/logo-oficial.svg" alt="">MotoristaOPS</a>
+    <nav class="mo-nav">
+      {{#if driver.instagram}}<a href="{{driver.instagram}}">Instagram</a>{{/if}}
+      {{#if driver.linkedin}}<a href="{{driver.linkedin}}">LinkedIn</a>{{/if}}
+      <a class="mo-button" href="{{driver.whatsapp_url}}">WhatsApp</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="mo-hero">
+      <div class="mo-shell mo-hero-grid">
+        <div>
+          <div class="mo-eyebrow">Motorista profissional</div>
+          <h1 class="mo-title">{{driver.display_name}}</h1>
+          <p class="mo-lead">{{driver.bio}}</p>
+          <div class="mo-actions">
+            <a class="mo-button" href="{{driver.whatsapp_url}}">Falar no WhatsApp</a>
+          </div>
+        </div>
+        <aside class="mo-proof">
+          <div class="mo-eyebrow">Veículo</div>
+          <strong>{{vehicle.brand}} {{vehicle.model}}</strong>
+          <p>{{vehicle.year}} · {{vehicle.color}}</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="mo-section">
+      <div class="mo-shell">
+        <div class="mo-eyebrow">Serviços</div>
+        <h2>Como posso ajudar.</h2>
+        <div class="mo-grid">
+          {{#each services}}
+          <article class="mo-card"><h3>{{label}}</h3><p>{{description}}</p></article>
+          {{/each}}
+        </div>
+      </div>
+    </section>
+
+    <section class="mo-section dark">
+      <div class="mo-shell">
+        <div class="mo-eyebrow">Atendimento</div>
+        <h2>Regiões e canais.</h2>
+        <div class="mo-grid">
+          <article class="mo-card"><h3>Onde atendo</h3><p>{{service_areas_text}}</p></article>
+          <article class="mo-card"><h3>Contato</h3><p>{{driver.whatsapp_display}}</p></article>
+          <article class="mo-card"><h3>Presença digital</h3><p>{{social_summary}}</p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mo-shell mo-footer">Perfil publicado por MotoristaOPS.</footer>
+</body>
+</html>
