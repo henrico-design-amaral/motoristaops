@@ -112,7 +112,17 @@ create table if not exists public.shipping_addresses (
   complement text check (complement is null or char_length(complement) <= 120),
   neighborhood text not null check (char_length(neighborhood) between 2 and 120),
   city text not null check (char_length(city) between 2 and 120),
-  state char(2) not null check (state ~ '^[A-Z]{2}
+  state char(2) not null check (state ~ '^[A-Z]{2}$'),
+  is_default boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create trigger shipping_addresses_set_updated_at
+before update on public.shipping_addresses
+for each row execute function internal.set_updated_at();
+
+create table if not exists public.social_links (
   user_id uuid not null references public.profiles(user_id) on delete cascade,
   platform text not null
     check (platform in ('instagram','linkedin','tiktok','youtube')),
