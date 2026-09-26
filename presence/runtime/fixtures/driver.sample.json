@@ -1,0 +1,29 @@
+{
+  "driver": {
+    "display_name": "Motorista Demo",
+    "meta_description": "Atendimento profissional em São Paulo.",
+    "bio": "Atendimento com hora marcada e planejamento.",
+    "whatsapp_url": "https://wa.me/5511999999999",
+    "whatsapp_display": "(11) 99999-9999",
+    "instagram": "https://instagram.com/motoristademo",
+    "linkedin": null
+  },
+  "vehicle": {
+    "brand": "Marca Demo",
+    "model": "Modelo Demo",
+    "year": 2026,
+    "color": "Preto"
+  },
+  "services": [
+    {
+      "label": "Aeroporto",
+      "description": "Traslados agendados."
+    },
+    {
+      "label": "Executivo",
+      "description": "Atendimento profissional."
+    }
+  ],
+  "service_areas_text": "São Paulo e região metropolitana",
+  "social_summary": "Instagram"
+}
