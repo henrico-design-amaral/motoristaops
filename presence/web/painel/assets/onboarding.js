@@ -8,6 +8,7 @@ const errorBox = document.querySelector('#form-error');
 const review = document.querySelector('#onboarding-review');
 
 let current = 0;
+let maxReached = 0;
 
 const escapeHtml = (value) => String(value ?? '')
   .replaceAll('&', '&amp;')
@@ -109,6 +110,7 @@ function render() {
   navButtons.forEach((button, index) => {
     button.classList.toggle('active', index === current);
     button.setAttribute('aria-current', index === current ? 'step' : 'false');
+    button.disabled = index > maxReached;
   });
 
   counter.textContent = String(current + 1);
@@ -129,6 +131,7 @@ next.addEventListener('click', () => {
   }
 
   current = Math.min(current + 1, steps.length - 1);
+  maxReached = Math.max(maxReached, current);
   render();
 });
 
@@ -143,7 +146,7 @@ navButtons.forEach((button) => {
     const target = Number(button.dataset.stepJump);
     if (!Number.isInteger(target)) return;
 
-    if (target > current && !validateCurrentStep()) return;
+    if (target > maxReached) return;
     current = target;
     clearError();
     render();
