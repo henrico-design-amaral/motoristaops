@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Onboarding | MotoristaOPS Presença</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="stylesheet" href="../../assets/presence.css">
+</head>
+<body data-presence-surface="onboarding" data-mode="prototype">
+  <div class="mo-dashboard-shell">
+    <aside class="mo-sidebar" aria-label="Painel MotoristaOPS">
+      <a class="mo-brand" href="/"><img src="/landing-v3/logo-oficial.svg" alt="">MotoristaOPS</a>
+      <nav>
+        <a href="../dashboard/">Início</a>
+        <a class="active" href="./" aria-current="page">Criar minha presença</a>
+        <a href="../pedido/">Meu pedido</a>
+      </nav>
+      <p class="mo-sidebar-note">Estrutura de desenvolvimento. Nenhum dado é enviado ou salvo nesta versão.</p>
+    </aside>
+
+    <main class="mo-main">
+      <header class="mo-main-head">
+        <div>
+          <div class="mo-eyebrow">MotoristaOPS Presença</div>
+          <h1>Crie sua presença.</h1>
+          <p class="mo-section-intro">Preencha uma vez. Os mesmos dados serão usados na landing page, QR Code e materiais físicos.</p>
+        </div>
+        <span class="mo-prototype-badge">Protótipo técnico</span>
+      </header>
+
+      <div class="mo-onboarding-layout">
+        <aside class="mo-step-nav" aria-label="Etapas do cadastro">
+          <button type="button" data-step-jump="0" class="active"><span>01</span> Perfil</button>
+          <button type="button" data-step-jump="1"><span>02</span> Veículo</button>
+          <button type="button" data-step-jump="2"><span>03</span> Serviços</button>
+          <button type="button" data-step-jump="3"><span>04</span> Presença</button>
+          <button type="button" data-step-jump="4"><span>05</span> Materiais</button>
+          <button type="button" data-step-jump="5"><span>06</span> Entrega</button>
+          <button type="button" data-step-jump="6"><span>07</span> Revisão</button>
+        </aside>
+
+        <form id="presence-onboarding" class="mo-onboarding-form" novalidate>
+          <section class="mo-form-step active" data-step="0" aria-labelledby="step-profile">
+            <div class="mo-step-heading">
+              <div class="mo-eyebrow">Etapa 1 de 7</div>
+              <h2 id="step-profile">Seu perfil profissional</h2>
+              <p>Use o nome que deve aparecer para seus clientes.</p>
+            </div>
+            <div class="mo-form-grid">
+              <div class="mo-field span-2">
+                <label for="displayName">Nome profissional *</label>
+                <input id="displayName" name="displayName" required maxlength="120" autocomplete="name">
+              </div>
+              <div class="mo-field">
+                <label for="phone">Telefone</label>
+                <input id="phone" name="phone" maxlength="32" inputmode="tel" autocomplete="tel">
+              </div>
+              <div class="mo-field">
+                <label for="whatsapp">WhatsApp *</label>
+                <input id="whatsapp" name="whatsapp" required maxlength="32" inputmode="tel">
+              </div>
+              <div class="mo-field span-2">
+                <label for="bio">Apresentação profissional</label>
+                <textarea id="bio" name="bio" maxlength="1200" rows="6" placeholder="Conte de forma objetiva como você atende e quais situações costuma resolver."></textarea>
+                <small>Até 1.200 caracteres.</small>
+              </div>
+            </div>
+          </section>
+
+          <section class="mo-form-step" data-step="1" aria-labelledby="step-vehicle" hidden>
+            <div class="mo-step-heading">
+              <div class="mo-eyebrow">Etapa 2 de 7</div>
+              <h2 id="step-vehicle">Seu veículo</h2>
+              <p>Esses dados podem aparecer na sua página conforme sua autorização.</p>
+            </div>
+            <div class="mo-form-grid">
+              <div class="mo-field"><label for="vehicleBrand">Marca *</label><input id="vehicleBrand" name="vehicleBrand" required maxlength="80"></div>
+              <div class="mo-field"><label for="vehicleModel">Modelo *</label><input id="vehicleModel" name="vehicleModel" required maxlength="80"></div>
+              <div class="mo-field"><label for="vehicleYear">Ano *</label><input id="vehicleYear" name="vehicleYear" required type="number" min="1990" max="2100"></div>
+              <div class="mo-field"><label for="vehicleColor">Cor *</label><input id="vehicleColor" name="vehicleColor" required maxlength="40"></div>
+              <div class="mo-field"><label for="capacity">Passageiros</label><input id="capacity" name="capacity" type="number" min="1" max="20"></div>
+            </div>
+          </section>
+
+          <section class="mo-form-step" data-step="2" aria-labelledby="step-services" hidden>
+            <div class="mo-step-heading">
+              <div class="mo-eyebrow">Etapa 3 de 7</div>
+              <h2 id="step-services">Como você atende</h2>
+              <p>Selecione pelo menos um serviço e descreva sua área de atendimento.</p>
+            </div>
+            <fieldset class="mo-choice-grid">
+              <legend>Serviços *</legend>
+              <label><input type="checkbox" name="services" value="particular"> Particular</label>
+              <label><input type="checkbox" name="services" value="executive"> Executivo</label>
+              <label><input type="checkbox" name="services" value="airport"> Aeroportos</label>
+              <label><input type="checkbox" name="services" value="events"> Eventos</label>
+              <label><input type="checkbox" name="services" value="corporate"> Corporativo</label>
+              <label><input type="checkbox" name="services" value="travel"> Viagens</label>
+              <label><input type="checkbox" name="services" value="scheduled"> Agendamentos</label>
+              <label><input type="checkbox" name="services" value="recurring"> Recorrente</label>
+            </fieldset>
+            <div class="mo-field" style="margin-top:24px">
+              <label for="serviceAreas">Áreas atendidas *</label>
+              <textarea id="serviceAreas" name="serviceAreas" required rows="4" placeholder="Ex.: São Paulo capital, Guarulhos, Congonhas, GRU, ABC..."></textarea>
+            </div>
+          </section>
+
+          <section class="mo-form-step" data-step="3" aria-labelledby="step-presence" hidden>
+            <div class="mo-step-heading">
+              <div class="mo-eyebrow">Etapa 4 de 7</div>
+              <h2 id="step-presence">Sua presença digital</h2>
+              <p>Informe apenas os canais que você já usa. A MotoristaOPS não publicará nessas redes.</p>
+            </div>
+            <div class="mo-form-grid">
+              <div class="mo-field"><label for="instagram">Instagram</label><input id="instagram" name="instagram" type="url" placeholder="https://instagram.com/..."></div>
+              <div class="mo-field"><label for="linkedin">LinkedIn</label><input id="linkedin" name="linkedin" type="url" placeholder="https://linkedin.com/in/..."></div>
+              <div class="mo-field"><label for="tiktok">TikTok</label><input id="tiktok" name="tiktok" type="url" placeholder="https://tiktok.com/@..."></div>
+              <div class="mo-field"><label for="youtube">YouTube</label><input id="youtube" name="youtube" type="url" placeholder="https://youtube.com/@..."></div>
+            </div>
+            <fieldset class="mo-radio-stack">
+              <legend>Google Business</legend>
+              <label><input type="radio" name="googleBusiness" value="not_requested" checked> Não configurar agora</label>
+              <label><input type="radio" name="googleBusiness" value="create"> Quero criar meu perfil</label>
+              <label><input type="radio" name="googleBusiness" value="connect_existing"> Já tenho um perfil e quero conectar</label>
+            </fieldset>
+            <p class="mo-note">A autorização Google Business será solicitada em uma etapa separada quando a integração estiver ativa.</p>
+          </section>
+
+          <section class="mo-form-step" data-step="4" aria-labelledby="step-print" hidden>
+            <div class="mo-step-heading">
+              <div class="mo-eyebrow">Etapa 5 de 7</div>
+              <h2 id="step-print">Como seu nome aparece nos materiais</h2>
+              <p>Cartão, placa e QR Code usam os mesmos dados confirmados aqui.</p>
+            </div>
+            <div class="mo-form-grid">
+              <div class="mo-field span-2">
+                <label for="printDisplayName">Nome nos materiais *</label>
+                <input id="printDisplayName" name="printDisplayName" required maxlength="120">
+              </div>
+              <div class="mo-field span-2">
+                <label for="shortServiceLine">Linha curta de serviço</label>
+                <input id="shortServiceLine" name="shortServiceLine" maxlength="120" placeholder="Ex.: Aeroportos · Executivo · Viagens">
+              </div>
+            </div>
+            <div class="mo-placeholder" style="margin-top:24px">
+              Preview gráfico será gerado a partir dos templates oficiais após a integração do renderer de impressão.
+            </div>
+          </section>
+
+          <section class="mo-form-step" data-step="5" aria-labelledby="step-shipping" hidden>
+            <div class="mo-step-heading">
+              <div class="mo-eyebrow">Etapa 6 de 7</div>
+              <h2 id="step-shipping">Onde você quer receber o kit</h2>
+              <p>Esse endereço é privado e nunca entra na sua landing page pública.</p>
+            </div>
+            <div class="mo-form-grid">
+              <div class="mo-field"><label for="postalCode">CEP *</label><input id="postalCode" name="postalCode" required maxlength="10" inputmode="numeric" autocomplete="postal-code"></div>
+              <div class="mo-field"><label for="state">UF *</label><input id="state" name="state" required maxlength="2" minlength="2" autocomplete="address-level1"></div>
+              <div class="mo-field span-2"><label for="street">Rua / avenida *</label><input id="street" name="street" required maxlength="160" autocomplete="address-line1"></div>
+              <div class="mo-field"><label for="number">Número *</label><input id="number" name="number" required maxlength="20"></div>
+              <div class="mo-field"><label for="complement">Complemento</label><input id="complement" name="complement" maxlength="120"></div>
+              <div class="mo-field"><label for="neighborhood">Bairro *</label><input id="neighborhood" name="neighborhood" required maxlength="120"></div>
+              <div class="mo-field"><label for="city">Cidade *</label><input id="city" name="city" required maxlength="120" autocomplete="address-level2"></div>
+            </div>
+          </section>
+
+          <section class="mo-form-step" data-step="6" aria-labelledby="step-review" hidden>
+            <div class="mo-step-heading">
+              <div class="mo-eyebrow">Etapa 7 de 7</div>
+              <h2 id="step-review">Revise antes de confirmar</h2>
+              <p>Nesta versão de desenvolvimento, a revisão é gerada no navegador e nada é persistido.</p>
+            </div>
+            <div id="onboarding-review" class="mo-review-grid" aria-live="polite"></div>
+            <div class="mo-callout">
+              <strong>Próximo gate técnico</strong>
+              <p>O botão final só será habilitado depois que Auth, PostgreSQL, RLS e criação do pedido estiverem conectados e validados.</p>
+            </div>
+            <button class="mo-button" type="button" disabled>Confirmar e criar minha presença</button>
+          </section>
+
+          <div class="mo-form-actions">
+            <button class="mo-button secondary" type="button" data-action="back" hidden>Voltar</button>
+            <div class="mo-step-counter" aria-live="polite"><span data-current-step>1</span> / 7</div>
+            <button class="mo-button" type="button" data-action="next">Continuar</button>
+          </div>
+          <div id="form-error" class="mo-form-error" role="alert" hidden></div>
+        </form>
+      </div>
+    </main>
+  </div>
+  <script type="module" src="../assets/onboarding.js"></script>
+</body>
+</html>
