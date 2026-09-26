@@ -37,6 +37,21 @@ jobs:
               print(f'OK {path}')
           PY
 
+      - name: Verify deterministic driver renderer
+        shell: bash
+        run: |
+          set -euo pipefail
+          node presence/runtime/render-driver.mjs \
+            --input presence/runtime/fixtures/driver.sample.json \
+            --template presence/templates/landing/driver-standard-v1.html \
+            --output /tmp/driver-demo.html
+
+          test -s /tmp/driver-demo.html
+          ! grep -q '{{' /tmp/driver-demo.html
+          grep -q 'Motorista Demo' /tmp/driver-demo.html
+          grep -q 'Traslados agendados.' /tmp/driver-demo.html
+          ! grep -q '>LinkedIn<' /tmp/driver-demo.html
+
   postgres-schema:
     runs-on: ubuntu-latest
     services:
@@ -114,8 +129,8 @@ jobs:
           where n.nspname = 'public'
             and c.relkind = 'r'
             and c.relname in (
-              'profiles','driver_pages','vehicles','driver_services','social_links',
-              'google_business_connections','products','product_inclusions','orders',
+              'profiles','driver_pages','vehicles','driver_services','driver_service_areas',
+              'shipping_addresses','social_links','google_business_connections','products','product_inclusions','orders',
               'order_events','print_jobs','shipments','shipment_events'
             )
             and not c.relrowsecurity

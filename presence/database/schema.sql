@@ -47,7 +47,8 @@ create table if not exists public.driver_pages (
   slug citext not null unique,
   display_name text not null check (char_length(display_name) between 2 and 120),
   bio text check (bio is null or char_length(bio) <= 1200),
-  template_key text not null default 'driver-standard',
+  template_key text not null default 'driver-standard'
+    check (template_key in ('driver-standard','driver-executive','driver-creator','driver-recurring')),
   template_version integer not null default 1 check (template_version > 0),
   publication_status text not null default 'draft'
     check (publication_status in ('draft','published','suspended')),
@@ -92,6 +93,34 @@ create table if not exists public.driver_services (
   sort_order integer not null default 0,
   primary key (user_id, service_code)
 );
+
+create table if not exists public.driver_service_areas (
+  user_id uuid not null references public.profiles(user_id) on delete cascade,
+  area_code text not null,
+  label text not null check (char_length(label) between 2 and 120),
+  sort_order integer not null default 0,
+  primary key (user_id, area_code)
+);
+
+create table if not exists public.shipping_addresses (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.profiles(user_id) on delete cascade,
+  label text not null default 'Principal',
+  postal_code text not null check (char_length(postal_code) between 8 and 10),
+  street text not null check (char_length(street) between 2 and 160),
+  number text not null check (char_length(number) between 1 and 20),
+  complement text check (complement is null or char_length(complement) <= 120),
+  neighborhood text not null check (char_length(neighborhood) between 2 and 120),
+  city text not null check (char_length(city) between 2 and 120),
+  state char(2) not null check (state ~ '^[A-Z]{2}$'),
+  is_default boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create trigger shipping_addresses_set_updated_at
+before update on public.shipping_addresses
+for each row execute function internal.set_updated_at();
 
 create table if not exists public.social_links (
   user_id uuid not null references public.profiles(user_id) on delete cascade,
@@ -187,6 +216,7 @@ create table if not exists public.orders (
     )),
   amount_cents bigint check (amount_cents is null or amount_cents >= 0),
   currency char(3) not null default 'BRL',
+  shipping_address_id uuid references public.shipping_addresses(id) on delete restrict,
   payment_provider text,
   payment_reference text,
   estimated_delivery_date date,
@@ -262,6 +292,17 @@ create table if not exists public.shipment_events (
   occurred_at timestamptz not null,
   received_at timestamptz not null default now(),
   unique (shipment_id, external_event_id)
+);
+
+create table if not exists internal.order_snapshots (
+  id uuid primary key default gen_random_uuid(),
+  order_id uuid not null references public.orders(id) on delete cascade,
+  snapshot_kind text not null
+    check (snapshot_kind in ('customer_confirmation','public_page','print_source','shipment')),
+  payload jsonb not null,
+  content_hash text not null,
+  created_at timestamptz not null default now(),
+  unique (order_id, snapshot_kind, content_hash)
 );
 
 create table if not exists internal.inventory_items (
@@ -371,6 +412,8 @@ alter table public.profiles enable row level security;
 alter table public.driver_pages enable row level security;
 alter table public.vehicles enable row level security;
 alter table public.driver_services enable row level security;
+alter table public.driver_service_areas enable row level security;
+alter table public.shipping_addresses enable row level security;
 alter table public.social_links enable row level security;
 alter table public.google_business_connections enable row level security;
 alter table public.products enable row level security;
@@ -451,6 +494,30 @@ using (
 
 create policy services_owner_all
 on public.driver_services for all
+to authenticated
+using ((select auth.uid()) = user_id)
+with check ((select auth.uid()) = user_id);
+
+create policy service_areas_public_select
+on public.driver_service_areas for select
+to anon, authenticated
+using (
+  exists (
+    select 1
+    from public.driver_pages p
+    where p.user_id = driver_service_areas.user_id
+      and p.publication_status = 'published'
+  )
+);
+
+create policy service_areas_owner_all
+on public.driver_service_areas for all
+to authenticated
+using ((select auth.uid()) = user_id)
+with check ((select auth.uid()) = user_id);
+
+create policy shipping_addresses_owner_all
+on public.shipping_addresses for all
 to authenticated
 using ((select auth.uid()) = user_id)
 with check ((select auth.uid()) = user_id);
@@ -554,17 +621,19 @@ using (
 grant usage on schema public to anon, authenticated;
 
 grant select on public.driver_pages, public.vehicles, public.driver_services,
-  public.social_links, public.products, public.product_inclusions
+  public.driver_service_areas, public.social_links, public.products, public.product_inclusions
 to anon;
 
 grant select on public.profiles, public.driver_pages, public.vehicles,
-  public.driver_services, public.social_links, public.google_business_connections,
+  public.driver_services, public.driver_service_areas, public.shipping_addresses,
+  public.social_links, public.google_business_connections,
   public.products, public.product_inclusions, public.orders, public.order_events,
   public.print_jobs, public.shipments, public.shipment_events
 to authenticated;
 
 grant insert on public.profiles, public.driver_pages, public.vehicles,
-  public.driver_services, public.social_links
+  public.driver_services, public.driver_service_areas, public.shipping_addresses,
+  public.social_links
 to authenticated;
 
 grant update (display_name, phone, whatsapp, locale)
@@ -578,6 +647,12 @@ on public.vehicles to authenticated;
 
 grant update (label, sort_order)
 on public.driver_services to authenticated;
+
+grant update (label, sort_order)
+on public.driver_service_areas to authenticated;
+
+grant update (label, postal_code, street, number, complement, neighborhood, city, state, is_default)
+on public.shipping_addresses to authenticated;
 
 grant update (url)
 on public.social_links to authenticated;
