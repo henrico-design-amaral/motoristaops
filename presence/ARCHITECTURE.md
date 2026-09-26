@@ -145,3 +145,31 @@ Toda saída deve:
 2. passar validação;
 3. ser persistida como dado;
 4. nunca alterar estado crítico sem regra determinística.
+
+
+## Publicação das páginas de motorista
+
+A página pública do motorista deve ser pré-renderizada no momento da publicação.
+
+Fluxo:
+
+```text
+PostgreSQL
+  -> snapshot confirmado
+  -> template/version
+  -> renderer determinístico
+  -> HTML estático
+  -> QA
+  -> artefato versionado
+  -> deploy em /{slug}/index.html
+```
+
+### Motivos
+
+- a visita pública não depende do banco estar disponível;
+- reduz exposição da Data API;
+- melhora previsibilidade e SEO;
+- cada versão publicada pode ser auditada por hash;
+- atualização do perfil gera novo artefato sem reescrever o template.
+
+O banco continua sendo a fonte da verdade. O HTML publicado é um artefato derivado e reproduzível.
