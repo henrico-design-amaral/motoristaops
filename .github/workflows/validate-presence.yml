@@ -129,8 +129,8 @@ jobs:
           where n.nspname = 'public'
             and c.relkind = 'r'
             and c.relname in (
-              'profiles','driver_pages','vehicles','driver_services','social_links',
-              'google_business_connections','products','product_inclusions','orders',
+              'profiles','driver_pages','vehicles','driver_services','driver_service_areas',
+              'shipping_addresses','social_links','google_business_connections','products','product_inclusions','orders',
               'order_events','print_jobs','shipments','shipment_events'
             )
             and not c.relrowsecurity
