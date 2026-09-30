@@ -1,0 +1,11 @@
+{
+  "loginRedirect": "https://motoristaops.com.br/painel/auth/callback",
+  "businessRedirect": "https://motoristaops.com.br/painel/google-business/callback",
+  "sessionWithRefresh": {
+    "provider_token": "test-provider-token",
+    "provider_refresh_token": "test-refresh-token"
+  },
+  "sessionWithoutRefresh": {
+    "provider_token": "test-provider-token"
+  }
+}
