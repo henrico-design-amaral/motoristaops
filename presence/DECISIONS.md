@@ -105,3 +105,17 @@ As páginas públicas em `motoristaops.com.br/{slug}` serão renderizadas de for
 O PostgreSQL permanece fonte da verdade. O HTML é artefato derivado, versionado e reproduzível.
 
 Visitas públicas não devem depender de consulta ao banco em tempo real na arquitetura inicial.
+
+
+### D-017 — Gateway de pagamento V1
+
+A integração de pagamento V1 será implementada com **Mercado Pago Checkout Pro via Orders API**.
+
+Regras:
+
+- a order MotoristaOPS é enviada como `external_reference`;
+- toda criação usa `X-Idempotency-Key`;
+- retorno do navegador não confirma pagamento;
+- somente webhook autenticado + consulta server-side do recurso Mercado Pago pode autorizar `PAYMENT_PENDING -> PAID`;
+- nenhum dado de cartão é persistido pela MotoristaOPS;
+- o valor comercial do produto continua pendente de precificação real do kit.

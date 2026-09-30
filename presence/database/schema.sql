@@ -241,6 +241,33 @@ create table if not exists public.order_events (
   occurred_at timestamptz not null default now()
 );
 
+create table if not exists public.payment_attempts (
+  id uuid primary key default gen_random_uuid(),
+  order_id uuid not null references public.orders(id) on delete cascade,
+  provider text not null default 'mercado_pago',
+  provider_order_id text,
+  idempotency_key text not null unique,
+  status text not null default 'CREATED'
+    check (status in (
+      'CREATED','PROCESSING','APPROVED','FAILED','ACTION_REQUIRED',
+      'CANCELED','REFUNDED','PARTIALLY_REFUNDED','UNKNOWN'
+    )),
+  status_detail text,
+  payment_method_type text,
+  amount_cents bigint not null check (amount_cents >= 0),
+  currency char(3) not null default 'BRL',
+  checkout_expires_at timestamptz,
+  approved_at timestamptz,
+  refunded_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (provider, provider_order_id)
+);
+
+create trigger payment_attempts_set_updated_at
+before update on public.payment_attempts
+for each row execute function internal.set_updated_at();
+
 create table if not exists public.print_jobs (
   id uuid primary key default gen_random_uuid(),
   order_id uuid not null unique references public.orders(id) on delete cascade,
@@ -303,6 +330,21 @@ create table if not exists internal.order_snapshots (
   content_hash text not null,
   created_at timestamptz not null default now(),
   unique (order_id, snapshot_kind, content_hash)
+);
+
+create table if not exists internal.payment_webhook_events (
+  id bigint generated always as identity primary key,
+  provider text not null,
+  external_event_id text not null,
+  external_order_id text,
+  action text,
+  signature_valid boolean not null default false,
+  payload jsonb not null,
+  payload_hash text not null,
+  received_at timestamptz not null default now(),
+  processed_at timestamptz,
+  processing_result text,
+  unique (provider, external_event_id)
 );
 
 create table if not exists internal.inventory_items (
@@ -420,6 +462,7 @@ alter table public.products enable row level security;
 alter table public.product_inclusions enable row level security;
 alter table public.orders enable row level security;
 alter table public.order_events enable row level security;
+alter table public.payment_attempts enable row level security;
 alter table public.print_jobs enable row level security;
 alter table public.shipments enable row level security;
 alter table public.shipment_events enable row level security;
@@ -580,6 +623,18 @@ using (
   )
 );
 
+create policy payment_attempts_owner_select
+on public.payment_attempts for select
+to authenticated
+using (
+  exists (
+    select 1
+    from public.orders o
+    where o.id = payment_attempts.order_id
+      and o.user_id = (select auth.uid())
+  )
+);
+
 create policy print_jobs_owner_select
 on public.print_jobs for select
 to authenticated
@@ -628,7 +683,7 @@ grant select on public.profiles, public.driver_pages, public.vehicles,
   public.driver_services, public.driver_service_areas, public.shipping_addresses,
   public.social_links, public.google_business_connections,
   public.products, public.product_inclusions, public.orders, public.order_events,
-  public.print_jobs, public.shipments, public.shipment_events
+  public.payment_attempts, public.print_jobs, public.shipments, public.shipment_events
 to authenticated;
 
 grant insert on public.profiles, public.driver_pages, public.vehicles,

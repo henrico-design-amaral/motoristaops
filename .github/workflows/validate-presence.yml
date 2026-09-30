@@ -81,6 +81,47 @@ jobs:
           print('Onboarding normalization OK')
           PY
 
+      - name: Verify Mercado Pago Orders adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import {
+            buildMercadoPagoCheckoutProOrder,
+            mapMercadoPagoOrderStatus,
+            paymentAuthorizesOrderProgress,
+            normalizeMercadoPagoOrderWebhook
+          } from './presence/runtime/payment-mercado-pago.mjs';
+
+          const fixture = JSON.parse(fs.readFileSync(
+            'presence/runtime/fixtures/payment.mercado-pago.sample.json',
+            'utf8'
+          ));
+
+          const request = buildMercadoPagoCheckoutProOrder(fixture.createOrder);
+          if (request.endpoint !== 'https://api.mercadopago.com/v1/orders') throw new Error('Unexpected endpoint');
+          if (request.body.processing_mode !== 'manual') throw new Error('Unexpected processing mode');
+          if (request.body.total_amount !== '1299.00') throw new Error('Amount formatting failed');
+          if (request.body.external_reference !== 'order_123') throw new Error('External reference failed');
+          if (request.headers['X-Idempotency-Key'] !== fixture.createOrder.idempotencyKey) throw new Error('Idempotency failed');
+
+          for (const [status, detail, expected, authorizes] of fixture.statuses) {
+            const actual = mapMercadoPagoOrderStatus(status, detail);
+            if (actual !== expected) throw new Error(`Status map failed: ${status}/${detail} -> ${actual}`);
+            if (paymentAuthorizesOrderProgress(actual) !== authorizes) {
+              throw new Error(`Authorization decision failed: ${actual}`);
+            }
+          }
+
+          const webhook = normalizeMercadoPagoOrderWebhook(fixture.webhook);
+          if (webhook.externalOrderId !== 'ORDTEST123') throw new Error('Webhook order id failed');
+          if (webhook.externalEventId !== 'evt_123') throw new Error('Webhook event id failed');
+          if (webhook.signature.dataId !== 'ORDTEST123') throw new Error('Webhook signature input failed');
+
+          console.log('Mercado Pago adapter OK');
+          NODE
+
   postgres-schema:
     runs-on: ubuntu-latest
     services:
@@ -160,7 +201,7 @@ jobs:
             and c.relname in (
               'profiles','driver_pages','vehicles','driver_services','driver_service_areas',
               'shipping_addresses','social_links','google_business_connections','products','product_inclusions','orders',
-              'order_events','print_jobs','shipments','shipment_events'
+              'order_events','payment_attempts','print_jobs','shipments','shipment_events'
             )
             and not c.relrowsecurity
           order by c.relname;
@@ -225,3 +266,66 @@ jobs:
             echo "RLS isolation failed: expected 1 row, got $result"
             exit 1
           }
+
+      - name: Verify payment RLS and server-only writes
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -v ON_ERROR_STOP=1 <<'SQL'
+          insert into public.orders (id, user_id)
+          values (
+            '44444444-4444-4444-8444-444444444444',
+            '33333333-3333-4333-8333-333333333333'
+          );
+
+          insert into public.payment_attempts (
+            id, order_id, idempotency_key, status, amount_cents
+          ) values
+            (
+              '55555555-5555-4555-8555-555555555555',
+              '22222222-2222-4222-8222-222222222222',
+              'ci-payment-owner',
+              'CREATED',
+              10000
+            ),
+            (
+              '66666666-6666-4666-8666-666666666666',
+              '44444444-4444-4444-8444-444444444444',
+              'ci-payment-other',
+              'CREATED',
+              10000
+            );
+          SQL
+
+          result="$(
+            psql -qAt <<'SQL'
+          set role authenticated;
+          set request.jwt.claim.sub = '11111111-1111-4111-8111-111111111111';
+          select count(*) from public.payment_attempts;
+          reset role;
+          SQL
+          )"
+
+          test "$result" = "1" || {
+            echo "Payment RLS failed: expected 1 row, got $result"
+            exit 1
+          }
+
+          if psql -v ON_ERROR_STOP=1 <<'SQL'
+          set role authenticated;
+          set request.jwt.claim.sub = '11111111-1111-4111-8111-111111111111';
+          insert into public.payment_attempts (
+            order_id, idempotency_key, status, amount_cents
+          ) values (
+            '22222222-2222-4222-8222-222222222222',
+            'forbidden-client-write',
+            'APPROVED',
+            10000
+          );
+          SQL
+          then
+            echo "Authenticated client unexpectedly wrote payment state"
+            exit 1
+          else
+            echo "Client payment write correctly blocked"
+          fi
