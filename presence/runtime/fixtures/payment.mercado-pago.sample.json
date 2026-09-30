@@ -1,0 +1,46 @@
+{
+  "createOrder": {
+    "motoristaOpsOrderId": "order_123",
+    "title": "MotoristaOPS Presença Completa",
+    "amountCents": 129900,
+    "buyerEmail": "cliente@example.com",
+    "idempotencyKey": "4e00d422-1a7f-44f2-8d6b-f10ac5a0fe01",
+    "successUrl": "https://motoristaops.com.br/painel/pagamento/sucesso",
+    "failureUrl": "https://motoristaops.com.br/painel/pagamento/falha",
+    "pendingUrl": "https://motoristaops.com.br/painel/pagamento/pendente"
+  },
+  "statuses": [
+    ["created", "created", "CREATED", false],
+    ["processing", "in_process", "PROCESSING", false],
+    ["processed", "accredited", "APPROVED", true],
+    ["processed", "partially_refunded", "PARTIALLY_REFUNDED", false],
+    ["processed", "refunded", "REFUNDED", false],
+    ["failed", "high_risk", "FAILED", false],
+    ["action_required", "waiting_capture", "ACTION_REQUIRED", false],
+    ["canceled", "canceled", "CANCELED", false],
+    ["refunded", "refunded", "REFUNDED", false],
+    ["something_new", "unknown", "UNKNOWN", false]
+  ],
+  "webhook": {
+    "body": {
+      "action": "order.processed",
+      "api_version": "v1",
+      "application_id": "123456",
+      "date_created": "2026-09-30T10:00:00Z",
+      "id": "evt_123",
+      "live_mode": false,
+      "type": "order",
+      "user_id": 123456,
+      "data": {
+        "id": "ORDTEST123"
+      }
+    },
+    "headers": {
+      "x-signature": "ts=123,v1=abc",
+      "x-request-id": "req-123"
+    },
+    "query": {
+      "data.id": "ORDTEST123"
+    }
+  }
+}
