@@ -1,0 +1,18 @@
+{
+  "input": {
+    "graphicsReadyDate": "2026-10-05",
+    "stockReadyDate": "2026-10-06",
+    "assemblyMinBusinessDays": 2,
+    "assemblyMaxBusinessDays": 3,
+    "carrierMinBusinessDays": 2,
+    "carrierMaxBusinessDays": 4,
+    "holidays": ["2026-10-07"]
+  },
+  "expected": {
+    "fulfillmentReadyDate": "2026-10-06",
+    "dispatchMinDate": "2026-10-09",
+    "dispatchMaxDate": "2026-10-12",
+    "deliveryMinDate": "2026-10-13",
+    "deliveryMaxDate": "2026-10-16"
+  }
+}
