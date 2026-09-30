@@ -119,3 +119,16 @@ Regras:
 - somente webhook autenticado + consulta server-side do recurso Mercado Pago pode autorizar `PAYMENT_PENDING -> PAID`;
 - nenhum dado de cartão é persistido pela MotoristaOPS;
 - o valor comercial do produto continua pendente de precificação real do kit.
+
+
+### D-019 — Autenticação Google e consentimento progressivo
+
+Google será o login preferencial do painel.
+
+O login inicial não solicita acesso ao Google Business.
+
+O escopo `https://www.googleapis.com/auth/business.manage` será solicitado somente quando o cliente escolher criar ou conectar Google Business.
+
+Tokens do provedor Google são segredos server-side e não podem ser persistidos em tabelas públicas.
+
+Quando o Google exigir ação direta do comerciante, o fluxo será self-service guiado em vez de automação de navegador.
