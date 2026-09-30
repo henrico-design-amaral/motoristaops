@@ -166,6 +166,30 @@ jobs:
           console.log('Melhor Envio adapter OK');
           NODE
 
+
+      - name: Verify deterministic delivery window
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { calculateDeliveryWindow } from './presence/runtime/delivery-estimate.mjs';
+
+          const fixture = JSON.parse(fs.readFileSync(
+            'presence/runtime/fixtures/delivery-estimate.sample.json',
+            'utf8'
+          ));
+
+          const actual = calculateDeliveryWindow(fixture.input);
+          for (const [key, expected] of Object.entries(fixture.expected)) {
+            if (actual[key] !== expected) {
+              throw new Error(`${key}: expected ${expected}, got ${actual[key]}`);
+            }
+          }
+          console.log('Delivery estimate OK');
+          NODE
+
+
   postgres-schema:
     runs-on: ubuntu-latest
     services:
