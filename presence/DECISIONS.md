@@ -121,6 +121,21 @@ Regras:
 - o valor comercial do produto continua pendente de precificação real do kit.
 
 
+### D-018 — Logística V1
+
+A camada logística V1 será implementada com **Melhor Envio**.
+
+Regras:
+
+- cotação, compra, geração e rastreamento usam a API do Melhor Envio;
+- webhooks só são aceitos após validação HMAC-SHA256 do `X-ME-Signature`;
+- etiquetas precisam ser geradas pelo mesmo aplicativo integrado;
+- eventos externos são traduzidos para estados MotoristaOPS antes de persistir;
+- retentativas são idempotentes por hash do payload;
+- falha, pausa ou suspensão nunca avançam silenciosamente o pedido;
+- a transportadora concreta pode variar sem alterar a máquina principal.
+
+
 ### D-019 — Autenticação Google e consentimento progressivo
 
 Google será o login preferencial do painel.
