@@ -292,13 +292,17 @@ create table if not exists public.shipments (
   id uuid primary key default gen_random_uuid(),
   order_id uuid not null unique references public.orders(id) on delete cascade,
   provider text,
+  provider_order_id text,
+  protocol text,
   carrier text,
   tracking_code text,
+  tracking_url text,
+  quoted_price_cents bigint check (quoted_price_cents is null or quoted_price_cents >= 0),
   status text not null default 'PENDING'
     check (status in (
       'PENDING','QUOTED','LABEL_PURCHASED','READY_FOR_CARRIER',
       'POSTED','IN_TRANSIT','OUT_FOR_DELIVERY','DELIVERED',
-      'DELIVERY_FAILED','CANCELLED'
+      'ACTION_REQUIRED','SUSPENDED','DELIVERY_FAILED','CANCELLED'
     )),
   estimated_delivery_date date,
   posted_at timestamptz,
@@ -345,6 +349,19 @@ create table if not exists internal.payment_webhook_events (
   processed_at timestamptz,
   processing_result text,
   unique (provider, external_event_id)
+);
+
+create table if not exists internal.shipping_webhook_events (
+  id bigint generated always as identity primary key,
+  provider text not null,
+  external_order_id text not null,
+  event_name text not null,
+  signature_valid boolean not null default false,
+  payload jsonb not null,
+  payload_hash text not null unique,
+  received_at timestamptz not null default now(),
+  processed_at timestamptz,
+  processing_result text
 );
 
 create table if not exists internal.inventory_items (
