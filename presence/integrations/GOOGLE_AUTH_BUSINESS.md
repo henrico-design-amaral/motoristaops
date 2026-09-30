@@ -1,5 +1,7 @@
 # Google Auth + Google Business
 
+**Verificado em:** 30/09/2026
+
 ## Objetivo
 
 Usar Google como login preferencial sem transformar o login inicial em uma tela de permissões excessivas.
