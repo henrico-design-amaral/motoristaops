@@ -122,6 +122,44 @@ jobs:
           console.log('Mercado Pago adapter OK');
           NODE
 
+
+      - name: Verify Google progressive consent config
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import {
+            GOOGLE_BUSINESS_SCOPE,
+            buildGoogleLoginOptions,
+            buildGoogleBusinessConsentOptions,
+            validateGoogleProviderTokens
+          } from './presence/runtime/google-auth.mjs';
+
+          const fixture = JSON.parse(fs.readFileSync(
+            'presence/runtime/fixtures/google-auth.sample.json',
+            'utf8'
+          ));
+
+          const login = buildGoogleLoginOptions(fixture.loginRedirect);
+          if (login.provider !== 'google') throw new Error('Provider mismatch');
+          if (login.options.scopes) throw new Error('Basic login must not request business scope');
+
+          const business = buildGoogleBusinessConsentOptions(fixture.businessRedirect);
+          if (business.options.scopes !== GOOGLE_BUSINESS_SCOPE) throw new Error('Business scope missing');
+          if (business.options.queryParams.access_type !== 'offline') throw new Error('Offline access missing');
+          if (business.options.queryParams.prompt !== 'consent') throw new Error('Consent prompt missing');
+
+          const withRefresh = validateGoogleProviderTokens(fixture.sessionWithRefresh);
+          if (!withRefresh.canRefreshWithoutUser) throw new Error('Refresh token not detected');
+
+          const withoutRefresh = validateGoogleProviderTokens(fixture.sessionWithoutRefresh);
+          if (withoutRefresh.canRefreshWithoutUser) throw new Error('Unexpected refresh capability');
+
+          console.log('Google progressive consent config OK');
+          NODE
+
+
   postgres-schema:
     runs-on: ubuntu-latest
     services:
