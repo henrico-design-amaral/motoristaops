@@ -173,3 +173,28 @@ PostgreSQL
 - atualização do perfil gera novo artefato sem reescrever o template.
 
 O banco continua sendo a fonte da verdade. O HTML publicado é um artefato derivado e reproduzível.
+
+
+## Onboarding e persistência
+
+O formulário do painel não escreve diretamente nas tabelas canônicas.
+
+Fluxo obrigatório:
+
+```text
+formulário
+  -> normalização determinística
+  -> validação de contrato
+  -> backend autenticado
+  -> transação PostgreSQL
+  -> evento de estado
+```
+
+### Consequências
+
+- o navegador nunca promove o pedido para estados críticos;
+- os mesmos campos alimentam landing e impressos sem redigitação;
+- endereço de entrega permanece privado;
+- URLs sociais são normalizadas e exigem HTTPS;
+- a UI pode evoluir sem alterar silenciosamente o contrato persistido;
+- o backend deve revalidar tudo mesmo que o navegador já tenha validado.
