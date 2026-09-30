@@ -122,6 +122,50 @@ jobs:
           console.log('Mercado Pago adapter OK');
           NODE
 
+      - name: Verify Melhor Envio webhook adapter
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { createHmac } from 'node:crypto';
+          import {
+            verifyMelhorEnvioSignature,
+            mapMelhorEnvioEvent,
+            shipmentStatusToOrderState,
+            normalizeMelhorEnvioWebhook
+          } from './presence/runtime/shipping-melhor-envio.mjs';
+
+          const fixture = JSON.parse(fs.readFileSync(
+            'presence/runtime/fixtures/shipping.melhor-envio.sample.json',
+            'utf8'
+          ));
+          const rawBody = JSON.stringify(fixture.payload);
+          const signature = createHmac('sha256', fixture.secret).update(rawBody).digest('base64');
+
+          if (!verifyMelhorEnvioSignature(rawBody, signature, fixture.secret)) {
+            throw new Error('Valid signature rejected');
+          }
+          if (verifyMelhorEnvioSignature(rawBody, signature, 'wrong-secret')) {
+            throw new Error('Invalid signature accepted');
+          }
+
+          for (const [event, expectedShipment, expectedOrder] of fixture.events) {
+            const shipment = mapMelhorEnvioEvent(event);
+            if (shipment !== expectedShipment) throw new Error(`Shipment map failed: ${event}`);
+            const order = shipmentStatusToOrderState(shipment);
+            if (order !== expectedOrder) throw new Error(`Order map failed: ${event}`);
+          }
+
+          const normalized = normalizeMelhorEnvioWebhook({ rawBody, signature });
+          if (normalized.externalOrderId !== fixture.payload.data.id) throw new Error('Order ID mismatch');
+          if (normalized.shipmentStatus !== 'POSTED') throw new Error('Posted event normalization failed');
+          if (normalized.orderState !== 'POSTED') throw new Error('Order state normalization failed');
+          if (normalized.trackingCode !== 'BR123456789XX') throw new Error('Tracking normalization failed');
+
+          console.log('Melhor Envio adapter OK');
+          NODE
+
   postgres-schema:
     runs-on: ubuntu-latest
     services:
