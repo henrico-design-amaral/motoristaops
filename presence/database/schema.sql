@@ -219,7 +219,10 @@ create table if not exists public.orders (
   shipping_address_id uuid references public.shipping_addresses(id) on delete restrict,
   payment_provider text,
   payment_reference text,
+  estimated_dispatch_date date,
   estimated_delivery_date date,
+  estimate_confidence text
+    check (estimate_confidence is null or estimate_confidence in ('INITIAL','OPERATIONAL','LOGISTICS')),
   estimate_basis text,
   estimate_updated_at timestamptz,
   customer_confirmed_at timestamptz,
@@ -362,6 +365,14 @@ create table if not exists internal.shipping_webhook_events (
   received_at timestamptz not null default now(),
   processed_at timestamptz,
   processing_result text
+);
+
+create table if not exists internal.business_holidays (
+  holiday_date date not null,
+  jurisdiction text not null default 'BR',
+  label text not null,
+  created_at timestamptz not null default now(),
+  primary key (holiday_date, jurisdiction)
 );
 
 create table if not exists internal.inventory_items (
