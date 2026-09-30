@@ -1,0 +1,36 @@
+{
+  "secret": "motoristaops-test-secret",
+  "payload": {
+    "event": "order.posted",
+    "data": {
+      "id": "0000aaaa-aa00-00aa-aa00-000000aaaaaa",
+      "protocol": "ORD-2026DEMO",
+      "status": "posted",
+      "tracking": "BR123456789XX",
+      "self_tracking": null,
+      "user_id": "0000111",
+      "tags": [],
+      "created_at": "2026-09-30T12:00:00+00:00",
+      "paid_at": "2026-09-30T12:01:00+00:00",
+      "generated_at": "2026-09-30T12:02:00+00:00",
+      "posted_at": "2026-09-30T13:00:00+00:00",
+      "delivered_at": null,
+      "canceled_at": null,
+      "expired_at": null,
+      "tracking_url": "https://www.melhorrastreio.com.br/rastreio/BR123456789XX"
+    }
+  },
+  "events": [
+    ["order.created", "PENDING", null],
+    ["order.pending", "PENDING", null],
+    ["order.released", "LABEL_PURCHASED", "LABEL_PURCHASED"],
+    ["order.generated", "READY_FOR_CARRIER", "READY_FOR_CARRIER"],
+    ["order.posted", "POSTED", "POSTED"],
+    ["order.received", "IN_TRANSIT", "IN_TRANSIT"],
+    ["order.delivered", "DELIVERED", "DELIVERED"],
+    ["order.undelivered", "DELIVERY_FAILED", null],
+    ["order.paused", "ACTION_REQUIRED", null],
+    ["order.suspended", "SUSPENDED", null],
+    ["order.cancelled", "CANCELLED", null]
+  ]
+}
