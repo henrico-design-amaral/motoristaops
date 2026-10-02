@@ -189,7 +189,13 @@ jobs:
             verifyMelhorEnvioSignature,
             mapMelhorEnvioEvent,
             shipmentStatusToOrderState,
-            normalizeMelhorEnvioWebhook
+            normalizeMelhorEnvioWebhook,
+            buildMelhorEnvioQuoteRequest,
+            buildMelhorEnvioCartRequest,
+            buildMelhorEnvioCheckoutRequest,
+            buildMelhorEnvioGenerateRequest,
+            buildMelhorEnvioTrackingRequest,
+            buildMelhorEnvioPrintRequest
           } from './presence/runtime/shipping-melhor-envio.mjs';
 
           const fixture = JSON.parse(fs.readFileSync(
@@ -218,6 +224,87 @@ jobs:
           if (normalized.shipmentStatus !== 'POSTED') throw new Error('Posted event normalization failed');
           if (normalized.orderState !== 'POSTED') throw new Error('Order state normalization failed');
           if (normalized.trackingCode !== 'BR123456789XX') throw new Error('Tracking normalization failed');
+
+          const auth = {
+            environment: 'sandbox',
+            accessToken: 'sandbox-token',
+            userAgent: 'MotoristaOPS Presence (ops@example.invalid)'
+          };
+
+          const quote = buildMelhorEnvioQuoteRequest({
+            ...auth,
+            fromPostalCode: '06753-000',
+            toPostalCode: '01310-100',
+            volumes: [{ width: 30, height: 15, length: 40, weight: 1.2, insurance: 100 }]
+          });
+          if (quote.endpoint !== 'https://sandbox.melhorenvio.com.br/api/v2/me/shipment/calculate') {
+            throw new Error('Sandbox quote endpoint failed');
+          }
+          if (quote.headers.Authorization !== 'Bearer sandbox-token') throw new Error('Shipping auth header failed');
+          if (quote.headers['User-Agent'] !== auth.userAgent) throw new Error('Shipping User-Agent failed');
+          if (quote.body.from.postal_code !== '06753000') throw new Error('Origin postal code normalization failed');
+          if (quote.body.to.postal_code !== '01310100') throw new Error('Destination postal code normalization failed');
+          if (quote.body.volumes[0].weight !== 1.2) throw new Error('Quote volume failed');
+
+          const shipment = {
+            service: 1,
+            from: {
+              name: 'MotoristaOPS',
+              email: 'ops@example.invalid',
+              phone: '11999999999',
+              document: '12345678909',
+              address: 'Rua Origem',
+              number: '10',
+              district: 'Centro',
+              city: 'Taboao da Serra',
+              state_abbr: 'SP',
+              postal_code: '06753000'
+            },
+            to: {
+              name: 'Cliente',
+              email: 'cliente@example.invalid',
+              phone: '11988888888',
+              document: '98765432100',
+              address: 'Avenida Destino',
+              number: '20',
+              district: 'Bela Vista',
+              city: 'Sao Paulo',
+              state_abbr: 'SP',
+              postal_code: '01310100'
+            },
+            products: [{ name: 'Kit MotoristaOPS', quantity: 1, unitary_value: 100 }],
+            volumes: [{ width: 30, height: 15, length: 40, weight: 1.2 }],
+            options: { receipt: false, own_hand: false, insurance_value: 100 }
+          };
+          const cart = buildMelhorEnvioCartRequest({ ...auth, shipment });
+          if (cart.endpoint !== 'https://sandbox.melhorenvio.com.br/api/v2/me/cart') throw new Error('Cart endpoint failed');
+          if (cart.body.service !== 1 || cart.body.volumes.length !== 1) throw new Error('Cart payload failed');
+
+          const orderIds = ['me-order-123'];
+          const checkout = buildMelhorEnvioCheckoutRequest({ ...auth, orderIds });
+          const generate = buildMelhorEnvioGenerateRequest({ ...auth, orderIds });
+          const tracking = buildMelhorEnvioTrackingRequest({ ...auth, orderIds });
+          const print = buildMelhorEnvioPrintRequest({ ...auth, orderIds, mode: 'private' });
+
+          if (!checkout.endpoint.endsWith('/api/v2/me/shipment/checkout')) throw new Error('Checkout endpoint failed');
+          if (!generate.endpoint.endsWith('/api/v2/me/shipment/generate')) throw new Error('Generate endpoint failed');
+          if (!tracking.endpoint.endsWith('/api/v2/me/shipment/tracking')) throw new Error('Tracking endpoint failed');
+          if (!print.endpoint.endsWith('/api/v2/me/shipment/print')) throw new Error('Print endpoint failed');
+          if (print.body.mode !== 'private') throw new Error('Print mode failed');
+          if (checkout.body.orders[0] !== 'me-order-123') throw new Error('Order IDs failed');
+
+          let invalidVolumeBlocked = false;
+          try {
+            buildMelhorEnvioQuoteRequest({
+              ...auth,
+              fromPostalCode: '06753000',
+              toPostalCode: '01310100',
+              volumes: [{ width: 0, height: 10, length: 10, weight: 1 }]
+            });
+          } catch {
+            invalidVolumeBlocked = true;
+          }
+          if (!invalidVolumeBlocked) throw new Error('Invalid shipping volume was accepted');
 
           console.log('Melhor Envio adapter OK');
           NODE
