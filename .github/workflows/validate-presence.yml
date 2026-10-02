@@ -1236,6 +1236,70 @@ jobs:
 
           echo "Melhor Envio signed event gate OK"
 
+      - name: Verify physical BOM projection and snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          psql -v ON_ERROR_STOP=1 <<'SQL'
+          insert into auth.users (id, email)
+          values ('12121212-1212-4121-8121-121212121212', 'bom-ci@example.com');
+
+          insert into public.orders (
+            id, user_id, product_sku, product_version, state
+          )
+          values (
+            '34343434-3434-4343-8343-343434343434',
+            '12121212-1212-4121-8121-121212121212',
+            'PRESENCE_COMPLETE',
+            1,
+            'PRODUCT_SELECTED'
+          );
+          SQL
+
+          result="$(
+            psql -qAt -v ON_ERROR_STOP=1 <<'SQL'
+          set role service_role;
+          select public.snapshot_presence_physical_bom(
+            '34343434-3434-4343-8343-343434343434'
+          );
+          SQL
+          )"
+          test "$result" = "9"
+
+          test "$(psql -qAt -c "select count(*) from internal.order_bom_snapshot where order_id='34343434-3434-4343-8343-343434343434'")" = "9"
+          test "$(psql -qAt -c "select count(*) from internal.order_bom_snapshot where order_id='34343434-3434-4343-8343-343434343434' and item_code='landing_page'")" = "0"
+          test "$(psql -qAt -c "select count(*) from internal.order_bom_snapshot where order_id='34343434-3434-4343-8343-343434343434' and item_code='business_card' and personalized=true")" = "1"
+          test "$(psql -qAt -c "select count(*) from public.product_inclusions where sku='PRESENCE_COMPLETE' and version=1 and kind='digital'")" = "4"
+          test "$(psql -qAt -c "select count(*) from public.product_inclusions where sku='PRESENCE_COMPLETE' and version=1 and kind='physical'")" = "9"
+
+          duplicate="$(
+            psql -qAt -v ON_ERROR_STOP=1 <<'SQL'
+          set role service_role;
+          select public.snapshot_presence_physical_bom(
+            '34343434-3434-4343-8343-343434343434'
+          );
+          SQL
+          )"
+          test "$duplicate" = "9"
+          test "$(psql -qAt -c "select count(*) from internal.order_bom_snapshot where order_id='34343434-3434-4343-8343-343434343434'")" = "9"
+
+          if psql -v ON_ERROR_STOP=1 <<'SQL'
+          set role authenticated;
+          set request.jwt.claim.sub = '12121212-1212-4121-8121-121212121212';
+          select public.snapshot_presence_physical_bom(
+            '34343434-3434-4343-8343-343434343434'
+          );
+          SQL
+          then
+            echo "Authenticated client unexpectedly created BOM snapshot"
+            exit 1
+          else
+            echo "Direct authenticated BOM snapshot correctly blocked"
+          fi
+
+          echo "Physical BOM projection gate OK"
+
       - name: Verify payment RLS and server-only writes
         shell: bash
         run: |
