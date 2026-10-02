@@ -183,6 +183,7 @@ create table if not exists public.product_inclusions (
   version integer not null,
   item_code text not null,
   label text not null,
+  kind text not null check (kind in ('digital','physical')),
   quantity integer not null default 1 check (quantity > 0),
   personalized boolean not null default false,
   sort_order integer not null default 0,
@@ -1546,6 +1547,81 @@ grant execute on function public.process_presence_melhor_envio_event(
   uuid, text, text, boolean, jsonb, text, text, text, text, timestamptz
 ) to service_role;
 
+create or replace function public.snapshot_presence_physical_bom(
+  p_order_id uuid
+)
+returns integer
+language plpgsql
+security invoker
+set search_path = pg_catalog, public, internal
+as $$
+declare
+  v_sku text;
+  v_version integer;
+  v_existing integer;
+  v_count integer;
+begin
+  select product_sku, product_version
+  into v_sku, v_version
+  from public.orders
+  where id = p_order_id
+  for update;
+
+  if not found then
+    raise exception 'Order not found';
+  end if;
+
+  if v_sku is null or v_version is null then
+    raise exception 'Order product is not selected';
+  end if;
+
+  select count(*)
+  into v_existing
+  from internal.order_bom_snapshot
+  where order_id = p_order_id;
+
+  if v_existing > 0 then
+    return v_existing;
+  end if;
+
+  select count(*)
+  into v_count
+  from public.product_inclusions
+  where sku = v_sku
+    and version = v_version
+    and kind = 'physical';
+
+  if v_count < 1 then
+    raise exception 'Product has no physical BOM';
+  end if;
+
+  insert into internal.order_bom_snapshot (
+    order_id, item_code, label, quantity, personalized, unit_cost_cents
+  )
+  select
+    p_order_id,
+    i.item_code,
+    i.label,
+    i.quantity,
+    i.personalized,
+    stock.unit_cost_cents
+  from public.product_inclusions i
+  left join internal.inventory_items stock
+    on stock.item_code = i.item_code
+  where i.sku = v_sku
+    and i.version = v_version
+    and i.kind = 'physical'
+  order by i.sort_order, i.item_code;
+
+  return v_count;
+end;
+$$;
+
+revoke all on function public.snapshot_presence_physical_bom(uuid) from public;
+revoke all on function public.snapshot_presence_physical_bom(uuid) from anon;
+revoke all on function public.snapshot_presence_physical_bom(uuid) from authenticated;
+grant execute on function public.snapshot_presence_physical_bom(uuid) to service_role;
+
 -- RLS
 alter table public.profiles enable row level security;
 alter table public.driver_pages enable row level security;
@@ -1828,21 +1904,21 @@ values ('PRESENCE_COMPLETE', 1, 'MotoristaOPS Presença Completa', 'draft', null
 on conflict (sku, version) do nothing;
 
 insert into public.product_inclusions
-  (sku, version, item_code, label, quantity, personalized, sort_order)
+  (sku, version, item_code, label, kind, quantity, personalized, sort_order)
 values
-  ('PRESENCE_COMPLETE',1,'landing_page','Landing page MotoristaOPS',1,true,10),
-  ('PRESENCE_COMPLETE',1,'google_business','Google Business',1,true,20),
-  ('PRESENCE_COMPLETE',1,'instagram','Instagram — presença por link',1,false,30),
-  ('PRESENCE_COMPLETE',1,'linkedin','LinkedIn — presença por link',1,false,40),
-  ('PRESENCE_COMPLETE',1,'business_card','Cartão de visita',1,true,50),
-  ('PRESENCE_COMPLETE',1,'identification_plate','Placa de identificação',1,true,60),
-  ('PRESENCE_COMPLETE',1,'organizer','Organizador',1,false,70),
-  ('PRESENCE_COMPLETE',1,'candy_pack','Pacote de bala',1,false,80),
-  ('PRESENCE_COMPLETE',1,'car_trash_bin','Lixinho automotivo',1,false,90),
-  ('PRESENCE_COMPLETE',1,'wet_wipes','Lenço umedecido',1,false,100),
-  ('PRESENCE_COMPLETE',1,'dry_tissues','Lenço seco',1,false,110),
-  ('PRESENCE_COMPLETE',1,'hand_sanitizer','Álcool em gel',1,false,120),
-  ('PRESENCE_COMPLETE',1,'gift','Brinde MotoristaOPS',1,true,130)
+  ('PRESENCE_COMPLETE',1,'landing_page','Landing page MotoristaOPS','digital',1,true,10),
+  ('PRESENCE_COMPLETE',1,'google_business','Google Business','digital',1,true,20),
+  ('PRESENCE_COMPLETE',1,'instagram','Instagram — presença por link','digital',1,false,30),
+  ('PRESENCE_COMPLETE',1,'linkedin','LinkedIn — presença por link','digital',1,false,40),
+  ('PRESENCE_COMPLETE',1,'business_card','Cartão de visita','physical',1,true,50),
+  ('PRESENCE_COMPLETE',1,'identification_plate','Placa de identificação','physical',1,true,60),
+  ('PRESENCE_COMPLETE',1,'organizer','Organizador','physical',1,false,70),
+  ('PRESENCE_COMPLETE',1,'candy_pack','Pacote de bala','physical',1,false,80),
+  ('PRESENCE_COMPLETE',1,'car_trash_bin','Lixinho automotivo','physical',1,false,90),
+  ('PRESENCE_COMPLETE',1,'wet_wipes','Lenço umedecido','physical',1,false,100),
+  ('PRESENCE_COMPLETE',1,'dry_tissues','Lenço seco','physical',1,false,110),
+  ('PRESENCE_COMPLETE',1,'hand_sanitizer','Álcool em gel','physical',1,false,120),
+  ('PRESENCE_COMPLETE',1,'gift','Brinde MotoristaOPS','physical',1,true,130)
 on conflict do nothing;
 
 
@@ -1856,6 +1932,9 @@ grant select, insert on internal.order_snapshots to service_role;
 grant select, insert, update on internal.publication_artifacts to service_role;
 grant select, insert, update on internal.payment_webhook_events to service_role;
 grant select, insert, update on internal.shipping_webhook_events to service_role;
+grant select, insert on internal.order_bom_snapshot to service_role;
+grant select on internal.inventory_items to service_role;
+grant select on public.products, public.product_inclusions to service_role;
 
 grant select, insert, update, delete on public.profiles, public.driver_pages, public.vehicles,
   public.driver_services, public.driver_service_areas, public.shipping_addresses, public.social_links,
