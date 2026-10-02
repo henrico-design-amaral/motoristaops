@@ -996,40 +996,6 @@ jobs:
           test "$(psql -qAt -c "select status from public.shipments where id='dededede-dede-4ede-8ede-dededededede'")" = "QUOTED"
           test "$(psql -qAt -c "select count(*) from internal.shipping_webhook_events where payload_hash='$released_hash'")" = "0"
 
-          process_event() {
-            local event="$1"
-            local expected="$2"
-            local protocol="$3"
-            local tracking="$4"
-            local tracking_url="$5"
-            local payload
-            local hash
-            local result
-
-            payload="$(jq -nc --arg event "$event" --arg id "me-ci-ship" '{event:$event,data:{id:$id}}')"
-            hash="$(printf '%s' "$payload" | sha256sum | awk '{print $1}')"
-
-            result="$(
-              psql -qAt -v ON_ERROR_STOP=1                 -v payload="$payload"                 -v payload_hash="$hash"                 -v protocol="$protocol"                 -v tracking="$tracking"                 -v tracking_url="$tracking_url" <<'SQL'
-            set role service_role;
-            select public.process_presence_melhor_envio_event(
-              'bcbcbcbc-bcbc-4bcb-8bcb-bcbcbcbcbcbc',
-              'me-ci-ship',
-              :'event_name',
-              true,
-              :'payload'::jsonb,
-              :'payload_hash',
-              nullif(:'protocol', ''),
-              nullif(:'tracking', ''),
-              nullif(:'tracking_url', ''),
-              now()
-            );
-            SQL
-            )"
-            test "$result" = "$expected"
-            printf '%s' "$hash"
-          }
-
           released_payload="$(jq -nc --arg event "order.released" --arg id "me-ci-ship" '{event:$event,data:{id:$id}}')"
           released_hash="$(printf '%s' "$released_payload" | sha256sum | awk '{print $1}')"
           released_result="$(
