@@ -121,7 +121,9 @@ jobs:
             buildMercadoPagoCheckoutProOrder,
             mapMercadoPagoOrderStatus,
             paymentAuthorizesOrderProgress,
-            normalizeMercadoPagoOrderWebhook
+            normalizeMercadoPagoOrderWebhook,
+            verifyMercadoPagoWebhookSignature,
+            buildMercadoPagoGetOrderRequest
           } from './presence/runtime/payment-mercado-pago.mjs';
 
           const fixture = JSON.parse(fs.readFileSync(
@@ -148,6 +150,27 @@ jobs:
           if (webhook.externalOrderId !== 'ORDTEST123') throw new Error('Webhook order id failed');
           if (webhook.externalEventId !== 'evt_123') throw new Error('Webhook event id failed');
           if (webhook.signature.dataId !== 'ORDTEST123') throw new Error('Webhook signature input failed');
+
+          const secret = 'ci-mercado-pago-webhook-secret';
+          const ts = '1742505638683';
+          const requestId = 'req-ci-123';
+          const dataId = 'ORDTEST123';
+          const manifest = `id:${dataId.toLowerCase()};request-id:${requestId};ts:${ts};`;
+          const { createHmac } = await import('node:crypto');
+          const v1 = createHmac('sha256', secret).update(manifest).digest('hex');
+          const xSignature = `ts=${ts},v1=${v1}`;
+
+          if (!verifyMercadoPagoWebhookSignature({ xSignature, xRequestId: requestId, dataId, secret })) {
+            throw new Error('Valid Mercado Pago webhook signature rejected');
+          }
+          if (verifyMercadoPagoWebhookSignature({ xSignature, xRequestId: requestId, dataId, secret: 'wrong-secret' })) {
+            throw new Error('Invalid Mercado Pago webhook signature accepted');
+          }
+
+          const getOrder = buildMercadoPagoGetOrderRequest(dataId);
+          if (getOrder.endpoint !== 'https://api.mercadopago.com/v1/orders/ORDTEST123') {
+            throw new Error('Mercado Pago verification request endpoint failed');
+          }
 
           console.log('Mercado Pago adapter OK');
           NODE
