@@ -8,7 +8,10 @@
   "vehicleYear": "2026",
   "vehicleColor": "Preto",
   "capacity": "4",
-  "services": ["airport", "executive"],
+  "services": [
+    "airport",
+    "executive"
+  ],
   "serviceAreas": "São Paulo capital, Aeroporto de Guarulhos\nCongonhas",
   "instagram": "https://instagram.com/motoristademo",
   "linkedin": "",
@@ -23,5 +26,6 @@
   "complement": "",
   "neighborhood": "Centro",
   "city": "São Paulo",
-  "state": "sp"
+  "state": "sp",
+  "slug": "motorista-demo"
 }
