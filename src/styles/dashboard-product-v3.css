@@ -30,6 +30,7 @@
 .product-system-status{margin-top:auto;display:flex;align-items:center;gap:9px;padding:14px 8px 4px;border-top:1px solid var(--prod-line)}
 .product-system-status>i,.topbar-status i{width:7px;height:7px;border-radius:50%;background:var(--prod-green);flex:0 0 auto}
 .product-system-status strong{display:block;font-size:11px}.product-system-status small{display:block;margin-top:2px;color:var(--prod-muted);font-size:9px}
+.product-system-status.is-warning>i{background:var(--prod-gold)}.product-system-status.is-warning strong{color:var(--prod-sand)}
 
 .product-main{min-width:0;width:100%;max-width:1600px;margin:0 auto;padding:24px 30px 50px}
 .product-topbar{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:0 0 20px;border-bottom:1px solid var(--prod-line)}
