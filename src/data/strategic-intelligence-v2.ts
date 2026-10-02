@@ -40,8 +40,10 @@ export const dailyContextReviews = [
 ] as const;
 
 const latestEvidence = evidenceDays.filter(d=>d.platformRevenue).map(d=>({date:d.date,revenue:d.platformRevenue??0,rideHours:d.observedRideHours??0,rideKm:d.observedRideKm??0,trips:d.completedTrips??0}));
+const consolidatedDataThrough=[...dayMap.keys()].sort().at(-1)??'unknown';
+
 export const predictiveIntelligence = {
-  generatedAt:'2026-08-18',model:'heuristic-v3-context',confidence:'exploratory',weekdayRanking,hourRanking,routeRanking,regionRanking,
+  generatedAt:consolidatedDataThrough,model:'heuristic-v3-context',confidence:'exploratory',weekdayRanking,hourRanking,routeRanking,regionRanking,
   bestWeekday:weekdayRanking[0],bestHourBand:hourRanking[0],bestRoute:routeRanking[0],bestOriginRegion:regionRanking[0],
   daySequenceSummary,rideMatrix,contextualWindows,contextSignalImpact,dynamicPricingImpact,contextCoverage,contextualModelMeta,
   bestContextualWindows:contextualWindows.slice(0,12),

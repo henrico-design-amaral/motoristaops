@@ -41,7 +41,7 @@ export const recommendedWindows=weekdayScores.slice(0,3).flatMap(day=>hourScores
 
 export const predictiveSummary={
   model:'heuristic-v3',
-  generatedAt:'2026-08-18',
+  generatedAt:predictiveIntelligence.generatedAt,
   bestWindow:recommendedWindows[0],
   bestWeekday:weekdayScores[0],
   bestHour:hourScores[0],

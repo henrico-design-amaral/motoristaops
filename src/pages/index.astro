@@ -1,29 +1,43 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/dashboard-product-v3.css';
-import { currentClosings, currentVehicleExpenses, currentFuelings, personalMonthlyExpenses, vehicleProfile } from '../data/current-ops';
+import { currentClosings, currentVehicleExpenses, currentFuelings, vehicleProfile } from '../data/current-ops';
 import { evidenceDays, privatePipeline, privatePricingPolicy, dataHealth } from '../data/dashboard-refresh';
-import { predictiveSummary, weekdayScores, hourScores, regionScores, routeScores, recommendedWindows } from '../data/predictive-engine-v3';
-import { predictiveIntelligence, dailyContextReviews } from '../data/strategic-intelligence-v2';
-import { contextReadiness, signalImpactMatrix } from '../data/context-feature-engine-v2';
+import { predictiveSummary, weekdayScores, hourScores, regionScores, recommendedWindows } from '../data/predictive-engine-v3';
+import { predictiveIntelligence } from '../data/strategic-intelligence-v2';
+import { signalImpactMatrix } from '../data/context-feature-engine-v2';
 
 const brl=new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'});
 const num=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:1});
-const completeAugust=currentClosings.filter(x=>x.date.startsWith('2026-08'));
 const sum=(rows:readonly any[],key:string)=>rows.reduce((s,x)=>s+(Number(x[key])||0),0);
-const revenue=sum(completeAugust,'grossRevenue');
-const profit=sum(completeAugust,'operationalProfit');
-const hours=sum(completeAugust,'hoursOnline');
-const km=sum(completeAugust,'kmTotal');
-const trips=sum(completeAugust,'tripsTotal');
-const evidenceOnly=evidenceDays.filter(x=>x.status==='evidence-only');
+
+const knownDates=[
+  ...currentClosings.map(x=>x.date),
+  ...evidenceDays.filter(x=>x.status!=='missing').map(x=>x.date)
+].sort();
+const latestKnownDate=knownDates.at(-1)??dataHealth.latestEvidenceDate;
+const activeMonth=latestKnownDate.slice(0,7);
+const activeMonthLabel=new Intl.DateTimeFormat('pt-BR',{month:'long',year:'numeric',timeZone:'UTC'})
+  .format(new Date(`${activeMonth}-01T12:00:00Z`))
+  .replace(/^./,x=>x.toUpperCase());
+
+const completePeriod=currentClosings.filter(x=>x.date.startsWith(activeMonth));
+const evidenceOnly=evidenceDays.filter(x=>x.status==='evidence-only'&&x.date.startsWith(activeMonth));
+const missingCurrent=dataHealth.missingClosingDates.filter(x=>x.startsWith(activeMonth));
+const revenue=sum(completePeriod,'grossRevenue');
+const profit=sum(completePeriod,'operationalProfit');
+const hours=sum(completePeriod,'hoursOnline');
+const km=sum(completePeriod,'kmTotal');
+const trips=sum(completePeriod,'tripsTotal');
 const evidenceRevenue=evidenceOnly.reduce((s,x)=>s+(x.platformRevenue??0),0);
-const latestEvidence=evidenceDays.at(-1)!;
-const personalTotal=personalMonthlyExpenses.reduce((s,x)=>s+Number(x[1]),0);
-const maintenanceTotal=currentVehicleExpenses.reduce((s,x)=>s+x.value,0);
-const fuelTotal=currentFuelings.filter(x=>x.date.startsWith('2026-08')).reduce((s,x)=>s+x.totalPaid,0);
-const pipelineTotal=privatePipeline.reduce((s,x)=>s+x.quotedValue,0);
-const contextReady=contextReadiness.filter(x=>x.coverage>0).slice(0,5);
+const latestEvidence=[...evidenceDays].filter(x=>x.status!=='missing').sort((x,y)=>x.date.localeCompare(y.date)).at(-1);
+const periodVehicleExpenses=currentVehicleExpenses.filter(x=>x.date.startsWith(activeMonth));
+const maintenanceTotal=periodVehicleExpenses.reduce((s,x)=>s+x.value,0);
+const periodFuelings=currentFuelings.filter(x=>x.date.startsWith(activeMonth));
+const fuelTotal=periodFuelings.reduce((s,x)=>s+x.totalPaid,0);
+const today=dataHealth.refreshedAt.slice(0,10);
+const activePrivatePipeline=privatePipeline.filter(x=>x.serviceDate>=today);
+const pipelineTotal=activePrivatePipeline.reduce((s,x)=>s+x.quotedValue,0);
 const usableSignals=signalImpactMatrix.filter(x=>x.usableForRecommendation);
 const revenuePerHour=hours?revenue/hours:0;
 const profitPerHour=hours?profit/hours:0;
@@ -33,14 +47,15 @@ const tripsPerHour=hours?trips/hours:0;
 const fuelPerKm=km?fuelTotal/km:0;
 const observedRevenue=revenue+evidenceRevenue;
 const trend=[
-  ...completeAugust.map(x=>({date:x.date,dateBR:x.dateBR,value:x.grossRevenue,kind:'closed' as const,label:`${x.tripsTotal} corridas`})),
-  ...evidenceOnly.map(x=>({date:x.date,dateBR:x.date.split('-').reverse().join('/'),value:x.platformRevenue??0,kind:'evidence' as const,label:`${x.completedTrips??0} corridas observadas`}))
-].sort((a,b)=>a.date.localeCompare(b.date));
+  ...completePeriod.map(x=>({date:x.date,dateBR:x.dateBR,value:x.grossRevenue,kind:'closed' as const,label:`${x.tripsTotal} corridas`})),
+  ...evidenceOnly.map(x=>({date:x.date,dateBR:x.dateBR,value:x.platformRevenue??0,kind:'evidence' as const,label:`${x.completedTrips??'—'} corridas observadas`}))
+].sort((x,y)=>x.date.localeCompare(y.date));
 const trendMax=Math.max(...trend.map(x=>x.value),1);
-const recentActivity=[...trend].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,6);
+const recentActivity=[...trend].sort((x,y)=>y.date.localeCompare(x.date)).slice(0,8);
+const backendHealthy=String(dataHealth.supabaseStatus)==='ACTIVE_HEALTHY';
 const actionItems=[
-  ...(dataHealth.missingClosingDates.length?[{tone:'warn',title:`Fechar ${dataHealth.missingClosingDates.length} dia(s) sem fechamento`,detail:dataHealth.missingClosingDates.map(x=>x.slice(8,10)+'/08').join(' · '),href:'#dados'}]:[]),
-  ...(evidenceOnly.length?[{tone:'warn',title:`Reconciliar ${brl.format(evidenceRevenue)} em evidências`,detail:`${evidenceOnly.length} dias observados ainda fora do consolidado`,href:'#atividade'}]:[]),
+  ...(missingCurrent.length?[{tone:'warn',title:`Reconciliar ${missingCurrent.length} dia(s) com evidência`,detail:missingCurrent.map(x=>x.slice(8,10)+'/'+x.slice(5,7)).join(' · '),href:'#atividade'}]:[]),
+  ...(!backendHealthy?[{tone:'warn',title:'Backend de fechamento indisponível',detail:'Supabase inativo por limite do plano; dados estáticos e planilha permanecem disponíveis',href:'#dados'}]:[]),
   {tone:'signal',title:`Testar ${predictiveSummary.bestRegion?.key??'melhor região'} na próxima janela`,detail:`${predictiveSummary.bestWindow?.weekday??'—'} · ${predictiveSummary.bestWindow?.hourBand??'—'} · score ${predictiveSummary.bestWindow?.score??0}/100`,href:'./previsao'},
   ...(usableSignals.length===0?[{tone:'neutral',title:'Aumentar amostra contextual',detail:'Trânsito e clima ainda têm efeito limitado na recomendação',href:'./contexto'}]:[])
 ].slice(0,4);
@@ -75,7 +90,7 @@ const quickLinks=[
       <a href="./inteligencia">Inteligência <b>↗</b></a>
       <a href="./contexto">Contexto <b>↗</b></a>
     </div>
-    <div class="product-system-status"><i></i><div><strong>Operação conectada</strong><small>Supabase {dataHealth.supabaseStatus}</small></div></div>
+    <div class:list={['product-system-status',!backendHealthy&&'is-warning']}><i></i><div><strong>{backendHealthy?'Operação conectada':'Operação parcial'}</strong><small>{backendHealthy?'Supabase ativo':'Planilha ativa · Supabase inativo'}</small></div></div>
   </aside>
 
   <main class="product-main" id="overview">
@@ -85,14 +100,14 @@ const quickLinks=[
         <h1>Visão geral</h1>
       </div>
       <div class="topbar-meta">
-        <span>Agosto 2026</span>
+        <span>{activeMonthLabel}</span>
         <span class="topbar-status"><i></i> dados até {dataHealth.latestEvidenceDate.split('-').reverse().join('/')}</span>
         <a href="./importar-uber">+ Importar corridas</a>
       </div>
     </header>
 
     <section class="product-kpis" aria-label="Indicadores principais">
-      <article class="kpi-primary"><span>Receita consolidada</span><strong>{brl.format(revenue)}</strong><small>{completeAugust.length} fechamentos completos</small></article>
+      <article class="kpi-primary"><span>Receita consolidada</span><strong>{brl.format(revenue)}</strong><small>{completePeriod.length} fechamentos completos</small></article>
       <article class="kpi-primary"><span>Lucro operacional</span><strong>{brl.format(profit)}</strong><small>{revenue?num.format((profit/revenue)*100):'—'}% da receita</small></article>
       <article><span>Receita / hora</span><strong>{brl.format(revenuePerHour)}</strong><small>{num.format(hours)} h online</small></article>
       <article><span>Receita / km</span><strong>{brl.format(revenuePerKm)}</strong><small>{num.format(km)} km totais</small></article>
@@ -139,7 +154,7 @@ const quickLinks=[
       <div class="performance-grid">
         <article class="trend-panel">
           <div class="subheading"><div><span>Receita por dia</span><strong>{brl.format(observedRevenue)}</strong></div><small>sólido = fechado · contorno = evidência</small></div>
-          <div class="trend-chart" role="img" aria-label="Receita observada por dia em agosto">
+          <div class="trend-chart" role="img" aria-label={`Receita observada por dia em ${activeMonthLabel}`}>
             {trend.map(x=><div class="trend-column" title={`${x.dateBR}: ${brl.format(x.value)} · ${x.label}`}><span class:list={['trend-bar',x.kind==='evidence'&&'is-evidence']} style={`height:${Math.max(10,(x.value/trendMax)*100)}%`}><i>{brl.format(x.value)}</i></span><small>{x.date.slice(8,10)}</small></div>)}
           </div>
         </article>
@@ -150,8 +165,8 @@ const quickLinks=[
             <div><dt>Receita / viagem</dt><dd>{brl.format(revenuePerTrip)}</dd></div>
             <div><dt>Viagens / hora</dt><dd>{num.format(tripsPerHour)}</dd></div>
             <div><dt>Combustível / km</dt><dd>{brl.format(fuelPerKm)}</dd></div>
-            <div><dt>Combustível pago</dt><dd>{brl.format(fuelTotal)}</dd></div>
-            <div><dt>Manutenção registrada</dt><dd>{brl.format(maintenanceTotal)}</dd></div>
+            <div><dt>Abastecimentos observados</dt><dd>{brl.format(fuelTotal)}</dd></div>
+            <div><dt>Custos de veículo registrados</dt><dd>{brl.format(maintenanceTotal)}</dd></div>
           </dl>
         </article>
       </div>
@@ -170,9 +185,9 @@ const quickLinks=[
         </div>
         <article class="latest-operation">
           <span>Última operação observada</span>
-          <strong>{brl.format(latestEvidence.platformRevenue??0)}</strong>
-          <p>{latestEvidence.completedTrips} corridas · {num.format(latestEvidence.observedRideKm??0)} km em corrida · {num.format(latestEvidence.observedRideHours??0)} h em viagem</p>
-          <small>{latestEvidence.note}</small>
+          <strong>{brl.format(latestEvidence?.platformRevenue??0)}</strong>
+          <p>{latestEvidence?.completedTrips??'—'} corridas · {num.format(latestEvidence?.observedTotalKm??latestEvidence?.observedRideKm??0)} km observados · {num.format(latestEvidence?.observedWorkHours??latestEvidence?.observedRideHours??0)} h observadas</p>
+          <small>{latestEvidence?.note??'Sem evidência operacional recente.'}</small>
         </article>
       </div>
     </section>
@@ -182,12 +197,12 @@ const quickLinks=[
         <div class="section-heading"><div><span>Receita própria</span><h2>Particular</h2></div><span>{brl.format(pipelineTotal)} em pipeline</span></div>
         <div class="business-kpis"><div><span>Preço base</span><strong>{brl.format(privatePricingPolicy.basePerKm)}/km</strong></div><div><span>Mínimo agendado</span><strong>{brl.format(privatePricingPolicy.scheduledMinimum)}</strong></div><div><span>Reserva</span><strong>{brl.format(privatePricingPolicy.reservationFee)}</strong></div></div>
       </div>
-      <div class="pipeline-list">{privatePipeline.map(x=><article><time>{x.serviceDate.slice(8,10)}/09</time><div><strong>{x.label}</strong><small>{x.appointment} · retirada {x.provisionalPickup}</small></div><b>{brl.format(x.quotedValue)}</b></article>)}</div>
+      <div class="pipeline-list">{activePrivatePipeline.length?activePrivatePipeline.map(x=><article><time>{x.serviceDate.slice(8,10)}/{x.serviceDate.slice(5,7)}</time><div><strong>{x.label}</strong><small>{x.appointment} · retirada {x.provisionalPickup}</small></div><b>{brl.format(x.quotedValue)}</b></article>):<article><time>—</time><div><strong>Sem serviços futuros no pipeline</strong><small>orçamentos vencidos não entram como receita potencial</small></div><b>{brl.format(0)}</b></article>}</div>
     </section>
 
     <section class="product-section vehicle-data-grid" id="veiculo">
-      <article><div class="section-heading"><div><span>Ativo operacional</span><h2>{vehicleProfile.vehicle}</h2></div><span>{vehicleProfile.fuel}</span></div><dl><div><dt>Odômetro recente</dt><dd>{num.format(vehicleProfile.recentOdometerKm)} km</dd></div><div><dt>Abastecimentos</dt><dd>{currentFuelings.length}</dd></div><div><dt>Manutenções</dt><dd>{currentVehicleExpenses.length}</dd></div><div><dt>Custo combustível ago.</dt><dd>{brl.format(fuelTotal)}</dd></div></dl></article>
-      <article id="dados"><div class="section-heading"><div><span>Qualidade</span><h2>Dados</h2></div><a href="./fontes-contexto">Auditar fontes →</a></div><dl><div><dt>Supabase</dt><dd>{dataHealth.supabaseStatus}</dd></div><div><dt>Último fechamento</dt><dd>{dataHealth.supabaseCompleteThrough.split('-').reverse().join('/')}</dd></div><div><dt>Lacunas</dt><dd>{dataHealth.missingClosingDates.length}</dd></div><div><dt>Corridas detalhadas</dt><dd>{predictiveIntelligence.sample.detailedRides}</dd></div></dl></article>
+      <article><div class="section-heading"><div><span>Ativo operacional</span><h2>{vehicleProfile.vehicle}</h2></div><span>{vehicleProfile.fuel}</span></div><dl><div><dt>Odômetro recente</dt><dd>{num.format(vehicleProfile.recentOdometerKm)} km</dd></div><div><dt>Abastecimentos</dt><dd>{currentFuelings.length}</dd></div><div><dt>Manutenções</dt><dd>{currentVehicleExpenses.length}</dd></div><div><dt>Combustível pago no período</dt><dd>{brl.format(fuelTotal)}</dd></div></dl></article>
+      <article id="dados"><div class="section-heading"><div><span>Qualidade</span><h2>Dados</h2></div><a href="./fontes-contexto">Auditar fontes →</a></div><dl><div><dt>Supabase</dt><dd>{backendHealthy?'ativo':'inativo / limite'}</dd></div><div><dt>Último consolidado</dt><dd>{dataHealth.canonicalCompleteThrough.split('-').reverse().join('/')}</dd></div><div><dt>A reconciliar</dt><dd>{missingCurrent.length}</dd></div><div><dt>Corridas detalhadas</dt><dd>{predictiveIntelligence.sample.detailedRides}</dd></div></dl></article>
     </section>
 
     <section class="product-section quick-links-section">

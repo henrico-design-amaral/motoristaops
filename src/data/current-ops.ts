@@ -4,14 +4,21 @@ export const currentClosings = [
   {date:'2026-08-04',dateBR:'04/08/2026',day:'Ter',shift:'Misto',platform:'Uber + 99 + Particular',hoursOnline:8.45,hoursInRide:null,kmTotal:157.7,kmPassenger:null,tripsUber:12,trips99:2,tripsPrivate:2,tripsTotal:16,revenueUber:290.26,revenue99:31.58,revenuePrivate:65,extras:0,grossRevenue:386.84,fuelCost:75.79,foodCost:0,washCost:0,operationalExpense:75.79,operationalProfit:311.05,notes:'Uber R$ 290,26; 99 R$ 31,58; particular R$ 65,00. 8h27 trabalhadas, 157,7 km. Abastecimento pago de R$ 69,68.'},
   {date:'2026-08-05',dateBR:'05/08/2026',day:'Qua',shift:'Misto',platform:'Uber + 99 + Particular',hoursOnline:12.55,hoursInRide:null,kmTotal:187.37,kmPassenger:null,tripsUber:11,trips99:5,tripsPrivate:2,tripsTotal:18,revenueUber:191.56,revenue99:85.77,revenuePrivate:65,extras:0,grossRevenue:342.33,fuelCost:75.42,foodCost:0,washCost:0,operationalExpense:75.42,operationalProfit:266.91,notes:'Fechamento final consolidado. 12h33 estimadas, 187,37 km, consumo 8 km/L, abastecimento pago de R$ 75,44.'},
   {date:'2026-08-10',dateBR:'10/08/2026',day:'Seg',shift:'Misto',platform:'Uber + Particular',hoursOnline:10.1667,hoursInRide:8.1167,kmTotal:207.1,kmPassenger:150.54,tripsUber:14,trips99:0,tripsPrivate:2,tripsTotal:16,revenueUber:333.58,revenue99:0,revenuePrivate:65,extras:0,grossRevenue:398.58,fuelCost:74.93,foodCost:0,washCost:0,operationalExpense:74.93,operationalProfit:323.65,notes:'10h10 trabalhadas, 207,1 km, 14 viagens Uber + 2 particulares. Abastecimento R$ 76,99 por 23,91 L; odômetro final 92.427 km.'},
-  {date:'2026-08-11',dateBR:'11/08/2026',day:'Ter',shift:'Misto',platform:'Uber + Particular',hoursOnline:7.7667,hoursInRide:6.9667,kmTotal:104.1,kmPassenger:71.28,tripsUber:17,trips99:0,tripsPrivate:2,tripsTotal:19,revenueUber:266.33,revenue99:0,revenuePrivate:65,extras:0,grossRevenue:331.33,fuelCost:48.56,foodCost:0,washCost:0,operationalExpense:48.56,operationalProfit:282.77,notes:'7h46 trabalhadas, 104,1 km, 17 viagens Uber + 2 particulares. Manutenção preventiva de R$ 660,00 registrada separadamente como investimento.'}
+  {date:'2026-08-11',dateBR:'11/08/2026',day:'Ter',shift:'Misto',platform:'Uber + Particular',hoursOnline:7.7667,hoursInRide:6.9667,kmTotal:104.1,kmPassenger:71.28,tripsUber:17,trips99:0,tripsPrivate:2,tripsTotal:19,revenueUber:266.33,revenue99:0,revenuePrivate:65,extras:0,grossRevenue:331.33,fuelCost:48.56,foodCost:0,washCost:0,operationalExpense:48.56,operationalProfit:282.77,notes:'7h46 trabalhadas, 104,1 km, 17 viagens Uber + 2 particulares. Manutenção preventiva de R$ 660,00 registrada separadamente como investimento.'},
+  {date:'2026-09-01',dateBR:'01/09/2026',day:'Ter',shift:'Misto',platform:'Uber + Particular',hoursOnline:6.6167,hoursInRide:5.73,kmTotal:84.32,kmPassenger:84.32,tripsUber:12,trips99:0,tripsPrivate:2,tripsTotal:14,revenueUber:205.30,revenue99:0,revenuePrivate:65,extras:8,grossRevenue:278.30,fuelCost:34.809025641,foodCost:0,washCost:0,operationalExpense:34.809025641,operationalProfit:243.490974359,notes:'Fechamento consolidado na planilha canônica. 12 viagens Uber + 2 particulares; R$ 278,30 de receita; 6h37; 84,32 km mínimos comprovados; custo de combustível estimado R$ 34,81.'},
+  {date:'2026-09-06',dateBR:'06/09/2026',day:'Dom',shift:'Misto',platform:'Uber + 99 + Vendas',hoursOnline:14,hoursInRide:null,kmTotal:386.6,kmPassenger:null,tripsUber:32,trips99:1,tripsPrivate:0,tripsTotal:33,revenueUber:704.41,revenue99:16.60,revenuePrivate:0,extras:3,grossRevenue:724.01,fuelCost:116.603030303,foodCost:0,washCost:0,operationalExpense:116.603030303,operationalProfit:607.406969697,notes:'Fechamento consolidado na planilha canônica. Dois turnos; 14h; 386,6 km; 33 corridas; receita R$ 724,01; custo gerencial de combustível R$ 116,60.'},
+  {date:'2026-09-11',dateBR:'11/09/2026',day:'Sex',shift:'Misto',platform:'Uber + Particular',hoursOnline:9,hoursInRide:null,kmTotal:187.3,kmPassenger:null,tripsUber:16,trips99:0,tripsPrivate:2,tripsTotal:18,revenueUber:300.59,revenue99:0,revenuePrivate:65,extras:0,grossRevenue:365.59,fuelCost:84.285,foodCost:0,washCost:0,operationalExpense:84.285,operationalProfit:281.305,notes:'Fechamento consolidado na planilha canônica. 9h; 187,3 km; 18 viagens; receita R$ 365,59. Divergência aritmética do abastecimento preservada para conferência.'},
+  {date:'2026-09-16',dateBR:'16/09/2026',day:'Qua',shift:'Misto',platform:'Misto',hoursOnline:12.9167,hoursInRide:6.82,kmTotal:209.8,kmPassenger:123.9,tripsUber:13,trips99:2,tripsPrivate:2,tripsTotal:17,revenueUber:328.58,revenue99:47.20,revenuePrivate:65,extras:0,grossRevenue:440.78,fuelCost:72.7170873786,foodCost:0,washCost:35,operationalExpense:137.7170873786,operationalProfit:303.0629126214,notes:'Fechamento consolidado na planilha canônica. Dia atípico; 12h55 de janela operacional, 209,8 km, 17 viagens e R$ 440,78 de receita. Inclui lavagem R$ 35 e conserto de pneu R$ 30.'}
 ] as const;
 
 export const currentVehicleExpenses = [
   {date:'2026-08-02',dateBR:'02/08/2026',category:'Lavagem',nature:'Lavagem do carro',description:'Lavagem do carro',value:35},
   {date:'2026-08-11',dateBR:'11/08/2026',category:'Manutenção preventiva',nature:'Investimento',description:'Par LED pingo T10 cerâmica',value:60},
   {date:'2026-08-11',dateBR:'11/08/2026',category:'Manutenção preventiva',nature:'Investimento',description:'Kit lâmpada LED H4',value:280},
-  {date:'2026-08-11',dateBR:'11/08/2026',category:'Manutenção preventiva',nature:'Investimento',description:'DRL LED com seta',value:320}
+  {date:'2026-08-11',dateBR:'11/08/2026',category:'Manutenção preventiva',nature:'Investimento',description:'DRL LED com seta',value:320},
+  {date:'2026-09-16',dateBR:'16/09/2026',category:'Lavagem',nature:'Variável',description:'Lavagem do veículo',value:35},
+  {date:'2026-09-16',dateBR:'16/09/2026',category:'Manutenção',nature:'Variável',description:'Conserto de furo no pneu',value:30},
+  {date:'2026-09-29',dateBR:'29/09/2026',category:'Lavagem',nature:'Variável',description:'Lavagem do veículo — evidência operacional',value:21}
 ] as const;
 
 export const currentFuelings = [
@@ -19,7 +26,16 @@ export const currentFuelings = [
   {date:'2026-08-03',dateBR:'03/08/2026',fuel:'Etanol',liters:23.55,pricePerLiter:3.25,totalPaid:0,consumptionKmL:null,notes:'Abastecimento cortesia; valor nominal R$ 76,54, sem saída de caixa.'},
   {date:'2026-08-04',dateBR:'04/08/2026',fuel:'Etanol',liters:21.65,pricePerLiter:3.22,totalPaid:69.68,consumptionKmL:null,notes:'Abastecimento pago.'},
   {date:'2026-08-05',dateBR:'05/08/2026',fuel:'Etanol',liters:23.43,pricePerLiter:3.22,totalPaid:75.44,consumptionKmL:null,notes:'Abastecimento pago.'},
-  {date:'2026-08-10',dateBR:'10/08/2026',fuel:'Etanol',liters:23.91,pricePerLiter:3.22,totalPaid:76.99,consumptionKmL:8.9,notes:'Odômetro final 92.427 km.'}
+  {date:'2026-08-10',dateBR:'10/08/2026',fuel:'Etanol',liters:23.91,pricePerLiter:3.22,totalPaid:76.99,consumptionKmL:8.9,notes:'Odômetro final 92.427 km.'},
+  {date:'2026-09-11',dateBR:'11/09/2026',fuel:'Etanol',liters:28.02,pricePerLiter:4.59,totalPaid:123.34,consumptionKmL:10.2,notes:'Valor total, litros e preço declarados não fecham aritmeticamente; mantidos como informados.'},
+  {date:'2026-09-16',dateBR:'16/09/2026',fuel:'Etanol',liters:32.28,pricePerLiter:3.57,totalPaid:115.24,consumptionKmL:10.3,notes:'Odômetro final 95.683 km.'},
+  {date:'2026-09-17',dateBR:'17/09/2026',fuel:'Etanol',liters:13.44,pricePerLiter:3.57,totalPaid:47.98,consumptionKmL:6.6,notes:'Evidência operacional; pendente de reconciliação na planilha.'},
+  {date:'2026-09-19',dateBR:'19/09/2026',fuel:'Etanol',liters:16.81,pricePerLiter:3.57,totalPaid:60.01,consumptionKmL:6.8,notes:'Evidência operacional do turno da manhã.'},
+  {date:'2026-09-20',dateBR:'20/09/2026',fuel:'Etanol',liters:31.05,pricePerLiter:3.57,totalPaid:110.85,consumptionKmL:5.4,notes:'Evidência operacional; pendente de reconciliação.'},
+  {date:'2026-09-26',dateBR:'26/09/2026',fuel:'Gasolina',liters:29.94,pricePerLiter:6.37,totalPaid:190.72,consumptionKmL:9.1,notes:'Abastecimento pós-turno; evidência operacional.'},
+  {date:'2026-09-28',dateBR:'28/09/2026',fuel:'Etanol',liters:23,pricePerLiter:3.89,totalPaid:89.69,consumptionKmL:9.5,notes:'Preço informado R$ 3,89/L; total/litros produz pequena divergência de arredondamento.'},
+  {date:'2026-09-29',dateBR:'29/09/2026',fuel:'Etanol',liters:19.11,pricePerLiter:4.39,totalPaid:83.89,consumptionKmL:7.3,notes:'Evidência operacional.'},
+  {date:'2026-09-30',dateBR:'30/09/2026',fuel:'Etanol',liters:14.12,pricePerLiter:4.05,totalPaid:57.19,consumptionKmL:8.1,notes:'Evidência operacional; jornada mista.'}
 ] as const;
 
 export const personalMonthlyExpenses = [
@@ -27,5 +43,5 @@ export const personalMonthlyExpenses = [
 ] as const;
 
 export const vehicleProfile = {
-  vehicle:'Hyundai HB20 2019', fuel:'Etanol', referenceFuelPrice:3.22, recentOdometerKm:92542, privateRatePerKm:4.5
+  vehicle:'Hyundai HB20 2019', fuel:'Flex', referenceFuelPrice:4.05, recentOdometerKm:97834, privateRatePerKm:4.5
 } as const;
