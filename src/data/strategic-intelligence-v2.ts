@@ -11,7 +11,7 @@ const bandFor = (time:string) => { const h=Number(time.slice(0,2)); if(h<6)retur
 const dayCode = (date:string) => ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'][new Date(`${date}T12:00:00-03:00`).getDay()];
 
 const normalizedLegacy = legacyDays.map(d=>({date:d.date,day:d.weekday,grossRevenue:d.gross,operationalProfit:d.profit,hoursOnline:d.hours,kmTotal:d.km,tripsTotal:d.trips}));
-const normalizedCurrent = currentClosings.map(d=>({date:d.date,day:d.day,grossRevenue:d.grossRevenue,operationalProfit:d.operationalProfit,hoursOnline:d.hoursOnline,kmTotal:d.kmTotal,tripsTotal:d.tripsTotal}));
+const normalizedCurrent = currentClosings.filter(d=>!('excludeFromPredictive' in d && d.excludeFromPredictive)).map(d=>({date:d.date,day:d.day,grossRevenue:d.grossRevenue,operationalProfit:d.operationalProfit,hoursOnline:d.hoursOnline,kmTotal:d.kmTotal,tripsTotal:d.tripsTotal}));
 const dayMap = new Map(normalizedLegacy.map(d=>[d.date,d]));
 normalizedCurrent.forEach(d=>dayMap.set(d.date,d));
 const historicalDays = [...dayMap.values()].filter(d=>d.grossRevenue>0 && d.hoursOnline>0 && d.kmTotal>0);

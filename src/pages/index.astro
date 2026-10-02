@@ -111,7 +111,7 @@ const quickLinks=[
       <article class="kpi-primary"><span>Lucro operacional</span><strong>{brl.format(profit)}</strong><small>{revenue?num.format((profit/revenue)*100):'—'}% da receita</small></article>
       <article><span>Receita / hora</span><strong>{brl.format(revenuePerHour)}</strong><small>{num.format(hours)} h online</small></article>
       <article><span>Receita / km</span><strong>{brl.format(revenuePerKm)}</strong><small>{num.format(km)} km totais</small></article>
-      <article><span>Corridas</span><strong>{trips}</strong><small>{num.format(tripsPerHour)} por hora</small></article>
+      <article><span>Corridas conhecidas</span><strong>{trips}</strong><small>mínimo observado · {num.format(tripsPerHour)}/h</small></article>
       <article><span>Receita observada</span><strong>{brl.format(observedRevenue)}</strong><small>inclui {brl.format(evidenceRevenue)} pendentes</small></article>
     </section>
 
@@ -162,7 +162,7 @@ const quickLinks=[
           <div class="subheading"><div><span>Unit economics</span><strong>Por turno consolidado</strong></div></div>
           <dl>
             <div><dt>Lucro / hora</dt><dd>{brl.format(profitPerHour)}</dd></div>
-            <div><dt>Receita / viagem</dt><dd>{brl.format(revenuePerTrip)}</dd></div>
+            <div><dt>Receita / viagem conhecida</dt><dd>{brl.format(revenuePerTrip)}</dd></div>
             <div><dt>Viagens / hora</dt><dd>{num.format(tripsPerHour)}</dd></div>
             <div><dt>Combustível / km</dt><dd>{brl.format(fuelPerKm)}</dd></div>
             <div><dt>Abastecimentos observados</dt><dd>{brl.format(fuelTotal)}</dd></div>
