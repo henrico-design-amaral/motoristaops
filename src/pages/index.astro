@@ -202,7 +202,7 @@ const quickLinks=[
 
     <section class="product-section vehicle-data-grid" id="veiculo">
       <article><div class="section-heading"><div><span>Ativo operacional</span><h2>{vehicleProfile.vehicle}</h2></div><span>{vehicleProfile.fuel}</span></div><dl><div><dt>Odômetro recente</dt><dd>{num.format(vehicleProfile.recentOdometerKm)} km</dd></div><div><dt>Abastecimentos</dt><dd>{currentFuelings.length}</dd></div><div><dt>Manutenções</dt><dd>{currentVehicleExpenses.length}</dd></div><div><dt>Combustível pago no período</dt><dd>{brl.format(fuelTotal)}</dd></div></dl></article>
-      <article id="dados"><div class="section-heading"><div><span>Qualidade</span><h2>Dados</h2></div><a href="./fontes-contexto">Auditar fontes →</a></div><dl><div><dt>Supabase</dt><dd>{backendHealthy?'ativo':'inativo / limite'}</dd></div><div><dt>Último consolidado</dt><dd>{dataHealth.supabaseCompleteThrough.split('-').reverse().join('/')}</dd></div><div><dt>A reconciliar</dt><dd>{missingCurrent.length}</dd></div><div><dt>Corridas detalhadas</dt><dd>{predictiveIntelligence.sample.detailedRides}</dd></div></dl></article>
+      <article id="dados"><div class="section-heading"><div><span>Qualidade</span><h2>Dados</h2></div><a href="./fontes-contexto">Auditar fontes →</a></div><dl><div><dt>Supabase</dt><dd>{backendHealthy?'ativo':'inativo / limite'}</dd></div><div><dt>Último consolidado</dt><dd>{dataHealth.canonicalCompleteThrough.split('-').reverse().join('/')}</dd></div><div><dt>A reconciliar</dt><dd>{missingCurrent.length}</dd></div><div><dt>Corridas detalhadas</dt><dd>{predictiveIntelligence.sample.detailedRides}</dd></div></dl></article>
     </section>
 
     <section class="product-section quick-links-section">
