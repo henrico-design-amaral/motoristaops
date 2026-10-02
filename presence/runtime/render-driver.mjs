@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { publicationManifest } from './publication-manifest.mjs';
 
 function parseArgs(argv) {
   const args = {};
@@ -7,7 +8,7 @@ function parseArgs(argv) {
     const key = argv[i];
     const value = argv[i + 1];
     if (!key?.startsWith('--') || value == null) {
-      throw new Error('Usage: --input <json> --template <html> --output <html>');
+      throw new Error('Usage: --input <json> --template <html> --output <html> [--manifest <json> --slug <slug> --template-key <key> --template-version <n>]');
     }
     args[key.slice(2)] = value;
   }
@@ -107,5 +108,23 @@ const html = render(template, data);
 
 await fs.mkdir(path.dirname(args.output), { recursive: true });
 await fs.writeFile(args.output, html, 'utf8');
+
+if (args.manifest) {
+  for (const required of ['slug', 'template-key', 'template-version']) {
+    if (!args[required]) throw new Error(`Missing --${required} when --manifest is used`);
+  }
+
+  const templateVersion = Number(args['template-version']);
+  const manifest = publicationManifest({
+    slug: args.slug,
+    templateKey: args['template-key'],
+    templateVersion,
+    html
+  });
+
+  await fs.mkdir(path.dirname(args.manifest), { recursive: true });
+  await fs.writeFile(args.manifest, JSON.stringify(manifest, null, 2) + '\n', 'utf8');
+  console.log(`Manifested ${args.manifest}`);
+}
 
 console.log(`Rendered ${args.output}`);
