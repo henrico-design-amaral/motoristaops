@@ -173,7 +173,7 @@ export const privatePipeline = [
 ] as const;
 
 export const dataHealth = {
-  refreshedAt: '2026-10-02T14:23:00-03:00',
+  refreshedAt: '2026-10-02T16:20:00-03:00',
   lastCompleteClosing: '2026-09-30',
   latestEvidenceDate: '2026-09-30',
   supabaseStatus: 'INACTIVE_LIMIT',
