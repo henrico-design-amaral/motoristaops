@@ -1855,11 +1855,12 @@ grant select on internal.order_state_transitions to service_role;
 grant select, insert on internal.order_snapshots to service_role;
 grant select, insert, update on internal.publication_artifacts to service_role;
 grant select, insert, update on internal.payment_webhook_events to service_role;
+grant select, insert, update on internal.shipping_webhook_events to service_role;
 
 grant select, insert, update, delete on public.profiles, public.driver_pages, public.vehicles,
   public.driver_services, public.driver_service_areas, public.shipping_addresses, public.social_links,
   public.google_business_connections, public.orders, public.order_personalizations, public.order_events,
-  public.payment_attempts
+  public.payment_attempts, public.shipments, public.shipment_events
 to service_role;
 
 grant usage, select on all sequences in schema public to service_role;
