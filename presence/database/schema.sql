@@ -486,6 +486,7 @@ values
   ('READY_FOR_CARRIER','POSTED'),
   ('POSTED','IN_TRANSIT'),
   ('IN_TRANSIT','OUT_FOR_DELIVERY'),
+  ('IN_TRANSIT','DELIVERED'),
   ('OUT_FOR_DELIVERY','DELIVERED'),
   ('DELIVERED','ACTIVE')
 on conflict do nothing;
@@ -1332,6 +1333,219 @@ grant execute on function public.process_presence_mercado_pago_payment(
   uuid, text, text, boolean, jsonb, text, jsonb
 ) to service_role;
 
+create or replace function public.process_presence_melhor_envio_event(
+  p_order_id uuid,
+  p_external_order_id text,
+  p_event_name text,
+  p_signature_valid boolean,
+  p_payload jsonb,
+  p_payload_hash text,
+  p_protocol text,
+  p_tracking_code text,
+  p_tracking_url text,
+  p_occurred_at timestamptz
+)
+returns text
+language plpgsql
+security invoker
+set search_path = pg_catalog, public, internal
+as $$
+declare
+  v_shipment_id uuid;
+  v_provider_order_id text;
+  v_order_state text;
+  v_shipment_status text;
+  v_target_order_state text;
+  v_existing_result text;
+  v_existing_order_id text;
+  v_existing_event_name text;
+  v_result text;
+begin
+  if not p_signature_valid then
+    return 'REJECTED_SIGNATURE';
+  end if;
+
+  if coalesce(p_external_order_id, '') = '' then
+    raise exception 'Missing Melhor Envio order id';
+  end if;
+
+  if coalesce(p_event_name, '') = '' then
+    raise exception 'Missing Melhor Envio event name';
+  end if;
+
+  if p_payload_hash !~ '^[a-f0-9]{64}$' then
+    raise exception 'Invalid shipping webhook payload hash';
+  end if;
+
+  if jsonb_typeof(p_payload) <> 'object' then
+    raise exception 'Invalid shipping webhook payload';
+  end if;
+
+  if coalesce(p_payload->>'event', '') <> p_event_name then
+    raise exception 'Shipping webhook event mismatch';
+  end if;
+
+  if coalesce(p_payload#>>'{data,id}', '') <> p_external_order_id then
+    raise exception 'Shipping webhook order id mismatch';
+  end if;
+
+  if p_tracking_url is not null and p_tracking_url !~ '^https://' then
+    raise exception 'Invalid tracking URL';
+  end if;
+
+  select processing_result, external_order_id, event_name
+  into v_existing_result, v_existing_order_id, v_existing_event_name
+  from internal.shipping_webhook_events
+  where payload_hash = p_payload_hash;
+
+  if found then
+    if v_existing_order_id <> p_external_order_id or v_existing_event_name <> p_event_name then
+      raise exception 'Shipping payload hash reused with different event identity';
+    end if;
+    return coalesce(v_existing_result, 'RECORDED');
+  end if;
+
+  insert into internal.shipping_webhook_events (
+    provider, external_order_id, event_name, signature_valid,
+    payload, payload_hash, processing_result
+  )
+  values (
+    'melhor_envio', p_external_order_id, p_event_name, true,
+    p_payload, p_payload_hash, 'RECORDED'
+  );
+
+  select s.id, s.provider_order_id, o.state
+  into v_shipment_id, v_provider_order_id, v_order_state
+  from public.shipments s
+  join public.orders o on o.id = s.order_id
+  where s.order_id = p_order_id
+    and s.provider = 'melhor_envio'
+  for update of s, o;
+
+  if not found then
+    v_result := 'REJECTED_SHIPMENT_NOT_FOUND';
+    update internal.shipping_webhook_events
+    set processed_at = now(), processing_result = v_result
+    where payload_hash = p_payload_hash;
+    return v_result;
+  end if;
+
+  if v_provider_order_id is distinct from p_external_order_id then
+    v_result := 'REJECTED_PROVIDER_ORDER_ID';
+    update internal.shipping_webhook_events
+    set processed_at = now(), processing_result = v_result
+    where payload_hash = p_payload_hash;
+    return v_result;
+  end if;
+
+  case p_event_name
+    when 'order.created' then
+      v_shipment_status := 'PENDING';
+      v_target_order_state := null;
+    when 'order.pending' then
+      v_shipment_status := 'PENDING';
+      v_target_order_state := null;
+    when 'order.released' then
+      v_shipment_status := 'LABEL_PURCHASED';
+      v_target_order_state := 'LABEL_PURCHASED';
+    when 'order.generated' then
+      v_shipment_status := 'READY_FOR_CARRIER';
+      v_target_order_state := 'READY_FOR_CARRIER';
+    when 'order.posted' then
+      v_shipment_status := 'POSTED';
+      v_target_order_state := 'POSTED';
+    when 'order.received' then
+      v_shipment_status := 'IN_TRANSIT';
+      v_target_order_state := 'IN_TRANSIT';
+    when 'order.delivered' then
+      v_shipment_status := 'DELIVERED';
+      v_target_order_state := 'DELIVERED';
+    when 'order.undelivered' then
+      v_shipment_status := 'DELIVERY_FAILED';
+      v_target_order_state := null;
+    when 'order.paused' then
+      v_shipment_status := 'ACTION_REQUIRED';
+      v_target_order_state := null;
+    when 'order.suspended' then
+      v_shipment_status := 'SUSPENDED';
+      v_target_order_state := null;
+    when 'order.cancelled' then
+      v_shipment_status := 'CANCELLED';
+      v_target_order_state := null;
+    else
+      v_result := 'REJECTED_EVENT';
+      update internal.shipping_webhook_events
+      set processed_at = now(), processing_result = v_result
+      where payload_hash = p_payload_hash;
+      return v_result;
+  end case;
+
+  if v_target_order_state is not null and v_order_state <> v_target_order_state then
+    if not exists (
+      select 1
+      from internal.order_state_transitions t
+      where t.from_state = v_order_state
+        and t.to_state = v_target_order_state
+    ) then
+      v_result := 'REJECTED_ORDER_TRANSITION';
+      update internal.shipping_webhook_events
+      set processed_at = now(), processing_result = v_result
+      where payload_hash = p_payload_hash;
+      return v_result;
+    end if;
+  end if;
+
+  update public.shipments
+  set status = v_shipment_status,
+      protocol = coalesce(nullif(p_protocol, ''), protocol),
+      tracking_code = coalesce(nullif(p_tracking_code, ''), tracking_code),
+      tracking_url = coalesce(nullif(p_tracking_url, ''), tracking_url),
+      posted_at = case when v_shipment_status = 'POSTED' then coalesce(p_occurred_at, now()) else posted_at end,
+      delivered_at = case when v_shipment_status = 'DELIVERED' then coalesce(p_occurred_at, now()) else delivered_at end
+  where id = v_shipment_id;
+
+  insert into public.shipment_events (
+    shipment_id, external_event_id, status, description, occurred_at
+  )
+  values (
+    v_shipment_id,
+    p_payload_hash,
+    v_shipment_status,
+    p_event_name,
+    coalesce(p_occurred_at, now())
+  );
+
+  if v_target_order_state is not null and v_order_state <> v_target_order_state then
+    update public.orders
+    set state = v_target_order_state
+    where id = p_order_id;
+
+    insert into public.order_events (order_id, state, public_message)
+    values (p_order_id, v_target_order_state, 'Atualização logística confirmada.');
+  end if;
+
+  update internal.shipping_webhook_events
+  set processed_at = now(),
+      processing_result = v_shipment_status
+  where payload_hash = p_payload_hash;
+
+  return v_shipment_status;
+end;
+$$;
+
+revoke all on function public.process_presence_melhor_envio_event(
+  uuid, text, text, boolean, jsonb, text, text, text, text, timestamptz
+) from public;
+revoke all on function public.process_presence_melhor_envio_event(
+  uuid, text, text, boolean, jsonb, text, text, text, text, timestamptz
+) from anon;
+revoke all on function public.process_presence_melhor_envio_event(
+  uuid, text, text, boolean, jsonb, text, text, text, text, timestamptz
+) from authenticated;
+grant execute on function public.process_presence_melhor_envio_event(
+  uuid, text, text, boolean, jsonb, text, text, text, text, timestamptz
+) to service_role;
+
 -- RLS
 alter table public.profiles enable row level security;
 alter table public.driver_pages enable row level security;
@@ -1641,11 +1855,12 @@ grant select on internal.order_state_transitions to service_role;
 grant select, insert on internal.order_snapshots to service_role;
 grant select, insert, update on internal.publication_artifacts to service_role;
 grant select, insert, update on internal.payment_webhook_events to service_role;
+grant select, insert, update on internal.shipping_webhook_events to service_role;
 
 grant select, insert, update, delete on public.profiles, public.driver_pages, public.vehicles,
   public.driver_services, public.driver_service_areas, public.shipping_addresses, public.social_links,
   public.google_business_connections, public.orders, public.order_personalizations, public.order_events,
-  public.payment_attempts
+  public.payment_attempts, public.shipments, public.shipment_events
 to service_role;
 
 grant usage, select on all sequences in schema public to service_role;

@@ -935,6 +935,245 @@ jobs:
         shell: bash
         run: bash presence/runtime/core-e2e-ci.sh
 
+      - name: Verify Melhor Envio signed event state gate
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          psql -v ON_ERROR_STOP=1 <<'SQL'
+          insert into auth.users (id, email)
+          values
+            ('abababab-abab-4bab-8bab-abababababab', 'shipping-ci@example.com'),
+            ('acacacac-acac-4cac-8cac-acacacacacac', 'shipping-order-ci@example.com');
+
+          insert into public.orders (id, user_id, state)
+          values
+            ('bcbcbcbc-bcbc-4bcb-8bcb-bcbcbcbcbcbc', 'abababab-abab-4bab-8bab-abababababab', 'SHIPPING_QUOTED'),
+            ('cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd', 'acacacac-acac-4cac-8cac-acacacacacac', 'KIT_PACKED');
+
+          insert into public.shipments (
+            id, order_id, provider, provider_order_id, status
+          )
+          values
+            (
+              'dededede-dede-4ede-8ede-dededededede',
+              'bcbcbcbc-bcbc-4bcb-8bcb-bcbcbcbcbcbc',
+              'melhor_envio',
+              'me-ci-ship',
+              'QUOTED'
+            ),
+            (
+              'efefefef-efef-4fef-8fef-efefefefefef',
+              'cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd',
+              'melhor_envio',
+              'me-ci-out-of-order',
+              'QUOTED'
+            );
+          SQL
+
+          released='{"event":"order.released","data":{"id":"me-ci-ship"}}'
+          released_hash="$(printf '%s' "$released" | sha256sum | awk '{print $1}')"
+
+          invalid="$(
+            psql -qAt -v ON_ERROR_STOP=1 -v payload="$released" -v payload_hash="$released_hash" <<'SQL'
+          set role service_role;
+          select public.process_presence_melhor_envio_event(
+            'bcbcbcbc-bcbc-4bcb-8bcb-bcbcbcbcbcbc',
+            'me-ci-ship',
+            'order.released',
+            false,
+            :'payload'::jsonb,
+            :'payload_hash',
+            null,
+            null,
+            null,
+            now()
+          );
+          SQL
+          )"
+          test "$invalid" = "REJECTED_SIGNATURE"
+          test "$(psql -qAt -c "select state from public.orders where id='bcbcbcbc-bcbc-4bcb-8bcb-bcbcbcbcbcbc'")" = "SHIPPING_QUOTED"
+          test "$(psql -qAt -c "select status from public.shipments where id='dededede-dede-4ede-8ede-dededededede'")" = "QUOTED"
+          test "$(psql -qAt -c "select count(*) from internal.shipping_webhook_events where payload_hash='$released_hash'")" = "0"
+
+          released_payload="$(jq -nc --arg event "order.released" --arg id "me-ci-ship" '{event:$event,data:{id:$id}}')"
+          released_hash="$(printf '%s' "$released_payload" | sha256sum | awk '{print $1}')"
+          released_result="$(
+            psql -qAt -v ON_ERROR_STOP=1               -v payload="$released_payload"               -v payload_hash="$released_hash" <<'SQL'
+          set role service_role;
+          select public.process_presence_melhor_envio_event(
+            'bcbcbcbc-bcbc-4bcb-8bcb-bcbcbcbcbcbc',
+            'me-ci-ship',
+            'order.released',
+            true,
+            :'payload'::jsonb,
+            :'payload_hash',
+            null,
+            null,
+            null,
+            now()
+          );
+          SQL
+          )"
+          test "$released_result" = "LABEL_PURCHASED"
+
+          generated_payload="$(jq -nc --arg event "order.generated" --arg id "me-ci-ship" '{event:$event,data:{id:$id}}')"
+          generated_hash="$(printf '%s' "$generated_payload" | sha256sum | awk '{print $1}')"
+          test "$(
+            psql -qAt -v ON_ERROR_STOP=1 -v payload="$generated_payload" -v payload_hash="$generated_hash" <<'SQL'
+          set role service_role;
+          select public.process_presence_melhor_envio_event(
+            'bcbcbcbc-bcbc-4bcb-8bcb-bcbcbcbcbcbc',
+            'me-ci-ship',
+            'order.generated',
+            true,
+            :'payload'::jsonb,
+            :'payload_hash',
+            null,
+            null,
+            null,
+            now()
+          );
+          SQL
+          )" = "READY_FOR_CARRIER"
+
+          posted_payload="$(jq -nc --arg event "order.posted" --arg id "me-ci-ship" '{event:$event,data:{id:$id}}')"
+          posted_hash="$(printf '%s' "$posted_payload" | sha256sum | awk '{print $1}')"
+          test "$(
+            psql -qAt -v ON_ERROR_STOP=1               -v payload="$posted_payload"               -v payload_hash="$posted_hash" <<'SQL'
+          set role service_role;
+          select public.process_presence_melhor_envio_event(
+            'bcbcbcbc-bcbc-4bcb-8bcb-bcbcbcbcbcbc',
+            'me-ci-ship',
+            'order.posted',
+            true,
+            :'payload'::jsonb,
+            :'payload_hash',
+            'PROTO-CI-123',
+            'BR123456789XX',
+            'https://tracking.example/BR123456789XX',
+            now()
+          );
+          SQL
+          )" = "POSTED"
+
+          received_payload="$(jq -nc --arg event "order.received" --arg id "me-ci-ship" '{event:$event,data:{id:$id}}')"
+          received_hash="$(printf '%s' "$received_payload" | sha256sum | awk '{print $1}')"
+          test "$(
+            psql -qAt -v ON_ERROR_STOP=1 -v payload="$received_payload" -v payload_hash="$received_hash" <<'SQL'
+          set role service_role;
+          select public.process_presence_melhor_envio_event(
+            'bcbcbcbc-bcbc-4bcb-8bcb-bcbcbcbcbcbc',
+            'me-ci-ship',
+            'order.received',
+            true,
+            :'payload'::jsonb,
+            :'payload_hash',
+            null,
+            null,
+            null,
+            now()
+          );
+          SQL
+          )" = "IN_TRANSIT"
+
+          delivered_payload="$(jq -nc --arg event "order.delivered" --arg id "me-ci-ship" '{event:$event,data:{id:$id}}')"
+          delivered_hash="$(printf '%s' "$delivered_payload" | sha256sum | awk '{print $1}')"
+          test "$(
+            psql -qAt -v ON_ERROR_STOP=1 -v payload="$delivered_payload" -v payload_hash="$delivered_hash" <<'SQL'
+          set role service_role;
+          select public.process_presence_melhor_envio_event(
+            'bcbcbcbc-bcbc-4bcb-8bcb-bcbcbcbcbcbc',
+            'me-ci-ship',
+            'order.delivered',
+            true,
+            :'payload'::jsonb,
+            :'payload_hash',
+            null,
+            null,
+            null,
+            now()
+          );
+          SQL
+          )" = "DELIVERED"
+
+          test "$(psql -qAt -c "select state from public.orders where id='bcbcbcbc-bcbc-4bcb-8bcb-bcbcbcbcbcbc'")" = "DELIVERED"
+          test "$(psql -qAt -c "select status from public.shipments where id='dededede-dede-4ede-8ede-dededededede'")" = "DELIVERED"
+          test "$(psql -qAt -c "select tracking_code from public.shipments where id='dededede-dede-4ede-8ede-dededededede'")" = "BR123456789XX"
+          test "$(psql -qAt -c "select protocol from public.shipments where id='dededede-dede-4ede-8ede-dededededede'")" = "PROTO-CI-123"
+          test "$(psql -qAt -c "select delivered_at is not null from public.shipments where id='dededede-dede-4ede-8ede-dededededede'")" = "t"
+          test "$(psql -qAt -c "select count(*) from internal.shipping_webhook_events where external_order_id='me-ci-ship'")" = "5"
+          test "$(psql -qAt -c "select count(*) from public.shipment_events where shipment_id='dededede-dede-4ede-8ede-dededededede'")" = "5"
+
+          duplicate="$(
+            psql -qAt -v ON_ERROR_STOP=1 -v payload="$delivered_payload" -v payload_hash="$delivered_hash" <<'SQL'
+          set role service_role;
+          select public.process_presence_melhor_envio_event(
+            'bcbcbcbc-bcbc-4bcb-8bcb-bcbcbcbcbcbc',
+            'me-ci-ship',
+            'order.delivered',
+            true,
+            :'payload'::jsonb,
+            :'payload_hash',
+            null,
+            null,
+            null,
+            now()
+          );
+          SQL
+          )"
+          test "$duplicate" = "DELIVERED"
+          test "$(psql -qAt -c "select count(*) from internal.shipping_webhook_events where external_order_id='me-ci-ship'")" = "5"
+          test "$(psql -qAt -c "select count(*) from public.shipment_events where shipment_id='dededede-dede-4ede-8ede-dededededede'")" = "5"
+
+          out_of_order_payload="$(jq -nc --arg event "order.released" --arg id "me-ci-out-of-order" '{event:$event,data:{id:$id}}')"
+          out_of_order_hash="$(printf '%s' "$out_of_order_payload" | sha256sum | awk '{print $1}')"
+          result="$(
+            psql -qAt -v ON_ERROR_STOP=1 -v payload="$out_of_order_payload" -v payload_hash="$out_of_order_hash" <<'SQL'
+          set role service_role;
+          select public.process_presence_melhor_envio_event(
+            'cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd',
+            'me-ci-out-of-order',
+            'order.released',
+            true,
+            :'payload'::jsonb,
+            :'payload_hash',
+            null,
+            null,
+            null,
+            now()
+          );
+          SQL
+          )"
+          test "$result" = "REJECTED_ORDER_TRANSITION"
+          test "$(psql -qAt -c "select state from public.orders where id='cdcdcdcd-cdcd-4dcd-8dcd-cdcdcdcdcdcd'")" = "KIT_PACKED"
+          test "$(psql -qAt -c "select status from public.shipments where id='efefefef-efef-4fef-8fef-efefefefefef'")" = "QUOTED"
+
+          if psql -v ON_ERROR_STOP=1 -v payload="$delivered_payload" -v payload_hash="$delivered_hash" <<'SQL'
+          set role authenticated;
+          set request.jwt.claim.sub = 'abababab-abab-4bab-8bab-abababababab';
+          select public.process_presence_melhor_envio_event(
+            'bcbcbcbc-bcbc-4bcb-8bcb-bcbcbcbcbcbc',
+            'me-ci-ship',
+            'order.delivered',
+            true,
+            :'payload'::jsonb,
+            :'payload_hash',
+            null,
+            null,
+            null,
+            now()
+          );
+          SQL
+          then
+            echo "Authenticated client unexpectedly processed shipping event"
+            exit 1
+          else
+            echo "Direct authenticated shipping event processing correctly blocked"
+          fi
+
+          echo "Melhor Envio signed event gate OK"
+
       - name: Verify payment RLS and server-only writes
         shell: bash
         run: |
