@@ -388,8 +388,11 @@ create table if not exists internal.payment_webhook_events (
   external_order_id text,
   action text,
   signature_valid boolean not null default false,
+  resource_verified boolean not null default false,
   payload jsonb not null,
   payload_hash text not null,
+  resource_payload jsonb,
+  resource_hash text,
   received_at timestamptz not null default now(),
   processed_at timestamptz,
   processing_result text,
@@ -1107,6 +1110,228 @@ revoke all on function public.mark_presence_site_published(uuid, text) from anon
 revoke all on function public.mark_presence_site_published(uuid, text) from authenticated;
 grant execute on function public.mark_presence_site_published(uuid, text) to service_role;
 
+create or replace function public.process_presence_mercado_pago_payment(
+  p_order_id uuid,
+  p_external_event_id text,
+  p_provider_order_id text,
+  p_signature_valid boolean,
+  p_webhook_payload jsonb,
+  p_webhook_payload_hash text,
+  p_resource_payload jsonb
+)
+returns text
+language plpgsql
+security invoker
+set search_path = pg_catalog, public, internal
+as $$
+declare
+  v_order_state text;
+  v_order_amount bigint;
+  v_order_currency char(3);
+  v_attempt_id uuid;
+  v_attempt_amount bigint;
+  v_attempt_currency char(3);
+  v_existing_result text;
+  v_existing_hash text;
+  v_resource_id text;
+  v_resource_status text;
+  v_resource_detail text;
+  v_external_reference text;
+  v_resource_currency text;
+  v_resource_amount numeric;
+  v_resource_hash text;
+  v_result text;
+begin
+  if coalesce(p_external_event_id, '') = '' then
+    raise exception 'Missing Mercado Pago event id';
+  end if;
+
+  if coalesce(p_provider_order_id, '') = '' then
+    raise exception 'Missing Mercado Pago order id';
+  end if;
+
+  if p_webhook_payload_hash !~ '^[a-f0-9]{64}$' then
+    raise exception 'Invalid webhook payload hash';
+  end if;
+
+  if jsonb_typeof(p_webhook_payload) <> 'object' then
+    raise exception 'Invalid webhook payload';
+  end if;
+
+  if jsonb_typeof(p_resource_payload) <> 'object' then
+    raise exception 'Invalid Mercado Pago resource payload';
+  end if;
+
+  select processing_result, payload_hash
+  into v_existing_result, v_existing_hash
+  from internal.payment_webhook_events
+  where provider = 'mercado_pago'
+    and external_event_id = p_external_event_id;
+
+  if found then
+    if v_existing_hash <> p_webhook_payload_hash then
+      raise exception 'Webhook event id reused with different payload';
+    end if;
+    return coalesce(v_existing_result, 'RECORDED');
+  end if;
+
+  v_resource_hash := encode(
+    digest(convert_to(p_resource_payload::text, 'UTF8'), 'sha256'),
+    'hex'
+  );
+
+  insert into internal.payment_webhook_events (
+    provider, external_event_id, external_order_id, action,
+    signature_valid, resource_verified,
+    payload, payload_hash, resource_payload, resource_hash,
+    processing_result
+  )
+  values (
+    'mercado_pago',
+    p_external_event_id,
+    p_provider_order_id,
+    p_webhook_payload->>'action',
+    p_signature_valid,
+    false,
+    p_webhook_payload,
+    p_webhook_payload_hash,
+    p_resource_payload,
+    v_resource_hash,
+    'RECORDED'
+  );
+
+  if not p_signature_valid then
+    v_result := 'REJECTED_SIGNATURE';
+    update internal.payment_webhook_events
+    set processed_at = now(), processing_result = v_result
+    where provider = 'mercado_pago'
+      and external_event_id = p_external_event_id;
+    return v_result;
+  end if;
+
+  select state, amount_cents, currency
+  into v_order_state, v_order_amount, v_order_currency
+  from public.orders
+  where id = p_order_id
+  for update;
+
+  if not found then
+    v_result := 'REJECTED_ORDER_NOT_FOUND';
+    update internal.payment_webhook_events
+    set processed_at = now(), processing_result = v_result
+    where provider = 'mercado_pago'
+      and external_event_id = p_external_event_id;
+    return v_result;
+  end if;
+
+  if v_order_state <> 'PAYMENT_PENDING' then
+    v_result := 'REJECTED_ORDER_STATE';
+    update internal.payment_webhook_events
+    set processed_at = now(), processing_result = v_result
+    where provider = 'mercado_pago'
+      and external_event_id = p_external_event_id;
+    return v_result;
+  end if;
+
+  select id, amount_cents, currency
+  into v_attempt_id, v_attempt_amount, v_attempt_currency
+  from public.payment_attempts
+  where order_id = p_order_id
+    and provider = 'mercado_pago'
+    and provider_order_id = p_provider_order_id
+  order by created_at desc
+  limit 1
+  for update;
+
+  if not found then
+    v_result := 'REJECTED_PAYMENT_ATTEMPT';
+    update internal.payment_webhook_events
+    set processed_at = now(), processing_result = v_result
+    where provider = 'mercado_pago'
+      and external_event_id = p_external_event_id;
+    return v_result;
+  end if;
+
+  v_resource_id := p_resource_payload->>'id';
+  v_resource_status := lower(coalesce(p_resource_payload->>'status', ''));
+  v_resource_detail := lower(coalesce(p_resource_payload->>'status_detail', ''));
+  v_external_reference := p_resource_payload->>'external_reference';
+  v_resource_currency := upper(coalesce(p_resource_payload->>'currency', ''));
+
+  begin
+    v_resource_amount := (p_resource_payload->>'total_amount')::numeric;
+  exception when others then
+    v_result := 'REJECTED_RESOURCE_AMOUNT';
+    update internal.payment_webhook_events
+    set processed_at = now(), processing_result = v_result
+    where provider = 'mercado_pago'
+      and external_event_id = p_external_event_id;
+    return v_result;
+  end;
+
+  if v_resource_id <> p_provider_order_id then
+    v_result := 'REJECTED_RESOURCE_ID';
+  elsif v_external_reference <> p_order_id::text then
+    v_result := 'REJECTED_EXTERNAL_REFERENCE';
+  elsif v_resource_status <> 'processed' or v_resource_detail <> 'accredited' then
+    v_result := 'REJECTED_RESOURCE_STATUS';
+  elsif v_order_amount is null or v_resource_amount <> (v_order_amount::numeric / 100) then
+    v_result := 'REJECTED_ORDER_AMOUNT';
+  elsif v_attempt_amount <> v_order_amount then
+    v_result := 'REJECTED_ATTEMPT_AMOUNT';
+  elsif v_resource_currency <> trim(v_order_currency) or trim(v_attempt_currency) <> trim(v_order_currency) then
+    v_result := 'REJECTED_CURRENCY';
+  else
+    v_result := 'PAID';
+  end if;
+
+  if v_result <> 'PAID' then
+    update internal.payment_webhook_events
+    set processed_at = now(), processing_result = v_result
+    where provider = 'mercado_pago'
+      and external_event_id = p_external_event_id;
+    return v_result;
+  end if;
+
+  update internal.payment_webhook_events
+  set resource_verified = true,
+      processed_at = now(),
+      processing_result = 'PAID'
+  where provider = 'mercado_pago'
+    and external_event_id = p_external_event_id;
+
+  update public.payment_attempts
+  set status = 'APPROVED',
+      approved_at = now(),
+      status_detail = v_resource_detail
+  where id = v_attempt_id;
+
+  update public.orders
+  set payment_provider = 'mercado_pago',
+      payment_reference = p_provider_order_id,
+      state = 'PAID'
+  where id = p_order_id;
+
+  insert into public.order_events (order_id, state, public_message)
+  values (p_order_id, 'PAID', 'Pagamento confirmado.');
+
+  return 'PAID';
+end;
+$$;
+
+revoke all on function public.process_presence_mercado_pago_payment(
+  uuid, text, text, boolean, jsonb, text, jsonb
+) from public;
+revoke all on function public.process_presence_mercado_pago_payment(
+  uuid, text, text, boolean, jsonb, text, jsonb
+) from anon;
+revoke all on function public.process_presence_mercado_pago_payment(
+  uuid, text, text, boolean, jsonb, text, jsonb
+) from authenticated;
+grant execute on function public.process_presence_mercado_pago_payment(
+  uuid, text, text, boolean, jsonb, text, jsonb
+) to service_role;
+
 -- RLS
 alter table public.profiles enable row level security;
 alter table public.driver_pages enable row level security;
@@ -1415,10 +1640,12 @@ grant execute on function internal.build_presence_public_snapshot(uuid) to servi
 grant select on internal.order_state_transitions to service_role;
 grant select, insert on internal.order_snapshots to service_role;
 grant select, insert, update on internal.publication_artifacts to service_role;
+grant select, insert, update on internal.payment_webhook_events to service_role;
 
 grant select, insert, update, delete on public.profiles, public.driver_pages, public.vehicles,
   public.driver_services, public.driver_service_areas, public.shipping_addresses, public.social_links,
-  public.google_business_connections, public.orders, public.order_personalizations, public.order_events
+  public.google_business_connections, public.orders, public.order_personalizations, public.order_events,
+  public.payment_attempts
 to service_role;
 
 grant usage, select on all sequences in schema public to service_role;
