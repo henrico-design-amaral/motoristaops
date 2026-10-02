@@ -127,6 +127,20 @@ export const evidenceDays: EvidenceDay[] = [
   {
     date:'2026-09-30',dateBR:'30/09/2026',label:'Qua',status:'complete',platformRevenue:352.80,completedTrips:18,observedRideKm:102.29,observedRideHours:5.4247,observedTotalKm:245,observedWorkHours:13.3333,odometerKm:97834,excludeFromPredictive:true,
     note:'Jornada mista: Uber R$ 257,80 em 15 viagens + particulares R$ 95,00. 245 km e 13h20 totais incluem cerca de 1h/7 km pessoais e ~4h na Alpina; não comparar diretamente com dias operacionais puros.'
+  },
+  {
+    date:'2026-10-02',
+    dateBR:'02/10/2026',
+    label:'Sex',
+    status:'evidence-only',
+    platformRevenue:186.56,
+    completedTrips:13,
+    unpaidCancellations:3,
+    observedTotalKm:110.8,
+    observedWorkHours:5.4667,
+    odometerKm:98147,
+    excludeFromPredictive:true,
+    note:'Parcial da manhã de 02/10/2026, ainda não encerrado. 110,8 km; 5h28; consumo 8,8 km/L; odômetro 98.147; Uber R$ 186,56. O resumo informado registra 14 viagens, enquanto os cards recuperados mostram 13 concluídas + 3 cancelamentos; divergência preservada. Abastecimento R$ 74,68 (20,51 L a R$ 3,64/L), lavagem R$ 39,99 e suprimentos R$ 106,13 foram observados, mas não integram lucro diário final enquanto o fechamento não estiver concluído.'
   }
 ];
 
@@ -173,14 +187,14 @@ export const privatePipeline = [
 ] as const;
 
 export const dataHealth = {
-  refreshedAt: '2026-10-02T16:20:00-03:00',
-  lastCompleteClosing: '2026-09-30',
-  latestEvidenceDate: '2026-09-30',
+  refreshedAt: '2026-10-02T16:45:00-03:00',
+  lastCompleteClosing: '2026-10-01',
+  latestEvidenceDate: '2026-10-02',
   supabaseStatus: 'INACTIVE_LIMIT',
   supabaseCompleteThrough: null,
-  canonicalCompleteThrough: '2026-09-30',
-  canonicalSheetThrough: '2026-09-30',
-  sourceStatus: 'CONSOLIDADO_COM_ESTIMATIVAS',
+  canonicalCompleteThrough: '2026-10-01',
+  canonicalSheetThrough: '2026-10-01',
+  sourceStatus: 'PARCIAL_DIA_ATUAL',
   backendBlockingReason: 'Supabase motoristaops inativo; reativação bloqueada pelo limite de 2 projetos free ativos na organização.',
   missingClosingDates: [] as string[],
   historicalMissingDates: ['2026-08-14','2026-08-15']
