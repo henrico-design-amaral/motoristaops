@@ -39,9 +39,13 @@ export const recommendedWindows=weekdayScores.slice(0,3).flatMap(day=>hourScores
   rationale:`Combina ${day.label} (${day.profitPerHour.toFixed(2)} R$/h de lucro histórico) com a faixa ${hour.key} (${hour.revenuePerRideHour.toFixed(2)} R$/h em corrida na amostra detalhada).`
 }))).sort((a,b)=>b.score-a.score).slice(0,6);
 
+const predictiveDataThrough=predictiveIntelligence.sample?.closingDays
+  ? predictiveIntelligence.weekdayRanking.flatMap(x=>x.latestDate?[x.latestDate]:[]).sort().at(-1) ?? '2026-09-16'
+  : '2026-09-16';
+
 export const predictiveSummary={
   model:'heuristic-v3',
-  generatedAt:'2026-08-18',
+  generatedAt:predictiveDataThrough,
   bestWindow:recommendedWindows[0],
   bestWeekday:weekdayScores[0],
   bestHour:hourScores[0],
