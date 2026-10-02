@@ -11,6 +11,7 @@ type LiveContext={
 };
 
 const endpoint='https://raw.githubusercontent.com/henrico-design-amaral/motoristaops/live-data/public/live-context.json';
+const minimumFreshnessWindowMin=15;
 const text=(id:string,value:string)=>{const node=document.getElementById(id);if(node)node.textContent=value;};
 const fmtKm=(value:number|undefined|null)=>Number.isFinite(value)?`${Number(value).toFixed(0)} km`:'—';
 const ageLabel=(iso?:string)=>{if(!iso)return 'sem timestamp';const age=Math.max(0,Date.now()-new Date(iso).getTime());const min=Math.round(age/60000);if(min<2)return 'agora';if(min<60)return `há ${min} min`;if(min<1440)return `há ${Math.round(min/60)} h`;return `há ${Math.round(min/1440)} d`;};
@@ -19,7 +20,7 @@ function freshness(data:LiveContext){
   const collected=data.collectedAt?new Date(data.collectedAt).getTime():NaN;
   const ageMs=Date.now()-collected;
   const expected=Math.max(1,Number(data.expectedRefreshMinutes??5));
-  const maxAgeMin=Math.max(15,expected*3);
+  const maxAgeMin=Math.max(minimumFreshnessWindowMin,expected*3);
   return {
     fresh:Number.isFinite(ageMs)&&ageMs>=-120000&&ageMs<=maxAgeMin*60000,
     ageMs,
