@@ -1,0 +1,75 @@
+name: Refresh live context
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/live-traffic.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: motoristaops-live-context
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout dashboard collector
+        uses: actions/checkout@v4
+        with:
+          ref: dashboard-stable
+          path: app
+
+      - name: Checkout live data branch
+        uses: actions/checkout@v4
+        with:
+          ref: live-data
+          path: live-data
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Collect live traffic weather and airport source health
+        run: |
+          node app/scripts/update-live-context.mjs \
+            live-data/public/live-context.json \
+            live-data/public/live-context-history.jsonl
+
+      - name: Validate fresh snapshot
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const p = 'live-data/public/live-context.json';
+          const data = JSON.parse(fs.readFileSync(p, 'utf8'));
+          const ageMs = Date.now() - new Date(data.collectedAt).getTime();
+          if (!Number.isFinite(ageMs) || ageMs < 0 || ageMs > 10 * 60 * 1000) {
+            throw new Error('Live context snapshot is not fresh.');
+          }
+          if (!['live','degraded'].includes(data.status)) {
+            throw new Error('Unexpected live context status: ' + data.status);
+          }
+          console.log('Fresh snapshot validated:', data.collectedAt, data.status);
+          NODE
+
+      - name: Commit live snapshots when changed
+        run: |
+          cd live-data
+          if git diff --quiet -- public/live-context.json public/live-context-history.jsonl; then
+            echo "No live context change."
+            exit 0
+          fi
+          git config user.name "motoristaops-live-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/live-context.json public/live-context-history.jsonl
+          git commit -m "data: refresh live context"
+          git push origin HEAD:live-data
