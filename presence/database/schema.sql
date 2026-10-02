@@ -361,6 +361,26 @@ create table if not exists internal.order_snapshots (
   unique (order_id, snapshot_kind, content_hash)
 );
 
+create table if not exists internal.publication_artifacts (
+  id uuid primary key default gen_random_uuid(),
+  order_id uuid not null references public.orders(id) on delete cascade,
+  snapshot_id uuid not null references internal.order_snapshots(id) on delete restrict,
+  slug text not null check (slug ~ '^[a-z0-9]+(?:-[a-z0-9]+)*$'),
+  public_path text not null,
+  template_key text not null
+    check (template_key in ('driver-standard','driver-executive','driver-creator','driver-recurring')),
+  template_version integer not null check (template_version > 0),
+  snapshot_hash text not null check (snapshot_hash ~ '^[a-f0-9]{64}$'),
+  artifact_hash text not null check (artifact_hash ~ '^[a-f0-9]{64}$'),
+  artifact_bytes bigint not null check (artifact_bytes > 0),
+  status text not null default 'GENERATED'
+    check (status in ('GENERATED','PUBLISHED')),
+  created_at timestamptz not null default now(),
+  published_at timestamptz,
+  unique (order_id, artifact_hash),
+  unique (snapshot_id, artifact_hash)
+);
+
 create table if not exists internal.payment_webhook_events (
   id bigint generated always as identity primary key,
   provider text not null,
@@ -927,6 +947,166 @@ revoke all on function public.confirm_presence_preview(uuid) from anon;
 revoke all on function public.confirm_presence_preview(uuid) from authenticated;
 grant execute on function public.confirm_presence_preview(uuid) to service_role;
 
+create or replace function public.record_presence_site_generated(
+  p_order_id uuid,
+  p_snapshot_hash text,
+  p_artifact_hash text,
+  p_artifact_bytes bigint
+)
+returns uuid
+language plpgsql
+security invoker
+set search_path = pg_catalog, public, internal
+as $$
+declare
+  v_state text;
+  v_snapshot_id uuid;
+  v_payload jsonb;
+  v_slug text;
+  v_template_key text;
+  v_template_version integer;
+  v_artifact_id uuid;
+begin
+  if p_snapshot_hash !~ '^[a-f0-9]{64}$' then
+    raise exception 'Invalid snapshot hash';
+  end if;
+
+  if p_artifact_hash !~ '^[a-f0-9]{64}$' then
+    raise exception 'Invalid artifact hash';
+  end if;
+
+  if p_artifact_bytes is null or p_artifact_bytes <= 0 then
+    raise exception 'Invalid artifact byte count';
+  end if;
+
+  select state
+  into v_state
+  from public.orders
+  where id = p_order_id
+  for update;
+
+  if not found then
+    raise exception 'Order not found';
+  end if;
+
+  if v_state <> 'CUSTOMER_CONFIRMED' then
+    raise exception 'Order must be in CUSTOMER_CONFIRMED, got %', v_state;
+  end if;
+
+  select id, payload
+  into v_snapshot_id, v_payload
+  from internal.order_snapshots
+  where order_id = p_order_id
+    and snapshot_kind = 'public_page'
+    and content_hash = p_snapshot_hash
+  order by created_at desc
+  limit 1;
+
+  if not found then
+    raise exception 'Confirmed public snapshot hash not found';
+  end if;
+
+  v_slug := v_payload->>'slug';
+  v_template_key := v_payload->>'templateKey';
+  v_template_version := (v_payload->>'templateVersion')::integer;
+
+  insert into internal.publication_artifacts (
+    order_id, snapshot_id, slug, public_path,
+    template_key, template_version,
+    snapshot_hash, artifact_hash, artifact_bytes
+  )
+  values (
+    p_order_id, v_snapshot_id, v_slug, '/' || v_slug || '/index.html',
+    v_template_key, v_template_version,
+    p_snapshot_hash, p_artifact_hash, p_artifact_bytes
+  )
+  returning id into v_artifact_id;
+
+  update public.orders
+  set state = 'SITE_GENERATED'
+  where id = p_order_id;
+
+  insert into public.order_events (order_id, state, public_message)
+  values (p_order_id, 'SITE_GENERATED', 'Página gerada e validada.');
+
+  return v_artifact_id;
+end;
+$$;
+
+revoke all on function public.record_presence_site_generated(uuid, text, text, bigint) from public;
+revoke all on function public.record_presence_site_generated(uuid, text, text, bigint) from anon;
+revoke all on function public.record_presence_site_generated(uuid, text, text, bigint) from authenticated;
+grant execute on function public.record_presence_site_generated(uuid, text, text, bigint) to service_role;
+
+create or replace function public.mark_presence_site_published(
+  p_order_id uuid,
+  p_artifact_hash text
+)
+returns void
+language plpgsql
+security invoker
+set search_path = pg_catalog, public, internal
+as $$
+declare
+  v_state text;
+  v_user_id uuid;
+  v_artifact_id uuid;
+begin
+  if p_artifact_hash !~ '^[a-f0-9]{64}$' then
+    raise exception 'Invalid artifact hash';
+  end if;
+
+  select state, user_id
+  into v_state, v_user_id
+  from public.orders
+  where id = p_order_id
+  for update;
+
+  if not found then
+    raise exception 'Order not found';
+  end if;
+
+  if v_state <> 'SITE_GENERATED' then
+    raise exception 'Order must be in SITE_GENERATED, got %', v_state;
+  end if;
+
+  select id
+  into v_artifact_id
+  from internal.publication_artifacts
+  where order_id = p_order_id
+    and artifact_hash = p_artifact_hash
+    and status = 'GENERATED'
+  order by created_at desc
+  limit 1;
+
+  if not found then
+    raise exception 'Generated publication artifact not found';
+  end if;
+
+  update internal.publication_artifacts
+  set status = 'PUBLISHED',
+      published_at = now()
+  where id = v_artifact_id;
+
+  update public.driver_pages
+  set publication_status = 'published',
+      published_at = now()
+  where user_id = v_user_id;
+
+  update public.orders
+  set state = 'SITE_PUBLISHED'
+  where id = p_order_id;
+
+  insert into public.order_events (order_id, state, public_message)
+  values (p_order_id, 'SITE_PUBLISHED', 'Página publicada.');
+end;
+$$;
+
+revoke all on function public.mark_presence_site_published(uuid, text) from public;
+revoke all on function public.mark_presence_site_published(uuid, text) from anon;
+revoke all on function public.mark_presence_site_published(uuid, text) from authenticated;
+grant execute on function public.mark_presence_site_published(uuid, text) to service_role;
+
 -- RLS
 alter table public.profiles enable row level security;
 alter table public.driver_pages enable row level security;
@@ -1234,6 +1414,7 @@ grant execute on function internal.enforce_order_state_transition() to service_r
 grant execute on function internal.build_presence_public_snapshot(uuid) to service_role;
 grant select on internal.order_state_transitions to service_role;
 grant select, insert on internal.order_snapshots to service_role;
+grant select, insert, update on internal.publication_artifacts to service_role;
 
 grant select, insert, update, delete on public.profiles, public.driver_pages, public.vehicles,
   public.driver_services, public.driver_service_areas, public.shipping_addresses, public.social_links,
