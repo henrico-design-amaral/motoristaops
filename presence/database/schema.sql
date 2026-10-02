@@ -673,6 +673,260 @@ revoke all on function public.persist_presence_onboarding(uuid, jsonb) from anon
 revoke all on function public.persist_presence_onboarding(uuid, jsonb) from authenticated;
 grant execute on function public.persist_presence_onboarding(uuid, jsonb) to service_role;
 
+create or replace function internal.build_presence_public_snapshot(
+  p_order_id uuid
+)
+returns jsonb
+language plpgsql
+security invoker
+set search_path = pg_catalog, public, internal
+as $$
+declare
+  v_user_id uuid;
+  v_page public.driver_pages%rowtype;
+  v_profile public.profiles%rowtype;
+  v_vehicle public.vehicles%rowtype;
+  v_whatsapp_digits text;
+  v_services jsonb;
+  v_service_areas text;
+  v_social_summary text;
+  v_instagram text;
+  v_linkedin text;
+begin
+  select user_id
+  into v_user_id
+  from public.orders
+  where id = p_order_id;
+
+  if not found then
+    raise exception 'Order not found';
+  end if;
+
+  select *
+  into v_page
+  from public.driver_pages
+  where user_id = v_user_id;
+
+  if not found then
+    raise exception 'Driver page not found';
+  end if;
+
+  select *
+  into v_profile
+  from public.profiles
+  where user_id = v_user_id;
+
+  if not found then
+    raise exception 'Profile not found';
+  end if;
+
+  select *
+  into v_vehicle
+  from public.vehicles
+  where user_id = v_user_id
+    and is_primary;
+
+  if not found then
+    raise exception 'Primary vehicle not found';
+  end if;
+
+  v_whatsapp_digits := regexp_replace(v_profile.whatsapp, '[^0-9]', '', 'g');
+  if char_length(v_whatsapp_digits) < 8 then
+    raise exception 'Invalid public WhatsApp';
+  end if;
+
+  select jsonb_agg(
+    jsonb_build_object(
+      'label',
+      case service_code
+        when 'particular' then 'Particular'
+        when 'executive' then 'Executivo'
+        when 'airport' then 'Aeroportos'
+        when 'events' then 'Eventos'
+        when 'corporate' then 'Corporativo'
+        when 'travel' then 'Viagens'
+        when 'scheduled' then 'Agendamentos'
+        when 'recurring' then 'Recorrente'
+        else coalesce(nullif(label, ''), 'Outro')
+      end,
+      'description', ''
+    )
+    order by sort_order, service_code
+  )
+  into v_services
+  from public.driver_services
+  where user_id = v_user_id;
+
+  if v_services is null or jsonb_array_length(v_services) = 0 then
+    raise exception 'Public services missing';
+  end if;
+
+  select string_agg(label, ', ' order by sort_order, area_code)
+  into v_service_areas
+  from public.driver_service_areas
+  where user_id = v_user_id;
+
+  if coalesce(v_service_areas, '') = '' then
+    raise exception 'Public service areas missing';
+  end if;
+
+  select
+    max(url) filter (where platform = 'instagram'),
+    max(url) filter (where platform = 'linkedin'),
+    string_agg(
+      case platform
+        when 'instagram' then 'Instagram'
+        when 'linkedin' then 'LinkedIn'
+        when 'tiktok' then 'TikTok'
+        when 'youtube' then 'YouTube'
+        else platform
+      end,
+      ', '
+      order by platform
+    )
+  into v_instagram, v_linkedin, v_social_summary
+  from public.social_links
+  where user_id = v_user_id;
+
+  v_social_summary := coalesce(nullif(v_social_summary, ''), 'WhatsApp');
+
+  return jsonb_build_object(
+    'slug', v_page.slug::text,
+    'templateKey', v_page.template_key,
+    'templateVersion', v_page.template_version,
+    'renderData', jsonb_build_object(
+      'driver', jsonb_build_object(
+        'display_name', v_page.display_name,
+        'meta_description', left(coalesce(nullif(v_page.bio, ''), v_page.display_name), 160),
+        'bio', coalesce(nullif(v_page.bio, ''), v_page.display_name),
+        'whatsapp_url', 'https://wa.me/' || v_whatsapp_digits,
+        'whatsapp_display', v_profile.whatsapp,
+        'instagram', v_instagram,
+        'linkedin', v_linkedin
+      ),
+      'vehicle', jsonb_build_object(
+        'brand', v_vehicle.brand,
+        'model', v_vehicle.model,
+        'year', v_vehicle.model_year,
+        'color', v_vehicle.color
+      ),
+      'services', v_services,
+      'service_areas_text', v_service_areas,
+      'social_summary', v_social_summary
+    )
+  );
+end;
+$$;
+
+revoke all on function internal.build_presence_public_snapshot(uuid) from public;
+revoke all on function internal.build_presence_public_snapshot(uuid) from anon;
+revoke all on function internal.build_presence_public_snapshot(uuid) from authenticated;
+
+create or replace function public.prepare_presence_preview(
+  p_order_id uuid
+)
+returns jsonb
+language plpgsql
+security invoker
+set search_path = pg_catalog, public, internal
+as $$
+declare
+  v_state text;
+  v_payload jsonb;
+begin
+  select state
+  into v_state
+  from public.orders
+  where id = p_order_id
+  for update;
+
+  if not found then
+    raise exception 'Order not found';
+  end if;
+
+  if v_state not in ('DATA_VALID', 'PREVIEW_READY') then
+    raise exception 'Order must be in DATA_VALID or PREVIEW_READY, got %', v_state;
+  end if;
+
+  v_payload := internal.build_presence_public_snapshot(p_order_id);
+
+  if v_state = 'DATA_VALID' then
+    update public.orders
+    set state = 'PREVIEW_READY'
+    where id = p_order_id;
+
+    insert into public.order_events (order_id, state, public_message)
+    values (p_order_id, 'PREVIEW_READY', 'Prévia pronta para revisão.');
+  end if;
+
+  return v_payload;
+end;
+$$;
+
+revoke all on function public.prepare_presence_preview(uuid) from public;
+revoke all on function public.prepare_presence_preview(uuid) from anon;
+revoke all on function public.prepare_presence_preview(uuid) from authenticated;
+grant execute on function public.prepare_presence_preview(uuid) to service_role;
+
+create or replace function public.confirm_presence_preview(
+  p_order_id uuid
+)
+returns jsonb
+language plpgsql
+security invoker
+set search_path = pg_catalog, public, internal
+as $$
+declare
+  v_state text;
+  v_user_id uuid;
+  v_payload jsonb;
+  v_hash text;
+begin
+  select state, user_id
+  into v_state, v_user_id
+  from public.orders
+  where id = p_order_id
+  for update;
+
+  if not found then
+    raise exception 'Order not found';
+  end if;
+
+  if v_state <> 'PREVIEW_READY' then
+    raise exception 'Order must be in PREVIEW_READY, got %', v_state;
+  end if;
+
+  v_payload := internal.build_presence_public_snapshot(p_order_id);
+  v_hash := encode(digest(convert_to(v_payload::text, 'UTF8'), 'sha256'), 'hex');
+
+  insert into internal.order_snapshots (
+    order_id, snapshot_kind, payload, content_hash
+  )
+  values (
+    p_order_id, 'public_page', v_payload, v_hash
+  );
+
+  update public.driver_pages
+  set confirmed_at = now()
+  where user_id = v_user_id;
+
+  update public.orders
+  set customer_confirmed_at = now(),
+      state = 'CUSTOMER_CONFIRMED'
+  where id = p_order_id;
+
+  insert into public.order_events (order_id, state, public_message)
+  values (p_order_id, 'CUSTOMER_CONFIRMED', 'Conteúdo confirmado.');
+
+  return v_payload;
+end;
+$$;
+
+revoke all on function public.confirm_presence_preview(uuid) from public;
+revoke all on function public.confirm_presence_preview(uuid) from anon;
+revoke all on function public.confirm_presence_preview(uuid) from authenticated;
+grant execute on function public.confirm_presence_preview(uuid) to service_role;
+
 -- RLS
 alter table public.profiles enable row level security;
 alter table public.driver_pages enable row level security;
@@ -977,7 +1231,9 @@ on conflict do nothing;
 grant usage on schema internal to service_role;
 grant execute on function internal.set_updated_at() to service_role;
 grant execute on function internal.enforce_order_state_transition() to service_role;
+grant execute on function internal.build_presence_public_snapshot(uuid) to service_role;
 grant select on internal.order_state_transitions to service_role;
+grant select, insert on internal.order_snapshots to service_role;
 
 grant select, insert, update, delete on public.profiles, public.driver_pages, public.vehicles,
   public.driver_services, public.driver_service_areas, public.shipping_addresses, public.social_links,
