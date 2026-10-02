@@ -974,6 +974,11 @@ on conflict do nothing;
 
 
 -- Explicit server-side privileges for transactional orchestration.
+grant usage on schema internal to service_role;
+grant execute on function internal.set_updated_at() to service_role;
+grant execute on function internal.enforce_order_state_transition() to service_role;
+grant select on internal.order_state_transitions to service_role;
+
 grant select, insert, update, delete on public.profiles, public.driver_pages, public.vehicles,
   public.driver_services, public.driver_service_areas, public.shipping_addresses, public.social_links,
   public.google_business_connections, public.orders, public.order_personalizations, public.order_events
