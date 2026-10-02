@@ -2,9 +2,9 @@
   "meta": {
     "app": "MotoristaOps",
     "sourceWorkbook": "MotoristaOps-Dashboard-Financeiro-Logistico.xlsx",
-    "generatedAt": "2026-10-02T19:20:00.000Z",
-    "month": "2026-09",
-    "monthLabel": "setembro de 2026",
+    "generatedAt": "2026-10-02T19:45:00.000Z",
+    "month": "2026-10",
+    "monthLabel": "outubro de 2026",
     "source": "MotoristaOps — Dashboard Financeiro e Logístico",
     "rules": [
       "A planilha MotoristaOps é a fonte operacional canônica para fechamentos consolidados.",
@@ -13,71 +13,70 @@
       "Dias com uso pessoal/misto podem permanecer consolidados no histórico e ser excluídos do preditivo.",
       "A reserva de manutenção pendente não integra o lucro operacional."
     ],
-    "completeThrough": "2026-09-30",
-    "evidenceThrough": "2026-09-30"
+    "completeThrough": "2026-10-01",
+    "evidenceThrough": "2026-10-02"
   },
   "parameters": {},
   "monthly": {
-    "month": "2026-09",
-    "monthLabel": "setembro de 2026",
-    "grossRevenue": 5859.260000000001,
-    "operationalProfit": 4567.123234655,
-    "operationalExpense": 1292.136765345,
-    "margin": 0.7794709971318902,
-    "daysWorked": 15,
-    "hours": 134.33333333339996,
-    "hoursLabel": "134h20",
-    "kmTotal": 2737.8199999999997,
-    "kmPassenger": 373.86,
-    "passengerKmCoverageDays": 4,
-    "trips": 244,
-    "revenuePerHour": 43.61732009923396,
-    "profitPerHour": 33.99843598997073,
-    "revenuePerKm": 2.1401187806356887,
-    "profitPerKm": 1.6681605199227854,
-    "occupancyByKm": 0.1365539005486117,
-    "occupancyCoverageNote": "Ocupação agregada usa apenas km com passageiro conhecidos em 4 de 15 fechamentos; os demais dias não tiveram km com passageiro consolidado.",
-    "tripsPerHour": 1.8163771712149799,
-    "ticketAverage": 24.01336065573771,
-    "tripsCoverageNote": "Total de corridas é mínimo conhecido: serviços particulares sem contagem explícita e 27/09 sem quantidade de viagens não foram inferidos."
+    "month": "2026-10",
+    "monthLabel": "outubro de 2026",
+    "grossRevenue": 329.29,
+    "operationalProfit": 256.4328571429,
+    "operationalExpense": 72.8571428571,
+    "margin": 0.7787447451878283,
+    "daysWorked": 1,
+    "hours": 7,
+    "hoursLabel": "7h00",
+    "kmTotal": 200,
+    "kmPassenger": 0,
+    "passengerKmCoverageDays": 0,
+    "trips": 20,
+    "revenuePerHour": 47.041428571428575,
+    "profitPerHour": 36.63326530612857,
+    "revenuePerKm": 1.6464500000000002,
+    "profitPerKm": 1.2821642857145,
+    "occupancyByKm": null,
+    "occupancyCoverageNote": "01/10 não tem km com passageiro consolidado.",
+    "tripsPerHour": 2.857142857142857,
+    "ticketAverage": 16.4645,
+    "tripsCoverageNote": "20 viagens conforme fechamento oficial; os cards disponíveis mostram 21 registros positivos, divergência preservada para conferência."
   },
   "latestDay": {
-    "date": "2026-09-30",
-    "dateBR": "30/09/2026",
-    "day": "Qua",
+    "date": "2026-10-01",
+    "dateBR": "01/10/2026",
+    "day": "Qui",
     "shift": "Misto",
-    "platform": "Misto",
-    "platformMix": "Uber + Particular",
-    "hoursOnline": 13.3333333333,
-    "hoursOnlineLabel": "13h20",
-    "hoursInRide": 5.4247222222,
-    "hoursInRideLabel": "5h25",
-    "kmTotal": 245,
-    "kmPassenger": 102.29,
-    "tripsUber": 15,
+    "platform": "Uber",
+    "platformMix": "Uber",
+    "hoursOnline": 7,
+    "hoursOnlineLabel": "7h00",
+    "hoursInRide": null,
+    "hoursInRideLabel": "—",
+    "kmTotal": 200,
+    "kmPassenger": null,
+    "tripsUber": 20,
     "trips99": 0,
     "tripsPrivate": 0,
-    "tripsTotal": 15,
-    "revenueUber": 257.8,
+    "tripsTotal": 20,
+    "revenueUber": 329.29,
     "revenue99": 0,
-    "revenuePrivate": 95,
+    "revenuePrivate": 0,
     "extras": 0,
-    "grossRevenue": 352.8,
-    "fuelCost": 122.5,
+    "grossRevenue": 329.29,
+    "fuelCost": 72.8571428571,
     "foodCost": 0,
     "washCost": 0,
-    "operationalExpense": 122.5,
-    "operationalProfit": 230.3,
-    "margin": 0.6527777777777778,
-    "revenuePerHour": 26.46000000006615,
-    "profitPerHour": 17.27250000004318,
-    "revenuePerKm": 1.44,
-    "profitPerKm": 0.9400000000000001,
-    "kmOccupancy": 0.4175102040816327,
-    "tripsPerHour": 1.1250000000028124,
-    "ticketAverage": 23.52,
-    "excludeFromPredictive": true,
-    "notes": "Fechamento consolidado de jornada mista. 245 km/13h20 incluem ~7 km/1h pessoais e ~4h na Alpina. 15 viagens Uber são o mínimo conhecido; particulares R$ 95. Fora do preditivo."
+    "operationalExpense": 72.8571428571,
+    "operationalProfit": 256.4328571429,
+    "margin": 0.7787447451878283,
+    "revenuePerHour": 47.041428571428575,
+    "profitPerHour": 36.63326530612857,
+    "revenuePerKm": 1.6464500000000002,
+    "profitPerKm": 1.2821642857145,
+    "kmOccupancy": null,
+    "tripsPerHour": 2.857142857142857,
+    "ticketAverage": 16.4645,
+    "notes": "Fechamento consolidado 01/10/2026. 200 km, 7h, consumo 9,8 km/L, odômetro 98.036 e Uber R$ 329,29. Fechamento oficial informa 20 viagens; cards disponíveis mostram 21 registros positivos, divergência preservada sem alterar a contagem oficial. Abastecimento R$ 120,02, 33,62 L a R$ 3,57/L; tipo de combustível não inferido."
   },
   "daily": [
     {
@@ -6149,95 +6148,60 @@
       "ticketAverage": 23.52,
       "excludeFromPredictive": true,
       "notes": "Fechamento consolidado de jornada mista. 245 km/13h20 incluem ~7 km/1h pessoais e ~4h na Alpina. 15 viagens Uber são o mínimo conhecido; particulares R$ 95. Fora do preditivo."
+    },
+    {
+      "date": "2026-10-01",
+      "dateBR": "01/10/2026",
+      "day": "Qui",
+      "shift": "Misto",
+      "platform": "Uber",
+      "platformMix": "Uber",
+      "hoursOnline": 7,
+      "hoursOnlineLabel": "7h00",
+      "hoursInRide": null,
+      "hoursInRideLabel": "—",
+      "kmTotal": 200,
+      "kmPassenger": null,
+      "tripsUber": 20,
+      "trips99": 0,
+      "tripsPrivate": 0,
+      "tripsTotal": 20,
+      "revenueUber": 329.29,
+      "revenue99": 0,
+      "revenuePrivate": 0,
+      "extras": 0,
+      "grossRevenue": 329.29,
+      "fuelCost": 72.8571428571,
+      "foodCost": 0,
+      "washCost": 0,
+      "operationalExpense": 72.8571428571,
+      "operationalProfit": 256.4328571429,
+      "margin": 0.7787447451878283,
+      "revenuePerHour": 47.041428571428575,
+      "profitPerHour": 36.63326530612857,
+      "revenuePerKm": 1.6464500000000002,
+      "profitPerKm": 1.2821642857145,
+      "kmOccupancy": null,
+      "tripsPerHour": 2.857142857142857,
+      "ticketAverage": 16.4645,
+      "notes": "Fechamento consolidado 01/10/2026. 200 km, 7h, consumo 9,8 km/L, odômetro 98.036 e Uber R$ 329,29. Fechamento oficial informa 20 viagens; cards disponíveis mostram 21 registros positivos, divergência preservada sem alterar a contagem oficial. Abastecimento R$ 120,02, 33,62 L a R$ 3,57/L; tipo de combustível não inferido."
     }
   ],
   "weekdaySummary": [
     {
-      "day": "Ter",
-      "grossRevenue": 515.23,
-      "profit": 403.49357709870003,
-      "hours": 12.616666666699999,
-      "profitPerHour": 31.980996863749066
-    },
-    {
-      "day": "Dom",
-      "grossRevenue": 1283.08,
-      "profit": 1079.2480652318,
-      "hours": 23.0833333333,
-      "profitPerHour": 46.75442881877365
-    },
-    {
-      "day": "Sex",
-      "grossRevenue": 799.8299999999999,
-      "profit": 634.1104054053999,
-      "hours": 17.75,
-      "profitPerHour": 35.72452988199436
-    },
-    {
-      "day": "Sáb",
-      "grossRevenue": 1587.52,
-      "profit": 1196.4317948717999,
-      "hours": 33.8666666667,
-      "profitPerHour": 35.32771047846326
-    },
-    {
-      "day": "Qua",
-      "grossRevenue": 1246.74,
-      "profit": 917.2607126214,
-      "hours": 35.3666666667,
-      "profitPerHour": 25.935741167404398
-    },
-    {
       "day": "Qui",
-      "grossRevenue": 146.61,
-      "profit": 106.36636363640002,
-      "hours": 4.8333333333,
-      "profitPerHour": 22.006833855958675
-    },
-    {
-      "day": "Seg",
-      "grossRevenue": 280.25,
-      "profit": 230.2123157895,
-      "hours": 6.8166666667,
-      "profitPerHour": 33.771977866265175
+      "grossRevenue": 329.29,
+      "profit": 256.4328571429,
+      "hours": 7,
+      "profitPerHour": 36.63326530612857
     }
   ],
   "platformSummary": [
     {
-      "platform": "Uber + Particular",
-      "revenue": 1948.1100000000001,
-      "trips": 82,
-      "ticketAverage": 23.757439024390244
-    },
-    {
       "platform": "Uber",
-      "revenue": 1562.6,
-      "trips": 58,
-      "ticketAverage": 26.941379310344825
-    },
-    {
-      "platform": "Uber + 99 + Particular",
-      "revenue": 893.94,
-      "trips": 39,
-      "ticketAverage": 22.921538461538464
-    },
-    {
-      "platform": "Uber + 99 + Vendas",
-      "revenue": 724.01,
-      "trips": 33,
-      "ticketAverage": 21.939696969696968
-    },
-    {
-      "platform": "Uber + 99",
-      "revenue": 583.99,
-      "trips": 29,
-      "ticketAverage": 20.13758620689655
-    },
-    {
-      "platform": "Uber + Particular + Extras",
-      "revenue": 146.61,
-      "trips": 3,
-      "ticketAverage": 48.870000000000005
+      "revenue": 329.29,
+      "trips": 20,
+      "ticketAverage": 16.4645
     }
   ],
   "fuelings": [
@@ -6432,6 +6396,30 @@
       "consumptionKmL": 8.1,
       "costPerKm": null,
       "notes": "Tipo não informado; odômetro 97.834 km."
+    },
+    {
+      "date": "2026-10-01",
+      "dateBR": "01/10/2026",
+      "fuel": "Não informado",
+      "liters": 33.62,
+      "pricePerLiter": 3.57,
+      "totalPaid": 120.02,
+      "kmSincePrevious": 202,
+      "consumptionKmL": 9.8,
+      "costPerKm": 0.5941584158415841,
+      "notes": "Abastecimento associado ao fechamento de 01/10/2026; tipo não informado; odômetro 98.036."
+    },
+    {
+      "date": "2026-10-02",
+      "dateBR": "02/10/2026",
+      "fuel": "Não informado",
+      "liters": 20.51,
+      "pricePerLiter": 3.64,
+      "totalPaid": 74.68,
+      "kmSincePrevious": 111,
+      "consumptionKmL": 8.8,
+      "costPerKm": 0.6727927927927928,
+      "notes": "Parcial de 02/10; tipo não informado. 20,51 x 3,64 = R$ 74,66; total pago informado R$ 74,68 preservado."
     }
   ],
   "expenses": [
@@ -6679,6 +6667,20 @@
       "category": "Lavagem",
       "description": "Lavagem do veículo",
       "value": 21
+    },
+    {
+      "date": "2026-10-02",
+      "dateBR": "02/10/2026",
+      "category": "Lavagem",
+      "description": "Lavagem do veículo — parcial do dia",
+      "value": 39.99
+    },
+    {
+      "date": "2026-10-02",
+      "dateBR": "02/10/2026",
+      "category": "Outros",
+      "description": "Suprimentos operacionais — parcial do dia",
+      "value": 106.13
     }
   ]
 }
