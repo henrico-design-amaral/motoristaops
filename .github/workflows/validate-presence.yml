@@ -52,6 +52,36 @@ jobs:
           grep -q 'Traslados agendados.' /tmp/driver-demo.html
           ! grep -q '>LinkedIn<' /tmp/driver-demo.html
 
+      - name: Verify publication manifest is bound to rendered artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          node presence/runtime/render-driver.mjs \
+            --input presence/runtime/fixtures/driver.sample.json \
+            --template presence/templates/landing/driver-standard-v1.html \
+            --output /tmp/driver-published.html \
+            --manifest /tmp/driver-published.manifest.json \
+            --slug motorista-demo \
+            --template-key driver-standard \
+            --template-version 1
+
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { createHash } from 'node:crypto';
+
+          const html = fs.readFileSync('/tmp/driver-published.html', 'utf8');
+          const manifest = JSON.parse(fs.readFileSync('/tmp/driver-published.manifest.json', 'utf8'));
+          const sha256 = createHash('sha256').update(html, 'utf8').digest('hex');
+
+          if (manifest.slug !== 'motorista-demo') throw new Error('Manifest slug mismatch');
+          if (manifest.templateKey !== 'driver-standard') throw new Error('Manifest template mismatch');
+          if (manifest.templateVersion !== 1) throw new Error('Manifest template version mismatch');
+          if (manifest.sha256 !== sha256) throw new Error('Manifest hash does not match rendered HTML');
+          if (manifest.bytes !== Buffer.byteLength(html, 'utf8')) throw new Error('Manifest byte count mismatch');
+
+          console.log('Publication manifest bound to rendered artifact OK');
+          NODE
+
       - name: Verify onboarding normalization
         shell: bash
         run: |
