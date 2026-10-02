@@ -4,8 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: [dashboard-stable]
-    paths:
-      - '.github/workflows/deploy-dashboard-hostinger.yml'
 
 concurrency:
   group: motoristaops-dashboard-stable
