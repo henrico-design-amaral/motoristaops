@@ -927,6 +927,10 @@ jobs:
             echo "Direct authenticated payment processing correctly blocked"
           fi
 
+      - name: Verify composed Presence core E2E
+        shell: bash
+        run: bash presence/runtime/core-e2e-ci.sh
+
       - name: Verify payment RLS and server-only writes
         shell: bash
         run: |
