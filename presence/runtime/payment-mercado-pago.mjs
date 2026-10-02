@@ -1,3 +1,5 @@
+import { createHmac, timingSafeEqual } from 'node:crypto';
+
 function nonEmpty(value, field) {
   const v = String(value ?? '').trim();
   if (!v) throw new Error(`Missing ${field}`);
@@ -95,6 +97,43 @@ export function mapMercadoPagoOrderStatus(status, detail) {
 
 export function paymentAuthorizesOrderProgress(paymentStatus) {
   return paymentStatus === 'APPROVED';
+}
+
+export function buildMercadoPagoGetOrderRequest(orderId) {
+  const id = nonEmpty(orderId, 'orderId');
+  if (!/^[A-Za-z0-9_-]{1,64}$/.test(id)) throw new Error('Invalid Mercado Pago order ID');
+  return {
+    endpoint: `https://api.mercadopago.com/v1/orders/${encodeURIComponent(id)}`,
+    headers: {
+      Accept: 'application/json'
+    }
+  };
+}
+
+export function verifyMercadoPagoWebhookSignature({ xSignature, xRequestId, dataId, secret }) {
+  const signature = nonEmpty(xSignature, 'x-signature');
+  const requestId = nonEmpty(xRequestId, 'x-request-id');
+  const resourceId = nonEmpty(dataId, 'data.id').toLowerCase();
+  const key = nonEmpty(secret, 'secret');
+
+  const parts = Object.fromEntries(
+    signature.split(',').map((part) => {
+      const [name, ...rest] = part.trim().split('=');
+      return [name, rest.join('=')];
+    })
+  );
+
+  const ts = nonEmpty(parts.ts, 'x-signature.ts');
+  const received = nonEmpty(parts.v1, 'x-signature.v1').toLowerCase();
+  if (!/^[a-f0-9]{64}$/.test(received)) return false;
+
+  const manifest = `id:${resourceId};request-id:${requestId};ts:${ts};`;
+  const expected = createHmac('sha256', key).update(manifest).digest('hex');
+
+  const a = Buffer.from(received, 'hex');
+  const b = Buffer.from(expected, 'hex');
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
 }
 
 export function normalizeMercadoPagoOrderWebhook({ body, headers = {}, query = {} }) {
