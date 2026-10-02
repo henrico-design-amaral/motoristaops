@@ -39,6 +39,10 @@ jobs:
               print(f'OK {path}')
           PY
 
+      - name: Verify Hostinger profile deploy script syntax
+        shell: bash
+        run: bash -n presence/runtime/deploy-profile-hostinger.sh
+
       - name: Verify deterministic driver renderer
         shell: bash
         run: |
