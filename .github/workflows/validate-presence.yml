@@ -602,6 +602,83 @@ jobs:
             echo "Direct authenticated preview orchestration correctly blocked"
           fi
 
+      - name: Verify publication artifact audit and state gates
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          snapshot_hash="$(psql -qAt -c "select content_hash from internal.order_snapshots where order_id='88888888-8888-4888-8888-888888888880' and snapshot_kind='public_page' order by created_at desc limit 1")"
+          artifact_hash="$(jq -r '.sha256' /tmp/presence-preview.manifest.json)"
+          artifact_bytes="$(jq -r '.bytes' /tmp/presence-preview.manifest.json)"
+
+          if psql -v ON_ERROR_STOP=1 \
+            -v snapshot_hash="0000000000000000000000000000000000000000000000000000000000000000" \
+            -v artifact_hash="$artifact_hash" \
+            -v artifact_bytes="$artifact_bytes" <<'SQL'
+          set role service_role;
+          select public.record_presence_site_generated(
+            '88888888-8888-4888-8888-888888888880',
+            :'snapshot_hash',
+            :'artifact_hash',
+            :'artifact_bytes'::bigint
+          );
+          SQL
+          then
+            echo "Unknown snapshot hash unexpectedly generated a site"
+            exit 1
+          else
+            echo "Unknown snapshot hash correctly blocked"
+          fi
+
+          test "$(psql -qAt -c "select state from public.orders where id='88888888-8888-4888-8888-888888888880'")" = "CUSTOMER_CONFIRMED"
+          test "$(psql -qAt -c "select count(*) from internal.publication_artifacts where order_id='88888888-8888-4888-8888-888888888880'")" = "0"
+
+          psql -v ON_ERROR_STOP=1 \
+            -v snapshot_hash="$snapshot_hash" \
+            -v artifact_hash="$artifact_hash" \
+            -v artifact_bytes="$artifact_bytes" <<'SQL'
+          set role service_role;
+          select public.record_presence_site_generated(
+            '88888888-8888-4888-8888-888888888880',
+            :'snapshot_hash',
+            :'artifact_hash',
+            :'artifact_bytes'::bigint
+          );
+          SQL
+
+          test "$(psql -qAt -c "select state from public.orders where id='88888888-8888-4888-8888-888888888880'")" = "SITE_GENERATED"
+          test "$(psql -qAt -c "select count(*) from internal.publication_artifacts where order_id='88888888-8888-4888-8888-888888888880' and snapshot_hash='$snapshot_hash' and artifact_hash='$artifact_hash' and status='GENERATED'")" = "1"
+          test "$(psql -qAt -c "select public_path from internal.publication_artifacts where order_id='88888888-8888-4888-8888-888888888880'")" = "/motorista-demo/index.html"
+
+          if psql -v ON_ERROR_STOP=1 -v artifact_hash="$artifact_hash" <<'SQL'
+          set role authenticated;
+          set request.jwt.claim.sub = '88888888-8888-4888-8888-888888888888';
+          select public.mark_presence_site_published(
+            '88888888-8888-4888-8888-888888888880',
+            :'artifact_hash'
+          );
+          SQL
+          then
+            echo "Authenticated client unexpectedly marked site published"
+            exit 1
+          else
+            echo "Direct authenticated publication correctly blocked"
+          fi
+
+          psql -v ON_ERROR_STOP=1 -v artifact_hash="$artifact_hash" <<'SQL'
+          set role service_role;
+          select public.mark_presence_site_published(
+            '88888888-8888-4888-8888-888888888880',
+            :'artifact_hash'
+          );
+          SQL
+
+          test "$(psql -qAt -c "select state from public.orders where id='88888888-8888-4888-8888-888888888880'")" = "SITE_PUBLISHED"
+          test "$(psql -qAt -c "select status from internal.publication_artifacts where order_id='88888888-8888-4888-8888-888888888880' and artifact_hash='$artifact_hash'")" = "PUBLISHED"
+          test "$(psql -qAt -c "select publication_status from public.driver_pages where user_id='88888888-8888-4888-8888-888888888888'")" = "published"
+          test "$(psql -qAt -c "select count(*) from public.order_events where order_id='88888888-8888-4888-8888-888888888880' and state='SITE_GENERATED'")" = "1"
+          test "$(psql -qAt -c "select count(*) from public.order_events where order_id='88888888-8888-4888-8888-888888888880' and state='SITE_PUBLISHED'")" = "1"
+
       - name: Verify payment RLS and server-only writes
         shell: bash
         run: |
