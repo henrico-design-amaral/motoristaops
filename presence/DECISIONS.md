@@ -147,3 +147,18 @@ O escopo `https://www.googleapis.com/auth/business.manage` será solicitado some
 Tokens do provedor Google são segredos server-side e não podem ser persistidos em tabelas públicas.
 
 Quando o Google exigir ação direta do comerciante, o fluxo será self-service guiado em vez de automação de navegador.
+
+
+## 2026-10-02
+
+### D-020 — Persistência canônica do onboarding
+
+O onboarding deve persistir todos os campos obrigatórios em uma única transação PostgreSQL antes de avançar de `ONBOARDING` para `DATA_VALID`.
+
+Regras:
+
+- `slug` é escolhido e validado no onboarding; nunca é derivado silenciosamente por IA ou pelo backend;
+- personalização gráfica pertence ao pedido e é persistida em registro próprio vinculado a `orders.id`, porque pode divergir do perfil público e precisa ser congelável por pedido;
+- o backend persiste perfil, página, veículo, serviços, áreas, redes, Google Business, personalização gráfica e endereço de entrega de forma atômica;
+- qualquer falha reverte a transação inteira e mantém o pedido em `ONBOARDING`;
+- a função transacional é server-side: clientes `anon` e `authenticated` não recebem permissão de execução direta.
