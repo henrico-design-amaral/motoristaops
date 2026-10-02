@@ -314,6 +314,68 @@ jobs:
           NODE
 
 
+      - name: Verify fail-closed print supplier specification gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import {
+            validateVerifiedPrintSupplierSpec,
+            assertPrintArtifactPreflight
+          } from './presence/runtime/print-preflight.mjs';
+
+          const spec = JSON.parse(fs.readFileSync(
+            'presence/runtime/fixtures/print-supplier-spec.ci.json',
+            'utf8'
+          ));
+
+          const verified = validateVerifiedPrintSupplierSpec(spec);
+          if (verified.verification.status !== 'verified') throw new Error('Verified spec rejected');
+
+          const pass = assertPrintArtifactPreflight({
+            spec,
+            artifact: {
+              widthMm: 96,
+              heightMm: 56,
+              dpi: 300,
+              format: 'pdf',
+              colorProfile: 'CI-CMYK'
+            }
+          });
+          if (!pass.passed) throw new Error('Valid print artifact metadata rejected');
+
+          let unverifiedBlocked = false;
+          try {
+            validateVerifiedPrintSupplierSpec({
+              ...spec,
+              verification: { ...spec.verification, status: 'pending' }
+            });
+          } catch {
+            unverifiedBlocked = true;
+          }
+          if (!unverifiedBlocked) throw new Error('Unverified supplier spec was accepted');
+
+          let dimensionsBlocked = false;
+          try {
+            assertPrintArtifactPreflight({
+              spec,
+              artifact: {
+                widthMm: 95,
+                heightMm: 56,
+                dpi: 300,
+                format: 'pdf',
+                colorProfile: 'CI-CMYK'
+              }
+            });
+          } catch {
+            dimensionsBlocked = true;
+          }
+          if (!dimensionsBlocked) throw new Error('Wrong artifact dimensions were accepted');
+
+          console.log('Print supplier specification gate OK');
+          NODE
+
       - name: Verify deterministic delivery window
         shell: bash
         run: |
