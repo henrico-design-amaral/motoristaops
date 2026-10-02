@@ -56,6 +56,7 @@ function collect() {
   const data = new FormData(form);
   return {
     displayName: data.get('displayName') || '',
+    slug: data.get('slug') || '',
     phone: data.get('phone') || '',
     whatsapp: data.get('whatsapp') || '',
     bio: data.get('bio') || '',
@@ -84,6 +85,7 @@ function buildReview() {
 
   const items = [
     ['Nome profissional', d.displayName],
+    ['Endereço da página', `motoristaops.com.br/${d.slug}`],
     ['WhatsApp', d.whatsapp],
     ['Veículo', d.vehicle],
     ['Serviços', d.services.join(', ')],
