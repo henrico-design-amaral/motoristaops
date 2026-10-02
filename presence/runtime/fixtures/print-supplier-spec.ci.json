@@ -1,0 +1,18 @@
+{
+  "supplier": "CI Supplier",
+  "productKey": "ci-print-product",
+  "productName": "CI print fixture",
+  "verification": {
+    "status": "verified",
+    "sourceUrl": "https://example.invalid/verified-print-spec",
+    "verifiedAt": "2026-10-02T00:00:00Z"
+  },
+  "finishedSizeMm": { "width": 90, "height": 50 },
+  "bleedMm": 3,
+  "safeAreaMm": 4,
+  "colorProfile": "CI-CMYK",
+  "minimumDpi": 300,
+  "outputFormat": "pdf",
+  "finish": ["ci-finish"],
+  "supplierRestrictions": ["CI-only fixture; not a production Printi specification"]
+}
