@@ -52,6 +52,11 @@
                 <label for="displayName">Nome profissional *</label>
                 <input id="displayName" name="displayName" required maxlength="120" autocomplete="name">
               </div>
+              <div class="mo-field span-2">
+                <label for="slug">Endereço da página *</label>
+                <div class="mo-input-prefix"><span>motoristaops.com.br/</span><input id="slug" name="slug" required minlength="3" maxlength="64" pattern="[a-z0-9]+(?:-[a-z0-9]+)*" autocomplete="off" placeholder="seu-nome-profissional"></div>
+                <small>Use letras minúsculas, números e hífens. O endereço só é reservado após validação no banco.</small>
+              </div>
               <div class="mo-field">
                 <label for="phone">Telefone</label>
                 <input id="phone" name="phone" maxlength="32" inputmode="tel" autocomplete="tel">
