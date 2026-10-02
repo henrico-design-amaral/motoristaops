@@ -183,7 +183,7 @@ create table if not exists public.product_inclusions (
 
 create table if not exists public.orders (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid not null references public.profiles(user_id) on delete restrict,
+  user_id uuid not null references auth.users(id) on delete restrict,
   product_sku text,
   product_version integer,
   state text not null default 'ACCOUNT_CREATED'
