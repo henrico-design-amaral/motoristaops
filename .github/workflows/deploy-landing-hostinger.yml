@@ -12,6 +12,7 @@ on:
       - 'release/service-assets/**'
       - 'scripts/verify-public-landing.sh'
       - 'scripts/validate-foundation.sh'
+      - 'presence/web/assets/presence.css'
       - '.github/workflows/deploy-landing-hostinger.yml'
 
 concurrency:
@@ -38,8 +39,10 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p deploy-public
+          mkdir -p deploy-public deploy-public/web/assets
           cat source/parts/*.htmlfrag > deploy-public/index.html
+          cp presence/web/assets/presence.css deploy-public/web/assets/presence.css
+          test -s deploy-public/web/assets/presence.css
           sed -i -e 's#/assets/henrico-profile\.png#/assets/henrico-profile.webp#g' deploy-public/index.html
 
           python - <<'PY'
