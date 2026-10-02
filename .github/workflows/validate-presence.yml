@@ -1,5 +1,7 @@
 name: Validate MotoristaOPS Presence
 
+# Presence CI validates canonical contracts, PostgreSQL invariants and rollback gates.
+
 on:
   pull_request:
     paths:
