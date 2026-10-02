@@ -182,6 +182,6 @@ export const dataHealth = {
   canonicalSheetThrough: '2026-09-30',
   sourceStatus: 'CONSOLIDADO_COM_ESTIMATIVAS',
   backendBlockingReason: 'Supabase motoristaops inativo; reativação bloqueada pelo limite de 2 projetos free ativos na organização.',
-  missingClosingDates: [],
+  missingClosingDates: [] as string[],
   historicalMissingDates: ['2026-08-14','2026-08-15']
 } as const;
