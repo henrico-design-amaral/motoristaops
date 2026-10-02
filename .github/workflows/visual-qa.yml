@@ -95,6 +95,39 @@ jobs:
             const message = await page.locator('#close-message').textContent();
             if (!message || !message.toLowerCase().includes('salvo neste dispositivo')) throw new Error('Offline save confirmation missing.');
             if (!(await page.locator('#sync-day-close').isVisible())) throw new Error('Pending synchronization control must be visible after offline save.');
+
+            const stalePage = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+            await stalePage.route('https://raw.githubusercontent.com/henrico-design-amaral/motoristaops/live-data/public/live-context.json**', route => route.fulfill({
+              status: 200,
+              contentType: 'application/json',
+              body: JSON.stringify({
+                collectedAt: '2026-09-05T01:03:54.966Z',
+                expectedRefreshMinutes: 5,
+                traffic: { status: 'live', zones: [{ name: 'Sul', slowKm: 99, sharePct: 30 }], derived: { totalSlowKm: 99, worstZone: 'Sul', pressure: 'alto' } },
+                weather: { status: 'live', temperatureC: 20, raining: false }
+              })
+            }));
+            await stalePage.goto(`${base}/`, { waitUntil: 'networkidle' });
+            await stalePage.waitForFunction(() => document.getElementById('live-status')?.textContent?.includes('desatualizado'));
+            if ((await stalePage.locator('#live-total').textContent()) !== '—') throw new Error('Stale traffic must not be rendered as live total.');
+            await stalePage.close();
+
+            const freshPage = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+            await freshPage.route('https://raw.githubusercontent.com/henrico-design-amaral/motoristaops/live-data/public/live-context.json**', route => route.fulfill({
+              status: 200,
+              contentType: 'application/json',
+              body: JSON.stringify({
+                collectedAt: new Date().toISOString(),
+                expectedRefreshMinutes: 5,
+                traffic: { status: 'live', zones: [{ name: 'Sul', slowKm: 10, sharePct: 18 }], derived: { totalSlowKm: 10, worstZone: 'Sul', pressure: 'baixo' } },
+                weather: { status: 'live', temperatureC: 20, raining: false }
+              })
+            }));
+            await freshPage.goto(`${base}/`, { waitUntil: 'networkidle' });
+            await freshPage.waitForFunction(() => document.getElementById('live-status')?.textContent === 'CET conectado');
+            if ((await freshPage.locator('#live-total').textContent()) !== '10 km') throw new Error('Fresh traffic total was not rendered.');
+            await freshPage.close();
+
             await browser.close();
           })().catch((error) => { console.error(error); process.exit(1); });
           NODE
