@@ -509,6 +509,76 @@ jobs:
             echo "Direct authenticated RPC correctly blocked"
           fi
 
+      - name: Verify public snapshot privacy and renderer handoff
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          psql -qAt -v ON_ERROR_STOP=1 <<'SQL' > /tmp/presence-preview.json
+          set role service_role;
+          select public.prepare_presence_preview(
+            '88888888-8888-4888-8888-888888888880'
+          )::text;
+          SQL
+
+          jq -e '.slug == "motorista-demo"' /tmp/presence-preview.json >/dev/null
+          jq -e '.templateKey == "driver-standard"' /tmp/presence-preview.json >/dev/null
+          jq -e '.templateVersion == 1' /tmp/presence-preview.json >/dev/null
+          jq -e '.renderData.driver.display_name == "Motorista Demo"' /tmp/presence-preview.json >/dev/null
+          jq -e 'has("shippingAddress") | not' /tmp/presence-preview.json >/dev/null
+          jq -e 'has("printPersonalization") | not' /tmp/presence-preview.json >/dev/null
+          jq -e '.renderData.driver | has("phone") | not' /tmp/presence-preview.json >/dev/null
+          jq -e '.renderData.driver | has("full_name") | not' /tmp/presence-preview.json >/dev/null
+          ! grep -qF 'Rua de Demonstração' /tmp/presence-preview.json
+          ! grep -qF '00000-000' /tmp/presence-preview.json
+          ! grep -qF 'Aeroportos · Executivo' /tmp/presence-preview.json
+
+          jq '.renderData' /tmp/presence-preview.json > /tmp/presence-render-data.json
+          slug="$(jq -r '.slug' /tmp/presence-preview.json)"
+          template_key="$(jq -r '.templateKey' /tmp/presence-preview.json)"
+          template_version="$(jq -r '.templateVersion' /tmp/presence-preview.json)"
+
+          node presence/runtime/render-driver.mjs \
+            --input /tmp/presence-render-data.json \
+            --template presence/templates/landing/driver-standard-v1.html \
+            --output /tmp/presence-preview.html \
+            --manifest /tmp/presence-preview.manifest.json \
+            --slug "$slug" \
+            --template-key "$template_key" \
+            --template-version "$template_version"
+
+          test -s /tmp/presence-preview.html
+          test -s /tmp/presence-preview.manifest.json
+          grep -qF 'Motorista Demo' /tmp/presence-preview.html
+          ! grep -qF 'Rua de Demonstração' /tmp/presence-preview.html
+
+          psql -qAt -v ON_ERROR_STOP=1 <<'SQL' > /tmp/presence-confirmed.json
+          set role service_role;
+          select public.confirm_presence_preview(
+            '88888888-8888-4888-8888-888888888880'
+          )::text;
+          SQL
+
+          test "$(psql -qAt -c "select state from public.orders where id='88888888-8888-4888-8888-888888888880'")" = "CUSTOMER_CONFIRMED"
+          test "$(psql -qAt -c "select count(*) from internal.order_snapshots where order_id='88888888-8888-4888-8888-888888888880' and snapshot_kind='public_page'")" = "1"
+          test "$(psql -qAt -c "select length(content_hash) from internal.order_snapshots where order_id='88888888-8888-4888-8888-888888888880' and snapshot_kind='public_page'")" = "64"
+          test "$(psql -qAt -c "select count(*) from public.order_events where order_id='88888888-8888-4888-8888-888888888880' and state='PREVIEW_READY'")" = "1"
+          test "$(psql -qAt -c "select count(*) from public.order_events where order_id='88888888-8888-4888-8888-888888888880' and state='CUSTOMER_CONFIRMED'")" = "1"
+
+          if psql -v ON_ERROR_STOP=1 <<'SQL'
+          set role authenticated;
+          set request.jwt.claim.sub = '88888888-8888-4888-8888-888888888888';
+          select public.prepare_presence_preview(
+            '88888888-8888-4888-8888-888888888880'
+          );
+          SQL
+          then
+            echo "Authenticated client unexpectedly executed preview orchestration"
+            exit 1
+          else
+            echo "Direct authenticated preview orchestration correctly blocked"
+          fi
+
       - name: Verify payment RLS and server-only writes
         shell: bash
         run: |
