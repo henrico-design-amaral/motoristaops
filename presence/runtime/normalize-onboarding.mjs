@@ -35,6 +35,7 @@ export function normalizeOnboarding(raw) {
   const year = Number(raw.vehicleYear);
 
   const payload = {
+    slug: text(raw.slug),
     profile: {
       displayName: text(raw.displayName),
       fullName: nullableText(raw.fullName),
@@ -77,6 +78,7 @@ export function normalizeOnboarding(raw) {
   };
 
   const required = [
+    ['slug', /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(payload.slug) && payload.slug.length >= 3 && payload.slug.length <= 64],
     ['profile.displayName', payload.profile.displayName],
     ['profile.whatsapp', payload.profile.whatsapp],
     ['vehicle.brand', payload.vehicle.brand],
