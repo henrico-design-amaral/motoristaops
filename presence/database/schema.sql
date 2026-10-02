@@ -507,7 +507,7 @@ returns void
 language plpgsql
 security invoker
 set search_path = pg_catalog, public, internal
-as $
+as $$
 declare
   v_user_id uuid;
   v_state text;
@@ -531,7 +531,150 @@ begin
     raise exception 'Order must be in ONBOARDING, got %', v_state;
   end if;
 
-  if coalesce(p_payload->>'slug', '') !~ '^[a-z0-9]+(?:-[a-z0-9]+)*alter table public.profiles enable row level security;
+  if coalesce(p_payload->>'slug', '') !~ '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+     or char_length(p_payload->>'slug') not between 3 and 64 then
+    raise exception 'Invalid slug';
+  end if;
+
+  if jsonb_typeof(p_payload->'services') <> 'array'
+     or jsonb_array_length(p_payload->'services') < 1 then
+    raise exception 'At least one service is required';
+  end if;
+
+  if jsonb_typeof(p_payload->'serviceAreas') <> 'array'
+     or jsonb_array_length(p_payload->'serviceAreas') < 1 then
+    raise exception 'At least one service area is required';
+  end if;
+
+  insert into public.profiles (user_id, display_name, full_name, phone, whatsapp)
+  values (
+    v_user_id,
+    p_payload#>>'{profile,displayName}',
+    nullif(p_payload#>>'{profile,fullName}', ''),
+    nullif(p_payload#>>'{profile,phone}', ''),
+    p_payload#>>'{profile,whatsapp}'
+  )
+  on conflict (user_id) do update
+  set display_name = excluded.display_name,
+      full_name = excluded.full_name,
+      phone = excluded.phone,
+      whatsapp = excluded.whatsapp;
+
+  insert into public.driver_pages (user_id, slug, display_name, bio)
+  values (
+    v_user_id,
+    p_payload->>'slug',
+    p_payload#>>'{profile,displayName}',
+    nullif(p_payload#>>'{profile,bio}', '')
+  )
+  on conflict (user_id) do update
+  set slug = excluded.slug,
+      display_name = excluded.display_name,
+      bio = excluded.bio;
+
+  insert into public.vehicles (
+    user_id, brand, model, model_year, color, passenger_capacity, is_primary, is_public
+  )
+  values (
+    v_user_id,
+    p_payload#>>'{vehicle,brand}',
+    p_payload#>>'{vehicle,model}',
+    (p_payload#>>'{vehicle,year}')::integer,
+    p_payload#>>'{vehicle,color}',
+    nullif(p_payload#>>'{vehicle,capacity}', '')::integer,
+    true,
+    true
+  )
+  on conflict (user_id) where is_primary do update
+  set brand = excluded.brand,
+      model = excluded.model,
+      model_year = excluded.model_year,
+      color = excluded.color,
+      passenger_capacity = excluded.passenger_capacity,
+      is_public = excluded.is_public;
+
+  delete from public.driver_services where user_id = v_user_id;
+  insert into public.driver_services (user_id, service_code, sort_order)
+  select v_user_id, value, ordinality::integer
+  from jsonb_array_elements_text(p_payload->'services') with ordinality;
+
+  delete from public.driver_service_areas where user_id = v_user_id;
+  insert into public.driver_service_areas (user_id, area_code, label, sort_order)
+  select
+    v_user_id,
+    'area-' || lpad(ordinality::text, 3, '0'),
+    value,
+    ordinality::integer
+  from jsonb_array_elements_text(p_payload->'serviceAreas') with ordinality;
+
+  delete from public.social_links where user_id = v_user_id;
+  insert into public.social_links (user_id, platform, url)
+  select v_user_id, key, value #>> '{}'
+  from jsonb_each(p_payload->'socialLinks')
+  where value <> 'null'::jsonb;
+
+  insert into public.google_business_connections (user_id, mode)
+  values (v_user_id, p_payload#>>'{googleBusiness,mode}')
+  on conflict (user_id) do update
+  set mode = excluded.mode;
+
+  insert into public.order_personalizations (
+    order_id, display_name, whatsapp, short_service_line
+  )
+  values (
+    p_order_id,
+    p_payload#>>'{printPersonalization,displayName}',
+    p_payload#>>'{printPersonalization,whatsapp}',
+    nullif(p_payload#>>'{printPersonalization,shortServiceLine}', '')
+  )
+  on conflict (order_id) do update
+  set display_name = excluded.display_name,
+      whatsapp = excluded.whatsapp,
+      short_service_line = excluded.short_service_line;
+
+  insert into public.shipping_addresses (
+    user_id, label, postal_code, street, number, complement,
+    neighborhood, city, state, is_default
+  )
+  values (
+    v_user_id,
+    'Principal',
+    p_payload#>>'{shippingAddress,postalCode}',
+    p_payload#>>'{shippingAddress,street}',
+    p_payload#>>'{shippingAddress,number}',
+    nullif(p_payload#>>'{shippingAddress,complement}', ''),
+    p_payload#>>'{shippingAddress,neighborhood}',
+    p_payload#>>'{shippingAddress,city}',
+    p_payload#>>'{shippingAddress,state}',
+    true
+  )
+  on conflict (user_id) where is_default do update
+  set postal_code = excluded.postal_code,
+      street = excluded.street,
+      number = excluded.number,
+      complement = excluded.complement,
+      neighborhood = excluded.neighborhood,
+      city = excluded.city,
+      state = excluded.state
+  returning id into v_address_id;
+
+  update public.orders
+  set shipping_address_id = v_address_id,
+      state = 'DATA_VALID'
+  where id = p_order_id;
+
+  insert into public.order_events (order_id, state, public_message)
+  values (p_order_id, 'DATA_VALID', 'Cadastro validado.');
+end;
+$$;
+
+revoke all on function public.persist_presence_onboarding(uuid, jsonb) from public;
+revoke all on function public.persist_presence_onboarding(uuid, jsonb) from anon;
+revoke all on function public.persist_presence_onboarding(uuid, jsonb) from authenticated;
+grant execute on function public.persist_presence_onboarding(uuid, jsonb) to service_role;
+
+-- RLS
+alter table public.profiles enable row level security;
 alter table public.driver_pages enable row level security;
 alter table public.vehicles enable row level security;
 alter table public.driver_services enable row level security;
@@ -778,433 +921,6 @@ grant select on public.profiles, public.driver_pages, public.vehicles,
   public.social_links, public.google_business_connections,
   public.products, public.product_inclusions, public.orders, public.order_personalizations,
   public.order_events, public.payment_attempts, public.print_jobs, public.shipments, public.shipment_events
-to authenticated;
-
-grant insert on public.profiles, public.driver_pages, public.vehicles,
-  public.driver_services, public.driver_service_areas, public.shipping_addresses,
-  public.social_links
-to authenticated;
-
-grant update (display_name, phone, whatsapp, locale)
-on public.profiles to authenticated;
-
-grant update (slug, display_name, bio, template_key, template_version)
-on public.driver_pages to authenticated;
-
-grant update (brand, model, model_year, color, passenger_capacity, is_primary, is_public)
-on public.vehicles to authenticated;
-
-grant update (label, sort_order)
-on public.driver_services to authenticated;
-
-grant update (label, sort_order)
-on public.driver_service_areas to authenticated;
-
-grant update (label, postal_code, street, number, complement, neighborhood, city, state, is_default)
-on public.shipping_addresses to authenticated;
-
-grant update (url)
-on public.social_links to authenticated;
-
--- Draft product definition. No commercial price is set yet.
-insert into public.products (sku, version, name, status, price_cents, currency)
-values ('PRESENCE_COMPLETE', 1, 'MotoristaOPS Presença Completa', 'draft', null, 'BRL')
-on conflict (sku, version) do nothing;
-
-insert into public.product_inclusions
-  (sku, version, item_code, label, quantity, personalized, sort_order)
-values
-  ('PRESENCE_COMPLETE',1,'landing_page','Landing page MotoristaOPS',1,true,10),
-  ('PRESENCE_COMPLETE',1,'google_business','Google Business',1,true,20),
-  ('PRESENCE_COMPLETE',1,'instagram','Instagram — presença por link',1,false,30),
-  ('PRESENCE_COMPLETE',1,'linkedin','LinkedIn — presença por link',1,false,40),
-  ('PRESENCE_COMPLETE',1,'business_card','Cartão de visita',1,true,50),
-  ('PRESENCE_COMPLETE',1,'identification_plate','Placa de identificação',1,true,60),
-  ('PRESENCE_COMPLETE',1,'organizer','Organizador',1,false,70),
-  ('PRESENCE_COMPLETE',1,'candy_pack','Pacote de bala',1,false,80),
-  ('PRESENCE_COMPLETE',1,'car_trash_bin','Lixinho automotivo',1,false,90),
-  ('PRESENCE_COMPLETE',1,'wet_wipes','Lenço umedecido',1,false,100),
-  ('PRESENCE_COMPLETE',1,'dry_tissues','Lenço seco',1,false,110),
-  ('PRESENCE_COMPLETE',1,'hand_sanitizer','Álcool em gel',1,false,120),
-  ('PRESENCE_COMPLETE',1,'gift','Brinde MotoristaOPS',1,true,130)
-on conflict do nothing;
-
-     or char_length(p_payload->>'slug') not between 3 and 64 then
-    raise exception 'Invalid slug';
-  end if;
-
-  if jsonb_typeof(p_payload->'services') <> 'array'
-     or jsonb_array_length(p_payload->'services') < 1 then
-    raise exception 'At least one service is required';
-  end if;
-
-  if jsonb_typeof(p_payload->'serviceAreas') <> 'array'
-     or jsonb_array_length(p_payload->'serviceAreas') < 1 then
-    raise exception 'At least one service area is required';
-  end if;
-
-  insert into public.profiles (user_id, display_name, full_name, phone, whatsapp)
-  values (
-    v_user_id,
-    p_payload#>>'{profile,displayName}',
-    nullif(p_payload#>>'{profile,fullName}', ''),
-    nullif(p_payload#>>'{profile,phone}', ''),
-    p_payload#>>'{profile,whatsapp}'
-  )
-  on conflict (user_id) do update
-  set display_name = excluded.display_name,
-      full_name = excluded.full_name,
-      phone = excluded.phone,
-      whatsapp = excluded.whatsapp;
-
-  insert into public.driver_pages (user_id, slug, display_name, bio)
-  values (
-    v_user_id,
-    p_payload->>'slug',
-    p_payload#>>'{profile,displayName}',
-    nullif(p_payload#>>'{profile,bio}', '')
-  )
-  on conflict (user_id) do update
-  set slug = excluded.slug,
-      display_name = excluded.display_name,
-      bio = excluded.bio;
-
-  insert into public.vehicles (
-    user_id, brand, model, model_year, color, passenger_capacity, is_primary, is_public
-  )
-  values (
-    v_user_id,
-    p_payload#>>'{vehicle,brand}',
-    p_payload#>>'{vehicle,model}',
-    (p_payload#>>'{vehicle,year}')::integer,
-    p_payload#>>'{vehicle,color}',
-    nullif(p_payload#>>'{vehicle,capacity}', '')::integer,
-    true,
-    true
-  )
-  on conflict (user_id) where is_primary do update
-  set brand = excluded.brand,
-      model = excluded.model,
-      model_year = excluded.model_year,
-      color = excluded.color,
-      passenger_capacity = excluded.passenger_capacity,
-      is_public = excluded.is_public;
-
-  delete from public.driver_services where user_id = v_user_id;
-  insert into public.driver_services (user_id, service_code, sort_order)
-  select v_user_id, value, ordinality::integer
-  from jsonb_array_elements_text(p_payload->'services') with ordinality;
-
-  delete from public.driver_service_areas where user_id = v_user_id;
-  insert into public.driver_service_areas (user_id, area_code, label, sort_order)
-  select
-    v_user_id,
-    'area-' || lpad(ordinality::text, 3, '0'),
-    value,
-    ordinality::integer
-  from jsonb_array_elements_text(p_payload->'serviceAreas') with ordinality;
-
-  delete from public.social_links where user_id = v_user_id;
-  insert into public.social_links (user_id, platform, url)
-  select v_user_id, key, value #>> '{}'
-  from jsonb_each(p_payload->'socialLinks')
-  where value <> 'null'::jsonb;
-
-  insert into public.google_business_connections (user_id, mode)
-  values (v_user_id, p_payload#>>'{googleBusiness,mode}')
-  on conflict (user_id) do update
-  set mode = excluded.mode;
-
-  insert into public.order_personalizations (
-    order_id, display_name, whatsapp, short_service_line
-  )
-  values (
-    p_order_id,
-    p_payload#>>'{printPersonalization,displayName}',
-    p_payload#>>'{printPersonalization,whatsapp}',
-    nullif(p_payload#>>'{printPersonalization,shortServiceLine}', '')
-  )
-  on conflict (order_id) do update
-  set display_name = excluded.display_name,
-      whatsapp = excluded.whatsapp,
-      short_service_line = excluded.short_service_line;
-
-  insert into public.shipping_addresses (
-    user_id, label, postal_code, street, number, complement,
-    neighborhood, city, state, is_default
-  )
-  values (
-    v_user_id,
-    'Principal',
-    p_payload#>>'{shippingAddress,postalCode}',
-    p_payload#>>'{shippingAddress,street}',
-    p_payload#>>'{shippingAddress,number}',
-    nullif(p_payload#>>'{shippingAddress,complement}', ''),
-    p_payload#>>'{shippingAddress,neighborhood}',
-    p_payload#>>'{shippingAddress,city}',
-    p_payload#>>'{shippingAddress,state}',
-    true
-  )
-  on conflict (user_id) where is_default do update
-  set postal_code = excluded.postal_code,
-      street = excluded.street,
-      number = excluded.number,
-      complement = excluded.complement,
-      neighborhood = excluded.neighborhood,
-      city = excluded.city,
-      state = excluded.state
-  returning id into v_address_id;
-
-  update public.orders
-  set shipping_address_id = v_address_id,
-      state = 'DATA_VALID'
-  where id = p_order_id;
-
-  insert into public.order_events (order_id, state, public_message)
-  values (p_order_id, 'DATA_VALID', 'Cadastro validado.');
-end;
-$;
-
-revoke all on function public.persist_presence_onboarding(uuid, jsonb) from public;
-revoke all on function public.persist_presence_onboarding(uuid, jsonb) from anon;
-revoke all on function public.persist_presence_onboarding(uuid, jsonb) from authenticated;
-grant execute on function public.persist_presence_onboarding(uuid, jsonb) to service_role;
-
--- RLS
-alter table public.profiles enable row level security;
-alter table public.driver_pages enable row level security;
-alter table public.vehicles enable row level security;
-alter table public.driver_services enable row level security;
-alter table public.driver_service_areas enable row level security;
-alter table public.shipping_addresses enable row level security;
-alter table public.social_links enable row level security;
-alter table public.google_business_connections enable row level security;
-alter table public.products enable row level security;
-alter table public.product_inclusions enable row level security;
-alter table public.orders enable row level security;
-alter table public.order_events enable row level security;
-alter table public.payment_attempts enable row level security;
-alter table public.print_jobs enable row level security;
-alter table public.shipments enable row level security;
-alter table public.shipment_events enable row level security;
-
-create policy profiles_owner_select
-on public.profiles for select
-to authenticated
-using ((select auth.uid()) = user_id);
-
-create policy profiles_owner_insert
-on public.profiles for insert
-to authenticated
-with check ((select auth.uid()) = user_id);
-
-create policy profiles_owner_update
-on public.profiles for update
-to authenticated
-using ((select auth.uid()) = user_id)
-with check ((select auth.uid()) = user_id);
-
-create policy driver_pages_public_select
-on public.driver_pages for select
-to anon, authenticated
-using (publication_status = 'published');
-
-create policy driver_pages_owner_select
-on public.driver_pages for select
-to authenticated
-using ((select auth.uid()) = user_id);
-
-create policy driver_pages_owner_insert
-on public.driver_pages for insert
-to authenticated
-with check ((select auth.uid()) = user_id);
-
-create policy driver_pages_owner_update
-on public.driver_pages for update
-to authenticated
-using ((select auth.uid()) = user_id)
-with check ((select auth.uid()) = user_id);
-
-create policy vehicles_public_select
-on public.vehicles for select
-to anon, authenticated
-using (
-  is_public
-  and exists (
-    select 1
-    from public.driver_pages p
-    where p.user_id = vehicles.user_id
-      and p.publication_status = 'published'
-  )
-);
-
-create policy vehicles_owner_all
-on public.vehicles for all
-to authenticated
-using ((select auth.uid()) = user_id)
-with check ((select auth.uid()) = user_id);
-
-create policy services_public_select
-on public.driver_services for select
-to anon, authenticated
-using (
-  exists (
-    select 1
-    from public.driver_pages p
-    where p.user_id = driver_services.user_id
-      and p.publication_status = 'published'
-  )
-);
-
-create policy services_owner_all
-on public.driver_services for all
-to authenticated
-using ((select auth.uid()) = user_id)
-with check ((select auth.uid()) = user_id);
-
-create policy service_areas_public_select
-on public.driver_service_areas for select
-to anon, authenticated
-using (
-  exists (
-    select 1
-    from public.driver_pages p
-    where p.user_id = driver_service_areas.user_id
-      and p.publication_status = 'published'
-  )
-);
-
-create policy service_areas_owner_all
-on public.driver_service_areas for all
-to authenticated
-using ((select auth.uid()) = user_id)
-with check ((select auth.uid()) = user_id);
-
-create policy shipping_addresses_owner_all
-on public.shipping_addresses for all
-to authenticated
-using ((select auth.uid()) = user_id)
-with check ((select auth.uid()) = user_id);
-
-create policy social_links_public_select
-on public.social_links for select
-to anon, authenticated
-using (
-  exists (
-    select 1
-    from public.driver_pages p
-    where p.user_id = social_links.user_id
-      and p.publication_status = 'published'
-  )
-);
-
-create policy social_links_owner_all
-on public.social_links for all
-to authenticated
-using ((select auth.uid()) = user_id)
-with check ((select auth.uid()) = user_id);
-
-create policy google_business_owner_select
-on public.google_business_connections for select
-to authenticated
-using ((select auth.uid()) = user_id);
-
-create policy products_public_select
-on public.products for select
-to anon, authenticated
-using (status = 'active');
-
-create policy product_inclusions_public_select
-on public.product_inclusions for select
-to anon, authenticated
-using (
-  exists (
-    select 1
-    from public.products p
-    where p.sku = product_inclusions.sku
-      and p.version = product_inclusions.version
-      and p.status = 'active'
-  )
-);
-
-create policy orders_owner_select
-on public.orders for select
-to authenticated
-using ((select auth.uid()) = user_id);
-
-create policy order_events_owner_select
-on public.order_events for select
-to authenticated
-using (
-  exists (
-    select 1
-    from public.orders o
-    where o.id = order_events.order_id
-      and o.user_id = (select auth.uid())
-  )
-);
-
-create policy payment_attempts_owner_select
-on public.payment_attempts for select
-to authenticated
-using (
-  exists (
-    select 1
-    from public.orders o
-    where o.id = payment_attempts.order_id
-      and o.user_id = (select auth.uid())
-  )
-);
-
-create policy print_jobs_owner_select
-on public.print_jobs for select
-to authenticated
-using (
-  exists (
-    select 1
-    from public.orders o
-    where o.id = print_jobs.order_id
-      and o.user_id = (select auth.uid())
-  )
-);
-
-create policy shipments_owner_select
-on public.shipments for select
-to authenticated
-using (
-  exists (
-    select 1
-    from public.orders o
-    where o.id = shipments.order_id
-      and o.user_id = (select auth.uid())
-  )
-);
-
-create policy shipment_events_owner_select
-on public.shipment_events for select
-to authenticated
-using (
-  exists (
-    select 1
-    from public.shipments s
-    join public.orders o on o.id = s.order_id
-    where s.id = shipment_events.shipment_id
-      and o.user_id = (select auth.uid())
-  )
-);
-
--- Explicit grants. Critical state changes remain server-side only.
-grant usage on schema public to anon, authenticated;
-
-grant select on public.driver_pages, public.vehicles, public.driver_services,
-  public.driver_service_areas, public.social_links, public.products, public.product_inclusions
-to anon;
-
-grant select on public.profiles, public.driver_pages, public.vehicles,
-  public.driver_services, public.driver_service_areas, public.shipping_addresses,
-  public.social_links, public.google_business_connections,
-  public.products, public.product_inclusions, public.orders, public.order_events,
-  public.payment_attempts, public.print_jobs, public.shipments, public.shipment_events
 to authenticated;
 
 grant insert on public.profiles, public.driver_pages, public.vehicles,
