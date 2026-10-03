@@ -37,6 +37,7 @@ export const schema = z.object({
     shortServiceLine: z.string().max(120).nullable().optional(),
   }),
   shippingAddress: z.object({
+    document: z.string().min(11).max(18),
     postalCode: z.string().min(8).max(10),
     street: z.string().min(2).max(160),
     number: z.string().min(1).max(20),
