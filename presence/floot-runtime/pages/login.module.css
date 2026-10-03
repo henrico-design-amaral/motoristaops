@@ -1,0 +1,107 @@
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(320px, .85fr) minmax(420px, 1.15fr);
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-family-base);
+}
+
+.brandPanel {
+  min-height: 100vh;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--sidebar);
+  color: var(--sidebar-foreground);
+}
+
+.brand {
+  font-family: var(--font-family-display);
+  font-size: 2.4rem;
+  letter-spacing: .04em;
+}
+
+.brandPanel > div:first-child > span {
+  color: var(--accent);
+  font-size: .78rem;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+}
+
+.copy h1 {
+  max-width: 620px;
+  margin: 10px 0 16px;
+  font-family: var(--font-family-display);
+  font-size: clamp(3.4rem, 7vw, 6.8rem);
+  font-weight: 400;
+  line-height: .9;
+}
+
+.copy p {
+  max-width: 560px;
+  color: color-mix(in srgb, var(--sidebar-foreground) 70%, transparent);
+  font-size: 1.04rem;
+  line-height: 1.6;
+}
+
+.eyebrow {
+  color: var(--journey);
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.authPanel {
+  padding: 48px 32px;
+  display: grid;
+  place-items: center;
+}
+
+.card {
+  width: min(100%, 520px);
+  padding: 28px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.cardHead {
+  margin-bottom: 20px;
+}
+
+.cardHead h2 {
+  margin: 6px 0 0;
+  font-size: 1.6rem;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: var(--muted-foreground);
+  font-size: .82rem;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: var(--border);
+}
+
+@media (max-width: 860px) {
+  .page { grid-template-columns: 1fr; }
+  .brandPanel {
+    min-height: auto;
+    padding: 28px 24px 40px;
+    gap: 56px;
+  }
+  .copy h1 { font-size: 4rem; }
+  .authPanel { padding: 32px 20px; }
+}
