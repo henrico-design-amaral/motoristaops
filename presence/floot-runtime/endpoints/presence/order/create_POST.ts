@@ -38,13 +38,19 @@ export async function handle(request: Request) {
         .insertInto("presenceOrders")
         .values({
           userId: user.id,
-          state: "PRODUCT_SELECTED",
+          state: "ACCOUNT_CREATED",
           productSku: product.sku,
           productVersion: product.version,
           amountCents: product.priceCents,
           currency: product.currency,
         })
         .returning(["id", "amountCents", "currency"])
+        .executeTakeFirstOrThrow();
+
+      await trx
+        .updateTable("presenceOrders")
+        .set({ state: "PRODUCT_SELECTED", updatedAt: new Date() })
+        .where("id", "=", order.id)
         .executeTakeFirstOrThrow();
 
       await trx
