@@ -46,6 +46,13 @@ Se uma fonte antiga divergir do canon atual:
 
 Não perguntar novamente por uma decisão já resolvida se a tarefa estiver dentro do mesmo domínio e nenhuma decisão mais recente a tiver revogado.
 
+## Regra comercial — família
+
+**CANONICAL · PROJECT / MotoristaOPS**
+
+A regra oficial de preço família está em `foundation/FAMILY_PRICING_RULE.md`.
+
+Resumo obrigatório: quando Henrico classificar explicitamente um atendimento como família, calcular primeiro o preço comercial normal e depois um valor família sem margem comercial, cobrindo custos do veículo, tempo dedicado e variação operacional. Família não significa gratuito; valor abaixo do custo é cortesia pessoal, não preço do serviço.
 
 ## Propagação para o ecossistema
 
