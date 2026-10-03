@@ -32,7 +32,7 @@ export default function OnboardingPage() {
   const [googleBusiness, setGoogleBusiness] = useState<"not_requested" | "create" | "connect_existing">("not_requested");
 
   const order = orderQuery.data?.order;
-  const canEdit = order?.state === "ONBOARDING" || order?.state === "DATA_VALID";
+  const canEdit = order?.state === "ONBOARDING" || order?.state === "DATA_VALID" || order?.state === "PREVIEW_READY";
   const orderId = order?.id;
 
   const currentStateText = useMemo(() => {
@@ -92,6 +92,7 @@ export default function OnboardingPage() {
           shortServiceLine: String(form.get("shortServiceLine") ?? "") || null,
         },
         shippingAddress: {
+          document: String(form.get("shippingDocument") ?? ""),
           postalCode: String(form.get("postalCode") ?? ""),
           street: String(form.get("street") ?? ""),
           number: String(form.get("number") ?? ""),
@@ -197,6 +198,7 @@ export default function OnboardingPage() {
           <section className={styles.card}>
             <div className={styles.sectionHead}><span>05</span><div><h2>Entrega</h2><p>Privado. Não é transformado em dado publicável.</p></div></div>
             <div className={styles.grid}>
+              <label><span>CPF do destinatário *</span><Input name="shippingDocument" required inputMode="numeric" /></label>
               <label><span>CEP *</span><Input name="postalCode" required /></label>
               <label><span>UF *</span><Input name="state" required minLength={2} maxLength={2} /></label>
               <label className={styles.wide}><span>Rua / avenida *</span><Input name="street" required /></label>
