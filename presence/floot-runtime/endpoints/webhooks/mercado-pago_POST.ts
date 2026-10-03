@@ -130,7 +130,7 @@ export async function handle(request: Request) {
         .forUpdate()
         .executeTakeFirstOrThrow();
 
-      if (order.state === "PAID" || order.state === "ONBOARDING") return;
+      if (order.state === "ONBOARDING") return;
       if (order.state !== "PAYMENT_PENDING") {
         throw new Error(`Transição de pagamento bloqueada a partir de ${order.state}`);
       }
@@ -144,6 +144,21 @@ export async function handle(request: Request) {
 
       await trx
         .updateTable("presenceOrders")
+        .set({ state: "PAID", updatedAt: new Date() })
+        .where("id", "=", attempt.orderId)
+        .executeTakeFirstOrThrow();
+
+      await trx
+        .insertInto("presenceOrderEvents")
+        .values({
+          orderId: attempt.orderId,
+          state: "PAID",
+          publicMessage: "Pagamento confirmado.",
+        })
+        .execute();
+
+      await trx
+        .updateTable("presenceOrders")
         .set({ state: "ONBOARDING", updatedAt: new Date() })
         .where("id", "=", attempt.orderId)
         .executeTakeFirstOrThrow();
@@ -153,7 +168,7 @@ export async function handle(request: Request) {
         .values({
           orderId: attempt.orderId,
           state: "ONBOARDING",
-          publicMessage: "Pagamento confirmado. Cadastro liberado.",
+          publicMessage: "Cadastro liberado.",
         })
         .execute();
     });
