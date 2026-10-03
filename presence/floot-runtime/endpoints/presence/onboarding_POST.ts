@@ -138,6 +138,7 @@ export async function handle(request: Request) {
         .insertInto("presenceShippingAddresses")
         .values({
           orderId: input.orderId,
+          document: input.shippingAddress.document,
           postalCode: input.shippingAddress.postalCode,
           street: input.shippingAddress.street,
           number: input.shippingAddress.number,
@@ -147,6 +148,7 @@ export async function handle(request: Request) {
           state: input.shippingAddress.state.toUpperCase(),
         })
         .onConflict((oc) => oc.column("orderId").doUpdateSet({
+          document: input.shippingAddress.document,
           postalCode: input.shippingAddress.postalCode,
           street: input.shippingAddress.street,
           number: input.shippingAddress.number,
@@ -157,14 +159,14 @@ export async function handle(request: Request) {
         }))
         .execute();
 
-      await trx
-        .updateTable("presenceOrders")
-        .set({ state: "DATA_VALID", updatedAt: new Date() })
-        .where("id", "=", input.orderId)
-        .where("userId", "=", String(user.id))
-        .executeTakeFirstOrThrow();
-
       if (order.state === "ONBOARDING") {
+        await trx
+          .updateTable("presenceOrders")
+          .set({ state: "DATA_VALID", updatedAt: new Date() })
+          .where("id", "=", input.orderId)
+          .where("userId", "=", String(user.id))
+          .executeTakeFirstOrThrow();
+
         await trx
           .insertInto("presenceOrderEvents")
           .values({
