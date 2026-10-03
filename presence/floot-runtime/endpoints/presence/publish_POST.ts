@@ -67,6 +67,21 @@ export async function handle(request: Request) {
         .execute();
 
       await trx
+        .updateTable("presenceOrders")
+        .set({ state: "SITE_GENERATED", updatedAt: new Date() })
+        .where("id", "=", input.orderId)
+        .executeTakeFirstOrThrow();
+
+      await trx
+        .insertInto("presenceOrderEvents")
+        .values({
+          orderId: input.orderId,
+          state: "SITE_GENERATED",
+          publicMessage: "Página gerada.",
+        })
+        .execute();
+
+      await trx
         .updateTable("presenceDriverPages")
         .set({
           publicationStatus: "published",
