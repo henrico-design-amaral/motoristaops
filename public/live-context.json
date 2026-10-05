@@ -1,53 +1,27 @@
 {
   "schemaVersion": 2,
-  "collectedAt": "2026-10-05T07:02:16.194Z",
+  "collectedAt": "2026-10-05T15:52:25.682Z",
   "expectedRefreshMinutes": 5,
   "status": "live",
   "traffic": {
-    "status": "live",
+    "status": "unavailable",
     "source": {
       "id": "cet-home",
       "label": "CET-SP · Trânsito Agora",
       "url": "https://www.cetsp.com.br/",
       "kind": "official"
     },
-    "zones": [
-      {
-        "name": "Norte",
-        "slowKm": 1,
-        "sharePct": 12
-      },
-      {
-        "name": "Oeste",
-        "slowKm": 1,
-        "sharePct": 12
-      },
-      {
-        "name": "Centro",
-        "slowKm": 1,
-        "sharePct": 12
-      },
-      {
-        "name": "Leste",
-        "slowKm": 3,
-        "sharePct": 38
-      },
-      {
-        "name": "Sul",
-        "slowKm": 2,
-        "sharePct": 25
-      }
-    ],
+    "zones": [],
     "busCorridorSpeed": {
-      "centroBairroKmh": 0,
-      "bairroCentroKmh": 0
+      "centroBairroKmh": null,
+      "bairroCentroKmh": null
     },
     "derived": {
-      "totalSlowKm": 8,
-      "worstZone": "Leste",
-      "pressure": "baixo"
+      "totalSlowKm": null,
+      "worstZone": null,
+      "pressure": "indisponível"
     },
-    "error": null
+    "error": "CET HTTP 502"
   },
   "weather": {
     "status": "live",
@@ -57,13 +31,13 @@
       "url": "https://open-meteo.com/",
       "kind": "weather-api"
     },
-    "observedAt": "2026-10-05T04:00",
-    "temperatureC": 16.6,
-    "humidityPct": 93,
+    "observedAt": "2026-10-05T12:45",
+    "temperatureC": 22.3,
+    "humidityPct": 68,
     "precipitationMm": 0,
     "rainMm": 0,
     "weatherCode": 3,
-    "windKmh": 5.4,
+    "windKmh": 5.6,
     "raining": false,
     "error": null
   },
