@@ -28,6 +28,10 @@ Antes de qualquer execução MotoristaOPS, resolver nesta ordem operacional:
 
 O pedido do operador é literal-first. Não reinterpretar restrições explícitas para caber em preferências de ferramenta. Não pedir novamente informação já resolvida no canon, no projeto, na curadoria ou em decisão anterior.
 
+### Editorial social routing
+
+Pedidos equivalentes a criação/revisão de post ou carrossel MotoristaOPS e os gatilhos `/carrosselops` / `/postops` devem resolver `SOCIAL_EDITORIAL.md` e a skill canônica HenricoOPS `skills/motoristaops-editorial/SKILL.md`. O contexto da ocasião vem antes do repertório urbano padrão; São Paulo não é cenário automático para feriados, datas comemorativas, destinos ou campanhas temáticas.
+
 ## HenricoOPS + Brand Book V2 visual gate
 
 For every MotoristaOPS visual request, the executor must resolve these sources before production:
@@ -38,6 +42,7 @@ For every MotoristaOPS visual request, the executor must resolve these sources b
 4. `design/tokens.json`;
 5. `source/ICONOGRAPHY.md` when iconography is in scope;
 6. exact official assets and applicable approved baseline/Pattern Master.
+7. `SOCIAL_EDITORIAL.md` when the request is a social post, carousel, seasonal/comemorative publication, campaign or other editorial content.
 
 Brand Book V2 decisions effective 2026-09-18 are the current brand authority. Não existe Brand Book V12. Qualquer menção antiga a V12 é erro legado sem autoridade; a fonte correta é Brand Book V2.
 
