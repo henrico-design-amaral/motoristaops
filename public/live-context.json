@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "collectedAt": "2026-10-12T23:34:43.317Z",
+  "collectedAt": "2026-10-13T03:48:06.098Z",
   "expectedRefreshMinutes": 5,
   "status": "live",
   "traffic": {
@@ -14,36 +14,36 @@
     "zones": [
       {
         "name": "Norte",
-        "slowKm": 11,
-        "sharePct": 19
+        "slowKm": 5,
+        "sharePct": 24
       },
       {
         "name": "Oeste",
-        "slowKm": 5,
-        "sharePct": 9
+        "slowKm": 2,
+        "sharePct": 10
       },
       {
         "name": "Centro",
-        "slowKm": 11,
-        "sharePct": 19
+        "slowKm": 5,
+        "sharePct": 24
       },
       {
         "name": "Leste",
-        "slowKm": 22,
-        "sharePct": 39
+        "slowKm": 8,
+        "sharePct": 38
       },
       {
         "name": "Sul",
-        "slowKm": 17,
-        "sharePct": 30
+        "slowKm": 5,
+        "sharePct": 24
       }
     ],
     "busCorridorSpeed": {
-      "centroBairroKmh": 25,
-      "bairroCentroKmh": 25
+      "centroBairroKmh": 31,
+      "bairroCentroKmh": 31
     },
     "derived": {
-      "totalSlowKm": 66,
+      "totalSlowKm": 25,
       "worstZone": "Leste",
       "pressure": "baixo"
     },
@@ -57,13 +57,13 @@
       "url": "https://open-meteo.com/",
       "kind": "weather-api"
     },
-    "observedAt": "2026-10-12T20:30",
-    "temperatureC": 18.9,
-    "humidityPct": 96,
+    "observedAt": "2026-10-13T00:45",
+    "temperatureC": 17.5,
+    "humidityPct": 98,
     "precipitationMm": 0,
     "rainMm": 0,
     "weatherCode": 3,
-    "windKmh": 4.7,
+    "windKmh": 5.7,
     "raining": false,
     "error": null
   },
