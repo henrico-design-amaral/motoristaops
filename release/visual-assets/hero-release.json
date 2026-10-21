@@ -17,13 +17,18 @@
     "chunk_glob": "hero/part-*.bin",
     "chunk_bytes": 12000,
     "desktop_object_position": "72% center (unchanged)",
-    "mobile_object_position": "90% center"
+    "mobile_object_position": "90% center",
+    "public_path": "/assets/hero-omoda-56c0068f8b55.avif"
   },
   "preserved_opengraph": {
-    "sha256": "d92ed571db561a3af3fdf027b9d66b9c6452bb3d3a4fccbc87b4450747661c82",
-    "bytes": 172023,
+    "source_sha256": "2b5dd109d05d31dc211b11256cf267d2f99b9d85b95addf5637b84a02890057b",
+    "source_bytes": 99895,
     "chunk_glob": "opengraph/part-*.bin",
-    "source": "Production social card captured before the hero replacement"
+    "source": "Exact previous hero AVIF from baseline commit; original Open Graph ffmpeg recipe preserved",
+    "rendered_jpeg_sha256": "efa046b191aa9d6a4a6840293cf2d7cced4730e2f9aa848fdb86e05945cc0c5d",
+    "production_canonical_url": "https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916",
+    "production_canonical_sha256": "d92ed571db561a3af3fdf027b9d66b9c6452bb3d3a4fccbc87b4450747661c82",
+    "note": "Hostinger returns optimized JPEG representations; transport bytes can differ from source JPEG."
   },
   "baseline_commit": "5f57eb3a70b15df18fe098d159df8ed867a73ba3"
 }

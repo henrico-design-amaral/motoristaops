@@ -131,6 +131,7 @@ jobs:
 
           DirectoryIndex index.html
           AddDefaultCharset UTF-8
+          AddType image/avif .avif
           HTACCESS
 
           # Brand System V2 is part of the public production bundle.
@@ -163,6 +164,7 @@ jobs:
           cat release/visual-assets/logo/part-*.bin > deploy-public/assets/logo-claude.avif
           cat release/service-assets/part-*.bin > deploy-public/assets/service-cards.webp
           echo '56c0068f8b55f7fcf750402bbcb695b3efc4dcd6d28f93493d5e11a4b991ea78  deploy-public/assets/hero-claude.avif' | sha256sum -c -
+          cp deploy-public/assets/hero-claude.avif deploy-public/assets/hero-omoda-56c0068f8b55.avif
           echo 'a9b0eb5462a08f9bb2004223489833315c3d2df64f3f5091b6ba08387f36a155  deploy-public/assets/logo-claude.avif' | sha256sum -c -
           echo 'b5c520b9eb4b0e628b9544d1fc61fc9836018987fe0ff49d1c7a7aebaafd965b  deploy-public/assets/service-cards.webp' | sha256sum -c -
 
@@ -189,9 +191,15 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # The social card is independent of the hero replacement.
-          cat release/visual-assets/opengraph/part-*.bin > deploy-public/assets/og-motoristaops.jpg
-          echo 'd92ed571db561a3af3fdf027b9d66b9c6452bb3d3a4fccbc87b4450747661c82  deploy-public/assets/og-motoristaops.jpg' | sha256sum -c -
+          # Keep the original social-card source and rendering recipe independent of the new hero.
+          cat release/visual-assets/opengraph/part-*.bin > runtime-bundle/opengraph-source.avif
+          echo '2b5dd109d05d31dc211b11256cf267d2f99b9d85b95addf5637b84a02890057b  runtime-bundle/opengraph-source.avif' | sha256sum -c -
+          ffmpeg -hide_banner -loglevel error -y \
+            -i runtime-bundle/opengraph-source.avif \
+            -vf "scale=1200:630:force_original_aspect_ratio=increase,crop=1200:630:(in_w-out_w)*0.72:0" \
+            -frames:v 1 -q:v 2 \
+            deploy-public/assets/og-motoristaops.jpg
+          echo 'efa046b191aa9d6a4a6840293cf2d7cced4730e2f9aa848fdb86e05945cc0c5d  deploy-public/assets/og-motoristaops.jpg' | sha256sum -c -
 
           test -s deploy-public/assets/og-motoristaops.jpg
           test "$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=p=0 deploy-public/assets/og-motoristaops.jpg)" = '1200'
@@ -239,9 +247,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          curl -fsSL --retry 3 'https://www.motoristaops.com.br/assets/hero-claude.avif?v=56c0068f8b55' -o /tmp/hero-production.avif
+          curl -fsSL --retry 3 'https://www.motoristaops.com.br/assets/hero-omoda-56c0068f8b55.avif' -o /tmp/hero-production.avif
           echo '56c0068f8b55f7fcf750402bbcb695b3efc4dcd6d28f93493d5e11a4b991ea78  /tmp/hero-production.avif' | sha256sum -c -
-          curl -fsSL --retry 3 "https://www.motoristaops.com.br/assets/og-motoristaops.jpg?verify=${GITHUB_SHA}" -o /tmp/og-production.jpg
+          curl -fsSL --retry 3 'https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916' -o /tmp/og-production.jpg
           echo 'd92ed571db561a3af3fdf027b9d66b9c6452bb3d3a4fccbc87b4450747661c82  /tmp/og-production.jpg' | sha256sum -c -
           curl -fsSL --retry 3 "https://www.motoristaops.com.br/?verify=${GITHUB_SHA}" -o /tmp/hero-page.html
-          test "$(grep -oF 'src="/assets/hero-claude.avif?v=56c0068f8b55"' /tmp/hero-page.html | wc -l)" -eq 2
+          test "$(grep -oF 'src="/assets/hero-omoda-56c0068f8b55.avif"' /tmp/hero-page.html | wc -l)" -eq 2
