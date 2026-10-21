@@ -19,8 +19,8 @@
     "desktop_object_position": "right center",
     "mobile_object_position": "90% center",
     "public_path": "/assets/hero-omoda-56c0068f8b55.avif",
-    "desktop_object_fit": "contain",
-    "desktop_media_padding": "96px 24px 24px 0; reserves room below the existing header and around the complete photograph",
+    "desktop_object_fit": "cover",
+    "desktop_media_padding": "0; full-bleed photograph including the area behind the fixed header",
     "desktop_animation": "none; prevents temporary zoom cropping"
   },
   "preserved_opengraph": {
@@ -34,5 +34,5 @@
     "note": "Hostinger returns optimized JPEG representations; transport bytes can differ from source JPEG."
   },
   "baseline_commit": "5f57eb3a70b15df18fe098d159df8ed867a73ba3",
-  "desktop_revision": "Operator requested smaller desktop framing with the complete person and vehicle visible on 2026-10-21; mobile and all text/layout remain unchanged."
+  "desktop_revision": "Operator rejected inset/letterboxed presentation on 2026-10-21. The desktop photograph must fill the complete hero behind the header, edge to edge, with zero media padding. Preserve original proportions; use cover and right-center focal point. Mobile and all text/layout remain unchanged."
 }
