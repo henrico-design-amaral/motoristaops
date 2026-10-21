@@ -30,7 +30,7 @@
 </header>
 <main id="conteudo">
 <section id="topo" class="hero">
-  <div class="hero-media" aria-hidden="true"><img src="/assets/hero-claude.avif" alt=""><div class="hero-shade-a"></div><div class="hero-shade-b"></div></div>
+  <div class="hero-media" aria-hidden="true"><img src="/assets/hero-claude.avif?v=56c0068f8b55" alt=""><div class="hero-shade-a"></div><div class="hero-shade-b"></div></div>
   <div class="container"><div class="hero-content">
     <p class="eyebrow">Motorista particular • São Paulo • hora marcada</p>
     <h1 class="title-xl"><span>Seu compromisso</span><span>começa antes</span><span>do destino.</span></h1>

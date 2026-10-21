@@ -1,0 +1,29 @@
+{
+  "scope": "TASK: replace only the landing hero; desktop and mobile",
+  "approved_original": {
+    "file": "retrato_de_luxo_sob_as_luzes_da_cidade(1).png",
+    "sha256": "8b1e28d988918c0d5c24f518144e4d9b246ecfbced0a8d5859f6aab4a08ef976",
+    "width": 1672,
+    "height": 941,
+    "approval": "Operator confirmed this attachment despite the stale SHA-256 in the task text on 2026-10-21."
+  },
+  "hero": {
+    "format": "AVIF",
+    "quality": 80,
+    "width": 1672,
+    "height": 941,
+    "bytes": 224175,
+    "sha256": "56c0068f8b55f7fcf750402bbcb695b3efc4dcd6d28f93493d5e11a4b991ea78",
+    "chunk_glob": "hero/part-*.bin",
+    "chunk_bytes": 12000,
+    "desktop_object_position": "72% center (unchanged)",
+    "mobile_object_position": "90% center"
+  },
+  "preserved_opengraph": {
+    "sha256": "d92ed571db561a3af3fdf027b9d66b9c6452bb3d3a4fccbc87b4450747661c82",
+    "bytes": 172023,
+    "chunk_glob": "opengraph/part-*.bin",
+    "source": "Production social card captured before the hero replacement"
+  },
+  "baseline_commit": "5f57eb3a70b15df18fe098d159df8ed867a73ba3"
+}

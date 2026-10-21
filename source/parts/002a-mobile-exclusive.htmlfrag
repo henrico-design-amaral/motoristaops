@@ -1,7 +1,7 @@
 <section class="mo-mobile-site" id="mobile-top" aria-label="MotoristaOPS mobile">
   <section class="mo-mobile-hero" aria-labelledby="mobile-hero-title">
     <div class="mo-mobile-hero-media" aria-hidden="true">
-      <img src="/assets/hero-claude.avif" alt="">
+      <img src="/assets/hero-claude.avif?v=56c0068f8b55" alt="">
     </div>
     <div class="mo-mobile-hero-top">
       <a href="#mobile-top" aria-label="MotoristaOPS — início"><img class="mo-mobile-logo" src="/assets/logo-claude.avif" alt="MotoristaOPS por Henrico Amaral"></a>
