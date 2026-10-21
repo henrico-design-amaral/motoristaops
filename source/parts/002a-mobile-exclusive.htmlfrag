@@ -121,6 +121,43 @@
     </div>
   </section>
 
+<!-- mo-vehicle:start -->
+<section class="mo-vehicle mo-vehicle--mobile" id="mobile-novo-carro" aria-labelledby="mobile-novo-carro-title">
+  <div class="mo-vehicle__shell">
+    <div class="mo-vehicle__intro">
+      <div class="mo-vehicle__presentation">
+        <p class="mo-vehicle__eyebrow">O cuidado acompanha o trajeto</p>
+        <h2 class="mo-vehicle__title" id="mobile-novo-carro-title">Conheça o nosso novo carro.</h2>
+        <p class="mo-vehicle__identity">Omoda 5 Luxury · Cinza</p>
+        <p class="mo-vehicle__copy">Um novo carro para acompanhar seus compromissos. A MotoristaOPS passa a contar com um Omoda 5 Luxury cinza, adquirido zero quilômetro, mantendo o atendimento direto e o cuidado em cada trajeto.</p>
+      </div>
+      <figure class="mo-vehicle__figure">
+        <img class="mo-vehicle__image" src="/assets/hero-omoda-56c0068f8b55.avif" alt="Imagem conceitual aprovada: carro cinza e motorista em cenário urbano noturno. Não é fotografia documental do veículo." width="1672" height="941" loading="lazy" decoding="async">
+        <figcaption class="mo-vehicle__caption">Imagem conceitual aprovada. Fotografias do veículo e do interior em preparação.</figcaption>
+      </figure>
+    </div>
+    <div class="mo-vehicle__details" aria-labelledby="mobile-novo-carro-details">
+      <h3 class="mo-vehicle__label" id="mobile-novo-carro-details">A bordo, para o seu trajeto</h3>
+      <dl class="mo-vehicle__features">
+        <div class="mo-vehicle__feature"><dt>Climatização também atrás</dt><dd>Ar-condicionado automático digital de duas zonas, com saída para o banco traseiro.</dd></div>
+        <div class="mo-vehicle__feature"><dt>Acomodação e acabamento</dt><dd>Bancos revestidos em tecido e material premium sintético.</dd></div>
+        <div class="mo-vehicle__feature"><dt>Conexões à disposição</dt><dd>Quatro portas USB no veículo.</dd></div>
+        <div class="mo-vehicle__feature"><dt>Sete airbags</dt><dd>Frontais duplos, laterais dianteiros, central dianteiro e de cortina.</dd></div>
+      </dl>
+      <p class="mo-vehicle__source">Equipamentos da versão Luxury, conforme <a href="https://cms.omodajaecoo.com.br/manual/pdf/FichaTecnicaSimplificada_Omoda5.pdf" target="_blank" rel="noopener">ficha técnica oficial<span class="mo-vehicle__sr-only"> (PDF, abre em nova aba)</span></a>.</p>
+    </div>
+    <div class="mo-vehicle__care" aria-labelledby="mobile-novo-carro-care">
+      <div><p class="mo-vehicle__eyebrow">Preparação prevista</p><h3 class="mo-vehicle__care-title" id="mobile-novo-carro-care">Cuidado com o veículo, em cada detalhe.</h3></div>
+      <div class="mo-vehicle__care-items">
+        <div class="mo-vehicle__care-item"><h4>Película antivandalismo nos vidros</h4><p>Aplicação prevista. Produto e especificações ainda em confirmação.</p></div>
+        <div class="mo-vehicle__care-item"><h4>PPF em toda a carroceria</h4><p>Aplicação prevista para conservação do acabamento. Produto e especificações ainda em confirmação.</p></div>
+        <p class="mo-vehicle__note">A conclusão dessas aplicações ainda não foi confirmada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- mo-vehicle:end -->
+
   <section class="mo-mobile-final" aria-labelledby="mobile-final-title">
     <p class="mo-mobile-eyebrow">Agendamento</p>
     <h2 class="mo-mobile-title" id="mobile-final-title">Vamos combinar seu trajeto?</h2>
