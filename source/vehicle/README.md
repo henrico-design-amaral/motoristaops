@@ -50,12 +50,20 @@ Película antivandalismo e PPF integral constam como preparação prevista. Prod
 - `release/vehicle-assets/part-00000.bin` até `part-00004.bin`: referência otimizada em cinco partes.
 - `.github/workflows/deploy-landing-hostinger.yml`: somente montagem e verificação SHA do novo asset; nenhuma alteração de gatilho, destino, credenciais, publicação da hero ou dashboard.
 
-## Validação
+## Revisão após rejeição da prévia
 
-PASS: Foundation; `git diff --check`; comparação byte a byte dos fragmentos antigos após retirar apenas os novos blocos e as novas entradas de ícones; igualdade editorial entre desktop/mobile; existência dos ícones na versão Lucide já usada; integridade dos cinco chunks AVIF; prévia com imagens/fontes/scripts incorporados.
+Em 22/10/2026, a seção foi refeita e confrontada com a referência em captura real de navegador. A chamada passou a seguir a referência: “Conheça o novo carro / da MotoristaOPS”. Corrigidos escala e posição do carro, quebra e tamanho do título, margem da galeria, densidade dos cards e resíduos rasterizados atrás da faixa de atributos. As legendas das imagens permanecem acessíveis; a informação de natureza conceitual é exibida em nota da seção.
 
-A seção alterna entre desktop/mobile no breakpoint existente de 780 px. Layouts previstos para 360, 390, 768 e 1440 px; não confundir implementação responsiva com teste visual concluído.
+## Validação concluída
 
-PENDENTE: capturas e inspeção em navegador nessas quatro larguras. O supervisor disponibilizou a prévia HTTP interna, mas o navegador não respondeu e a infraestrutura da prévia encerrou. Não foi possível confirmar visualmente o resultado. Não foram fabricadas capturas ou alegações de validação.
+Relatório completo em `design-qa.md`, incluindo comparação conjunta da referência com a captura e comparação focada do título.
 
-Sem merge, publicação em produção ou alterações de dashboard/hospedagem/segurança. A montagem do novo asset só terá efeito em publicação futura autorizada.
+- Foundation e `git diff --check`: PASS.
+- Preservação do conteúdo anterior: comparação byte a byte ao retirar somente os novos blocos e o mapa semântico acrescentado.
+- Navegador: 360, 390, 768 e 1440 CSS px; uma única seção visível em cada largura, quatro imagens carregadas, onze ícones renderizados e largura de rolagem igual à largura da página.
+- Conferidos recursos, legibilidade, enquadramento e destino do link técnico.
+- Nenhum erro da landing encontrado nos logs consultados; mensagens de metadados da extensão são externas à aplicação.
+- Prévia autocontida com imagens, fontes e scripts incorporados; abre na nova seção.
+- Capturas finais: `motoristaops-carro-desktop.jpg` e `motoristaops-carro-mobile.jpg`.
+
+Sem merge ou publicação em produção. Fotografias reais e confirmação das películas continuam pendentes. O relatório visual não representa aprovação do proprietário.
