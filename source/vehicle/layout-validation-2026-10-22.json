@@ -1,0 +1,229 @@
+{
+  "scope": "landing vehicle section",
+  "reference_useful_width_px": 1618,
+  "image_native_ratio": 1.7768331562167907,
+  "viewports": [
+    {
+      "alignment": {
+        "galleryLeft": 46.078125,
+        "galleryRight": 1393.921875,
+        "serviceLeft": 46.078125,
+        "serviceRight": 1393.921875
+      },
+      "icons": 11,
+      "images": [
+        {
+          "loaded": true,
+          "ratio": 1.776865269998206
+        },
+        {
+          "loaded": true,
+          "ratio": 1.776864614709461
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768623069863942
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768539012183209
+        }
+      ],
+      "scrollWidth": 1440,
+      "title": {
+        "font": "\"Instrument Sans\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+        "height": 130.34375,
+        "lineHeight": "65.1817px",
+        "overflow": false,
+        "size": "62.6747px"
+      },
+      "visible": 1,
+      "width": 1440
+    },
+    {
+      "alignment": {
+        "galleryLeft": 288,
+        "galleryRight": 1632,
+        "serviceLeft": 288,
+        "serviceRight": 1632
+      },
+      "icons": 11,
+      "images": [
+        {
+          "loaded": true,
+          "ratio": 1.7768671037901806
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768575201056296
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768662838392124
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768423157684232
+        }
+      ],
+      "scrollWidth": 1920,
+      "title": {
+        "font": "\"Instrument Sans\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+        "height": 130,
+        "lineHeight": "64.9958px",
+        "overflow": false,
+        "size": "62.496px"
+      },
+      "visible": 1,
+      "width": 1920
+    },
+    {
+      "alignment": {
+        "galleryLeft": 32.765625,
+        "galleryRight": 991.234375,
+        "serviceLeft": 32.765625,
+        "serviceRight": 991.234375
+      },
+      "icons": 11,
+      "images": [
+        {
+          "loaded": true,
+          "ratio": 1.7768600416233091
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768466351462302
+        },
+        {
+          "loaded": true,
+          "ratio": 1.776862312069991
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768782200079265
+        }
+      ],
+      "scrollWidth": 1024,
+      "title": {
+        "font": "\"Instrument Sans\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+        "height": 83.71875,
+        "lineHeight": "41.8659px",
+        "overflow": false,
+        "size": "40.2557px"
+      },
+      "visible": 1,
+      "width": 1024
+    },
+    {
+      "alignment": {
+        "galleryLeft": 18,
+        "galleryRight": 750,
+        "serviceLeft": 18,
+        "serviceRight": 750
+      },
+      "icons": 11,
+      "images": [
+        {
+          "loaded": true,
+          "ratio": 1.7768392102936843
+        },
+        {
+          "loaded": true,
+          "ratio": 1.776884119314321
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768677586895725
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768716390493844
+        }
+      ],
+      "scrollWidth": 768,
+      "title": {
+        "font": "\"Instrument Sans\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+        "height": 109.1875,
+        "lineHeight": "54.6px",
+        "overflow": false,
+        "size": "52px"
+      },
+      "visible": 1,
+      "width": 768
+    },
+    {
+      "alignment": {
+        "galleryLeft": 18,
+        "galleryRight": 372,
+        "serviceLeft": 18,
+        "serviceRight": 372
+      },
+      "icons": 11,
+      "images": [
+        {
+          "loaded": true,
+          "ratio": 1.7769021407970105
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768517580301957
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768777222989482
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768689193191916
+        }
+      ],
+      "scrollWidth": 390,
+      "title": {
+        "font": "\"Instrument Sans\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+        "height": 71.375,
+        "lineHeight": "35.7px",
+        "overflow": false,
+        "size": "34px"
+      },
+      "visible": 1,
+      "width": 390
+    },
+    {
+      "alignment": {
+        "galleryLeft": 18,
+        "galleryRight": 342,
+        "serviceLeft": 18,
+        "serviceRight": 342
+      },
+      "icons": 11,
+      "images": [
+        {
+          "loaded": true,
+          "ratio": 1.7768851804180907
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768546980144555
+        },
+        {
+          "loaded": true,
+          "ratio": 1.7768777400342597
+        },
+        {
+          "loaded": true,
+          "ratio": 1.776875560426422
+        }
+      ],
+      "scrollWidth": 360,
+      "title": {
+        "font": "\"Instrument Sans\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif",
+        "height": 71.375,
+        "lineHeight": "35.7px",
+        "overflow": false,
+        "size": "34px"
+      },
+      "visible": 1,
+      "width": 360
+    }
+  ]
+}

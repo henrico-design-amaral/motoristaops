@@ -72,3 +72,9 @@ Nunca copiar identidade, paleta, logo, pricing, facts ou regras comerciais espec
 O proprietário aprovou a versão revisada da seção do Omoda 5 Luxury cinza e autorizou sua aplicação na página pública. Localização editorial: imediatamente após serviços e antes dos argumentos de agendamento no desktop; após serviços e antes da chamada final no mobile. A sequência apresenta primeiro a necessidade atendida, depois o veículo e então a decisão de contato; não implica resultado de conversão mensurado.
 
 Fonte de implementação e evidências: `source/vehicle/README.md`, `source/vehicle/section.html` e `design-qa.md`. As informações atuais do veículo informadas pelo proprietário prevalecem sobre referências históricas ao HB20 para esta seção. Imagens fornecidas continuam identificadas como conceituais. Películas antivandalismo e PPF integral permanecem como preparação prevista até confirmação. Hero, demais textos, metadados, identidade e dashboard são invariantes deste release.
+
+## Correção de largura e proporções da seção do carro
+
+**CANONICAL · SURFACE / landing MotoristaOPS · 2026-10-22**
+
+O proprietário rejeitou a publicação anterior por proporções e largura diferentes da referência. Essa revisão supera o aceite visual anterior. A seção deve compartilhar `.container` (1440 px e mesmos gutters) com o site; galeria e cards não podem ultrapassar as bordas de Serviços por margens negativas. Usar a mesma imagem fornecida, sem redesenhar carro/interior; escala uniforme medida na área útil da referência. Conferir sempre o módulo no contexto das seções adjacentes e nas larguras do site, além da captura isolada. Evidências da correção em `design-qa.md` e `source/vehicle/layout-validation-2026-10-22.json`. Fonte Instrument Sans, fatos confirmados, status previsto e demais invariantes permanecem.

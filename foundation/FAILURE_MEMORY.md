@@ -53,3 +53,7 @@ Erros recorrentes conhecidos deixam de ser "feedback" e passam a ser bloqueios d
 ## Atualização
 
 Adicionar um item quando uma correção explícita revelar risco reutilizável. Não adicionar preferências locais como regra global sem evidência.
+
+## FM-013 — seção do carro fora da grade da landing
+**Falha:** QA isolada aprovou max-width maior que o restante do site, margens negativas e escala da imagem diferente da referência.
+**Gate SURFACE / landing:** reutilizar `.container`; medir bordas da galeria contra a grade de Serviços em desktop/mobile; comparar a referência e a captura na mesma escala; capturar contexto com a seção anterior. Não declarar fidelidade por ausência de overflow apenas.
