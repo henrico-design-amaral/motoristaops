@@ -74,3 +74,9 @@ Desktop: `#servicos` → `#novo-carro` → `#por-que-agendar`.
 Mobile: `#mobile-servicos` → `#mobile-novo-carro` → chamada de agendamento.
 
 A autorização inclui publicar a versão exibida e validada. Fotografias documentais e confirmação das películas continuam pendentes; as identificações conceituais e o status previsto permanecem no conteúdo. A publicação usa o workflow existente, preservando hero, cabeçalho, metadados e dashboard.
+
+## Publicação verificada em 22/10/2026
+
+Publicada em https://www.motoristaops.com.br/ pelo deploy do merge `0e07610c8beb90d3370366decb123dc3a3a7ad57`, PR #126. Workflow: https://github.com/henrico-design-amaral/motoristaops/actions/runs/39795035096. As etapas de envio, verificações públicas, Brand System V2 e comparação de bytes da hero/Open Graph foram reportadas como concluídas com sucesso.
+
+Verificação independente: HTML público idêntico à montagem esperada; ordem desktop/mobile correta; landing, dashboard e três imagens HTTP 200; hashes da imagem da seção, hero e Open Graph correspondentes. O HTML do dashboard permaneceu idêntico ao snapshot anterior. Navegador conectado: uma seção visível por largura, quatro imagens carregadas e onze ícones; largura de rolagem igual à largura útil em desktop (1425 px) e mobile (375 px), com overrides de 1440 e 390 px e scrollbar de 15 px. Override restaurado ao final. Registro técnico em `source/vehicle/publication-2026-10-22.json`.

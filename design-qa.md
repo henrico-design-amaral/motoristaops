@@ -58,3 +58,13 @@ final result: passed
 ### Ajuste do gate de compartilhamento na publicação
 
 A validação de PR ainda remontava o asset da hero com o hash da antiga fonte Open Graph. Alinhado `validate-seo-social-card.yml` ao workflow de produção: a imagem social é montada a partir de `release/visual-assets/opengraph`, com o mesmo hash aprovado e receita JPEG. Hero e imagem pública de compartilhamento não foram alteradas.
+
+## Conferência pública após publicação — 22/10/2026
+
+- Landing pública: HTTP 200, 102.189 bytes, idêntica à montagem esperada do release.
+- Seção após serviços no desktop e mobile; quatro imagens e onze ícones renderizados em cada instância visível.
+- Navegador conectado: sem overflow horizontal, nas larguras úteis de 1425 px (override 1440) e 375 px (override 390); uma única seção visível por largura. Viewport restaurado.
+- Nova imagem: HTTP 200 e hash aprovado. Hero e imagem Open Graph: HTTP 200, bytes preservados.
+- Dashboard: HTTP 200, corpo idêntico ao snapshot anterior. Canonical e indexabilidade preservados.
+- Workflow de deploy #39795035096: envio e todas as etapas de verificação reportadas como concluídas com sucesso.
+- Evidência estruturada: `source/vehicle/publication-2026-10-22.json`.

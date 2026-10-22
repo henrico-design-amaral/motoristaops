@@ -1,0 +1,79 @@
+{
+  "landing": {
+    "status": 200,
+    "bytes": 102189,
+    "sha256": "a6ebe989bef19dc6e43b26ffd7dcfc0b8260e5c708334fa239395e3ad2eadff8",
+    "url": "https://www.motoristaops.com.br/"
+  },
+  "dashboard": {
+    "status": 200,
+    "bytes": 12928,
+    "sha256": "d3fa66897af76b9ee51722888b8598d66d01259e5d603677d99bea7399bd6542",
+    "url": "https://dashboard.motoristaops.com.br/"
+  },
+  "vehicle": {
+    "status": 200,
+    "bytes": 239833,
+    "sha256": "69a59b2c9dcec4a89183b7a8354496c329b83ae824489b83803fab72c4cb523b",
+    "url": "https://www.motoristaops.com.br/assets/vehicle-reference.avif"
+  },
+  "hero": {
+    "status": 200,
+    "bytes": 224175,
+    "sha256": "56c0068f8b55f7fcf750402bbcb695b3efc4dcd6d28f93493d5e11a4b991ea78",
+    "url": "https://www.motoristaops.com.br/assets/hero-omoda-56c0068f8b55.avif"
+  },
+  "og": {
+    "status": 200,
+    "bytes": 172023,
+    "sha256": "d92ed571db561a3af3fdf027b9d66b9c6452bb3d3a4fccbc87b4450747661c82",
+    "url": "https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916"
+  },
+  "checks": {
+    "html_exact": true,
+    "desktop_order": true,
+    "mobile_order": true,
+    "dashboard_unchanged": true,
+    "vehicle_match": true,
+    "hero_unchanged": true,
+    "og_unchanged": true,
+    "canonical": true,
+    "indexable": true
+  },
+  "release": {
+    "merge_sha": "0e07610c8beb90d3370366decb123dc3a3a7ad57",
+    "pull_request": 126,
+    "deploy_run_id": 39795035096,
+    "observed_at_utc": "2026-10-22T14:37:27.706727+00:00",
+    "all_deploy_steps": "completed/success"
+  },
+  "browser": {
+    "desktop": {
+      "viewport_override": 1440,
+      "client_width": 1425,
+      "scroll_width": 1425,
+      "visible_sections": 1,
+      "loaded_section_images": 4,
+      "rendered_section_icons": 11
+    },
+    "mobile": {
+      "viewport_override": 390,
+      "client_width": 375,
+      "scroll_width": 375,
+      "visible_sections": 1,
+      "loaded_section_images": 4,
+      "rendered_section_icons": 11
+    },
+    "viewport_restored": true
+  },
+  "screenshot_evidence": [
+    {
+      "filename": "motoristaops-novo-carro-publicado.png",
+      "sha256": "b690fd406bfc613c22c719ef1a35730748c7a78427e0b918fa0d98f1451c523e"
+    },
+    {
+      "filename": "motoristaops-novo-carro-publicado-mobile.png",
+      "sha256": "94fec5d157ee17bc1423e6a375e1ad8c7c796f30f0cdafacccf09adc99eda5e7"
+    }
+  ]
+}
