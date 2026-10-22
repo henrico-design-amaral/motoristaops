@@ -57,3 +57,5 @@ Adicionar um item quando uma correção explícita revelar risco reutilizável. 
 ## FM-013 — seção do carro fora da grade da landing
 **Falha:** QA isolada aprovou max-width maior que o restante do site, margens negativas e escala da imagem diferente da referência.
 **Gate SURFACE / landing:** reutilizar `.container`; medir bordas da galeria contra a grade de Serviços em desktop/mobile; comparar a referência e a captura na mesma escala; capturar contexto com a seção anterior. Não declarar fidelidade por ausência de overflow apenas.
+
+**Complemento FM-013:** em QA tipográfica, `document.fonts.status = loaded` e `fonts.check` não provam que a folha externa foi carregada. Conferir a folha e evitar usar um screenshot em fallback como evidência de equivalência de fonte. O layout também deve suportar fallback sem texto sobre ícones.

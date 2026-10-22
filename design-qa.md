@@ -53,4 +53,12 @@ Sem pendência P0/P1/P2 encontrada na revisão final. Comparação com a referê
 
 Checklist concluído: fonte aberta; captura real; comparação conjunta e focada; contexto com seção anterior; seis larguras; proporção das imagens; carregamento; links; console; preservação fora do módulo. Publicação segue pelo workflow existente após versionamento.
 
+## Conferência pública e fallback tipográfico
+
+PR #127 publicado pelo workflow #39821537630 com sucesso. HTML público idêntico à montagem esperada, imagens e dashboard preservados. No navegador cloud, a folha externa Google Fonts não carregou (`link.sheet = null`), embora o FontFaceSet indicasse `loaded`. Por isso o screenshot público usou fallback e não foi aceito como prova da mesma variante tipográfica da prévia. Os arquivos locais foram conferidos pelo nome interno: Instrument Sans normal, SemiCondensed e Condensed, pesos e estilos correspondentes ao CSS da fonte.
+
+A conferência pública encontrou a faixa de atributos mais alta e texto próximo do ícone seguinte com fallback em desktop menor. A grade foi ajustada para reservar mais largura ao atributo antivandalismo e reduzir somente padding/gap internos. Mantidos tamanho do texto e ícones. Essa correção também protege o estado antes/depois do carregamento da webfont. A limitação do carregamento externo no cloud é específica desta conferência; não prova falha para outros navegadores. As medições anteriores permanecem válidas para alinhamento externo e proporção das imagens.
+
+Conferência adicional em 1348 CSS px: faixa com 586,453125 px de largura e 64,78125 px de altura; cinco itens sem overflow. Evidência: `evidence/proportion-final-1348.jpg`.
+
 final result: passed
