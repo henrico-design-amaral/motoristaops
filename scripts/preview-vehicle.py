@@ -30,6 +30,7 @@ def main():
     parser.add_argument('--assets', required=True, type=Path)
     parser.add_argument('--vendor', required=True, type=Path)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--focus-vehicle', action='store_true', help='Open the preview at the new section; does not change production fragments')
     args = parser.parse_args()
     html = assemble()
     for asset in set(re.findall(r'/assets/[\w.-]+', html)):
@@ -46,6 +47,9 @@ def main():
     # Favicon resolves to the approved local logo, with no preview network request.
     logo = 'data:image/avif;base64,' + base64.b64encode((args.assets / 'logo-claude.avif').read_bytes()).decode()
     html = html.replace('href="/landing-v3/logo-oficial.svg"', f'href="{logo}"')
+    if args.focus_vehicle:
+        focus = """<script>window.addEventListener('load',async()=>{await document.fonts.ready;const mobile=matchMedia('(max-width:780px)').matches;const section=document.getElementById(mobile?'mobile-novo-carro':'novo-carro');if(section)window.scrollTo({top:section.getBoundingClientRect().top+window.scrollY-(mobile?20:80),behavior:'instant'});});</script>"""
+        html = html.replace('</body>', focus + '</body>')
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(html)
     print(args.output)
