@@ -163,6 +163,9 @@ jobs:
           cat release/visual-assets/hero/part-*.bin > deploy-public/assets/hero-claude.avif
           cat release/visual-assets/logo/part-*.bin > deploy-public/assets/logo-claude.avif
           cat release/service-assets/part-*.bin > deploy-public/assets/service-cards.webp
+          # New-car section reference, isolated from the approved hero assets.
+          cat release/vehicle-assets/part-*.bin > deploy-public/assets/vehicle-reference.avif
+          echo '69a59b2c9dcec4a89183b7a8354496c329b83ae824489b83803fab72c4cb523b  deploy-public/assets/vehicle-reference.avif' | sha256sum -c -
           echo '56c0068f8b55f7fcf750402bbcb695b3efc4dcd6d28f93493d5e11a4b991ea78  deploy-public/assets/hero-claude.avif' | sha256sum -c -
           cp deploy-public/assets/hero-claude.avif deploy-public/assets/hero-omoda-56c0068f8b55.avif
           echo 'a9b0eb5462a08f9bb2004223489833315c3d2df64f3f5091b6ba08387f36a155  deploy-public/assets/logo-claude.avif' | sha256sum -c -

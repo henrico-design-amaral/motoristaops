@@ -63,3 +63,12 @@ Classificar em `GLOBAL`, `DOMAIN`, `PROJECT`, `SURFACE` ou `TASK` conforme o pad
 Decisões GLOBAL/DOMAIN devem ser promovidas ao HenricoOPS. Decisões PROJECT/SURFACE permanecem MotoristaOPS, mas o mecanismo reutilizável deve subir quando houver.
 
 Nunca copiar identidade, paleta, logo, pricing, facts ou regras comerciais específicas para outro projeto apenas porque nasceram aqui.
+
+
+## Seção do novo carro na landing
+
+**APPROVED · SURFACE / landing MotoristaOPS · 2026-10-22**
+
+O proprietário aprovou a versão revisada da seção do Omoda 5 Luxury cinza e autorizou sua aplicação na página pública. Localização editorial: imediatamente após serviços e antes dos argumentos de agendamento no desktop; após serviços e antes da chamada final no mobile. A sequência apresenta primeiro a necessidade atendida, depois o veículo e então a decisão de contato; não implica resultado de conversão mensurado.
+
+Fonte de implementação e evidências: `source/vehicle/README.md`, `source/vehicle/section.html` e `design-qa.md`. As informações atuais do veículo informadas pelo proprietário prevalecem sobre referências históricas ao HB20 para esta seção. Imagens fornecidas continuam identificadas como conceituais. Películas antivandalismo e PPF integral permanecem como preparação prevista até confirmação. Hero, demais textos, metadados, identidade e dashboard são invariantes deste release.

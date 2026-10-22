@@ -22,7 +22,15 @@
     'posture':'shield-check',
     'arrow-right':'arrow-right',
     'external':'arrow-up-right',
-    'location':'map-pin'
+    'location':'map-pin',
+    'vehicle-new':'circle-check',
+    'vehicle-color':'palette',
+    'vehicle-film':'shield',
+    'vehicle-ppf':'layers',
+    'vehicle-climate':'air-vent',
+    'vehicle-seats':'armchair',
+    'vehicle-usb':'usb',
+    'vehicle-airbags':'shield-check'
   };
 
   var BRAND_ICONS={

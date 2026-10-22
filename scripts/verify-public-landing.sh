@@ -7,7 +7,7 @@ for attempt in 1 2 3 4 5 6; do
   dashboard_home="$(curl -fsSL --connect-timeout 10 --max-time 30 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
 
   asset_failure=0
-  for asset in assets/hero-claude.avif assets/og-motoristaops.jpg assets/logo-claude.avif assets/service-cards.webp assets/henrico-profile.webp landing-v3/logo-oficial.svg; do
+  for asset in assets/hero-claude.avif assets/og-motoristaops.jpg assets/logo-claude.avif assets/service-cards.webp assets/vehicle-reference.avif assets/henrico-profile.webp landing-v3/logo-oficial.svg; do
     status="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 10 --max-time 30 "https://www.motoristaops.com.br/${asset}" || true)"
     if [ "$status" != '200' ]; then
       echo "Attempt ${attempt}: ${asset} returned ${status}"
@@ -20,6 +20,8 @@ for attempt in 1 2 3 4 5 6; do
   if grep -qF 'data-icon-system="lucide"' <<<"$public_home" \
     && grep -qF 'data-brand-system="brand-glyphs"' <<<"$public_home" \
     && grep -qF 'https://unpkg.com/lucide@0.574.0' <<<"$public_home" \
+    && grep -qF 'id="novo-carro"' <<<"$public_home" \
+    && grep -qF 'id="mobile-novo-carro"' <<<"$public_home" \
     && grep -qF 'MotoristaIconSystem' <<<"$public_home" \
     && grep -qF 'MotoristaBrandSystem' <<<"$public_home" \
     && grep -qF 'data-mo-icon="airport"' <<<"$public_home" \

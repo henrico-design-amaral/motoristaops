@@ -5,6 +5,7 @@ on:
     paths:
       - 'source/parts/**'
       - 'release/visual-assets/hero/**'
+      - 'release/visual-assets/opengraph/**'
       - '.github/workflows/deploy-landing-hostinger.yml'
       - '.github/workflows/verify-production.yml'
       - '.github/workflows/validate-seo-social-card.yml'
@@ -19,14 +20,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Assemble SEO head and hero asset
+      - name: Assemble SEO head and preserved social-card source
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p qa/assets
           cat source/parts/*.htmlfrag > qa/index.html
-          cat release/visual-assets/hero/part-*.bin > qa/assets/hero-claude.avif
-          echo '2b5dd109d05d31dc211b11256cf267d2f99b9d85b95addf5637b84a02890057b  qa/assets/hero-claude.avif' | sha256sum -c -
+          cat release/visual-assets/opengraph/part-*.bin > qa/assets/opengraph-source.avif
+          echo '2b5dd109d05d31dc211b11256cf267d2f99b9d85b95addf5637b84a02890057b  qa/assets/opengraph-source.avif' | sha256sum -c -
 
           grep -qF '<link rel="canonical" href="https://www.motoristaops.com.br/">' qa/index.html
           grep -qF 'property="og:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916"' qa/index.html
@@ -48,7 +49,7 @@ jobs:
         run: |
           set -euo pipefail
           ffmpeg -hide_banner -loglevel error -y \
-            -i qa/assets/hero-claude.avif \
+            -i qa/assets/opengraph-source.avif \
             -vf "scale=1200:630:force_original_aspect_ratio=increase,crop=1200:630:(in_w-out_w)*0.72:0" \
             -frames:v 1 -q:v 2 \
             qa/og-motoristaops.jpg

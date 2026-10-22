@@ -121,6 +121,47 @@
     </div>
   </section>
 
+<!-- mo-vehicle:start -->
+<section class="mo-vehicle mo-vehicle--mobile" id="mobile-novo-carro" aria-labelledby="mobile-novo-carro-title">
+  <div class="mo-vehicle__shell">
+    <div class="mo-vehicle__lead">
+      <div class="mo-vehicle__presentation">
+        <p class="mo-vehicle__eyebrow">Nosso novo carro<span aria-hidden="true"></span></p>
+        <h2 class="mo-vehicle__title" id="mobile-novo-carro-title">Conheça o novo carro<br>da <span>MotoristaOPS</span></h2>
+        <p class="mo-vehicle__copy">Nosso serviço passa a contar com um <strong>Omoda 5 Luxury cinza, adquirido zero quilômetro</strong>, mantendo o atendimento direto, a comunicação e o cuidado em cada trajeto.</p>
+      </div>
+      <figure class="mo-vehicle__visual">
+        <div class="mo-vehicle__crop mo-vehicle__crop--main"><img src="/assets/vehicle-reference.avif" alt="Composição conceitual da referência: carro cinza em vista três-quartos dianteira, em cenário urbano noturno. Não é foto do veículo real." width="1672" height="941" loading="lazy" decoding="async"></div>
+      </figure>
+      <ul class="mo-vehicle__attributes" aria-label="Identificação e preparação do veículo">
+        <li><span class="mo-icon mo-icon--sm" data-mo-icon="experience" aria-hidden="true"></span><span>Omoda 5<br><strong>Luxury</strong></span></li>
+        <li><span class="mo-icon mo-icon--sm" data-mo-icon="vehicle-new" aria-hidden="true"></span><span>Adquirido<br><strong>zero km</strong></span></li>
+        <li><span class="mo-icon mo-icon--sm" data-mo-icon="vehicle-color" aria-hidden="true"></span><span>Cor<br><strong>cinza</strong></span></li>
+        <li><span class="mo-icon mo-icon--sm" data-mo-icon="vehicle-film" aria-hidden="true"></span><span>Antivandalismo<br><strong>previsto</strong></span></li>
+        <li><span class="mo-icon mo-icon--sm" data-mo-icon="vehicle-ppf" aria-hidden="true"></span><span>PPF integral<br><strong>previsto</strong></span></li>
+      </ul>
+    </div>
+    <div class="mo-vehicle__gallery" role="group" aria-label="Enquadramentos conceituais da referência visual">
+      <figure class="mo-vehicle__shot mo-vehicle__shot--rear"><div class="mo-vehicle__crop mo-vehicle__crop--rear"><img src="/assets/vehicle-reference.avif" alt="Vista traseira do carro na ilustração conceitual fornecida como referência." width="1672" height="941" loading="lazy" decoding="async"></div><figcaption>Exterior · imagem conceitual</figcaption></figure>
+      <figure class="mo-vehicle__shot"><div class="mo-vehicle__crop mo-vehicle__crop--interior"><img src="/assets/vehicle-reference.avif" alt="Interior conceitual da referência. A correspondência desta configuração com a versão Luxury não está confirmada." width="1672" height="941" loading="lazy" decoding="async"></div><figcaption>Interior conceitual · configuração não confirmada</figcaption></figure>
+      <figure class="mo-vehicle__shot"><div class="mo-vehicle__crop mo-vehicle__crop--detail"><img src="/assets/vehicle-reference.avif" alt="Detalhe da dianteira na ilustração conceitual fornecida como referência." width="1672" height="941" loading="lazy" decoding="async"></div><figcaption>Detalhe · imagem conceitual</figcaption></figure>
+    </div>
+    <div class="mo-vehicle__features" aria-label="Recursos confirmados e preparação prevista">
+      <article class="mo-vehicle__feature"><span class="mo-icon mo-icon--lg" data-mo-icon="vehicle-climate" aria-hidden="true"></span><div><h3>Climatização também atrás</h3><p>Ar digital de duas zonas, com saída para o banco traseiro.</p></div></article>
+      <article class="mo-vehicle__feature"><span class="mo-icon mo-icon--lg" data-mo-icon="vehicle-seats" aria-hidden="true"></span><div><h3>Acomodação e acabamento</h3><p>Bancos em tecido e material premium sintético.</p></div></article>
+      <article class="mo-vehicle__feature"><span class="mo-icon mo-icon--lg" data-mo-icon="vehicle-usb" aria-hidden="true"></span><div><h3>Conexões à disposição</h3><p>Quatro portas USB disponíveis no veículo.</p></div></article>
+      <article class="mo-vehicle__feature"><span class="mo-icon mo-icon--lg" data-mo-icon="vehicle-airbags" aria-hidden="true"></span><div><h3>Sete airbags</h3><p>Frontais, laterais dianteiros, central dianteiro e de cortina.</p></div></article>
+      <article class="mo-vehicle__feature mo-vehicle__feature--planned"><span class="mo-icon mo-icon--lg" data-mo-icon="vehicle-film" aria-hidden="true"></span><div><h3>Película antivandalismo</h3><p>Prevista nos vidros. Produto e especificações a confirmar.</p></div></article>
+      <article class="mo-vehicle__feature mo-vehicle__feature--planned"><span class="mo-icon mo-icon--lg" data-mo-icon="vehicle-ppf" aria-hidden="true"></span><div><h3>PPF na carroceria</h3><p>Previsto em toda a carroceria, para conservar o acabamento.</p></div></article>
+    </div>
+    <div class="mo-vehicle__footnotes">
+      <p>Composição ilustrativa fornecida como referência. As imagens não documentam o veículo real nem confirmam seus equipamentos.</p>
+      <p>Recursos conforme a <a href="https://cms.omodajaecoo.com.br/manual/pdf/FichaTecnicaSimplificada_Omoda5.pdf" target="_blank" rel="noopener">ficha oficial da Luxury<span class="mo-vehicle__sr-only"> (PDF, abre em nova aba)</span></a>. Instalação e especificações das películas ainda não confirmadas.</p>
+    </div>
+  </div>
+</section>
+<!-- mo-vehicle:end -->
+
   <section class="mo-mobile-final" aria-labelledby="mobile-final-title">
     <p class="mo-mobile-eyebrow">Agendamento</p>
     <h2 class="mo-mobile-title" id="mobile-final-title">Vamos combinar seu trajeto?</h2>
