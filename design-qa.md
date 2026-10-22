@@ -54,3 +54,7 @@ Nenhuma pendência P0/P1/P2 de layout identificada na comparação final. Sem al
 Em 22/10/2026, o proprietário autorizou aplicar a seção à página pública. A localização após os serviços foi mantida pelos critérios registrados em `source/vehicle/README.md`. Esta autorização substitui a restrição anterior de manter somente a prévia; não altera o escopo visual aprovado.
 
 final result: passed
+
+### Ajuste do gate de compartilhamento na publicação
+
+A validação de PR ainda remontava o asset da hero com o hash da antiga fonte Open Graph. Alinhado `validate-seo-social-card.yml` ao workflow de produção: a imagem social é montada a partir de `release/visual-assets/opengraph`, com o mesmo hash aprovado e receita JPEG. Hero e imagem pública de compartilhamento não foram alteradas.
