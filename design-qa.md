@@ -49,4 +49,8 @@ A comparação verifica fidelidade da composição dentro das restrições do br
 
 Nenhuma pendência P0/P1/P2 de layout identificada na comparação final. Sem alteração de hero, cabeçalho ou conteúdo anterior. Comparação de fonte confirmou preservação byte a byte dos trechos anteriores após retirar as adições da seção e seu mapa de ícones.
 
+## Autorização posterior à revisão
+
+Em 22/10/2026, o proprietário autorizou aplicar a seção à página pública. A localização após os serviços foi mantida pelos critérios registrados em `source/vehicle/README.md`. Esta autorização substitui a restrição anterior de manter somente a prévia; não altera o escopo visual aprovado.
+
 final result: passed

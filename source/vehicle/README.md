@@ -1,6 +1,6 @@
-# Novo carro — prévia conforme referência visual
+# Novo carro — seção da landing
 
-Escopo TASK. Branch `preview/novo-carro-luxury-20261021`. Base de produção preservada: `b7fb22456ab9c0f303ae2c058a031223b22d0995`.
+Escopo SURFACE / landing. Implementação validada na branch `preview/novo-carro-luxury-20261021`, baseada em `b7fb22456ab9c0f303ae2c058a031223b22d0995`. Em 22/10/2026, o proprietário aprovou a aplicação na página pública.
 
 ## Direção visual fornecida pelo proprietário
 
@@ -66,4 +66,11 @@ Relatório completo em `design-qa.md`, incluindo comparação conjunta da refer�
 - Prévia autocontida com imagens, fontes e scripts incorporados; abre na nova seção.
 - Capturas finais: `motoristaops-carro-desktop.jpg` e `motoristaops-carro-mobile.jpg`.
 
-Sem merge ou publicação em produção. Fotografias reais e confirmação das películas continuam pendentes. O relatório visual não representa aprovação do proprietário.
+## Aplicação aprovada
+
+Em 22/10/2026, o proprietário solicitou aplicar a seção à página e escolher sua melhor localização. Mantida logo após serviços: o visitante conhece as modalidades de atendimento, depois o veículo e, em seguida, os motivos para agendar. Essa sequência é um critério editorial de decisão, sem alegação de ganho de conversão medido.
+
+Desktop: `#servicos` → `#novo-carro` → `#por-que-agendar`.
+Mobile: `#mobile-servicos` → `#mobile-novo-carro` → chamada de agendamento.
+
+A autorização inclui publicar a versão exibida e validada. Fotografias documentais e confirmação das películas continuam pendentes; as identificações conceituais e o status previsto permanecem no conteúdo. A publicação usa o workflow existente, preservando hero, cabeçalho, metadados e dashboard.
