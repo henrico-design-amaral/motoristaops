@@ -14,7 +14,7 @@ fs.writeFileSync('dist/robots.txt','User-agent: *\nAllow: /\n\nSitemap: https://
 fs.writeFileSync('dist/sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://www.motoristaops.com.br/</loc></url></urlset>\n');
 fs.copyFileSync('apache.htaccess','dist/.htaccess');
 const files=[];
-const visit=dir=>{for(const n of fs.readdirSync(dir).sort()){const p=path.join(dir,n);if(fs.statSync(p).isDirectory())visit(p);else files.push({path:p.slice(5),bytes:fs.statSync(p).size,sha256:createHash('sha256').update(fs.readFileSync(p)).digest('hex')});}};
+const visit=dir=>{for(const n of fs.readdirSync(dir).sort()){const p=path.join(dir,n);if(fs.statSync(p).isDirectory())visit(p);else if(n!=='.htaccess') files.push({path:p.slice(5),bytes:fs.statSync(p).size,sha256:createHash('sha256').update(fs.readFileSync(p)).digest('hex')});}};
 visit('dist');
 fs.writeFileSync('dist/release-manifest.json',JSON.stringify({release:'landing-2026-10-23',files},null,2)+'\n');
 fs.rmSync('.server-build',{recursive:true});

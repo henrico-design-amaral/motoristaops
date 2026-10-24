@@ -11,3 +11,5 @@ QA no navegador do pacote estático: 1363 px e iframes de 390, 768 e 1024 px (á
 Pré-publicação: primeira execução foi interrompida antes do SFTP por timeout na consulta HTTPS do dashboard a partir do GitHub. Nova checagem independente confirmou HTTP 200 e marcadores operacionais. O preflight passou a usar IPv4 e janela maior de conexão, preservando o gate. Vite atualizado de 6.4.2 para 6.4.5; novo build mantém os mesmos hashes de CSS/JS/fontes e a auditoria npm reporta zero vulnerabilidades.
 
 A segunda execução confirmou conexão/preflight e transferiu os assets. A Hostinger recusou renomear o HTML temporário sobre um `index.html` existente; a publicação foi ajustada para `put -e`, substituição direta suportada pelo cliente SFTP, seguida da remoção do temporário. Sem backup da página antiga.
+
+O manifest de verificação HTTP enumera somente arquivos públicos; `.htaccess` é entregue ao servidor e validado localmente, sem tentar ler a configuração protegida por URL pública. Bootstrap de desenvolvimento ignora o comentário placeholder ao distinguir página vazia de HTML pré-renderizado.

@@ -16,6 +16,9 @@ test('indexable HTML includes the complete approved page before JavaScript',()=>
 test('all same-origin HTML resources exist and all published file hashes agree',()=>{
  const refs=[...html.matchAll(/(?:src|href)="(\/assets\/[^"?]+)(?:\?[^"]*)?"/g)].map(m=>m[1]);
  assert.ok(refs.length>20);
+ assert.ok(manifest.files.every(f=>!f.path.startsWith('.')),'Server configuration must not be fetched through public HTTP');
+ assert.ok(fs.readFileSync('dist/.htaccess','utf8').includes('DirectoryIndex index.html'));
+ assert.ok(fs.readFileSync('dist/.htaccess','utf8').includes('https://www.motoristaops.com.br%{REQUEST_URI}'));
  for(const ref of refs)assert.ok(fs.existsSync('dist'+ref),ref);
  for(const file of manifest.files){assert.ok(!file.path.includes('..'));const bytes=fs.readFileSync('dist/'+file.path);assert.equal(bytes.length,file.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),file.sha256);}
 });

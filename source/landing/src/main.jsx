@@ -6,4 +6,4 @@ import './landing.css';
 import './refinements.css';
 const root=document.getElementById('root');
 const app=<React.StrictMode><App/></React.StrictMode>;
-if(root.hasChildNodes())hydrateRoot(root,app);else createRoot(root).render(app);
+if(root.children.length)hydrateRoot(root,app);else createRoot(root).render(app);
