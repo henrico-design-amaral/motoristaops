@@ -10,7 +10,7 @@ if [[ ! "$TARGET" =~ ^[A-Za-z0-9_./-]+$ ]] || [[ "$TARGET" == '/' || "$TARGET" =
 fi
 test -s source/landing/dist/release-manifest.json
 # Existing dashboard is read, never downloaded as a backup and never written.
-dashboard_html="$(curl -fsSL --retry 2 --connect-timeout 10 --max-time 30 https://dashboard.motoristaops.com.br/)"
+dashboard_html="$(curl -4 -fsSL --retry 3 --retry-all-errors --retry-delay 3 --connect-timeout 30 --max-time 60 https://dashboard.motoristaops.com.br/)"
 grep -qF 'Plano operacional' <<<"$dashboard_html"
 lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" <<LFTP
 set cmd:fail-exit yes
