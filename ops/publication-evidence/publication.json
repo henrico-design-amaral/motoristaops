@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-23",
+  "timezone": "America/Sao_Paulo",
+  "status": "published_and_verified",
+  "url": "https://www.motoristaops.com.br/",
+  "release": "landing-2026-10-23",
+  "source_commit": "117b3e16e85431517c7069fa590351edbc8aa042",
+  "workflow_run": "https://github.com/henrico-design-amaral/motoristaops/actions/runs/40048817368",
+  "workflow_conclusion": "success",
+  "public_files_sha256_verified": 25,
+  "unit_and_release_tests_passed": 8,
+  "npm_audit_vulnerabilities": 0,
+  "old_landing_assets_removed": true,
+  "old_landing_source_and_promotion_workflows_removed": true,
+  "extra_landing_backup_created": false,
+  "dashboard_preserved": true,
+  "brand_system_preserved": true,
+  "browser_qa": {
+    "desktop": true,
+    "responsive_widths": [
+      390,
+      768,
+      1024,
+      1363
+    ],
+    "faq_intro_right_aligned": true,
+    "instrument_sans_local": true,
+    "headshot_original": true,
+    "whatsapp_message_prepared_on_public_site": true,
+    "whatsapp_messages_sent": 0
+  },
+  "proof": "ops/publication-evidence/publication-desktop.jpg",
+  "independent_verification_run": "https://github.com/henrico-design-amaral/motoristaops/actions/runs/40048895970",
+  "independent_verification_conclusion": "success"
+}

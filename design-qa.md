@@ -15,3 +15,7 @@ A segunda execução confirmou conexão/preflight e transferiu os assets. A Host
 O manifest de verificação HTTP enumera somente arquivos públicos; `.htaccess` é entregue ao servidor e validado localmente, sem tentar ler a configuração protegida por URL pública. Bootstrap de desenvolvimento ignora o comentário placeholder ao distinguir página vazia de HTML pré-renderizado.
 
 A conferência pública detectou transformação automática somente no JPEG de compartilhamento: dimensões 1200×630 preservadas, mas bytes alterados pela CDN. Aplicada diretiva HTTP `no-transform` ao social card e nonce de verificação por requisição; os hashes continuam sendo exigidos, sem afrouxar o gate de integridade.
+
+## Resultado público confirmado
+
+**PUBLICADO E VALIDADO — 23/10/2026 (America/Sao_Paulo).** Workflow de deploy `40048817368` concluído com sucesso para o commit `117b3e16e85431517c7069fa590351edbc8aa042`. Os 25 arquivos públicos passaram por SHA-256; canonical/redirecionamento/indexação e remoção dos assets antigos passaram; dashboard e Brand System operacionais. O social card passou sem transformação. Formulário preparado e resumo revisado no domínio público, sem envio de mensagem. Evidência atual em `ops/publication-evidence/`. Nenhuma cópia extra da landing antiga foi criada.
