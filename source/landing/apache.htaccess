@@ -10,6 +10,9 @@ AddType font/woff2 .woff2
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  <Files "og-motoristaops.jpg">
+    Header always set Cache-Control "public, max-age=604800, no-transform"
+  </Files>
   <FilesMatch "^(index\.html|release-manifest\.json)$">
     Header set Cache-Control "no-cache, must-revalidate"
   </FilesMatch>

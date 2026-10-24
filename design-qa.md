@@ -13,3 +13,5 @@ Pré-publicação: primeira execução foi interrompida antes do SFTP por timeou
 A segunda execução confirmou conexão/preflight e transferiu os assets. A Hostinger recusou renomear o HTML temporário sobre um `index.html` existente; a publicação foi ajustada para `put -e`, substituição direta suportada pelo cliente SFTP, seguida da remoção do temporário. Sem backup da página antiga.
 
 O manifest de verificação HTTP enumera somente arquivos públicos; `.htaccess` é entregue ao servidor e validado localmente, sem tentar ler a configuração protegida por URL pública. Bootstrap de desenvolvimento ignora o comentário placeholder ao distinguir página vazia de HTML pré-renderizado.
+
+A conferência pública detectou transformação automática somente no JPEG de compartilhamento: dimensões 1200×630 preservadas, mas bytes alterados pela CDN. Aplicada diretiva HTTP `no-transform` ao social card e nonce de verificação por requisição; os hashes continuam sendo exigidos, sem afrouxar o gate de integridade.

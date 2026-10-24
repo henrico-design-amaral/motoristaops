@@ -15,7 +15,7 @@ def verify():
     assert manifest['release']=='landing-2026-10-23'
     if EXPECTED: assert manifest==EXPECTED,'Public manifest differs from build'
     def check(f):
-        body,headers,_=get(BASE+f['path']+'?verify='+f['sha256'][:12])
+        body,headers,_=get(BASE+f['path']+'?verify='+f['sha256'][:12]+'-'+str(time.time_ns()))
         assert hashlib.sha256(body).hexdigest()==f['sha256'],f['path']+' hash mismatch'
         if f['path'].endswith('.woff2'):assert 'font' in headers.get('Content-Type',''),headers.get('Content-Type')
         return f['path']
