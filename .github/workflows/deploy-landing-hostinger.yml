@@ -1,258 +1,49 @@
 name: Deploy MotoristaOPS landing only
-
 on:
   workflow_dispatch:
   push:
     branches: [main]
     paths:
-      - 'source/parts/**'
-      - 'brand-system-v2/**'
-      - 'release/runtime-assets/**'
-      - 'release/visual-assets/**'
-      - 'release/service-assets/**'
-      - 'scripts/verify-public-landing.sh'
-      - 'scripts/validate-foundation.sh'
-      - 'presence/web/assets/presence.css'
+      - 'source/landing/**'
+      - 'scripts/deploy-landing.sh'
+      - 'scripts/verify-public-landing*'
       - '.github/workflows/deploy-landing-hostinger.yml'
-
 concurrency:
   group: motoristaops-public-landing
   cancel-in-progress: false
-
 permissions:
   contents: read
-
 jobs:
   deploy-landing:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - name: Checkout landing source
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          fetch-depth: 1
-
-      - name: Validate MotoristaOPS Foundation
-        shell: bash
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: source/landing/package-lock.json
+      - name: Foundation gate
         run: bash scripts/validate-foundation.sh
-
-      - name: Assemble and validate landing
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p deploy-public deploy-public/web/assets
-          cat source/parts/*.htmlfrag > deploy-public/index.html
-          cp presence/web/assets/presence.css deploy-public/web/assets/presence.css
-          test -s deploy-public/web/assets/presence.css
-          sed -i -e 's#/assets/henrico-profile\.png#/assets/henrico-profile.webp#g' deploy-public/index.html
-
-          python - <<'PY'
-          from pathlib import Path
-          p = Path('deploy-public/index.html')
-          s = p.read_text(encoding='utf-8').replace('5511953970704', '5511988329725')
-          start_marker = '  <section style="padding:clamp(64px,8vw,124px) 0; background:radial-gradient'
-          footer_marker = '  <footer data-comment-anchor="footer"'
-          start = s.find(start_marker)
-          end = s.find(footer_marker, start if start >= 0 else 0)
-          if start < 0 or end < 0:
-              raise SystemExit('Expected pre-footer marker/footer were not found.')
-          s = s[:start] + s[end:]
-          s = s.replace('src="/landing-v3/hero-motoristaops-v4.webp"', 'src="/assets/hero-claude.avif"')
-          s = s.replace('src="/landing-v3/logo-header-v3.svg"', 'src="/assets/logo-claude.avif"')
-          p.write_text(s, encoding='utf-8')
-          PY
-
-          grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' deploy-public/index.html
-          grep -qF '<link rel="canonical" href="https://www.motoristaops.com.br/">' deploy-public/index.html
-          grep -qF '<link rel="alternate" hreflang="pt-BR" href="https://www.motoristaops.com.br/">' deploy-public/index.html
-          grep -qF 'property="og:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916"' deploy-public/index.html
-          grep -qF 'property="og:image:type" content="image/jpeg"' deploy-public/index.html
-          grep -qF 'property="og:image:width" content="1200"' deploy-public/index.html
-          grep -qF 'property="og:image:height" content="630"' deploy-public/index.html
-          grep -qF 'name="twitter:card" content="summary_large_image"' deploy-public/index.html
-          grep -qF 'name="twitter:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916"' deploy-public/index.html
-          grep -qF '"encodingFormat":"image/jpeg"' deploy-public/index.html
-          grep -qF 'data-icon-system="lucide"' deploy-public/index.html
-          grep -qF 'data-brand-system="brand-glyphs"' deploy-public/index.html
-          grep -qF 'https://unpkg.com/lucide@0.574.0' deploy-public/index.html
-          grep -qF -- '--mo-icon-stroke:1.75' deploy-public/index.html
-          grep -qF -- '--mo-icon-size-sm:24px' deploy-public/index.html
-          grep -qF -- '--mo-icon-size-md:32px' deploy-public/index.html
-          grep -qF -- '--mo-icon-size-lg:42px' deploy-public/index.html
-          grep -qF -- '--mo-brand-size-header:28px' deploy-public/index.html
-          grep -qF -- '--mo-brand-size-hero:30px' deploy-public/index.html
-          grep -qF -- '--mo-brand-size-footer:30px' deploy-public/index.html
-          grep -qF 'MotoristaIconSystem' deploy-public/index.html
-          grep -qF 'MotoristaBrandSystem' deploy-public/index.html
-          for semantic in airport meeting health event travel wait schedule route communication details punctuality discretion care continuity experience commitment posture arrow-right external location; do
-            grep -qF "data-mo-icon=\"${semantic}\"" deploy-public/index.html
-          done
-          for brand in whatsapp instagram google; do
-            grep -qF "data-brand-icon=\"${brand}\"" deploy-public/index.html
-          done
-          grep -qF 'https://www.instagram.com/motoristaops/' deploy-public/index.html
-          grep -qF 'Ida, chegada, bagagem e horário planejados com antecedência.' deploy-public/index.html
-          grep -qF 'Espera e acompanhamento' deploy-public/index.html
-          grep -qF 'O que faz diferença é o básico bem feito, em todas as etapas.' deploy-public/index.html
-          ! grep -qF '<img class="card-icon"' deploy-public/index.html
-          ! grep -qF '/assets/icons-official/' deploy-public/index.html
-          ! grep -qF 'data:image/png;base64,' deploy-public/index.html
-          ! grep -qE 'Georgia|Times New Roman|henrico\.driver\.amaral|5511953970704' deploy-public/index.html
-
-          cat > deploy-public/robots.txt <<'ROBOTS'
-          User-agent: *
-          Allow: /
-
-          Sitemap: https://www.motoristaops.com.br/sitemap.xml
-          ROBOTS
-
-          lastmod="$(date -u +%F)"
-          cat > deploy-public/sitemap.xml <<SITEMAP
-          <?xml version="1.0" encoding="UTF-8"?>
-          <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-            <url>
-              <loc>https://www.motoristaops.com.br/</loc>
-              <lastmod>${lastmod}</lastmod>
-              <changefreq>weekly</changefreq>
-              <priority>1.0</priority>
-              <image:image>
-                <image:loc>https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916</image:loc>
-                <image:title>MotoristaOPS — motorista particular em São Paulo</image:title>
-                <image:caption>MotoristaOPS — Seu compromisso começa antes do destino.</image:caption>
-              </image:image>
-            </url>
-          </urlset>
-          SITEMAP
-
-          cat > deploy-public/.htaccess <<'HTACCESS'
-          RewriteEngine On
-          RewriteCond %{HTTPS} !=on [OR]
-          RewriteCond %{HTTP_HOST} !^www\.motoristaops\.com\.br$ [NC]
-          RewriteRule ^ https://www.motoristaops.com.br%{REQUEST_URI} [R=301,L,NE]
-
-          DirectoryIndex index.html
-          AddDefaultCharset UTF-8
-          AddType image/avif .avif
-          HTACCESS
-
-          # Brand System V2 is part of the public production bundle.
-          # Keeping it inside deploy-public ensures future --delete deploys preserve it.
-          mkdir -p deploy-public/brand-system-v2
-          cp -a brand-system-v2/. deploy-public/brand-system-v2/
-          test -s deploy-public/brand-system-v2/index.html
-          test -s deploy-public/brand-system-v2/brandbook-v2.html
-          test -s deploy-public/brand-system-v2/style-guide-v2.html
-          test -s deploy-public/brand-system-v2/design-system-v2.html
-          test -s deploy-public/brand-system-v2/assets/docs.css
-          test -s deploy-public/brand-system-v2/tokens/tokens.dtcg.json
-
-      - name: Rebuild production assets
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p runtime-bundle deploy-public/assets deploy-public/landing-v3
-          cat release/runtime-assets/chunks/part-*.bin > runtime-bundle/runtime-assets.zip
-          echo 'a711c244f0e24ff36f12a28e76a865f62f15c813c974adc9cb843515639af40a  runtime-bundle/runtime-assets.zip' | sha256sum -c -
-          unzip -q runtime-bundle/runtime-assets.zip -d runtime-bundle/extracted
-          cp -a runtime-bundle/extracted/assets deploy-public/
-
-          # Functional icons render through Lucide and external marks through MotoristaBrandSystem.
-          # Purge the legacy raster icon directory so old low-fidelity glyphs cannot reappear.
-          rm -rf deploy-public/assets/icons-official
-          test -s deploy-public/assets/henrico-profile.webp
-
-          cat release/visual-assets/hero/part-*.bin > deploy-public/assets/hero-claude.avif
-          cat release/visual-assets/logo/part-*.bin > deploy-public/assets/logo-claude.avif
-          cat release/service-assets/part-*.bin > deploy-public/assets/service-cards.webp
-          # New-car section reference, isolated from the approved hero assets.
-          cat release/vehicle-assets/part-*.bin > deploy-public/assets/vehicle-reference.avif
-          echo '69a59b2c9dcec4a89183b7a8354496c329b83ae824489b83803fab72c4cb523b  deploy-public/assets/vehicle-reference.avif' | sha256sum -c -
-          echo '56c0068f8b55f7fcf750402bbcb695b3efc4dcd6d28f93493d5e11a4b991ea78  deploy-public/assets/hero-claude.avif' | sha256sum -c -
-          cp deploy-public/assets/hero-claude.avif deploy-public/assets/hero-omoda-56c0068f8b55.avif
-          echo 'a9b0eb5462a08f9bb2004223489833315c3d2df64f3f5091b6ba08387f36a155  deploy-public/assets/logo-claude.avif' | sha256sum -c -
-          echo 'b5c520b9eb4b0e628b9544d1fc61fc9836018987fe0ff49d1c7a7aebaafd965b  deploy-public/assets/service-cards.webp' | sha256sum -c -
-
-          git fetch --no-tags --depth=1 origin backup/pre-reset-2026-09-04
-          git show FETCH_HEAD:public/landing-v3/logo-oficial.svg > deploy-public/landing-v3/logo-oficial.svg
-          test -s deploy-public/landing-v3/logo-oficial.svg
-
-      - name: Install deploy and image tools and validate secrets
+      - name: Install locked dependencies
+        working-directory: source/landing
+        run: npm ci
+      - name: Build indexable production HTML
+        working-directory: source/landing
+        run: npm run build
+      - name: Verify source, assets and WhatsApp rules
+        working-directory: source/landing
+        run: npm test
+      - name: Install deploy client
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Replace public landing and remove obsolete landing assets
         env:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
           HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
           HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
           HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
           HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          for name in HOSTINGER_HOST HOSTINGER_USERNAME HOSTINGER_PASSWORD HOSTINGER_PORT HOSTINGER_PUBLIC_TARGET_DIR; do
-            test -n "${!name:-}" || { echo "Missing secret: $name"; exit 1; }
-          done
-          sudo apt-get update -qq && sudo apt-get install -y -qq lftp ffmpeg
-
-      - name: Preserve approved Open Graph JPEG
-        shell: bash
-        run: |
-          set -euo pipefail
-          # Keep the original social-card source and rendering recipe independent of the new hero.
-          cat release/visual-assets/opengraph/part-*.bin > runtime-bundle/opengraph-source.avif
-          echo '2b5dd109d05d31dc211b11256cf267d2f99b9d85b95addf5637b84a02890057b  runtime-bundle/opengraph-source.avif' | sha256sum -c -
-          ffmpeg -hide_banner -loglevel error -y \
-            -i runtime-bundle/opengraph-source.avif \
-            -vf "scale=1200:630:force_original_aspect_ratio=increase,crop=1200:630:(in_w-out_w)*0.72:0" \
-            -frames:v 1 -q:v 2 \
-            deploy-public/assets/og-motoristaops.jpg
-          echo 'efa046b191aa9d6a4a6840293cf2d7cced4730e2f9aa848fdb86e05945cc0c5d  deploy-public/assets/og-motoristaops.jpg' | sha256sum -c -
-
-          test -s deploy-public/assets/og-motoristaops.jpg
-          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=p=0 deploy-public/assets/og-motoristaops.jpg)" = '1200'
-          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 deploy-public/assets/og-motoristaops.jpg)" = '630'
-          test "$(ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of csv=p=0 deploy-public/assets/og-motoristaops.jpg)" = 'mjpeg'
-
-      - name: Deploy public landing only
-        env:
-          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
-          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
-          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
-          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
-          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" <<LFTP
-          set sftp:auto-confirm yes
-          set net:max-retries 2
-          set net:timeout 20
-          # Preserve remote directories outside the landing bundle, including the dashboard.
-          cls -1 "$HOSTINGER_PUBLIC_TARGET_DIR"
-          mirror --reverse --verbose deploy-public "$HOSTINGER_PUBLIC_TARGET_DIR"
-          bye
-          LFTP
-
-      - name: Verify landing production and dashboard preservation
-        shell: bash
+        run: bash scripts/deploy-landing.sh
+      - name: Verify production bytes, SEO and dashboard
         run: bash scripts/verify-public-landing.sh
-
-      - name: Verify Brand System V2 production
-        shell: bash
-        run: |
-          set -euo pipefail
-          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/ -o /tmp/brand-system-index.html
-          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/brandbook-v2.html -o /tmp/brandbook-v2.html
-          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/style-guide-v2.html -o /tmp/style-guide-v2.html
-          curl -fsSL https://www.motoristaops.com.br/brand-system-v2/design-system-v2.html -o /tmp/design-system-v2.html
-          grep -qF 'BRAND SYSTEM V2' /tmp/brand-system-index.html
-          grep -qF 'Brand Book V2' /tmp/brandbook-v2.html
-          grep -qF 'Visual & Editorial Style Guide' /tmp/style-guide-v2.html
-          grep -qF 'Design System V2' /tmp/design-system-v2.html
-
-      - name: Verify approved hero and preserved social card bytes
-        shell: bash
-        run: |
-          set -euo pipefail
-          curl -fsSL --retry 3 'https://www.motoristaops.com.br/assets/hero-omoda-56c0068f8b55.avif' -o /tmp/hero-production.avif
-          echo '56c0068f8b55f7fcf750402bbcb695b3efc4dcd6d28f93493d5e11a4b991ea78  /tmp/hero-production.avif' | sha256sum -c -
-          curl -fsSL --retry 3 'https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916' -o /tmp/og-production.jpg
-          echo 'd92ed571db561a3af3fdf027b9d66b9c6452bb3d3a4fccbc87b4450747661c82  /tmp/og-production.jpg' | sha256sum -c -
-          curl -fsSL --retry 3 "https://www.motoristaops.com.br/?verify=${GITHUB_SHA}" -o /tmp/hero-page.html
-          test "$(grep -oF 'src="/assets/hero-omoda-56c0068f8b55.avif"' /tmp/hero-page.html | wc -l)" -eq 2

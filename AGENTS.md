@@ -121,3 +121,7 @@ Após todo deploy público, validar no mínimo:
 ## Fonte visual
 
 Não substituir silenciosamente assets aprovados por versões antigas, fallbacks ou arquivos de backup. Hero, logo, perfil e iconografia precisam usar a versão aprovada e versionada para o release corrente.
+
+## Landing atual — decisão explícita de 2026-10-23
+
+A landing aprovada é `source/landing/` (React + Vite, HTML pré-renderizado). Esta decisão SURFACE prevalece sobre baselines antigos de `source/parts` e `source/vehicle`. Somente Instrument Sans, mínimo de 12 CSS px; retrato original de rosto em “Quem dirige”; introduções de Serviços/Carro/Processo/FAQ alinhadas à direita. Não restaurar os CTAs removidos. O operador autorizou substituição total e remoção dos arquivos da landing antiga, sem cópia extra de backup. Não reescrever o histórico Git nem afetar dashboard, Brand System ou outras superfícies. Validar com `npm ci`, `npm run build`, `npm test` em `source/landing`, Foundation e gates públicos.

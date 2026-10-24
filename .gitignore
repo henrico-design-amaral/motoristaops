@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.server-build/
+deploy-public/
+*.log
+__pycache__/
+*.pyc

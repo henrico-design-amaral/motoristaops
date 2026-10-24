@@ -1,96 +1,15 @@
 name: Verify MotoristaOPS production
-
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'source/parts/**'
-      - 'release/runtime-assets/**'
-      - 'release/visual-assets/**'
-      - 'release/service-assets/**'
-      - '.github/workflows/deploy-landing-hostinger.yml'
-      - '.github/workflows/verify-production.yml'
-
+  workflow_run:
+    workflows: ['Deploy MotoristaOPS landing only']
+    types: [completed]
 permissions:
   contents: read
-
 jobs:
   verify:
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-latest
     steps:
-      - name: Wait for deployment convergence
-        run: sleep 15
-
-      - name: Verify landing contract and dashboard preservation
-        shell: bash
-        run: |
-          set -euo pipefail
-          for attempt in 1 2 3 4 5 6 7 8; do
-            cache="$(date +%s)-${attempt}"
-            public_html="$(curl -fsSL --connect-timeout 6 --max-time 15 -H 'Cache-Control: no-cache' "https://www.motoristaops.com.br/?verify=${cache}" || true)"
-            dashboard_html="$(curl -fsSL --connect-timeout 6 --max-time 15 -H 'Cache-Control: no-cache' "https://dashboard.motoristaops.com.br/?verify=${cache}" || true)"
-            robots="$(curl -fsSL --connect-timeout 6 --max-time 15 "https://www.motoristaops.com.br/robots.txt?verify=${cache}" || true)"
-            sitemap="$(curl -fsSL --connect-timeout 6 --max-time 15 "https://www.motoristaops.com.br/sitemap.xml?verify=${cache}" || true)"
-            canonical_effective="$(curl -sS -L -o /dev/null -w '%{url_effective}' --connect-timeout 6 --max-time 15 'http://motoristaops.com.br/' || true)"
-            og_status="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 6 --max-time 15 'https://www.motoristaops.com.br/assets/og-motoristaops.jpg' || true)"
-            og_type="$(curl -sSI --connect-timeout 6 --max-time 15 'https://www.motoristaops.com.br/assets/og-motoristaops.jpg' | tr -d '\r' | awk 'BEGIN{IGNORECASE=1} /^content-type:/ {print $2; exit}' || true)"
-            services_pos="$(grep -bo 'id="servicos"' <<<"$public_html" | head -1 | cut -d: -f1 || true)"
-            why_pos="$(grep -bo 'id="por-que-agendar"' <<<"$public_html" | head -1 | cut -d: -f1 || true)"
-
-            if grep -qF 'data-icon-system="lucide"' <<<"$public_html" \
-              && grep -qF 'data-brand-system="brand-glyphs"' <<<"$public_html" \
-              && grep -qF 'https://unpkg.com/lucide@0.574.0' <<<"$public_html" \
-              && grep -qF -- '--mo-icon-stroke:1.75' <<<"$public_html" \
-              && grep -qF -- '--mo-icon-size-sm:24px' <<<"$public_html" \
-              && grep -qF -- '--mo-icon-size-md:32px' <<<"$public_html" \
-              && grep -qF -- '--mo-icon-size-lg:42px' <<<"$public_html" \
-              && grep -qF -- '--mo-brand-size-header:28px' <<<"$public_html" \
-              && grep -qF -- '--mo-brand-size-hero:30px' <<<"$public_html" \
-              && grep -qF -- '--mo-brand-size-footer:30px' <<<"$public_html" \
-              && grep -qF 'MotoristaIconSystem' <<<"$public_html" \
-              && grep -qF 'MotoristaBrandSystem' <<<"$public_html" \
-              && grep -qF 'data-mo-icon="airport"' <<<"$public_html" \
-              && grep -qF 'data-mo-icon="travel"' <<<"$public_html" \
-              && grep -qF 'data-mo-icon="punctuality"' <<<"$public_html" \
-              && grep -qF 'data-mo-icon="location"' <<<"$public_html" \
-              && grep -qF 'data-brand-icon="whatsapp"' <<<"$public_html" \
-              && grep -qF 'data-brand-icon="instagram"' <<<"$public_html" \
-              && grep -qF 'data-brand-icon="google"' <<<"$public_html" \
-              && grep -qF '<title>Motorista Particular em São Paulo | MotoristaOPS</title>' <<<"$public_html" \
-              && grep -qF '<link rel="canonical" href="https://www.motoristaops.com.br/">' <<<"$public_html" \
-              && grep -qF '<link rel="alternate" hreflang="pt-BR" href="https://www.motoristaops.com.br/">' <<<"$public_html" \
-              && grep -qF 'property="og:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916"' <<<"$public_html" \
-              && grep -qF 'property="og:image:type" content="image/jpeg"' <<<"$public_html" \
-              && grep -qF 'property="og:image:width" content="1200"' <<<"$public_html" \
-              && grep -qF 'property="og:image:height" content="630"' <<<"$public_html" \
-              && grep -qF 'name="twitter:card" content="summary_large_image"' <<<"$public_html" \
-              && grep -qF 'name="twitter:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916"' <<<"$public_html" \
-              && grep -qF 'Pular para o conteúdo' <<<"$public_html" \
-              && grep -qF 'Aeroportos e rodoviárias' <<<"$public_html" \
-              && grep -qF 'Espera e acompanhamento' <<<"$public_html" \
-              && grep -qF 'O valor aparece no jeito de trabalhar.' <<<"$public_html" \
-              && grep -qF 'Henrico Amaral.' <<<"$public_html" \
-              && grep -qF 'https://www.instagram.com/motoristaops/' <<<"$public_html" \
-              && test -n "$services_pos" && test -n "$why_pos" && test "$services_pos" -lt "$why_pos" \
-              && ! grep -qF '<img class="card-icon"' <<<"$public_html" \
-              && ! grep -qF '/assets/icons-official/' <<<"$public_html" \
-              && ! grep -qF 'data:image/png;base64,' <<<"$public_html" \
-              && ! grep -qE 'Georgia|Times New Roman|henrico\.driver\.amaral|5511953970704' <<<"$public_html" \
-              && grep -qF 'Sitemap: https://www.motoristaops.com.br/sitemap.xml' <<<"$robots" \
-              && grep -qF '<loc>https://www.motoristaops.com.br/</loc>' <<<"$sitemap" \
-              && grep -qF '<image:loc>https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916</image:loc>' <<<"$sitemap" \
-              && test "$canonical_effective" = 'https://www.motoristaops.com.br/' \
-              && test "$og_status" = '200' \
-              && test "$og_type" = 'image/jpeg' \
-              && grep -qF '<title>MotoristaOPS · Dashboard</title>' <<<"$dashboard_html" \
-              && grep -qF 'Plano operacional' <<<"$dashboard_html" \
-              && grep -qF 'Performance' <<<"$dashboard_html" \
-              && grep -qF 'Particular' <<<"$dashboard_html"; then
-              echo 'MotoristaOPS production verification passed: canonical redirects, SEO metadata, JPEG social card, icon system and dashboard are preserved.'
-              exit 0
-            fi
-            sleep 5
-          done
-          echo 'MotoristaOPS landing verification failed after convergence window.'
-          exit 1
+      - uses: actions/checkout@v4
+      - run: bash scripts/verify-public-landing.sh

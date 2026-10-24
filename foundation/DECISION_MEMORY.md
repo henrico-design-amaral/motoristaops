@@ -78,3 +78,13 @@ Fonte de implementação e evidências: `source/vehicle/README.md`, `source/vehi
 **CANONICAL · SURFACE / landing MotoristaOPS · 2026-10-22**
 
 O proprietário rejeitou a publicação anterior por proporções e largura diferentes da referência. Essa revisão supera o aceite visual anterior. A seção deve compartilhar `.container` (1440 px e mesmos gutters) com o site; galeria e cards não podem ultrapassar as bordas de Serviços por margens negativas. Usar a mesma imagem fornecida, sem redesenhar carro/interior; escala uniforme medida na área útil da referência. Conferir sempre o módulo no contexto das seções adjacentes e nas larguras do site, além da captura isolada. Evidências da correção em `design-qa.md` e `source/vehicle/layout-validation-2026-10-22.json`. Fonte Instrument Sans, fatos confirmados, status previsto e demais invariantes permanecem.
+
+## Substituição integral da landing aprovada
+
+**CANONICAL · SURFACE / landing MotoristaOPS · 2026-10-23**
+
+O operador aprovou a nova landing e autorizou a substituição completa da página pública, sem manter cópia antiga ou ambiente de backup da landing na hospedagem. Fonte única: `source/landing/`; `source/parts`, versões alternativas e workflows legados de promoção foram retirados. Git permanece apenas como infraestrutura técnica já utilizada; não criar branch ou cópia extra de backup. O dashboard e o Brand System são superfícies independentes e permanecem.
+
+Contrato aprovado: somente Instrument Sans (normal/itálico, pesos 400–700, largura 100), nenhum texto editável abaixo de 12 CSS px. Manter hero com identidade e outfit aprovados; “Quem dirige” usa exclusivamente o retrato original, nunca o corpo inteiro. Os textos introdutórios de Serviços, Carro, Processo e FAQ ficam alinhados à direita. Manter remoções dos CTAs do cabeçalho, hero, encerramento do processo e apresentação pessoal. Preservar contato final, links dos serviços e WhatsApp flutuante. Formulário prepara mensagem organizada e revisável; abrir o WhatsApp não envia automaticamente nem confirma reserva.
+
+Omoda 5 Luxury cinza é o veículo apresentado nesta landing; as composições são identificadas como conceituais/ilustrativas, sem pretensão de fotografia documental. PPF e película permanecem previstos. As restrições de hero/textos invariáveis do release anterior de 2026-10-22 estão superadas por esta substituição integral. As regras gerais de outras superfícies não são alteradas.

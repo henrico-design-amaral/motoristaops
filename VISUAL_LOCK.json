@@ -268,7 +268,7 @@
   "baselines": [
     {
       "kind": "GOLDEN_SCREEN",
-      "reference": "source/parts/*.htmlfrag (canonical production landing source)",
+      "reference": "source/landing/ (approved landing, 2026-10-23)",
       "viewport_or_format": "responsive web"
     },
     {
@@ -277,7 +277,17 @@
       "viewport_or_format": "cross-channel core"
     }
   ],
-  "exceptions": [],
+  "exceptions": [
+    {
+      "scope": "SURFACE / public landing",
+      "authority": "Explicit operator approval, 2026-10-23",
+      "rules": [
+        "Instrument Sans only; all editable text >=12 CSS px",
+        "Approved conceptual hero with supplied identity/outfit; original face portrait in about section",
+        "Approved complete replacement per foundation/DECISION_MEMORY.md"
+      ]
+    }
+  ],
   "failure_memory": "foundation/FAILURE_MEMORY.md",
   "request_resolver": "foundation/REQUEST_RESOLVER.md"
 }
