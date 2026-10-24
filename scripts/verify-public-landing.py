@@ -32,6 +32,8 @@ def verify():
     _,_,canonical=get('http://motoristaops.com.br/');assert canonical==BASE,canonical
     dashboard,_,_=get('https://dashboard.motoristaops.com.br/');dashboard=dashboard.decode()
     for marker in ['MotoristaOPS · Dashboard','Plano operacional','Performance','Particular']:assert marker in dashboard,marker
+    for route,marker in [('brand-system-v2/','BRAND SYSTEM V2'),('brand-system-v2/brandbook-v2.html','Brand Book V2')]:
+        page,_,_=get(BASE+route);assert marker in page.decode(),route
     print('PASS:',len(checked),'published files verified byte-for-byte; canonical SEO, old-asset removal and dashboard operational markers confirmed.')
 for attempt in range(1,7):
     try:verify();break

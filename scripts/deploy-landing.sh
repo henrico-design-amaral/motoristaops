@@ -23,11 +23,14 @@ put source/landing/dist/robots.txt -o "$TARGET/robots.txt"
 put source/landing/dist/sitemap.xml -o "$TARGET/sitemap.xml"
 put source/landing/dist/.htaccess -o "$TARGET/.htaccess"
 put source/landing/dist/release-manifest.json -o "$TARGET/release-manifest.json"
-put source/landing/dist/index.html -o "$TARGET/.landing-incoming.html"
-mv "$TARGET/.landing-incoming.html" "$TARGET/index.html"
+put -e source/landing/dist/index.html -o "$TARGET/index.html"
+rm -f "$TARGET/.landing-incoming.html"
 # Remove obsolete landing assets only after the replacement HTML is in place.
 mirror --reverse --delete --verbose source/landing/dist/assets "$TARGET/assets"
 rm -rf "$TARGET/landing-v3"
 rm -rf "$TARGET/hero"
+# Retire only the old landing staging files; other /temp tools remain isolated.
+rm -f "$TARGET/temp/index.html" "$TARGET/temp/robots.txt" "$TARGET/temp/sitemap.xml" "$TARGET/temp/.htaccess"
+rm -rf "$TARGET/temp/landing-v3" "$TARGET/temp/assets"
 bye
 LFTP
