@@ -163,3 +163,13 @@ Exemplo:
 6. referências externas.
 
 Este standard é permanente até nova decisão explícita do operador.
+
+## 11. Travamento dos modelos editoriais claro e escuro
+
+- Decisão do titular reiterada em 2026-10-27: os dois modelos de publicação claro e escuro definidos durante a campanha informativa do primeiro turno das eleições de 2026 são os modelos editoriais oficiais. Novas peças devem partir dessas referências, não de alternativas visuais criadas do zero.
+- Âncora histórica verificável: carrossel de cinco lâminas publicado em 2026-10-04, https://www.instagram.com/p/DeEZ1lmiAOM/ . É evidência de publicação e referência de recuperação, não substitui os arquivos-mestre das variantes.
+- Reproduzir estrutura, grid, margens, proporções, ritmo visual, estilos tipográficos e uso do logo dos mestres claros/escuros aprovados. Alternar entre claro/escuro por contexto conforme §5, não por gosto ou geração aleatória.
+- Quando for um evento, sua imagem/atmosfera real é protagonista e a marca organiza. Cidade é opção de contexto quando não houver uma imagem autorizada do tema; nunca substituir o evento por ambientação genérica sem justificativa.
+- As variantes experimentais geradas em 2026-10-27 para BTS, GP, FENATRAN e EMOB não foram aprovadas; não utilizá-las como referência nem promover ao acervo oficial.
+- **Gate de fidelidade:** os arquivos editáveis/pixels dos dois mestres não foram recuperados nesta auditoria. Antes de produzir novas peças declaradas oficiais, localizar os mestres no acervo original ou recuperar seus pixels sem alterar a identidade; comparar render por render. A existência de link de uma publicação não comprova as dimensões internas do template.
+- Preserve o Brand Book V2, o arquivo real do logo, a Instrument Sans e a proibição de gerar pessoa ou veículo MotoristaOPS por IA.
