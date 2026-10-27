@@ -173,3 +173,15 @@ Este standard é permanente até nova decisão explícita do operador.
 - As variantes experimentais geradas em 2026-10-27 para BTS, GP, FENATRAN e EMOB não foram aprovadas; não utilizá-las como referência nem promover ao acervo oficial.
 - **Gate de fidelidade:** os arquivos editáveis/pixels dos dois mestres não foram recuperados nesta auditoria. Antes de produzir novas peças declaradas oficiais, localizar os mestres no acervo original ou recuperar seus pixels sem alterar a identidade; comparar render por render. A existência de link de uma publicação não comprova as dimensões internas do template.
 - Preserve o Brand Book V2, o arquivo real do logo, a Instrument Sans e a proibição de gerar pessoa ou veículo MotoristaOPS por IA.
+
+## 11. Referências visuais aprovadas — primeiro turno (04/10/2026)
+
+**Decisão reiterada pelo operador em 27/10/2026:** os modelos editoriais **CLARO** e **ESCURO** adotados na campanha do primeiro turno eleitoral são os dois modelos oficiais para publicações MotoristaOPS. Esta decisão especifica os masters existentes; não autoriza criação de uma terceira família visual, reinterpretação estética ou novas composições de tela em branco.
+
+- Referência pública rastreada: post/carrossel do primeiro turno em 04/10/2026 — https://www.instagram.com/p/DeEZ1lmiAOM/.
+- Histórico complementar: padrão editorial oficial aprovado e registrado em 04/10/2026, implementado neste arquivo em 06/10/2026; o raster original de cada uma das duas variantes **ainda não foi localizado nesta revisão**. O permalink acima não prova sozinho a existência dos dois arquivos de template.
+- Fluxo obrigatório: **localizar ambos os masters aprovados e inspecionar suas imagens → preservar geometria, área de fotografia, hierarquia, títulos, moldura quando houver, CTA, margens, proporções e assinatura exata → preencher apenas os slots editoriais autorizados → adaptar ao formato de canal com reflow controlado → validar lado a lado com os masters**.
+- Eventos têm a cena do evento como imagem principal; quando não houver evento específico, o cenário urbano de São Paulo pode ser o repertório, conforme §§1 e 6. Claro/escuro é selecionado pelo contexto (§5), não por preferência estética.
+- **Bloqueio:** se os masters não estiverem acessíveis, não entregar nem publicar peças afirmando que seguem os modelos aprovados. Localizar arquivos originais, não reconstruir a arquitetura por suposição.
+- Não utilizar como referência os lotes experimentais criados em 27/10/2026 e rejeitados pelo operador; não promover essas propostas a masters.
+- Esta regra complementa DESIGN.md, VISUAL_LOCK.json e Brand Book V2; não substitui a identidade oficial nem permite alterar ativos travados.
