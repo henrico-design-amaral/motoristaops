@@ -5,6 +5,7 @@ import './styles.css';
 import './landing.css';
 import './refinements.css';
 import './motion.css';
+import './vehicle.css';
 const root=document.getElementById('root');
 const app=<React.StrictMode><App/></React.StrictMode>;
 if(root.children.length)hydrateRoot(root,app);else createRoot(root).render(app);

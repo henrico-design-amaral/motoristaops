@@ -98,3 +98,11 @@ O operador solicitou aplicar todas as sete sugestões: entrada da hero por linha
 Implementação nativa CSS/Web Animations, sem nova biblioteca. Respeitar `prefers-reduced-motion` também quando a preferência muda durante uma animação. Conteúdo pré-renderizado permanece visível e indexável sem a camada de motion. Galeria por teclado e fechamento por Escape são imediatos; foco é devolvido ao disparador. Formulário continua preparando mensagem revisável, sem envio nem reserva automáticos.
 
 Especificação: `source/landing/MOTION.md`.
+
+## Interior e proteções realizadas do Omoda 5 Luxury
+
+**APPROVED · SURFACE / landing MotoristaOPS · 2026-10-27**
+
+O operador aprovou a prévia estática `motoristaops-secao-carro.png` e autorizou aplicar somente a seção do carro. Preservar a mesma grade `.container` e as demais seções da landing, inclusive hero, serviços, processo, retrato, avaliações, FAQ e formulário. A galeria passa a incluir painel/cabine, bancos dianteiros, banco traseiro e teto solar da versão Luxury, usando as fotos identificadas no anúncio da Personalité Automóveis. Manter marcas d’água originais, sem gerar ou redesenhar o interior. A foto externa aprovada permanece.
+
+O proprietário confirmou como realizados: PPF Full interno e externo brilhante; película antivandalismo PS20; nano cerâmica G5/G20; vitrificação Full de couros, bancos, plásticos e rodas; Anti-Trinco para o para-brisa. Esta confirmação supera o status anterior de PPF/película como preparação prevista. Na seção do carro, remover notas visíveis de imagens conceituais, ficha técnica e link de consulta, conforme pedido explícito. A origem das fotos e o contexto da versão ficam documentados em `source/landing/VEHICLE.md`. Só Instrument Sans, textos de no mínimo 12 CSS px; galeria com teclado, foco e motion reduzido preservados.

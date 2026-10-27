@@ -25,3 +25,14 @@ A conferência pública detectou transformação automática somente no JPEG de 
 Aplicadas as sete intervenções autorizadas, descritas em `source/landing/MOTION.md`. Build e 11 testes passaram. QA de interações no navegador de validação incluiu interrupções, teclado, foco, galeria, FAQ, formulário e WhatsApp contextual, além de desktop/celular. Redução de movimento inicial/dinâmica e fallback foram verificados em testes automatizados; não foi alterada a preferência de animações do sistema do usuário. Imagens, fontes, textos e grade aprovados permanecem. Publicação segue workflow canônico com verificação de arquivos por hash e preservação de dashboard/Brand System.
 
 **PUBLICADO E VALIDADO — 26/10/2026.** Deploy `40436189486` e verificação independente `40436269982` concluídos com sucesso no commit `e99516f983f0d5ac494597e91979641ca598727c`. Os 25 arquivos públicos passaram por hash; dashboard e Brand System preservados. Conferência pública adicional em Edge: marcador `native-2026-10-26`, FAQ funcional em 390 px, Instrument Sans e zero textos abaixo de 12 px na varredura; sem overflow em 390/1024 px; formulário exibiu resumo e foco correto, WhatsApp flutuante recolhido na seção final, sem envio. Evidência visual em `ops/publication-evidence/motion-desktop.jpg`.
+
+
+## Seção do carro aprovada — 27/10/2026
+
+- Aplicação da prévia estática aprovada, restrita a `#o-carro` e seu ampliador. Quatro fotos internas da Luxury e cinco proteções realizadas.
+- Build e 11 testes existentes aprovados; Foundation e `git diff --check` aprovados. Sem dependências novas.
+- O HTML pré-renderizado fora da seção permanece idêntico ao release anterior, normalizados somente os identificadores de release e hashes dos bundles. SHA-256 normalizado: `123434d8e058705e8960e8f2332dad40c40b1798ddc73c2643504e9d29be8557`.
+- QA no navegador, larguras nominais 390, 768, 1024 e 1363 px: sem overflow horizontal; mesma largura de `.container` em Serviços e Carro; nenhum texto do módulo abaixo de 12 CSS px. As larguras úteis em iframes incluem a barra de rolagem do navegador.
+- Desktop: quatro fotos internas abertas com Enter, Escape fecha e devolve o foco ao botão acionado; navegação da última imagem para a primeira aprovada. No celular: ampliação do banco traseiro e Escape aprovados; fotos em duas colunas e proteções em uma.
+- Origem das fotos e confirmação das proteções documentadas em `source/landing/VEHICLE.md` e `foundation/DECISION_MEMORY.md`.
+- Publicação e verificação de produção serão registradas após os respectivos gates.
