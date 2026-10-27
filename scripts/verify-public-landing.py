@@ -12,7 +12,7 @@ def get(url):
 def verify():
     raw,_,_=get(BASE+'release-manifest.json?verify='+str(time.time_ns()))
     manifest=json.loads(raw)
-    assert manifest['release']=='landing-2026-10-23'
+    assert manifest['release']=='landing-2026-10-26-motion'
     if EXPECTED: assert manifest==EXPECTED,'Public manifest differs from build'
     def check(f):
         body,headers,_=get(BASE+f['path']+'?verify='+f['sha256'][:12]+'-'+str(time.time_ns()))
@@ -22,7 +22,7 @@ def verify():
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool: checked=list(pool.map(check,manifest['files']))
     html,headers,_=get(BASE+'?verify='+str(time.time_ns()));html=html.decode()
     assert 'noindex' not in headers.get('X-Robots-Tag','').lower()
-    for text in ['name="motoristaops-release" content="landing-2026-10-23"','rel="canonical" href="'+BASE+'"','Seu compromisso','id="o-carro"','id="quem-dirige"','Perguntas frequentes.','Preparar mensagem','Nada é enviado automaticamente.']:
+    for text in ['name="motoristaops-release" content="landing-2026-10-26-motion"','rel="canonical" href="'+BASE+'"','Seu compromisso','id="o-carro"','id="quem-dirige"','Perguntas frequentes.','Preparar mensagem','Nada é enviado automaticamente.']:
         assert text in html,text
     for bad in ['noindex','/temp/','landing-v3','fonts.googleapis.com']:assert bad not in html,bad
     for name in ['hero-claude.avif','hero-omoda-56c0068f8b55.avif','logo-claude.avif','service-cards.webp','henrico-profile.webp']:

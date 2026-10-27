@@ -1,5 +1,6 @@
 import React, {useState,useRef,useEffect} from 'react';
 import {ArrowRight,Check} from 'lucide-react';
+import {useMessageMotion} from './Motion.jsx';
 import {prepareTripRequest,localToday} from './trip-request.mjs';
 
 export function TripForm({getAsset}) {
@@ -7,7 +8,8 @@ export function TripForm({getAsset}) {
   useEffect(()=>setToday(localToday()),[]);
   const [errors,setErrors] = useState({});
   const [prepared,setPrepared] = useState(null);
-  const readyHeading = useRef(null);
+  const readyHeading = useRef(null),readyCard=useRef(null);
+  useMessageMotion(readyCard,prepared);
   useEffect(()=>{if(prepared)readyHeading.current?.focus();},[prepared]);
   const prepare = event => {
     event.preventDefault();
@@ -41,7 +43,7 @@ export function TripForm({getAsset}) {
     <div className="form-field"><label htmlFor="detalhes">Mais detalhes <span>(opcional)</span></label><textarea id="detalhes" name="detalhes" placeholder="Malas, paradas, espera ou retorno" maxLength="800" rows="2" {...a11y('detalhes')}/>{error('detalhes')}</div>
     {Object.keys(errors).length>0 && <p className="form-feedback" role="alert">Confira os campos indicados para continuar.</p>}
     <button className="button primary" type="submit"><img className="brand-icon" src={getAsset('whatsapp.svg')} alt=""/><span>{prepared?'Atualizar mensagem':'Preparar mensagem'}</span><ArrowRight aria-hidden="true" size={20} strokeWidth={1.75}/></button>
-    {prepared && <section className="message-ready" aria-labelledby="message-ready-title"><h4 ref={readyHeading} id="message-ready-title" tabIndex="-1"><Check aria-hidden="true" size={20}/>Mensagem preparada</h4><dl>{[['Origem',prepared.summary.origem],['Destino',prepared.summary.destino],['Data',prepared.summary.data],['Horário',prepared.summary.horario],['Passageiros',prepared.summary.passageiros],...(prepared.summary.detalhes?[['Detalhes',prepared.summary.detalhes]]:[])].map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><a className="button primary" href={prepared.href} target="_blank" rel="noopener noreferrer"><img className="brand-icon" src={getAsset('whatsapp.svg')} alt=""/><span>Abrir conversa no WhatsApp</span><ArrowRight aria-hidden="true" size={20} strokeWidth={1.75}/></a></section>}
+    {prepared && <section ref={readyCard} className="message-ready" aria-labelledby="message-ready-title"><h4 ref={readyHeading} id="message-ready-title" tabIndex="-1"><Check aria-hidden="true" size={20}/>Mensagem preparada</h4><dl>{[['Origem',prepared.summary.origem],['Destino',prepared.summary.destino],['Data',prepared.summary.data],['Horário',prepared.summary.horario],['Passageiros',prepared.summary.passageiros],...(prepared.summary.detalhes?[['Detalhes',prepared.summary.detalhes]]:[])].map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><a className="button primary" href={prepared.href} target="_blank" rel="noopener noreferrer"><img className="brand-icon" src={getAsset('whatsapp.svg')} alt=""/><span>Abrir conversa no WhatsApp</span><ArrowRight aria-hidden="true" size={20} strokeWidth={1.75}/></a></section>}
     <p className="form-note">Nada é enviado automaticamente. O atendimento só é reservado após confirmação.</p>
   </form>;
 }

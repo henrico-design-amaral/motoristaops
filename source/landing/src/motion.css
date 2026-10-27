@@ -1,0 +1,23 @@
+/* Motion is progressive enhancement: server-rendered content stays visible. */
+.hero h1 .hero-line{display:inline-block;color:var(--ivory)}
+.hero h1 .hero-line-accent{color:var(--gold)}
+.steps{position:relative;isolation:isolate}
+.step-top{position:relative}
+.step-top>span{display:inline-block}
+.process-route{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible;z-index:1}
+.process-route path{fill:none;stroke:var(--gold);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;opacity:.8}
+.car-main .expand{z-index:2}
+.car-main .gallery-current{position:relative;z-index:1}
+.car-main .gallery-previous{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:0}
+.gallery-frame{position:relative;width:100%;aspect-ratio:866/490;max-height:78vh;isolation:isolate}
+.gallery-frame .gallery-current{position:relative;width:100%;height:100%;max-height:inherit;object-fit:contain;z-index:1}
+.gallery-frame .gallery-previous{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;z-index:0}
+.faq-answer p{padding:0 32px 24px 0;font-size:14px;color:#55534e;line-height:1.7}
+.faq details[data-closing=true] .faq-plus svg{transform:rotate(0)}
+.floating-wa{transition:opacity 160ms var(--ease-out),transform 160ms var(--ease-out),visibility 0s;animation:contact-enter 160ms var(--ease-out)}
+.floating-wa[data-visible=false]{opacity:0;transform:translateY(8px);pointer-events:none;visibility:hidden;transition:opacity 120ms var(--ease-out),transform 120ms var(--ease-out),visibility 0s 120ms}
+@keyframes contact-enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.faq-answer p{font-size:13px;padding-right:12px}.gallery-frame{max-height:65svh}}
+@media(prefers-reduced-motion:reduce){
+  .floating-wa,.floating-wa[data-visible=false],.faq-plus svg{transition:none!important;animation:none!important}
+}

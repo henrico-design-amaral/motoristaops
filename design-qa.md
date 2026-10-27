@@ -19,3 +19,7 @@ A conferência pública detectou transformação automática somente no JPEG de 
 ## Resultado público confirmado
 
 **PUBLICADO E VALIDADO — 23/10/2026 (America/Sao_Paulo).** Workflow de deploy `40048817368` concluído com sucesso para o commit `117b3e16e85431517c7069fa590351edbc8aa042`. Os 25 arquivos públicos passaram por SHA-256; canonical/redirecionamento/indexação e remoção dos assets antigos passaram; dashboard e Brand System operacionais. O social card passou sem transformação. Formulário preparado e resumo revisado no domínio público, sem envio de mensagem. Evidência atual em `ops/publication-evidence/`. Nenhuma cópia extra da landing antiga foi criada.
+
+## Motion aprovado — 26/10/2026
+
+Aplicadas as sete intervenções autorizadas, descritas em `source/landing/MOTION.md`. Build e 11 testes passaram. QA de interações no navegador de validação incluiu interrupções, teclado, foco, galeria, FAQ, formulário e WhatsApp contextual, além de desktop/celular. Redução de movimento inicial/dinâmica e fallback foram verificados em testes automatizados; não foi alterada a preferência de animações do sistema do usuário. Imagens, fontes, textos e grade aprovados permanecem. Publicação segue workflow canônico com verificação de arquivos por hash e preservação de dashboard/Brand System.

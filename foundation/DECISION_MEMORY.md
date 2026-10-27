@@ -88,3 +88,13 @@ O operador aprovou a nova landing e autorizou a substituição completa da pági
 Contrato aprovado: somente Instrument Sans (normal/itálico, pesos 400–700, largura 100), nenhum texto editável abaixo de 12 CSS px. Manter hero com identidade e outfit aprovados; “Quem dirige” usa exclusivamente o retrato original, nunca o corpo inteiro. Os textos introdutórios de Serviços, Carro, Processo e FAQ ficam alinhados à direita. Manter remoções dos CTAs do cabeçalho, hero, encerramento do processo e apresentação pessoal. Preservar contato final, links dos serviços e WhatsApp flutuante. Formulário prepara mensagem organizada e revisável; abrir o WhatsApp não envia automaticamente nem confirma reserva.
 
 Omoda 5 Luxury cinza é o veículo apresentado nesta landing; as composições são identificadas como conceituais/ilustrativas, sem pretensão de fotografia documental. PPF e película permanecem previstos. As restrições de hero/textos invariáveis do release anterior de 2026-10-22 estão superadas por esta substituição integral. As regras gerais de outras superfícies não são alteradas.
+
+## Motion na landing
+
+**APPROVED · SURFACE / landing MotoristaOPS · 2026-10-26**
+
+O operador solicitou aplicar todas as sete sugestões: entrada da hero por linhas; cards de serviços em grupos; linha e números no processo; transições da galeria e fechamento do ampliador; abertura/recolhimento da FAQ; resumo de mensagem preparada; aparição/recolhimento contextual do WhatsApp. Sem redesenhar o layout, imagens, rosto/corpo, tipografia ou conteúdo aprovado. A linha do processo acompanha a grade existente, inclusive as duas colunas em telas menores.
+
+Implementação nativa CSS/Web Animations, sem nova biblioteca. Respeitar `prefers-reduced-motion` também quando a preferência muda durante uma animação. Conteúdo pré-renderizado permanece visível e indexável sem a camada de motion. Galeria por teclado e fechamento por Escape são imediatos; foco é devolvido ao disparador. Formulário continua preparando mensagem revisável, sem envio nem reserva automáticos.
+
+Especificação: `source/landing/MOTION.md`.
