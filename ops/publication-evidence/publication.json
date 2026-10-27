@@ -1,47 +1,50 @@
 {
-  "date": "2026-10-26",
+  "date": "2026-10-27",
   "timezone": "America/Sao_Paulo",
   "status": "published_and_verified",
-  "url": "https://www.motoristaops.com.br/",
-  "release": "landing-2026-10-26-motion",
-  "source_commit": "e99516f983f0d5ac494597e91979641ca598727c",
-  "workflow_run": "https://github.com/henrico-design-amaral/motoristaops/actions/runs/40436189486",
+  "url": "https://www.motoristaops.com.br/#o-carro",
+  "release": "landing-2026-10-27-vehicle",
+  "source_commit": "1e76e16817fe63b9883029cad7e4768203c9e21f",
+  "scope": "vehicle_section_and_its_lightbox_only",
+  "workflow_run": "https://github.com/henrico-design-amaral/motoristaops/actions/runs/40493192216",
   "workflow_conclusion": "success",
-  "independent_verification_run": "https://github.com/henrico-design-amaral/motoristaops/actions/runs/40436269982",
+  "independent_verification_run": "https://github.com/henrico-design-amaral/motoristaops/actions/runs/40493324321",
   "independent_verification_conclusion": "success",
-  "public_files_sha256_verified": 25,
+  "public_files_sha256_verified": 29,
   "unit_and_release_tests_passed": 11,
-  "motion_points": [
-    "hero",
-    "services",
-    "process",
-    "gallery",
-    "faq",
-    "prepared_message",
-    "floating_whatsapp"
+  "outside_vehicle_prerender_identical": true,
+  "outside_vehicle_normalized_sha256": "123434d8e058705e8960e8f2332dad40c40b1798ddc73c2643504e9d29be8557",
+  "normalization": [
+    "vehicle section replaced by marker",
+    "release identifier",
+    "Vite app bundle filename hashes"
   ],
+  "interior_photos": 4,
+  "confirmed_protections": 5,
   "new_dependencies": 0,
   "dashboard_preserved": true,
   "brand_system_preserved": true,
   "browser_qa": {
     "preview": "cloud browser",
     "public": "Edge extension and cloud browser",
-    "responsive_widths": [
+    "preview_nominal_widths": [
       390,
+      768,
       1024,
       1363
     ],
+    "public_edge_observed_width": 355,
     "horizontal_overflow": false,
-    "text_below_12px_in_public_390px_scan": 0,
-    "original_images_and_instrument_sans_preserved": true,
-    "keyboard_escape_and_focus_return": true,
-    "faq_interruptible": true,
-    "prepared_message_focus_and_float_hidden": true,
+    "section_text_below_12px": 0,
+    "instrument_sans_preserved": true,
+    "services_and_vehicle_container_widths_equal": true,
+    "all_four_interior_images_open_by_keyboard": true,
+    "escape_and_focus_return": true,
+    "last_image_wraps_to_first": true,
+    "public_mobile_cabin_modal": true,
+    "all_four_public_interior_images_loaded": true,
     "whatsapp_messages_sent": 0
   },
-  "reduced_motion": {
-    "initial_and_runtime_preference_change": "automated tests passed",
-    "operating_system_preference_changed": false
-  },
-  "proof": "ops/publication-evidence/motion-desktop.jpg"
+  "reduced_motion": "existing automated initial/runtime preference tests passed; no operating-system preference change",
+  "proof": "ops/publication-evidence/vehicle-published-2026-10-27.jpg"
 }
