@@ -1,13 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "lock": "MOTORISTAOPS_SOCIAL_EDITORIAL_FORMAT_LOCK",
-  "version": "3.3",
+  "version": "3.4",
   "effective_date": "2026-10-28",
   "status": "LOCKED",
   "authority": "MotoristaOPS/SOCIAL_EDITORIAL.md",
   "default_allowed_formats": [
-    "carousel_static",
-    "single_static"
+    "single_static",
+    "seasonal_carousel_static",
+    "carousel_static"
   ],
   "exception_policy": "explicit_current_operator_authorization_only",
   "provider_fallback_allowed": false,
@@ -121,11 +122,10 @@
     }
   },
   "seasonal_routing": {
-    "creates_new_format_family": false,
-    "allowed_targets": [
-      "single_static",
-      "carousel_static"
-    ]
+    "creates_new_format_family": true,
+    "target": "seasonal_carousel_static",
+    "convertible_to_single_static": false,
+    "convertible_without_explicit_override": false
   },
   "reference_fidelity_lock": {
     "real_place_recognizability_required": true,
@@ -146,5 +146,26 @@
     "published_content_historical_only": true,
     "legacy_visuals_active_reference_allowed": false,
     "legacy_visuals_fallback_allowed": false
+  },
+  "seasonal_carousel_static": {
+    "slides_exactly": 3,
+    "opening": [
+      "introduction",
+      "cta",
+      "signature",
+      "logo"
+    ],
+    "content": {
+      "purpose": "content_or_utility",
+      "logo": false,
+      "commercial_cta": false
+    },
+    "closing": [
+      "institutional_presentation",
+      "services",
+      "cta",
+      "signature",
+      "logo"
+    ]
   }
 }
