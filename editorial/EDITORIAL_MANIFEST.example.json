@@ -18,7 +18,11 @@
     "mode": "light",
     "tokens_exact": true,
     "derived_brand_tones": false,
-    "brand_colors_used": ["#F3EFE4", "#151518", "#C79C5B"]
+    "brand_colors_used": [
+      "#F3EFE4",
+      "#151518",
+      "#C79C5B"
+    ]
   },
   "vehicle": {
     "current_model": "Omoda 5 Luxury",
@@ -45,5 +49,13 @@
     "identity_integrity_verified": true,
     "palette_exact_verified": true,
     "current_vehicle_verified_when_shown": true
+  },
+  "production": {
+    "engine": "gpt_images",
+    "vector_creation": false,
+    "canva_creation": false,
+    "magnific_exception": false,
+    "gpt_images_attempted": false,
+    "exception_reason": ""
   }
 }
