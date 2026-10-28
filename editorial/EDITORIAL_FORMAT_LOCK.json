@@ -1,22 +1,45 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "lock": "MOTORISTAOPS_SOCIAL_EDITORIAL_FORMAT_LOCK",
-  "version": "3.0",
+  "version": "3.1",
   "effective_date": "2026-10-28",
   "status": "LOCKED",
   "authority": "MotoristaOPS/SOCIAL_EDITORIAL.md",
-  "default_allowed_formats": ["carousel_static", "single_static"],
+  "default_allowed_formats": [
+    "carousel_static",
+    "single_static"
+  ],
   "exception_policy": "explicit_current_operator_authorization_only",
   "provider_fallback_allowed": false,
   "font_family": "Instrument Sans",
   "instagram_first": true,
   "microtext_allowed": false,
   "carousel": {
-    "opening": ["introduction", "cta", "signature", "logo"],
-    "intermediate": {"purpose": "content", "logo": false, "commercial_cta": false},
-    "closing": ["institutional_presentation", "services", "cta", "signature", "logo"]
+    "opening": [
+      "introduction",
+      "cta",
+      "signature",
+      "logo"
+    ],
+    "intermediate": {
+      "purpose": "content",
+      "logo": false,
+      "commercial_cta": false
+    },
+    "closing": [
+      "institutional_presentation",
+      "services",
+      "cta",
+      "signature",
+      "logo"
+    ]
   },
-  "single_static": ["main_message", "contextual_composition", "cta", "closing_signature"],
+  "single_static": [
+    "main_message",
+    "contextual_composition",
+    "cta",
+    "closing_signature"
+  ],
   "publication_gate": {
     "fail_closed": true,
     "required_qa": [
@@ -26,7 +49,62 @@
       "margins_verified",
       "mobile_legibility_verified",
       "each_render_inspected",
-      "protected_real_assets_verified_when_applicable"
+      "protected_real_assets_verified_when_applicable",
+      "identity_integrity_verified",
+      "palette_exact_verified",
+      "current_vehicle_verified_when_shown"
     ]
+  },
+  "identity_lock": {
+    "official_asset_only": true,
+    "modification_allowed": false,
+    "ai_generated_identity_allowed": false,
+    "derived_variant_allowed": false,
+    "variant_source": "canonical_assets_only",
+    "preferred_when_applicable": [
+      "horizontal",
+      "simplified"
+    ]
+  },
+  "typography_lock": {
+    "family": "Instrument Sans",
+    "only_family": true,
+    "allowed_weights": [
+      "Regular",
+      "Medium",
+      "Semibold",
+      "Bold",
+      "ExtraBold"
+    ],
+    "forbidden_weights": [
+      "Light",
+      "Thin"
+    ]
+  },
+  "palette_lock": {
+    "exact_tokens": {
+      "noite": "#070709",
+      "grafite": "#151518",
+      "champagne": "#C79C5B",
+      "champagne_sombra": "#947546",
+      "marfim": "#F3EFE4",
+      "pedra": "#A6A39E",
+      "ambar_percurso": "#F0B44D"
+    },
+    "allowed_modes": [
+      "light",
+      "dark",
+      "mixed"
+    ],
+    "derived_brand_tones_allowed": false
+  },
+  "vehicle_lock": {
+    "current_model": "Omoda 5 Luxury",
+    "current_color": "cinza",
+    "legacy_vehicle": "HB20",
+    "legacy_usage": "historical_only",
+    "real_approved_media_required_when_shown": true,
+    "ai_generated_current_vehicle_allowed": false,
+    "generic_substitution_allowed": false
   }
 }
