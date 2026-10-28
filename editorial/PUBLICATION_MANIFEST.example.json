@@ -1,0 +1,20 @@
+{
+  "format": "carousel_static",
+  "font_family": "Instrument Sans",
+  "instagram_first": true,
+  "microtext": false,
+  "slides": [
+    {"role":"opening","has_introduction":true,"has_cta":true,"has_signature":true,"has_logo":true},
+    {"role":"content","has_logo":false,"has_commercial_cta":false},
+    {"role":"closing","has_institutional_presentation":true,"has_services":true,"has_cta":true,"has_signature":true,"has_logo":true}
+  ],
+  "qa": {
+    "facts_verified": true,
+    "official_logo_verified": true,
+    "typography_verified": true,
+    "margins_verified": true,
+    "mobile_legibility_verified": true,
+    "each_render_inspected": true,
+    "protected_real_assets_verified_when_applicable": true
+  }
+}
