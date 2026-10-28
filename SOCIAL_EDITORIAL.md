@@ -1,8 +1,8 @@
 # MotoristaOPS — Padrão Editorial Oficial
 
 Status: ACTIVE
-Version: 2.0
-Date: 2026-10-27
+Version: 3.0
+Date: 2026-10-28
 Authority: MotoristaOPS
 Scope: publicações sociais, posts únicos, carrosséis, conteúdo sazonal/comemorativo, campanhas editoriais e peças derivadas
 Supersedes: Social Editorial Standard v1.0 e decisões parciais anteriores sobre templates eleitorais quando conflitarem com este documento
@@ -14,6 +14,28 @@ Este é o **Padrão Editorial Oficial MotoristaOPS** e deve ser aplicado automat
 A base visual é única: o sistema editorial aprovado, com duas expressões contextuais — **clara** e **escura**. Elas pertencem à mesma gramática visual; não são famílias concorrentes nem templates rígidos.
 
 O que permanece fixo é a gramática editorial. A composição pode variar conforme o assunto.
+
+
+### 1.1. Trava estrutural de formato — FAIL CLOSED
+
+A partir de 2026-10-28, a gramática editorial também é um **lock de formato**.
+
+Sem uma instrução explícita do operador no pedido atual autorizando mudança/exceção de formato, somente dois formatos podem ser produzidos, aprovados, agendados ou publicados:
+
+1. `carousel` — carrossel oficial conforme a Seção 5;
+2. `single_post` — post único oficial conforme a Seção 6.
+
+Todo outro formato é **VETADO** por padrão. Isso inclui Reel, Story, vídeo, thread, meme, card com estrutura alternativa, nova família de template/layout, carrossel com outra gramática e qualquer estrutura provider-native que altere o contrato editorial.
+
+A composição pode variar para responder ao assunto **somente dentro de um dos dois formatos oficiais**. Flexibilidade de composição não autoriza flexibilidade de formato.
+
+Uma solicitação atual e inequívoca do operador por outro formato funciona como override pontual. O override:
+- precisa estar explícito no pedido atual;
+- precisa ser registrado no manifesto de validação;
+- vale somente para o escopo solicitado;
+- não atualiza o canon permanentemente.
+
+Alteração permanente deste lock exige nova decisão explícita do operador e atualização desta fonte canônica.
 
 ## 2. Princípio-mãe: contexto primeiro
 
@@ -174,9 +196,12 @@ Claro e escuro pertencem ao mesmo sistema.
 
 ## 12. Princípio de composição
 
-A proporção entre fotografia, texto, ícones e espaços pode variar conforme a mensagem.
+A proporção entre fotografia, texto, ícones e espaços pode variar conforme a mensagem, desde que a peça permaneça dentro do formato oficial permitido.
+
+A liberdade de composição não permite criar outra gramática de carrossel, outro formato de post ou nova família editorial.
 
 O sistema permanece constante:
+- formato oficial;
 - tipografia;
 - hierarquia;
 - assinatura;
@@ -245,9 +270,26 @@ Antes de entregar ou publicar:
 - conferir veículo e pessoas reais quando aplicável;
 - conferir cada slide/render individualmente;
 - comparar com o sistema editorial aprovado.
+- validar o formato oficial e o gate fail-closed antes de release.
 
 Se fonte, asset oficial, master aplicável ou inspeção final estiverem indisponíveis, marcar **PENDENTE** e declarar o limite. Não chamar a peça de aprovada/publicada sem evidência.
 
-## 17. Regra de mudança
+## 17. Gate de publicação — obrigatório
+
+Antes de entregar, agendar ou publicar qualquer peça social MotoristaOPS, o executor deve validar um manifesto editorial contra `governance/SOCIAL_EDITORIAL_FORMAT_LOCK.json`.
+
+Quando houver ambiente de execução, rodar:
+
+`python scripts/validate-social-editorial-manifest.py <manifest.json> --json`
+
+Release permitido somente quando:
+- o formato é `carousel` ou `single_post`, salvo override explícito registrado;
+- todos os checks estruturais passam;
+- tipografia/ativos/veículo cumprem o canon;
+- QA final está `APPROVED`.
+
+Qualquer falha bloqueia publicação. O estado deve permanecer **PENDENTE** ou **REPROVADO** até correção.
+
+## 18. Regra de mudança
 
 Este padrão permanece canônico até uma nova decisão explícita do operador alterar, substituir ou revogar parte dele.
