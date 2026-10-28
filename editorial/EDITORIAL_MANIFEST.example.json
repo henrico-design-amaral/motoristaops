@@ -6,6 +6,28 @@
   "font_family": "Instrument Sans",
   "instagram_first": true,
   "microtext": false,
+  "identity": {
+    "official_logo_asset": true,
+    "identity_modified": false,
+    "ai_generated_identity": false,
+    "derived_logo_variant": false,
+    "logo_variant_source": "canonical_asset",
+    "logo_variant": "simplified"
+  },
+  "palette": {
+    "mode": "light",
+    "tokens_exact": true,
+    "derived_brand_tones": false,
+    "brand_colors_used": ["#F3EFE4", "#151518", "#C79C5B"]
+  },
+  "vehicle": {
+    "current_model": "Omoda 5 Luxury",
+    "current_color": "cinza",
+    "shown": false,
+    "official_real_asset": false,
+    "ai_generated": false,
+    "generic_substitution": false
+  },
   "single": {
     "has_main_message": true,
     "has_contextual_composition": true,
@@ -19,6 +41,9 @@
     "margins_verified": true,
     "mobile_legibility_verified": true,
     "each_render_inspected": true,
-    "protected_real_assets_verified_when_applicable": true
+    "protected_real_assets_verified_when_applicable": true,
+    "identity_integrity_verified": true,
+    "palette_exact_verified": true,
+    "current_vehicle_verified_when_shown": true
   }
 }
