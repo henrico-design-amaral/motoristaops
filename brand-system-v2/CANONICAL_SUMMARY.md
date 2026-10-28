@@ -18,10 +18,10 @@
 - Cada canal adapta a gramática sem perder identidade.
 
 ## Cor
-Noite `#070709`; Grafite `#151518`; Champagne `#C79C5B`; Champagne Sombra `#947546`; Marfim `#F3EFE4`; Pedra `#A6A39E`; Âmbar de Percurso `#F0B44D`.
+Noite `#070709`; Grafite `#151518`; Champagne `#C79C5B`; Champagne Sombra `#947546`; Marfim `#F3EFE4`; Pedra `#A6A39E`; Âmbar de Percurso `#F0B44D`. Valores imutáveis: claro, escuro ou mesclado recombinam os tokens exatos; não criar variações de tom.
 
 ## Tipografia
-Instrument Sans é a família principal/produtiva. Bebas Neue é display/editorial seletiva. Sentence case é o padrão cotidiano. Numerais tabulares em dados alinhados.
+Instrument Sans é a única família tipográfica permitida na produção corrente, usando suas variações legítimas conforme função e legibilidade. Nenhuma outra família é permitida. Referências históricas a Bebas Neue ficam superadas para execução atual. Sentence case é o padrão cotidiano; numerais tabulares permanecem em dados alinhados.
 
 ## Espaço
 Unidade 8 px, subdivisão 4 px. Escala: 4, 8, 12, 16, 24, 32, 48, 64, 96, 128. Em peças 1080: 72 px de margem mínima, 80–96 px preferencialmente. Grid social: 6 colunas; mobile: 4; desktop: 12.
@@ -56,3 +56,7 @@ MotoristaOPS é o projeto-base da infraestrutura. O ciclo permanente é:
 Pedido literal é resolvido por `foundation/REQUEST_RESOLVER.md`; decisões por `foundation/DECISION_MEMORY.md`; erros recorrentes por `foundation/FAILURE_MEMORY.md`; curadoria por `foundation/CURATION_SYSTEM.md`.
 
 Não existe Brand Book V12.
+
+
+## Veículo vigente
+O veículo oficial operacional é o **Omoda 5 Luxury cinza**. Referências ao HB20 são históricas. Quando o carro aparecer como evidência da operação, usar mídia real/aprovada; não gerar ou substituir por veículo genérico.
