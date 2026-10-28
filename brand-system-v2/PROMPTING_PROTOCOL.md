@@ -210,9 +210,13 @@ Não deve gerar:
 
 **F:** proporção, enquadramento, resolução e área negativa necessária para composição.
 
-**R:** fidelidade a Henrico, HB20 real quando aplicável, não inventar luxo, não sintetizar branding.
+**R:** fidelidade a Henrico, Omoda 5 Luxury cinza real quando aplicável, não inventar luxo, não sintetizar branding, não criar vetor e não alterar logo/paleta/tipografia.
 
 **V:** revisar anatomia, veículo, contexto, coerência, privacidade e possibilidade de composição determinística.
+
+### Motor de imagem obrigatório
+
+Para MotoristaOPS, criação de imagem usa **GPT Images diretamente no ChatGPT**. Não criar vetor e não usar Canva para criação/composição. Magnific só entra como último recurso extraordinário, com tentativa prévia do GPT Images e justificativa registrada. Logo, Henrico e Omoda 5 Luxury permanecem ativos protegidos e não podem ser regenerados.
 
 ## 7. Prompt para landing page / UI
 
@@ -228,7 +232,7 @@ Estrutura mínima:
 
 **F:** wireframe, fluxo, conteúdo, componentes, responsividade.
 
-**R:** modularidade, 4/8/12 colunas conforme contexto, Instrument Sans produtiva, acessibilidade, Brand Gate, sem criar símbolos.
+**R:** modularidade, 4/8/12 colunas conforme contexto, somente Instrument Sans, acessibilidade, Brand Gate, sem criar símbolos ou variantes de identidade.
 
 **V:** clareza, escaneabilidade, CTA, responsividade, contraste, estados, navegação e consistência com sistema.
 
