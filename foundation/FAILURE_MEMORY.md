@@ -23,8 +23,8 @@ Erros recorrentes conhecidos deixam de ser "feedback" e passam a ser bloqueios d
 **Gate:** cotidiano usa L1/L2; L3 é institucional/deliberado.
 
 ## FM-006 — carro incorreto
-**Falha:** sedã/luxury car/HB20S inventado como operação real.
-**Gate:** quando representar operação real, usar o HB20 2019 preto real/aprovado. IA não falsifica evidência.
+**Falha:** veículo histórico, sedã genérico ou carro de luxo inventado usado como operação real.
+**Gate:** quando representar operação real, usar o **Omoda 5 Luxury cinza** vigente, com mídia real/aprovada. HB20 é histórico. IA não falsifica evidência.
 
 ## FM-007 — motorista genérico
 **Falha:** chauffeur de terno, corpo/rosto inventado, protagonismo excessivo.
@@ -59,3 +59,20 @@ Adicionar um item quando uma correção explícita revelar risco reutilizável. 
 **Gate SURFACE / landing:** reutilizar `.container`; medir bordas da galeria contra a grade de Serviços em desktop/mobile; comparar a referência e a captura na mesma escala; capturar contexto com a seção anterior. Não declarar fidelidade por ausência de overflow apenas.
 
 **Complemento FM-013:** em QA tipográfica, `document.fonts.status = loaded` e `fonts.check` não provam que a folha externa foi carregada. Conferir a folha e evitar usar um screenshot em fallback como evidência de equivalência de fonte. O layout também deve suportar fallback sem texto sobre ícones.
+
+
+## FM-014 — tipografia fora do canon
+**Falha:** usar Bebas Neue, Inter, fallback visual ou qualquer outra família em produção MotoristaOPS.
+**Gate:** somente Instrument Sans. Se a ferramenta não preservar a família, bloquear/PENDENTE em vez de substituir.
+
+## FM-015 — paleta derivada
+**Falha:** clarear, escurecer, aproximar, recolorir ou criar variações dos tokens oficiais.
+**Gate:** usar somente os valores canônicos exatos; modo claro/escuro/mesclado muda combinação, não os tons.
+
+## FM-016 — identidade ou variante recriada
+**Falha:** redesenhar, vetorizar, recompor ou derivar logo/brasão/wordmark/assinatura.
+**Gate:** somente asset oficial e variante oficial já existente; horizontal/simplificada apenas quando houver arquivo canônico exato.
+
+## FM-017 — veículo histórico tratado como atual
+**Falha:** HB20 ou veículo genérico aparece como carro vigente.
+**Gate:** veículo atual = Omoda 5 Luxury cinza; usar mídia real/aprovada e bloquear IA que regenere o carro.
