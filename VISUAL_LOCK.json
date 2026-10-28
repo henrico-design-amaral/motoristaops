@@ -2,7 +2,7 @@
   "schema": "henricoops.visual-lock.v1",
   "project": "MotoristaOPS",
   "status": "READY",
-  "version": "2.3.0-2026-10-28",
+  "version": "2.4.0-2026-10-28",
   "authority": {
     "sources": [
       "Current explicit operator-approved decision",
@@ -330,5 +330,27 @@
     "provider_fallback_allowed": false,
     "publication_requires_validator_pass": "scripts/validate_social_editorial.py",
     "release_requires_qa_status": "APPROVED"
+  },
+  "image_creation_lock": {
+    "status": "LOCKED",
+    "default_engine": "gpt_images",
+    "direct_surface": "ChatGPT",
+    "vector_creation_allowed": false,
+    "canva_creation_allowed": false,
+    "alternate_generators_allowed": false,
+    "magnific": {
+      "allowed": true,
+      "policy": "extraordinary_last_resort_only",
+      "requires_gpt_images_attempt": true,
+      "requires_documented_exception_reason": true
+    },
+    "protected_assets": {
+      "logo_ai_generation_allowed": false,
+      "henrico_ai_generation_allowed": false,
+      "official_vehicle_ai_generation_allowed": false,
+      "vectorization_allowed": false,
+      "use_real_approved_assets": true,
+      "fail_if_exact_fidelity_cannot_be_preserved": true
+    }
   }
 }
