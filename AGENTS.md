@@ -64,9 +64,19 @@ Brand Book V2 decisions effective 2026-09-18 are the current brand authority. NÃ
 
 Normal visual production requires `VISUAL_LOCK.status = READY`. Otherwise fail closed and reconcile the visual foundation first.
 
+Any mismatch involving logo integrity, non-Instrument Sans typography, altered brand color values or stale vehicle identity is a blocking regression, not a creative variation.
+
 ### Locked brand rendering
 
 Do not ask a free-form image/video generator to synthesize the MotoristaOPS logo, wordmark, crest, signature, final branded typography, QR code or other protected identity layer.
+
+MotoristaOPS identity is immutable. Never redraw, recombine, recolor, approximate, crop destructively or derive a new logo/signature variant. Use only exact official variants from canonical assets. Horizontal and simplified variants are allowed only when the canonical source provides that exact asset.
+
+Use **Instrument Sans only** across MotoristaOPS production surfaces. The lettering embedded inside an official logo/signature asset is protected artwork, not permission to typeset another family.
+
+Brand palette values are exact and immutable: Noite #070709, Grafite #151518, Champagne #C79C5B, Champagne Sombra #947546, Marfim #F3EFE4, Pedra #A6A39E and Ã‚mbar de Percurso #F0B44D. Light, dark and mixed compositions may combine only these exact brand tokens; never derive substitute tones, tints, shades or hue-shifted variants.
+
+Current operational vehicle: **Omoda 5 Luxury cinza**. HB20 is historical only. Never use a generic premium sedan, an approximate Omoda or an AI-generated official vehicle as operational proof.
 
 Use generative tooling only for explicitly unlocked photography/illustration/atmosphere. Compose locked brand layers deterministically from the official assets and tokens.
 
