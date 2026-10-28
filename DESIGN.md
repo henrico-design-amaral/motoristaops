@@ -32,11 +32,11 @@ Não existe Brand Book V12. Qualquer menção antiga a V12 é erro legado e deve
 
 ## Typography
 
-- **Instrument Sans** is the dominant family for body, interface, labels, functional text and the majority of branded communication.
-- **Social/editorial publications:** Instrument Sans is the **only** permitted family, using Regular, Medium/Semibold, Bold, ExtraBold and suitable variants of the same family. Avoid Light/Thin for reading text.
-- **Bebas Neue** may remain editorial/display only on non-social surfaces when explicitly supported by their local authority. It is **forbidden for MotoristaOPS social/editorial publications**.
-- Bebas Neue is forbidden for functional UI/body copy.
-- Do not introduce substitute display/body families by provider preference.
+- **Instrument Sans is the only permitted type family across MotoristaOPS production surfaces.**
+- Use Regular, Medium/Semibold, Bold, ExtraBold and legitimate variants of Instrument Sans according to function and legibility.
+- Avoid Light/Thin for reading text.
+- Do not introduce Bebas Neue, substitute display families, provider-default fonts or any other typeface.
+- Lettering embedded inside an exact official logo/signature asset is protected artwork and must never be retyped or treated as an alternate font family.
 
 ## Color
 
@@ -51,9 +51,11 @@ Semantic palette:
 
 Rules:
 - Color is semantic, not decorative quota.
+- The seven brand token values above are immutable.
+- Light, dark and mixed compositions may combine these exact values; they may not create derived tints, shades, hue shifts, approximations or substitute brand tones.
 - Champagne must not become a dominant flood color.
 - Âmbar is not a generic highlight color.
-- Off-palette colors require explicit authority.
+- Natural colors in documentary photography/territory may remain when semantically useful; they do not redefine the brand palette.
 
 ## Grid, spacing and density
 
@@ -72,7 +74,9 @@ Three approved presence levels:
 
 The task must select one level. Logo scale/position may not drift arbitrarily between artifacts.
 
-Official identity assets are protected. If an exact asset is unavailable to the renderer, do not redraw, approximate, rebuild or ask a generative model to synthesize it.
+Official identity assets are protected and immutable. If an exact asset is unavailable to the renderer, do not redraw, approximate, rebuild, recolor, destructively crop, recombine or ask a generative model to synthesize it.
+
+Only canonical logo/signature variants may be used. Horizontal and simplified versions are valid only when the exact official asset exists for the intended application; never construct them from pieces.
 
 ## Social everyday signature
 
@@ -154,14 +158,14 @@ If deterministic composition is unavailable, return a blocked/partial result rat
 Blocked unless explicitly re-authorized:
 - blank-canvas reinterpretation of MotoristaOPS;
 - invented logo, wordmark, crest, vector or signature;
-- approximate brand colors;
+- approximate, derived, tinted, shaded or hue-shifted brand colors;
 - mixed icon families;
 - generic luxury/limousine imagery;
 - cyberpunk/neon treatment;
 - excessive logo repetition;
 - excessive Champagne;
 - unauthorized filters or gradients;
-- Bebas Neue used as functional/body type;
+- any non-Instrument Sans typography outside the exact official identity artwork;
 - stock replacing real proof;
 - driver-as-hero default composition;
 - provider/editor template defaults overriding this file;
