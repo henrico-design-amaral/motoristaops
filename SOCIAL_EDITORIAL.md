@@ -293,3 +293,29 @@ Antes de qualquer publicação social, resolver `editorial/EDITORIAL_FORMAT_LOCK
 Somente resultado `PASS` autoriza seguir para agendamento/publicação. Resultado `PENDENTE` ou `REPROVADO` bloqueia publicação.
 
 O gate de manifesto complementa, mas não substitui, a inspeção visual de cada render.
+
+
+## 19. Trava de motor de criação visual
+
+Status: **LOCKED / FAIL-CLOSED**.
+
+Para qualquer imagem MotoristaOPS produzida neste sistema editorial:
+- motor padrão e obrigatório de criação visual: **GPT Images**, operado diretamente no ChatGPT;
+- **não criar nada em vetor**;
+- **não usar Canva** para criar, compor ou gerar a imagem;
+- não trocar silenciosamente para outro gerador, template engine ou superfície de design.
+
+**Magnific** é a única exceção técnica admitida e apenas como último recurso em situação extraordinária. Para usar Magnific, registrar no manifesto:
+- `production.engine = "magnific"`;
+- `production.magnific_exception = true`;
+- `production.gpt_images_attempted = true`;
+- `production.exception_reason` preenchido com a limitação concreta que justificou a exceção.
+
+No fluxo normal:
+- `production.engine = "gpt_images"`;
+- `production.vector_creation = false`;
+- `production.canva_creation = false`.
+
+Ativos protegidos continuam fora da geração: logo, brasão, wordmark, assinatura, Henrico e veículo oficial não podem ser inventados, redesenhados, vetorizados ou regenerados por IA. Usar os arquivos reais aprovados como referência/entrada quando necessários. Se o fluxo permitido não preservar fielmente o ativo oficial, marcar a peça como **PENDENTE** em vez de aproximar ou trocar de ferramenta.
+
+Essa trava é de produção, não de estilo: a composição pode variar apenas dentro do formato editorial autorizado, mas o motor de criação e as proibições acima permanecem fixos até nova decisão explícita do operador.
