@@ -86,6 +86,15 @@ Evitar Light/Thin em conteúdo de leitura.
 
 Bebas Neue, outras famílias de display e substitutas de provedor **não são permitidas nesta superfície editorial**, mesmo que sejam aceitáveis em outras superfícies do sistema visual quando houver autoridade específica.
 
+## 3A. Travas duras de identidade e paleta
+
+- Logo, brasão, wordmark, assinatura e qualquer parte da identidade são imutáveis.
+- Usar somente assets oficiais e variantes oficiais já existentes. Horizontal e simplificada somente quando houver arquivo canônico exato; nunca derivar ou reconstruir.
+- Instrument Sans é a única família permitida. Nenhuma outra fonte pode ser usada.
+- Paleta oficial fixa: Noite #070709; Grafite #151518; Champagne #C79C5B; Champagne Sombra #947546; Marfim #F3EFE4; Pedra #A6A39E; Âmbar #F0B44D.
+- Modos claro, escuro e mesclado podem combinar os tokens, mas nunca alterar seus valores.
+- Cores naturais de fotografia/território podem permanecer; isso não autoriza criar novos tons de marca.
+
 ## 4. Instagram como referência primária
 
 O Instagram é a referência primária de leitura e proporção para publicações editoriais.
@@ -185,13 +194,13 @@ A identidade MotoristaOPS organiza a peça; não apaga o lugar.
 
 ## 10. Veículos e transporte
 
-Carro MotoristaOPS = **HB20 preto enquanto ele for o veículo operacional vigente**.
+Carro MotoristaOPS = **Omoda 5 Luxury cinza**, veículo operacional vigente.
 
 Não usar sedã premium genérico nem veículo aleatório como substituto.
 
 Para transporte público, usar referências reconhecíveis de São Paulo quando forem pertinentes. Não inventar ou aproximar identidades oficiais.
 
-Pessoas e veículo MotoristaOPS reais são ativos protegidos: não gerar Henrico ou o veículo oficial por IA. Usar fotografia/filmagem real aprovada quando forem mostrados como evidência da operação.
+Pessoas e veículo MotoristaOPS reais são ativos protegidos: não gerar Henrico ou o Omoda 5 Luxury por IA. Usar fotografia/filmagem real aprovada quando forem mostrados como evidência da operação. Referências ao HB20 são históricas.
 
 ## 11. Escolha entre claro e escuro
 
@@ -293,3 +302,29 @@ Antes de qualquer publicação social, resolver `editorial/EDITORIAL_FORMAT_LOCK
 Somente resultado `PASS` autoriza seguir para agendamento/publicação. Resultado `PENDENTE` ou `REPROVADO` bloqueia publicação.
 
 O gate de manifesto complementa, mas não substitui, a inspeção visual de cada render.
+
+
+## 19. Trava de motor de criação visual
+
+Status: **LOCKED / FAIL-CLOSED**.
+
+Para qualquer imagem MotoristaOPS produzida neste sistema editorial:
+- motor padrão e obrigatório de criação visual: **GPT Images**, operado diretamente no ChatGPT;
+- **não criar nada em vetor**;
+- **não usar Canva** para criar, compor ou gerar a imagem;
+- não trocar silenciosamente para outro gerador, template engine ou superfície de design.
+
+**Magnific** é a única exceção técnica admitida e apenas como último recurso em situação extraordinária. Para usar Magnific, registrar no manifesto:
+- `production.engine = "magnific"`;
+- `production.magnific_exception = true`;
+- `production.gpt_images_attempted = true`;
+- `production.exception_reason` preenchido com a limitação concreta que justificou a exceção.
+
+No fluxo normal:
+- `production.engine = "gpt_images"`;
+- `production.vector_creation = false`;
+- `production.canva_creation = false`.
+
+Ativos protegidos continuam fora da geração: logo, brasão, wordmark, assinatura, Henrico e veículo oficial não podem ser inventados, redesenhados, vetorizados ou regenerados por IA. Usar os arquivos reais aprovados como referência/entrada quando necessários. Se o fluxo permitido não preservar fielmente o ativo oficial, marcar a peça como **PENDENTE** em vez de aproximar ou trocar de ferramenta.
+
+Essa trava é de produção, não de estilo: a composição pode variar apenas dentro do formato editorial autorizado, mas o motor de criação e as proibições acima permanecem fixos até nova decisão explícita do operador.
