@@ -1,0 +1,41 @@
+{
+  "project": "MotoristaOPS",
+  "format": "carousel",
+  "operator_override": {"explicit": false, "instruction": "", "scope": ""},
+  "authority": {
+    "canonical_source_resolved": true,
+    "brand_book_v2_resolved": true,
+    "official_assets_resolved": true
+  },
+  "typography": {"family": "Instrument Sans", "weights": ["Regular", "Bold", "ExtraBold"]},
+  "mobile": {
+    "strong_hierarchy": true,
+    "generous_margins": true,
+    "microtext": false,
+    "contrast_ok": true
+  },
+  "brand": {"official_logo_asset": true, "logo_ai_generated": false},
+  "vehicle": {
+    "shown": false,
+    "current_vehicle_confirmed": true,
+    "official_asset": true,
+    "ai_generated": false,
+    "model": "HB20 preto"
+  },
+  "slides": [
+    {"index":1,"role":"opening","introduction":true,"cta":true,"signature":true,"logo":true,"commercial_cta":true},
+    {"index":2,"role":"content","content":true,"logo":false,"commercial_cta":false},
+    {"index":3,"role":"closing","institutional_presentation":true,"services":true,"cta":true,"signature":true,"logo":true,"commercial_cta":true}
+  ],
+  "qa": {
+    "facts_checked": true,
+    "logo_checked": true,
+    "typography_checked": true,
+    "palette_context_checked": true,
+    "proportions_checked": true,
+    "margins_checked": true,
+    "mobile_legibility_checked": true,
+    "renders_inspected": true
+  },
+  "release": {"qa_status": "APPROVED"}
+}
