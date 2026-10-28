@@ -2,10 +2,12 @@
   "schema": "henricoops.visual-lock.v1",
   "project": "MotoristaOPS",
   "status": "READY",
-  "version": "2.2.0-2026-10-27",
+  "version": "2.3.0-2026-10-28",
   "authority": {
     "sources": [
       "Current explicit operator-approved decision",
+      "MotoristaOPS/SOCIAL_EDITORIAL.md",
+      "MotoristaOPS/editorial/EDITORIAL_FORMAT_LOCK.json",
       "foundation/KERNEL.md",
       "foundation/REQUEST_RESOLVER.md",
       "foundation/DECISION_MEMORY.md",
@@ -15,7 +17,7 @@
       "design/tokens.json",
       "source/ICONOGRAPHY.md"
     ],
-    "last_reviewed": "2026-10-27",
+    "last_reviewed": "2026-10-28",
     "legacy_note": "No Brand Book V12 exists. Any legacy V12 reference is invalid and has no authority."
   },
   "tokens": {
@@ -178,6 +180,8 @@
       "id": "social_feed",
       "canvas": "channel-native feed",
       "rules": [
+        "FAIL-CLOSED: only carousel_static or single_static without explicit current operator override",
+        "validate editorial manifest with scripts/validate_social_editorial.py before schedule/publication",
         "resolve SOCIAL_EDITORIAL.md before production",
         "one canonical editorial system with contextual light/dark modes",
         "Instrument Sans only",
@@ -197,19 +201,24 @@
       "id": "story_reel",
       "canvas": "9:16",
       "rules": [
-        "safe-area aware",
-        "service/context remains primary",
-        "exact brand assets/text are deterministic layers"
-      ]
+        "NOT an allowed default MotoristaOPS social format",
+        "use only when the operator explicitly authorizes Story/Reel/video in the current request",
+        "override is task-scoped and never changes the canonical format lock",
+        "exact brand assets/text remain deterministic layers"
+      ],
+      "status": "BLOCKED_BY_DEFAULT",
+      "requires_explicit_current_operator_override": true
     },
     {
       "id": "linkedin_document",
       "canvas": "document/carousel native",
       "rules": [
-        "text-first hierarchy",
-        "same palette/type/icon rules",
-        "page-to-page rhythm is consistent"
-      ]
+        "not a distinct editorial format family",
+        "when used as social carousel, preserve the official opening/content/closing MotoristaOPS carousel grammar",
+        "no provider-native layout may override SOCIAL_EDITORIAL.md",
+        "text-first hierarchy and page-to-page rhythm remain consistent"
+      ],
+      "status": "BOUND_TO_OFFICIAL_CAROUSEL_GRAMMAR"
     },
     {
       "id": "wallpaper_tablet",
@@ -299,5 +308,27 @@
     }
   ],
   "failure_memory": "foundation/FAILURE_MEMORY.md",
-  "request_resolver": "foundation/REQUEST_RESOLVER.md"
+  "request_resolver": "foundation/REQUEST_RESOLVER.md",
+  "social_editorial_format_lock": {
+    "status": "LOCKED_FAIL_CLOSED",
+    "authority": "SOCIAL_EDITORIAL.md + editorial/EDITORIAL_FORMAT_LOCK.json",
+    "allowed_without_override": [
+      "carousel_static",
+      "single_static"
+    ],
+    "blocked_without_override": [
+      "story",
+      "reel",
+      "video",
+      "thread",
+      "meme",
+      "alternate_card_structure",
+      "alternate_carousel_grammar",
+      "provider_native_format_family"
+    ],
+    "explicit_current_operator_override_required": true,
+    "provider_fallback_allowed": false,
+    "publication_requires_validator_pass": "scripts/validate_social_editorial.py",
+    "release_requires_qa_status": "APPROVED"
+  }
 }
