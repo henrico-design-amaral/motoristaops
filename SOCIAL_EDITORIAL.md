@@ -1,8 +1,8 @@
 # MotoristaOPS — Padrão Editorial Oficial
 
 Status: ACTIVE
-Version: 2.0
-Date: 2026-10-27
+Version: 3.0
+Date: 2026-10-28
 Authority: MotoristaOPS
 Scope: publicações sociais, posts únicos, carrosséis, conteúdo sazonal/comemorativo, campanhas editoriais e peças derivadas
 Supersedes: Social Editorial Standard v1.0 e decisões parciais anteriores sobre templates eleitorais quando conflitarem com este documento
@@ -13,7 +13,39 @@ Este é o **Padrão Editorial Oficial MotoristaOPS** e deve ser aplicado automat
 
 A base visual é única: o sistema editorial aprovado, com duas expressões contextuais — **clara** e **escura**. Elas pertencem à mesma gramática visual; não são famílias concorrentes nem templates rígidos.
 
-O que permanece fixo é a gramática editorial. A composição pode variar conforme o assunto.
+O que permanece fixo é a gramática editorial e a estrutura dos formatos autorizados. A composição visual pode variar conforme o assunto, mas o formato estrutural não varia sem autorização explícita do operador no pedido atual.
+
+
+## 1A. Trava canônica de formato
+
+Status: **LOCKED / FAIL-CLOSED**.
+
+Por padrão, somente dois formatos são permitidos para novas publicações sociais MotoristaOPS:
+
+1. **carrossel estático**;
+2. **post estático único**.
+
+Qualquer outro formato é vetado por padrão. Isso inclui Reel, Story, vídeo, poll, grid, collage, sequência alternativa, pôster com gramática própria, adaptação automática de formato ou qualquer estrutura não prevista neste documento.
+
+Uma exceção só existe quando o operador autoriza de forma explícita e inequívoca a mudança de formato no pedido atual. A exceção vale apenas para a tarefa autorizada e não altera este canon.
+
+Não considerar como autorização:
+- limitação de ferramenta;
+- preferência estética do agente;
+- sugestão de plataforma;
+- costume anterior;
+- conveniência de produção;
+- fallback automático;
+- pedido genérico de “variar”, “testar” ou “melhorar” sem autorização clara de formato.
+
+Fail-closed:
+- pedido sem exceção explícita + formato fora da whitelist = **REPROVADO — FORMATO FORA DO CANON**;
+- não gerar, agendar ou publicar;
+- não substituir silenciosamente pelo formato “mais próximo”.
+
+A quantidade de slides intermediários pode variar conforme a necessidade de conteúdo. As funções estruturais de abertura, intermediários e fechamento não podem variar.
+
+O modo claro/escuro e a proporção entre fotografia, texto, ícones e espaços são variações internas do sistema e **não** constituem mudança de formato.
 
 ## 2. Princípio-mãe: contexto primeiro
 
@@ -251,3 +283,13 @@ Se fonte, asset oficial, master aplicável ou inspeção final estiverem indispo
 ## 17. Regra de mudança
 
 Este padrão permanece canônico até uma nova decisão explícita do operador alterar, substituir ou revogar parte dele.
+
+Mudança de formato exige autorização explícita no pedido atual. Nenhum executor, provider, plugin, Skill, MCP ou publicador possui autoridade para flexibilizar esta trava por conta própria.
+
+## 18. Gate de publicação
+
+Antes de qualquer publicação social, resolver `editorial/EDITORIAL_FORMAT_LOCK.json` e validar o manifesto da peça com `scripts/validate_social_editorial.py`.
+
+Somente resultado `PASS` autoriza seguir para agendamento/publicação. Resultado `PENDENTE` ou `REPROVADO` bloqueia publicação.
+
+O gate de manifesto complementa, mas não substitui, a inspeção visual de cada render.

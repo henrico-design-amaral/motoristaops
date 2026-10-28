@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "lock": "MOTORISTAOPS_SOCIAL_EDITORIAL_FORMAT_LOCK",
+  "version": "3.0",
+  "effective_date": "2026-10-28",
+  "status": "LOCKED",
+  "authority": "MotoristaOPS/SOCIAL_EDITORIAL.md",
+  "default_allowed_formats": ["carousel_static", "single_static"],
+  "exception_policy": "explicit_current_operator_authorization_only",
+  "provider_fallback_allowed": false,
+  "font_family": "Instrument Sans",
+  "instagram_first": true,
+  "microtext_allowed": false,
+  "carousel": {
+    "opening": ["introduction", "cta", "signature", "logo"],
+    "intermediate": {"purpose": "content", "logo": false, "commercial_cta": false},
+    "closing": ["institutional_presentation", "services", "cta", "signature", "logo"]
+  },
+  "single_static": ["main_message", "contextual_composition", "cta", "closing_signature"],
+  "publication_gate": {
+    "fail_closed": true,
+    "required_qa": [
+      "facts_verified",
+      "official_logo_verified",
+      "typography_verified",
+      "margins_verified",
+      "mobile_legibility_verified",
+      "each_render_inspected",
+      "protected_real_assets_verified_when_applicable"
+    ]
+  }
+}
