@@ -32,6 +32,16 @@ O pedido do operador é literal-first. Não reinterpretar restrições explícit
 
 Pedidos equivalentes a criação/revisão de post ou carrossel MotoristaOPS e os gatilhos `/carrosselops` / `/postops` devem resolver `SOCIAL_EDITORIAL.md` e a skill canônica HenricoOPS `skills/motoristaops-editorial/SKILL.md`. O contexto da ocasião vem antes do repertório urbano padrão; São Paulo não é cenário automático para feriados, datas comemorativas, destinos ou campanhas temáticas.
 
+### Editorial format lock — obrigatório e fail-closed
+
+Sem override explícito do operador no pedido atual, os únicos formatos sociais permitidos são:
+- `carousel`, obedecendo abertura / conteúdo / fechamento institucional;
+- `single_post`, obedecendo mensagem principal / composição contextual / CTA / assinatura.
+
+Reel, Story, vídeo, thread, meme, estrutura alternativa ou nova família de layout devem ser bloqueados por padrão.
+
+Antes de entregar, agendar ou publicar, validar o manifesto contra `governance/SOCIAL_EDITORIAL_FORMAT_LOCK.json`. Em ambiente com execução de código, rodar `scripts/validate-social-editorial-manifest.py`. Gate diferente de PASS ou QA diferente de APPROVED impede release.
+
 ## HenricoOPS + Brand Book V2 visual gate
 
 For every MotoristaOPS visual request, the executor must resolve these sources before production:
