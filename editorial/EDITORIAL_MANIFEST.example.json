@@ -1,0 +1,24 @@
+{
+  "project": "MotoristaOPS",
+  "format": "single_static",
+  "explicit_format_override": false,
+  "override_authorization": "",
+  "font_family": "Instrument Sans",
+  "instagram_first": true,
+  "microtext": false,
+  "single": {
+    "has_main_message": true,
+    "has_contextual_composition": true,
+    "has_cta": true,
+    "has_closing_signature": true
+  },
+  "qa": {
+    "facts_verified": true,
+    "official_logo_verified": true,
+    "typography_verified": true,
+    "margins_verified": true,
+    "mobile_legibility_verified": true,
+    "each_render_inspected": true,
+    "protected_real_assets_verified_when_applicable": true
+  }
+}
