@@ -108,6 +108,13 @@ Key invariants:
 
 Do not mix icon packs. External brand marks remain their official marks and are not Lucide pictograms.
 
+## Current official vehicle
+
+- Current operational vehicle: **Omoda 5 Luxury cinza**.
+- Historical HB20 references are deprecated and must not be used as current-operation evidence.
+- Never substitute a generic luxury/executive vehicle.
+- When the official vehicle is shown as evidence, use approved real media/assets; do not regenerate, restyle or redraw it with AI.
+
 ## Photography
 
 - Real people, real vehicle and real service context are preferred evidence.
@@ -137,6 +144,17 @@ Motion observes; it does not perform.
 - never competes with the service/message;
 - reduced-motion behavior is required when applicable.
 
+## Image creation engine
+
+For MotoristaOPS image creation, the production route is locked:
+- **GPT Images inside ChatGPT** is the mandatory default engine;
+- no vector creation;
+- no Canva creation/composition;
+- no alternate image generator by convenience;
+- **Magnific** is allowed only as an extraordinary last resort after a concrete GPT Images limitation is documented.
+
+This engine rule does not weaken protected-asset rules. Logo/identity, Henrico and the official Omoda 5 Luxury remain non-generative assets.
+
 ## Branded generative media rule
 
 MotoristaOPS is **fail-closed** for locked brand layers.
@@ -146,7 +164,7 @@ Classify output layers:
 - `DETERMINISTIC_REQUIRED`: visible branded text, typography, QR codes, exact colors, grid, spacing, composition anchors, CTA/legal/commercial information.
 - `GENERATIVE_ALLOWED`: only photography/illustration/atmosphere explicitly allowed by this project lock.
 
-A free-form image/video model may generate the allowed media layer. It may not generate the MotoristaOPS identity layer.
+For image tasks, only GPT Images may generate the allowed media layer under the engine lock above. It may not generate the MotoristaOPS identity layer, Henrico or the official Omoda 5 Luxury. Video follows the separate video workflow and does not relax image/identity constraints.
 
 If a renderer cannot consume the exact official asset, the workflow must split:
 `generate allowed media -> deterministic brand composition -> brand QA`.
