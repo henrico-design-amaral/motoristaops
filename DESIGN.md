@@ -32,11 +32,11 @@ Não existe Brand Book V12. Qualquer menção antiga a V12 é erro legado e deve
 
 ## Typography
 
-- **Instrument Sans** is the dominant family for body, interface, labels, functional text and the majority of branded communication.
-- **Social/editorial publications:** Instrument Sans is the **only** permitted family, using Regular, Medium/Semibold, Bold, ExtraBold and suitable variants of the same family. Avoid Light/Thin for reading text.
-- **Bebas Neue** may remain editorial/display only on non-social surfaces when explicitly supported by their local authority. It is **forbidden for MotoristaOPS social/editorial publications**.
-- Bebas Neue is forbidden for functional UI/body copy.
-- Do not introduce substitute display/body families by provider preference.
+- **Instrument Sans is the only permitted type family in current MotoristaOPS production.**
+- Use legitimate Instrument Sans variants and weights according to function and legibility: Regular, Medium/Semibold, Bold, ExtraBold and other native family variations when supported.
+- Avoid Light/Thin for reading text.
+- **No other font family is permitted.** Previous references to Bebas Neue or provider/system substitutes are superseded for current production by the explicit operator decision of 2026-10-28.
+- Never substitute a different font because a provider cannot render Instrument Sans. If the exact family is unavailable for a governed artifact, return PENDING/BLOCKED instead of drifting.
 
 ## Color
 
@@ -53,7 +53,9 @@ Rules:
 - Color is semantic, not decorative quota.
 - Champagne must not become a dominant flood color.
 - Âmbar is not a generic highlight color.
-- Off-palette colors require explicit authority.
+- Brand token values are immutable: never lighten, darken, tint, approximate or substitute the official tones.
+- Light, dark and mixed compositions may recombine the exact official tokens without changing their values.
+- Natural photographic/territory colors may remain when context requires them; they do not redefine brand tokens.
 
 ## Grid, spacing and density
 
@@ -72,7 +74,9 @@ Three approved presence levels:
 
 The task must select one level. Logo scale/position may not drift arbitrarily between artifacts.
 
-Official identity assets are protected. If an exact asset is unavailable to the renderer, do not redraw, approximate, rebuild or ask a generative model to synthesize it.
+Official identity assets are protected. If an exact asset is unavailable to the renderer, do not redraw, approximate, rebuild, vectorize or ask a generative model to synthesize it.
+
+Logo variant selection is also locked: use only an official existing master/variant from the canonical source. Horizontal and simplified variants may be selected when the exact official files exist and fit the context. Never derive a new variant from the master or rebuild any part of the identity.
 
 ## Social everyday signature
 
@@ -103,6 +107,13 @@ Key invariants:
 - Champagne on dark surfaces, Grafite on light surfaces, Âmbar only for route/location/path.
 
 Do not mix icon packs. External brand marks remain their official marks and are not Lucide pictograms.
+
+## Current official vehicle
+
+- Current operational vehicle: **Omoda 5 Luxury cinza**.
+- Historical HB20 references are deprecated and must not be used as current-operation evidence.
+- Never substitute a generic luxury/executive vehicle.
+- When the official vehicle is shown as evidence, use approved real media/assets; do not regenerate, restyle or redraw it with AI.
 
 ## Photography
 
@@ -154,14 +165,14 @@ If deterministic composition is unavailable, return a blocked/partial result rat
 Blocked unless explicitly re-authorized:
 - blank-canvas reinterpretation of MotoristaOPS;
 - invented logo, wordmark, crest, vector or signature;
-- approximate brand colors;
+- approximate, tinted, lightened or darkened brand colors;
 - mixed icon families;
 - generic luxury/limousine imagery;
 - cyberpunk/neon treatment;
 - excessive logo repetition;
 - excessive Champagne;
 - unauthorized filters or gradients;
-- Bebas Neue used as functional/body type;
+- any font family other than Instrument Sans;
 - stock replacing real proof;
 - driver-as-hero default composition;
 - provider/editor template defaults overriding this file;
