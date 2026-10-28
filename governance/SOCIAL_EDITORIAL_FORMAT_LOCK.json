@@ -1,0 +1,31 @@
+{
+  "contract": "MotoristaOPS Social Editorial Format Lock",
+  "version": "3.0",
+  "date": "2026-10-28",
+  "fail_closed": true,
+  "allowed_formats_without_override": ["carousel", "single_post"],
+  "typography": {
+    "family": "Instrument Sans",
+    "allowed_weights": ["Regular", "Medium", "Semibold", "Bold", "ExtraBold"],
+    "forbidden_weights": ["Light", "Thin"]
+  },
+  "carousel": {
+    "minimum_slides": 2,
+    "opening": {"role":"opening","requires":["introduction","cta","signature","logo"]},
+    "middle": {"role":"content","requires":["content"],"forbids":["logo","commercial_cta"]},
+    "closing": {"role":"closing","requires":["institutional_presentation","services","cta","signature","logo"]}
+  },
+  "single_post": {
+    "requires": ["main_message","context_composition","cta","signature"]
+  },
+  "brand": {
+    "official_assets_only": true,
+    "ai_generated_logo_forbidden": true,
+    "ai_generated_henrico_forbidden": true,
+    "ai_generated_official_vehicle_forbidden": true
+  },
+  "release": {
+    "required_qa_status": "APPROVED",
+    "publish_on_failure": false
+  }
+}
