@@ -106,3 +106,18 @@ Especificação: `source/landing/MOTION.md`.
 O operador aprovou a prévia estática `motoristaops-secao-carro.png` e autorizou aplicar somente a seção do carro. Preservar a mesma grade `.container` e as demais seções da landing, inclusive hero, serviços, processo, retrato, avaliações, FAQ e formulário. A galeria passa a incluir painel/cabine, bancos dianteiros, banco traseiro e teto solar da versão Luxury, usando as fotos identificadas no anúncio da Personalité Automóveis. Manter marcas d’água originais, sem gerar ou redesenhar o interior. A foto externa aprovada permanece.
 
 O proprietário confirmou como realizados: PPF Full interno e externo brilhante; película antivandalismo PS20; nano cerâmica G5/G20; vitrificação Full de couros, bancos, plásticos e rodas; Anti-Trinco para o para-brisa. Esta confirmação supera o status anterior de PPF/película como preparação prevista. Na seção do carro, remover notas visíveis de imagens conceituais, ficha técnica e link de consulta, conforme pedido explícito. A origem das fotos e o contexto da versão ficam documentados em `source/landing/VEHICLE.md`. Só Instrument Sans, textos de no mínimo 12 CSS px; galeria com teclado, foco e motion reduzido preservados.
+
+
+## Travas visuais atuais — identidade, fonte, paleta e veículo
+
+**CANONICAL · PROJECT / MotoristaOPS · 2026-10-28**
+
+A decisão explícita atual do operador endurece a execução visual sem redesenhar a identidade existente.
+
+- Logo/identidade: nenhum componente pode ser alterado, redesenhado, vetorizado, aproximado ou derivado. Usar somente assets oficiais e variantes oficiais já existentes. Horizontal e simplificada podem ser selecionadas quando houver arquivo canônico exato; nunca criar a variante.
+- Tipografia: somente Instrument Sans em produção MotoristaOPS. Nenhuma outra família é permitida; referências anteriores a Bebas Neue ficam históricas para execução.
+- Veículo vigente: Omoda 5 Luxury cinza. HB20 é histórico e não pode ser tratado como operação atual.
+- Paleta: Noite #070709, Grafite #151518, Champagne #C79C5B, Champagne Sombra #947546, Marfim #F3EFE4, Pedra #A6A39E, Âmbar de Percurso #F0B44D. Valores fixos; claro/escuro/mesclado recombinam sem alterar tons.
+- Produção de imagens: GPT Images no ChatGPT; sem vetor e sem Canva. Magnific somente como exceção extraordinária documentada.
+
+Essas regras prevalecem sobre referências antigas conflitantes, sem apagar o histórico.
