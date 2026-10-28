@@ -46,8 +46,8 @@
   --mops-radius-pill: 999px;
 
   /* Type */
-  --mops-font-sans: 'Instrument Sans', system-ui, sans-serif;
-  --mops-font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --mops-font-sans: 'Instrument Sans', sans-serif;
+  --mops-font-display: 'Instrument Sans', sans-serif;
   --mops-type-body-size: 1rem;
   --mops-type-body-leading: 1.5;
 
