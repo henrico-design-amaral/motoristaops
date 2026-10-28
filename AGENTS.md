@@ -41,8 +41,9 @@ Antes de criar, adaptar, agendar ou publicar conteúdo social MotoristaOPS, reso
 2. `scripts/validate_social_editorial.py`.
 
 Whitelist padrão:
-- `carousel_static`;
-- `single_static`.
+- `single_static`;
+- `seasonal_carousel_static`;
+- `carousel_static`.
 
 Qualquer outro formato exige autorização explícita do operador no pedido atual. Sem essa autorização, o executor deve retornar **REPROVADO — FORMATO FORA DO CANON** e não pode gerar fallback, agendar ou publicar.
 
@@ -99,7 +100,7 @@ Protected assets remain non-generative: logo/crest/wordmark/signature, Henrico a
 ### Final social reference and CTA lock
 
 For MotoristaOPS social/editorial work:
-- seasonal content routes to the same `single_static` or `carousel_static` families; it never creates a third layout family;
+- seasonal content uses the dedicated `seasonal_carousel_static` family: exactly 3 slides (opening / content / closing); do not collapse it into single_static;
 - real São Paulo/destination references must remain recognizably faithful, with only subtle artistic adjustments;
 - WhatsApp icon may appear only next to the phone number; action copy such as “Entre em contato” or “Reserve seu trajeto” is plain editorial text, without WhatsApp icon/button treatment;
 - all future content planned before the 2026-10-28 final lock is invalid until rebuilt in the current system;
