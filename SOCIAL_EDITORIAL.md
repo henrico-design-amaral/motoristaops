@@ -20,10 +20,11 @@ O que permanece fixo é a gramática editorial e a estrutura dos formatos autori
 
 Status: **LOCKED / FAIL-CLOSED**.
 
-Por padrão, somente dois formatos são permitidos para novas publicações sociais MotoristaOPS:
+Por padrão, somente três formatos são permitidos para novas publicações sociais MotoristaOPS:
 
-1. **carrossel estático**;
-2. **post estático único**.
+1. **post estático único** (`single_static`);
+2. **post sazonal oficial em 3 imagens** (`seasonal_carousel_static`);
+3. **carrossel estático editorial** (`carousel_static`).
 
 Qualquer outro formato é vetado por padrão. Isso inclui Reel, Story, vídeo, poll, grid, collage, sequência alternativa, pôster com gramática própria, adaptação automática de formato ou qualquer estrutura não prevista neste documento.
 
@@ -128,6 +129,17 @@ Obrigatório:
 - CTA forte;
 - assinatura/logo;
 - fechamento comercial sem transformar a peça em panfleto.
+
+## 5A. Post sazonal oficial
+
+O post sazonal é um formato próprio de **3 imagens**.
+
+Estrutura obrigatória:
+- slide 1: abertura contextual + CTA + assinatura;
+- slide 2: conteúdo/utilidade, sem logo e sem CTA comercial;
+- slide 3: fechamento institucional + serviços pertinentes + CTA + assinatura.
+
+O tema pode ser fim de semana, feriado, data comemorativa, utilidade da cidade, estação, período do ano ou ocasião recorrente. Não converter automaticamente esse formato em post único.
 
 ## 6. Post único
 
@@ -286,11 +298,14 @@ Podem ser combinados.
 
 ## 14A. Post sazonal
 
-“Post sazonal” não cria uma terceira família estrutural. Ele deve usar obrigatoriamente:
-- `single_static` quando for uma única peça; ou
-- `carousel_static` quando houver sequência.
+O post sazonal é a terceira família oficial e usa `seasonal_carousel_static`.
 
-O tema sazonal altera contexto, fotografia e conteúdo, nunca a gramática visual.
+É sempre um carrossel simples de 3 imagens:
+1. abertura contextual;
+2. conteúdo/utilidade;
+3. fechamento institucional/CTA.
+
+Não converter sazonal em post único sem nova autorização explícita do operador.
 
 ## 14B. Agenda e legado
 
