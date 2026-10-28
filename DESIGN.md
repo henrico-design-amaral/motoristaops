@@ -33,7 +33,8 @@ Não existe Brand Book V12. Qualquer menção antiga a V12 é erro legado e deve
 ## Typography
 
 - **Instrument Sans** is the dominant family for body, interface, labels, functional text and the majority of branded communication.
-- **Bebas Neue** is editorial/display only when the composition calls for it.
+- **Social/editorial publications:** Instrument Sans is the **only** permitted family, using Regular, Medium/Semibold, Bold, ExtraBold and suitable variants of the same family. Avoid Light/Thin for reading text.
+- **Bebas Neue** may remain editorial/display only on non-social surfaces when explicitly supported by their local authority. It is **forbidden for MotoristaOPS social/editorial publications**.
 - Bebas Neue is forbidden for functional UI/body copy.
 - Do not introduce substitute display/body families by provider preference.
 
@@ -169,6 +170,8 @@ Blocked unless explicitly re-authorized:
 ## Channel rule
 
 Each channel is executed natively, but the brand grammar remains constant.
+
+For MotoristaOPS social/editorial work, `SOCIAL_EDITORIAL.md` is the canonical surface standard: one editorial system with contextual light/dark modes, Instagram-first mobile legibility, flexible composition and fixed editorial grammar.
 
 A feed post, Story, LinkedIn document, print piece, wallpaper, landing page, dashboard or video may transform layout for its format, but may not change:
 - identity assets;

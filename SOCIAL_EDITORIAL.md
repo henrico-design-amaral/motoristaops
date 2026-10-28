@@ -1,16 +1,24 @@
-# MotoristaOPS — Social Editorial Standard
+# MotoristaOPS — Padrão Editorial Oficial
 
 Status: ACTIVE
-Version: 1.0
-Date: 2026-10-06
+Version: 2.0
+Date: 2026-10-27
 Authority: MotoristaOPS
-Scope: posts, carrosséis, publicações simples, campanhas sazonais e conteúdo social
+Scope: publicações sociais, posts únicos, carrosséis, conteúdo sazonal/comemorativo, campanhas editoriais e peças derivadas
+Supersedes: Social Editorial Standard v1.0 e decisões parciais anteriores sobre templates eleitorais quando conflitarem com este documento
 
-## 1. Princípio-mãe: contexto primeiro
+## 1. Regra canônica
 
-A imagem e a narrativa devem corresponder primeiro à ocasião real da publicação. A identidade MotoristaOPS organiza a comunicação; não substitui o contexto do tema.
+Este é o **Padrão Editorial Oficial MotoristaOPS** e deve ser aplicado automaticamente em novas publicações até nova decisão explícita do operador.
+
+A base visual é única: o sistema editorial aprovado, com duas expressões contextuais — **clara** e **escura**. Elas pertencem à mesma gramática visual; não são famílias concorrentes nem templates rígidos.
+
+O que permanece fixo é a gramática editorial. A composição pode variar conforme o assunto.
+
+## 2. Princípio-mãe: contexto primeiro
 
 Resolver nesta ordem:
+
 1. ocasião;
 2. assunto específico;
 3. intenção da publicação;
@@ -18,170 +26,228 @@ Resolver nesta ordem:
 5. modo claro/escuro;
 6. composição MotoristaOPS.
 
-São Paulo é o território-base para rotina urbana, mobilidade cotidiana, aeroportos, eventos locais, bastidores, conteúdo institucional e campanhas não sazonais.
+A identidade organiza a peça, mas não apaga o contexto real.
 
-Não usar São Paulo automaticamente em feriados, datas comemorativas, eventos/destinos específicos ou campanhas temáticas. Nesses casos, a imagética deve representar o contexto real da ocasião.
+São Paulo é o território-base para rotina urbana, mobilidade cotidiana, aeroportos, eventos locais, bastidores, conteúdo institucional genérico e campanhas não sazonais.
+
+Não usar São Paulo automaticamente em feriados, datas comemorativas, destinos específicos ou campanhas temáticas. Nesses casos, a imagética deve representar a ocasião real.
 
 Exemplos:
-- Nossa Senhora Aparecida → Aparecida, Basílica, peregrinação, fé, estrada e deslocamento ao destino;
-- Dia das Crianças → família, passeio, parque, lazer e experiência infantil;
-- feriado de descanso → praia, campo, resort, estrada, lazer e bate-volta conforme o briefing;
+- Nossa Senhora Aparecida → Aparecida, Basílica, peregrinação, fé, estrada e deslocamento;
+- Dia das Crianças → família, passeio, parque, lazer;
+- feriado de descanso → praia, campo, hotel-fazenda, estrada, lazer e bate-volta;
 - eleições → repertório eleitoral/utilidade pública, sem partidarismo;
-- show → evento, chegada, saída, retorno e atmosfera noturna quando aplicável.
+- show → evento, chegada, saída, retorno e atmosfera correspondente.
 
-## 2. Estrutura oficial do carrossel
+## 3. Tipografia
 
-### Slide 1 — abertura
+Para publicações sociais/editoriais MotoristaOPS, usar **somente Instrument Sans**.
+
+Pesos e variações permitidos:
+- Regular;
+- Medium / Semibold;
+- Bold;
+- ExtraBold;
+- variações adequadas da própria família quando disponíveis e compatíveis com legibilidade.
+
+Evitar Light/Thin em conteúdo de leitura.
+
+Bebas Neue, outras famílias de display e substitutas de provedor **não são permitidas nesta superfície editorial**, mesmo que sejam aceitáveis em outras superfícies do sistema visual quando houver autoridade específica.
+
+## 4. Instagram como referência primária
+
+O Instagram é a referência primária de leitura e proporção para publicações editoriais.
+
 Obrigatório:
-- introduzir o tema;
-- explicar rapidamente o que o carrossel entrega;
-- CTA já na entrada;
+- leitura confortável em tela pequena;
+- hierarquia forte;
+- margens generosas;
+- contraste suficiente;
+- ausência de microtextos;
+- uma área dominante por composição;
+- densidade compatível com leitura mobile.
+
+## 5. Estrutura oficial do carrossel
+
+### Slide 1 — introdução
+
+Obrigatório:
+- introdução clara do tema;
+- CTA;
 - assinatura MotoristaOPS;
-- logo presente somente neste slide e no último.
+- logo/assinatura concentrado na abertura.
 
-Preferir a assinatura reduzida quando mais eficiente: brasão + MOTORISTAOPS.
+A versão reduzida **brasão oficial + MotoristaOPS** pode ser a solução preferencial quando ocupar melhor o espaço.
 
-### Slides intermediários
-- desenvolvimento do conteúdo;
+### Slides intermediários — conteúdo
+
+Obrigatório:
+- foco em conteúdo, utilidade, narrativa ou orientação;
 - sem logo MotoristaOPS;
 - sem CTA comercial repetido;
 - sem microtexto;
-- cada slide deve cumprir uma função clara.
+- composição livre dentro do sistema editorial.
 
-### Último slide
+### Último slide — fechamento institucional
+
 Obrigatório:
-- fechamento institucional;
-- explicar quem é/que faz a MotoristaOPS de forma contextual;
+- apresentação institucional MotoristaOPS;
+- serviços pertinentes;
 - CTA forte;
-- assinatura/logo em escala suficiente para leitura.
+- assinatura/logo;
+- fechamento comercial sem transformar a peça em panfleto.
 
-Não usar frases do portfólio pessoal como assinatura MotoristaOPS.
+## 6. Post único
 
-## 3. Post único/simples
+Estrutura:
+- mensagem principal;
+- imagem/composição adequada ao contexto;
+- CTA;
+- assinatura no fechamento.
 
-- peça única;
-- conteúdo ajustado à ocasião;
-- CTA no fechamento;
-- assinatura MotoristaOPS;
-- proporção imagem/texto varia conforme o tema, sem perder legibilidade.
+A quantidade de fotografia, texto, ícones e espaços pode variar conforme a mensagem.
 
-## 4. Tipografia e legibilidade
+## 7. Marca e assinatura
 
-- usar somente Instrument Sans;
-- explorar Regular, Medium/Semibold, Bold, ExtraBold e variações condensadas da própria família quando disponíveis;
-- evitar Light/Thin para conteúdo de leitura;
-- Instagram é a referência primária de legibilidade;
-- evitar microtextos;
-- usar hierarquia clara, margens generosas e contraste suficiente.
+Em carrosséis, concentrar logo/assinatura no primeiro e no último slide.
 
-## 5. Claro versus escuro
+Nos slides intermediários, não repetir logo.
 
-Escolher conforme contexto, horário, atmosfera e intenção.
+A assinatura social cotidiana preferencial continua sendo a versão oficial reduzida **brasão + MotoristaOPS**, quando essa versão se adequar melhor à composição.
 
-Referências:
-- balada, show, festa, evento noturno → escuro;
-- acompanhamento médico e serviços diurnos → claro;
-- aeroporto manhã/dia → normalmente claro;
-- aeroporto noturno → escuro pode ser adequado;
-- corrida → claro ou escuro conforme horário;
-- evento corporativo noturno → tende ao escuro.
+Usar somente arquivos oficiais. Nunca redesenhar, aproximar ou gerar logo, brasão, wordmark ou assinatura por IA.
 
-O contexto manda. Não aplicar tema claro/escuro mecanicamente.
+## 8. São Paulo como território visual
 
-## 6. Cores e território visual
+Na rotina urbana, variar sistematicamente o repertório reconhecível:
 
-A paleta MotoristaOPS organiza a peça, mas não deve apagar as cores reais do lugar quando elas ajudam reconhecimento e narrativa.
-
-Exemplos:
-- MASP → preservar o vermelho;
-- Liberdade → preservar vermelho/elementos reconhecíveis;
-- parques → preservar verdes naturais;
-- praia/campo/destino → usar cores reais coerentes com a ocasião.
-
-Na rotina paulistana, variar o repertório para evitar repetição excessiva da Ponte Estaiada:
-- Avenida Paulista/MASP;
-- Ibirapuera/Obelisco/Pedro Álvares Cabral;
-- Ipiranga x São João;
-- Viaduto do Chá;
+- Avenida Paulista / MASP;
+- Liberdade;
+- Centro / Viaduto do Chá;
+- Ibirapuera;
+- Pinheiros;
+- Faria Lima;
+- Berrini;
+- Villa-Lobos;
+- Ipiranga;
+- Praça da Sé;
 - Marginal Pinheiros;
 - Marginal Tietê;
-- Villa-Lobos/roda-gigante;
-- Museu do Ipiranga/Parque da Independência;
-- Liberdade;
-- Berrini;
-- Faria Lima;
-- Largo da Batata;
-- Praça da Sé;
-- Parque do Carmo/Aricanduva;
-- outros pontos coerentes e reconhecíveis.
+- Parque do Carmo / Aricanduva;
+- demais referências paulistanas coerentes com o tema.
 
-## 7. Veículos e transporte
+A Ponte Estaiada permanece disponível, mas não deve ser recurso repetitivo.
 
-- usar o veículo operacional vigente confirmado pelo projeto;
-- enquanto o veículo vigente for o HB20 preto, usar HB20 preto reconhecível;
-- nunca substituir por sedã premium genérico;
-- em transporte público paulistano, usar referência municipal reconhecível ou intermunicipal azul quando adequado;
-- não inventar identidade oficial de transporte.
+## 9. Cores dos lugares
 
-## 8. CTA
+Não neutralizar o território apenas para forçá-lo à paleta.
 
-- forte, legível e simples;
-- carrossel: abertura e fechamento;
-- intermediários: sem repetição comercial;
-- post único: fechamento;
-- centralizar quando a composição pedir ação direta.
+Cores reais podem permanecer quando ajudam reconhecimento e narrativa, por exemplo:
+- vermelho do MASP;
+- vermelho da Liberdade;
+- verde dos parques;
+- azul urbano;
+- cores naturais de praia, campo, estrada e destinos.
 
-## 9. Gatilhos editoriais
+A identidade MotoristaOPS organiza a peça; não apaga o lugar.
 
-Os gatilhos são atalhos de intenção; não substituem briefing.
+## 10. Veículos e transporte
+
+Carro MotoristaOPS = **HB20 preto enquanto ele for o veículo operacional vigente**.
+
+Não usar sedã premium genérico nem veículo aleatório como substituto.
+
+Para transporte público, usar referências reconhecíveis de São Paulo quando forem pertinentes. Não inventar ou aproximar identidades oficiais.
+
+Pessoas e veículo MotoristaOPS reais são ativos protegidos: não gerar Henrico ou o veículo oficial por IA. Usar fotografia/filmagem real aprovada quando forem mostrados como evidência da operação.
+
+## 11. Escolha entre claro e escuro
+
+A escolha é editorial e contextual, não estética aleatória.
+
+Tendências:
+- dia, saúde, consultas, compromissos e serviços tranquilos → claro;
+- noite, shows, baladas, festas e eventos noturnos → escuro;
+- aeroporto, corrida e temas híbridos → decidir conforme ocasião, horário e atmosfera.
+
+Claro e escuro pertencem ao mesmo sistema.
+
+## 12. Princípio de composição
+
+A proporção entre fotografia, texto, ícones e espaços pode variar conforme a mensagem.
+
+O sistema permanece constante:
+- tipografia;
+- hierarquia;
+- assinatura;
+- regras de marca;
+- contexto;
+- legibilidade;
+- ritmo editorial;
+- QA.
+
+Não transformar o padrão em template rígido. Não reiniciar de tela em branco ignorando a gramática aprovada.
+
+## 13. CTA
+
+- forte;
+- legível;
+- simples;
+- contextual.
+
+Carrossel:
+- CTA na abertura;
+- sem repetição comercial nos intermediários;
+- CTA no fechamento.
+
+Post único:
+- CTA no fechamento.
+
+## 14. Gatilhos editoriais
+
+Os gatilhos orientam o formato e o contexto; o briefing livre do operador permanece prioritário.
 
 - `/carrosselops [modificador] [tema] [instruções]`
 - `/postops [modificador] [tema] [instruções]`
 
-Modificadores aceitos:
-- `base`
-- `sazonal`
-- `feriado`
-- `comemorativo`
-- `evento`
-- `utilidade`
-- `comercial`
-- `institucional`
+Modificadores:
+- `base`;
+- `sazonal`;
+- `feriado`;
+- `comemorativo`;
+- `evento`;
+- `utilidade`;
+- `comercial`;
+- `institucional`.
 
-Eles podem ser combinados.
+Podem ser combinados.
 
-Exemplo:
-`/carrosselops feriado comercial 12 de outubro foco em Aparecida e bate-volta`
-
-## 10. Ordem de autoridade
+## 15. Ordem de autoridade
 
 1. instrução explícita atual do operador;
-2. este arquivo e demais fontes canônicas MotoristaOPS;
-3. HenricoOPS `governance/MOTORISTAOPS_EDITORIAL_ROUTING_STANDARD.md`;
-4. HenricoOPS `skills/motoristaops-editorial/SKILL.md`;
-5. referências adotadas;
-6. referências externas.
+2. este `SOCIAL_EDITORIAL.md`;
+3. Brand Book V2 e demais decisões canônicas MotoristaOPS aplicáveis;
+4. `VISUAL_LOCK.json`, `DESIGN.md`, `design/tokens.json` e ativos oficiais;
+5. HenricoOPS `governance/MOTORISTAOPS_EDITORIAL_ROUTING_STANDARD.md`;
+6. HenricoOPS `skills/motoristaops-editorial/SKILL.md`;
+7. referências adotadas;
+8. referências externas.
 
-Este standard é permanente até nova decisão explícita do operador.
+## 16. QA obrigatório
 
-## 11. Travamento dos modelos editoriais claro e escuro
+Antes de entregar ou publicar:
+- conferir conteúdo e fatos;
+- conferir logo oficial;
+- conferir Instrument Sans;
+- conferir paleta e cores contextuais;
+- conferir proporções, margens e hierarquia;
+- conferir legibilidade mobile;
+- conferir veículo e pessoas reais quando aplicável;
+- conferir cada slide/render individualmente;
+- comparar com o sistema editorial aprovado.
 
-- Decisão do titular reiterada em 2026-10-27: os dois modelos de publicação claro e escuro definidos durante a campanha informativa do primeiro turno das eleições de 2026 são os modelos editoriais oficiais. Novas peças devem partir dessas referências, não de alternativas visuais criadas do zero.
-- Âncora histórica verificável: carrossel de cinco lâminas publicado em 2026-10-04, https://www.instagram.com/p/DeEZ1lmiAOM/ . É evidência de publicação e referência de recuperação, não substitui os arquivos-mestre das variantes.
-- Reproduzir estrutura, grid, margens, proporções, ritmo visual, estilos tipográficos e uso do logo dos mestres claros/escuros aprovados. Alternar entre claro/escuro por contexto conforme §5, não por gosto ou geração aleatória.
-- Quando for um evento, sua imagem/atmosfera real é protagonista e a marca organiza. Cidade é opção de contexto quando não houver uma imagem autorizada do tema; nunca substituir o evento por ambientação genérica sem justificativa.
-- As variantes experimentais geradas em 2026-10-27 para BTS, GP, FENATRAN e EMOB não foram aprovadas; não utilizá-las como referência nem promover ao acervo oficial.
-- **Gate de fidelidade:** os arquivos editáveis/pixels dos dois mestres não foram recuperados nesta auditoria. Antes de produzir novas peças declaradas oficiais, localizar os mestres no acervo original ou recuperar seus pixels sem alterar a identidade; comparar render por render. A existência de link de uma publicação não comprova as dimensões internas do template.
-- Preserve o Brand Book V2, o arquivo real do logo, a Instrument Sans e a proibição de gerar pessoa ou veículo MotoristaOPS por IA.
+Se fonte, asset oficial, master aplicável ou inspeção final estiverem indisponíveis, marcar **PENDENTE** e declarar o limite. Não chamar a peça de aprovada/publicada sem evidência.
 
-## 11. Referências visuais aprovadas — primeiro turno (04/10/2026)
+## 17. Regra de mudança
 
-**Decisão reiterada pelo operador em 27/10/2026:** os modelos editoriais **CLARO** e **ESCURO** adotados na campanha do primeiro turno eleitoral são os dois modelos oficiais para publicações MotoristaOPS. Esta decisão especifica os masters existentes; não autoriza criação de uma terceira família visual, reinterpretação estética ou novas composições de tela em branco.
-
-- Referência pública rastreada: post/carrossel do primeiro turno em 04/10/2026 — https://www.instagram.com/p/DeEZ1lmiAOM/.
-- Histórico complementar: padrão editorial oficial aprovado e registrado em 04/10/2026, implementado neste arquivo em 06/10/2026; o raster original de cada uma das duas variantes **ainda não foi localizado nesta revisão**. O permalink acima não prova sozinho a existência dos dois arquivos de template.
-- Fluxo obrigatório: **localizar ambos os masters aprovados e inspecionar suas imagens → preservar geometria, área de fotografia, hierarquia, títulos, moldura quando houver, CTA, margens, proporções e assinatura exata → preencher apenas os slots editoriais autorizados → adaptar ao formato de canal com reflow controlado → validar lado a lado com os masters**.
-- Eventos têm a cena do evento como imagem principal; quando não houver evento específico, o cenário urbano de São Paulo pode ser o repertório, conforme §§1 e 6. Claro/escuro é selecionado pelo contexto (§5), não por preferência estética.
-- **Bloqueio:** se os masters não estiverem acessíveis, não entregar nem publicar peças afirmando que seguem os modelos aprovados. Localizar arquivos originais, não reconstruir a arquitetura por suposição.
-- Não utilizar como referência os lotes experimentais criados em 27/10/2026 e rejeitados pelo operador; não promover essas propostas a masters.
-- Esta regra complementa DESIGN.md, VISUAL_LOCK.json e Brand Book V2; não substitui a identidade oficial nem permite alterar ativos travados.
+Este padrão permanece canônico até uma nova decisão explícita do operador alterar, substituir ou revogar parte dele.

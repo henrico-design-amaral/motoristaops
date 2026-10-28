@@ -2,7 +2,7 @@
   "schema": "henricoops.visual-lock.v1",
   "project": "MotoristaOPS",
   "status": "READY",
-  "version": "2.1.0-2026-09-18",
+  "version": "2.2.0-2026-10-27",
   "authority": {
     "sources": [
       "Current explicit operator-approved decision",
@@ -15,7 +15,7 @@
       "design/tokens.json",
       "source/ICONOGRAPHY.md"
     ],
-    "last_reviewed": "2026-09-18",
+    "last_reviewed": "2026-10-27",
     "legacy_note": "No Brand Book V12 exists. Any legacy V12 reference is invalid and has no authority."
   },
   "tokens": {
@@ -55,13 +55,17 @@
   "typography": {
     "locked": [
       "Instrument Sans dominant for body/UI/labels",
-      "Bebas Neue editorial/display only"
+      "MotoristaOPS social/editorial publications use Instrument Sans only",
+      "Social/editorial allowed weights: Regular, Medium/Semibold, Bold, ExtraBold and suitable variants of Instrument Sans"
     ],
     "bounded": [
+      "Non-social surfaces may use locally authorized display roles",
       "Scale and line breaks may transform only within approved format/master rules"
     ],
     "forbidden": [
       "substitute brand fonts",
+      "Bebas Neue in MotoristaOPS social/editorial publications",
+      "Light/Thin for social reading text",
       "Bebas Neue for body or functional UI",
       "generative rendering of final branded text"
     ]
@@ -174,12 +178,18 @@
       "id": "social_feed",
       "canvas": "channel-native feed",
       "rules": [
+        "resolve SOCIAL_EDITORIAL.md before production",
+        "one canonical editorial system with contextual light/dark modes",
+        "Instrument Sans only",
         "preserve 6-column social grammar where applicable",
         "one dominant area",
         "exact brand assets",
         "native crop/reflow only",
-        "mobile-first QA at approximately 390 CSS px",
-        "everyday signature uses official crest + MotoristaOPS only",
+        "Instagram-first mobile QA at approximately 390 CSS px",
+        "carousel: first slide intro + CTA + signature; middle slides content without logo/commercial CTA; last slide institutional + services + CTA + signature",
+        "single post: main message + context-appropriate image/composition + CTA + closing signature",
+        "vary São Paulo territory references and preserve recognizable local colors when useful",
+        "current MotoristaOPS vehicle must be the confirmed real operational vehicle; while current, black HB20",
         "no unreadable microcopy"
       ]
     },
