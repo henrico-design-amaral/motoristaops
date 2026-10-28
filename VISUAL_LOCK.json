@@ -2,7 +2,7 @@
   "schema": "henricoops.visual-lock.v1",
   "project": "MotoristaOPS",
   "status": "READY",
-  "version": "2.3.0-2026-10-28",
+  "version": "2.4.0-2026-10-28",
   "authority": {
     "sources": [
       "Current explicit operator-approved decision",
@@ -39,7 +39,10 @@
       "MotoristaOPS identity layer must be deterministic",
       "Everyday/social signature = exact official crest + MotoristaOPS only",
       "Everyday/social signature excludes road, por Henrico Amaral and motorista particular",
-      "Everyday/social signature perceived height target = 44-48 CSS px at a 390 px reference preview; raster scale must preserve perception"
+      "Everyday/social signature perceived height target = 44-48 CSS px at a 390 px reference preview; raster scale must preserve perception",
+      "MotoristaOPS identity is immutable: never redraw, recombine, recolor, approximate, destructively crop or derive a new logo/signature",
+      "Use only exact official canonical logo/signature variants; horizontal and simplified variants are allowed only as official assets",
+      "If the exact required identity asset is unavailable, block/PENDENTE instead of reconstructing it"
     ],
     "bounded": [
       "Logo presence level L1 Silent, L2 Support or L3 Protagonist as selected by task/master"
@@ -56,19 +59,17 @@
   },
   "typography": {
     "locked": [
-      "Instrument Sans dominant for body/UI/labels",
-      "MotoristaOPS social/editorial publications use Instrument Sans only",
-      "Social/editorial allowed weights: Regular, Medium/Semibold, Bold, ExtraBold and suitable variants of Instrument Sans"
+      "Instrument Sans is the only permitted type family across MotoristaOPS production surfaces",
+      "Allowed weights/variants: Regular, Medium/Semibold, Bold, ExtraBold and legitimate Instrument Sans variants",
+      "Typography embedded in exact official logo/signature assets is protected artwork and is never retyped"
     ],
     "bounded": [
-      "Non-social surfaces may use locally authorized display roles",
-      "Scale and line breaks may transform only within approved format/master rules"
+      "Size, weight, tracking and line breaks may vary only within Instrument Sans and approved format/master rules"
     ],
     "forbidden": [
-      "substitute brand fonts",
-      "Bebas Neue in MotoristaOPS social/editorial publications",
-      "Light/Thin for social reading text",
-      "Bebas Neue for body or functional UI",
+      "any non-Instrument Sans typeface outside exact official identity artwork",
+      "provider-default or substitute fonts",
+      "Light/Thin for reading text",
       "generative rendering of final branded text"
     ]
   },
@@ -80,13 +81,16 @@
       "Champagne Sombra #947546",
       "Marfim #F3EFE4",
       "Pedra #A6A39E",
-      "Âmbar #F0B44D route/location/path only"
+      "Âmbar #F0B44D route/location/path only",
+      "Brand token values are immutable and must be used exactly"
     ],
     "bounded": [
-      "Light/dark surface balance may vary by approved family"
+      "Light, dark or mixed composition may combine exact brand tokens without deriving new tones",
+      "Natural documentary photography/territory colors may remain when contextually useful"
     ],
     "forbidden": [
-      "off-palette decorative colors",
+      "off-palette decorative colors used as brand tokens",
+      "derived tints, shades, hue shifts or approximations of brand tokens",
       "generic use of Âmbar",
       "Champagne flood",
       "provider-default palette"
@@ -193,8 +197,10 @@
         "carousel: first slide intro + CTA + signature; middle slides content without logo/commercial CTA; last slide institutional + services + CTA + signature",
         "single post: main message + context-appropriate image/composition + CTA + closing signature",
         "vary São Paulo territory references and preserve recognizable local colors when useful",
-        "current MotoristaOPS vehicle must be the confirmed real operational vehicle; while current, black HB20",
-        "no unreadable microcopy"
+        "current MotoristaOPS vehicle is Omoda 5 Luxury cinza; HB20 is historical only; real approved media required when shown",
+        "no unreadable microcopy",
+        "brand palette tokens must use exact approved hex values; no derived tones",
+        "identity assets are immutable; canonical horizontal/simplified variants only when exact official assets exist"
       ]
     },
     {
@@ -330,5 +336,15 @@
     "provider_fallback_allowed": false,
     "publication_requires_validator_pass": "scripts/validate_social_editorial.py",
     "release_requires_qa_status": "APPROVED"
+  },
+  "vehicle_lock": {
+    "status": "LOCKED",
+    "current_model": "Omoda 5 Luxury",
+    "current_color": "cinza",
+    "legacy_vehicle": "HB20",
+    "legacy_usage": "historical_only",
+    "official_real_media_required_when_shown": true,
+    "ai_generation_allowed": false,
+    "generic_substitution_allowed": false
   }
 }
