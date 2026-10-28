@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "lock": "MOTORISTAOPS_SOCIAL_EDITORIAL_FORMAT_LOCK",
-  "version": "3.2",
+  "version": "3.3",
   "effective_date": "2026-10-28",
   "status": "LOCKED",
   "authority": "MotoristaOPS/SOCIAL_EDITORIAL.md",
@@ -119,5 +119,32 @@
       "requires_gpt_images_attempt": true,
       "requires_exception_reason": true
     }
+  },
+  "seasonal_routing": {
+    "creates_new_format_family": false,
+    "allowed_targets": [
+      "single_static",
+      "carousel_static"
+    ]
+  },
+  "reference_fidelity_lock": {
+    "real_place_recognizability_required": true,
+    "excessive_beautification_forbidden": true,
+    "strong_architectural_or_skyline_reconstruction_forbidden": true,
+    "only_subtle_adjustments_allowed": true,
+    "use_alternate_verifiable_reference_if_fidelity_cannot_be_preserved": true
+  },
+  "cta_lock": {
+    "whatsapp_icon_only_with_phone": true,
+    "action_copy_plain_text": true,
+    "action_copy_button_treatment_allowed": false,
+    "action_copy_whatsapp_icon_allowed": false
+  },
+  "legacy_planning_policy": {
+    "effective_date": "2026-10-28",
+    "future_legacy_content_invalid_until_rebuilt": true,
+    "published_content_historical_only": true,
+    "legacy_visuals_active_reference_allowed": false,
+    "legacy_visuals_fallback_allowed": false
   }
 }
