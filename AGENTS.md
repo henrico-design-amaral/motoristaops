@@ -74,6 +74,33 @@ If the active renderer cannot ingest the exact official asset, do not approximat
 
 Starting from a generic/blank template, Canva-like default aesthetic or provider-native style is not an acceptable MotoristaOPS workflow.
 
+### Visual creation engine lock
+
+For MotoristaOPS image creation, the production route is locked:
+- use **GPT Images inside ChatGPT** as the default and mandatory image-generation surface;
+- do not create vector artwork;
+- do not use Canva for image creation, composition, or generation;
+- do not use alternate image generators by convenience.
+
+**Magnific** is allowed only as an extraordinary last-resort fallback after a concrete GPT Images limitation is documented. It is not a parallel default.
+
+Protected assets remain protected: never synthesize, redraw, vectorize or approximate the MotoristaOPS logo/crest/wordmark/signature, Henrico, or the official vehicle. Use the real approved raster assets as inputs/references when required. If exact fidelity cannot be preserved inside the allowed route, return **PENDING/BLOCKED** instead of switching to an unauthorized tool or inventing a substitute.
+
+This rule applies project-wide to MotoristaOPS image creation and is stricter than provider defaults.
+
+### Identity, typography, palette and vehicle hard locks
+
+Current production invariants:
+- use only exact official MotoristaOPS identity assets; never redraw, vectorize, reconstruct, approximate or derive any logo/crest/wordmark/signature;
+- horizontal/simplified logo variants may be selected only when the exact official variant exists in canonical assets;
+- **Instrument Sans is the only permitted font family** in MotoristaOPS production;
+- brand palette tokens are immutable exact values: Noite #070709, Grafite #151518, Champagne #C79C5B, Champagne Sombra #947546, Marfim #F3EFE4, Pedra #A6A39E, Âmbar #F0B44D;
+- light/dark/mixed modes may recombine those exact tokens, never alter their values;
+- current operational vehicle is **Omoda 5 Luxury cinza**; HB20 is historical;
+- when the current vehicle is shown as operational evidence, use approved real media only; never generate or substitute it.
+
+If any required exact asset/font/palette/vehicle evidence cannot be preserved, fail closed as PENDING/BLOCKED.
+
 ### Point of view
 
 The passenger/service/context is the center of the brand communication. Henrico is the discreet operator behind the experience and should not become the default visual protagonist.
