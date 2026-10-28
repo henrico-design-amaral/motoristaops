@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "lock": "MOTORISTAOPS_SOCIAL_EDITORIAL_FORMAT_LOCK",
-  "version": "3.1",
+  "version": "3.2",
   "effective_date": "2026-10-28",
   "status": "LOCKED",
   "authority": "MotoristaOPS/SOCIAL_EDITORIAL.md",
@@ -64,5 +64,41 @@
       "requires_gpt_images_attempt": true,
       "requires_exception_reason": true
     }
+  },
+  "identity_lock": {
+    "immutable": true,
+    "official_assets_only": true,
+    "modification_allowed": false,
+    "redraw_allowed": false,
+    "vectorization_allowed": false,
+    "derived_variants_allowed": false,
+    "official_existing_variants_only": true,
+    "horizontal_and_simplified_allowed_when_exact_asset_exists": true
+  },
+  "palette_lock": {
+    "immutable": true,
+    "allowed_modes": [
+      "light",
+      "dark",
+      "mixed"
+    ],
+    "tones_modified_allowed": false,
+    "exact_tokens": {
+      "noite": "#070709",
+      "grafite": "#151518",
+      "champagne": "#C79C5B",
+      "champagne_sombra": "#947546",
+      "marfim": "#F3EFE4",
+      "pedra": "#A6A39E",
+      "ambar_percurso": "#F0B44D"
+    }
+  },
+  "vehicle_lock": {
+    "current_model": "Omoda 5 Luxury",
+    "current_color": "cinza",
+    "hb20_status": "historical",
+    "official_real_asset_required_when_shown": true,
+    "ai_generation_allowed": false,
+    "generic_substitution_allowed": false
   }
 }
