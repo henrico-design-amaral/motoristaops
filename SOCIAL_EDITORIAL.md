@@ -86,6 +86,15 @@ Evitar Light/Thin em conteúdo de leitura.
 
 Bebas Neue, outras famílias de display e substitutas de provedor **não são permitidas nesta superfície editorial**, mesmo que sejam aceitáveis em outras superfícies do sistema visual quando houver autoridade específica.
 
+## 3A. Travas duras de identidade e paleta
+
+- Logo, brasão, wordmark, assinatura e qualquer parte da identidade são imutáveis.
+- Usar somente assets oficiais e variantes oficiais já existentes. Horizontal e simplificada somente quando houver arquivo canônico exato; nunca derivar ou reconstruir.
+- Instrument Sans é a única família permitida. Nenhuma outra fonte pode ser usada.
+- Paleta oficial fixa: Noite #070709; Grafite #151518; Champagne #C79C5B; Champagne Sombra #947546; Marfim #F3EFE4; Pedra #A6A39E; Âmbar #F0B44D.
+- Modos claro, escuro e mesclado podem combinar os tokens, mas nunca alterar seus valores.
+- Cores naturais de fotografia/território podem permanecer; isso não autoriza criar novos tons de marca.
+
 ## 4. Instagram como referência primária
 
 O Instagram é a referência primária de leitura e proporção para publicações editoriais.
@@ -185,13 +194,13 @@ A identidade MotoristaOPS organiza a peça; não apaga o lugar.
 
 ## 10. Veículos e transporte
 
-Carro MotoristaOPS = **HB20 preto enquanto ele for o veículo operacional vigente**.
+Carro MotoristaOPS = **Omoda 5 Luxury cinza**, veículo operacional vigente.
 
 Não usar sedã premium genérico nem veículo aleatório como substituto.
 
 Para transporte público, usar referências reconhecíveis de São Paulo quando forem pertinentes. Não inventar ou aproximar identidades oficiais.
 
-Pessoas e veículo MotoristaOPS reais são ativos protegidos: não gerar Henrico ou o veículo oficial por IA. Usar fotografia/filmagem real aprovada quando forem mostrados como evidência da operação.
+Pessoas e veículo MotoristaOPS reais são ativos protegidos: não gerar Henrico ou o Omoda 5 Luxury por IA. Usar fotografia/filmagem real aprovada quando forem mostrados como evidência da operação. Referências ao HB20 são históricas.
 
 ## 11. Escolha entre claro e escuro
 
