@@ -20,5 +20,13 @@
     "mobile_legibility_verified": true,
     "each_render_inspected": true,
     "protected_real_assets_verified_when_applicable": true
+  },
+  "production": {
+    "engine": "gpt_images",
+    "vector_creation": false,
+    "canva_creation": false,
+    "magnific_exception": false,
+    "gpt_images_attempted": false,
+    "exception_reason": ""
   }
 }
