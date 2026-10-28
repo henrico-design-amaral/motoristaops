@@ -172,6 +172,16 @@ Na rotina urbana, variar sistematicamente o repertório reconhecível:
 
 A Ponte Estaiada permanece disponível, mas não deve ser recurso repetitivo.
 
+## 8A. Fidelidade das referências visuais
+
+Quando uma peça usar referência reconhecível de São Paulo, de um destino, venue ou paisagem real:
+- preservar a aparência real e a reconhecibilidade do local;
+- evitar embelezamento excessivo, reconstrução arquitetônica, alteração forte de skyline, geometria, paisagem ou atmosfera;
+- permitir apenas ajustes sutis de luz, enquadramento, contraste, recorte e limpeza visual que não deformem o lugar;
+- se a referência real não puder ser preservada com segurança, trocar a imagem/contexto por outra referência verificável em vez de inventar.
+
+A direção artística nunca pode transformar o território em cenário fictício.
+
 ## 9. Cores dos lugares e trava de paleta
 
 Não neutralizar o território apenas para forçá-lo à paleta.
@@ -250,6 +260,11 @@ Carrossel:
 Post único:
 - CTA no fechamento.
 
+Ícone do WhatsApp:
+- só pode aparecer imediatamente associado ao telefone;
+- textos como “Entre em contato”, “Fale com a gente”, “Reserve seu trajeto” e equivalentes devem ser texto editorial simples;
+- não usar botão, cápsula ou ícone de WhatsApp em CTA que não contenha o telefone.
+
 ## 14. Gatilhos editoriais
 
 Os gatilhos orientam o formato e o contexto; o briefing livre do operador permanece prioritário.
@@ -268,6 +283,20 @@ Modificadores:
 - `institucional`.
 
 Podem ser combinados.
+
+## 14A. Post sazonal
+
+“Post sazonal” não cria uma terceira família estrutural. Ele deve usar obrigatoriamente:
+- `single_static` quando for uma única peça; ou
+- `carousel_static` quando houver sequência.
+
+O tema sazonal altera contexto, fotografia e conteúdo, nunca a gramática visual.
+
+## 14B. Agenda e legado
+
+A partir de 2026-10-28, todo conteúdo futuro planejado/agendado sob formato visual anterior fica invalidado até reconstrução completa no padrão atual.
+
+Conteúdo já publicado permanece como histórico. Formatos antigos, templates antigos, peças antigas e famílias visuais antigas não podem ser reutilizados como referência ativa, fallback ou ponto de partida para novas publicações.
 
 ## 15. Ordem de autoridade
 
