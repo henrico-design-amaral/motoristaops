@@ -43,6 +43,24 @@ def main():
     if data.get("microtext") is not False:
         errors.append("microtexto não é permitido")
 
+    production = data.get("production", {})
+    engine = production.get("engine")
+    if production.get("vector_creation") is not False:
+        errors.append("vector creation is forbidden")
+    if production.get("canva_creation") is not False:
+        errors.append("Canva creation is forbidden")
+    if engine == "gpt_images":
+        pass
+    elif engine == "magnific":
+        if production.get("magnific_exception") is not True:
+            errors.append("Magnific requires magnific_exception=true")
+        if production.get("gpt_images_attempted") is not True:
+            errors.append("Magnific requires a prior GPT Images attempt")
+        if not str(production.get("exception_reason", "")).strip():
+            errors.append("Magnific requires a documented exception_reason")
+    else:
+        errors.append("production.engine must be gpt_images; Magnific is extraordinary fallback only")
+
     qa = data.get("qa", {})
     for key in REQUIRED_QA:
         if qa.get(key) is not True:
