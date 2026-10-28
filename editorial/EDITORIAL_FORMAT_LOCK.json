@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "lock": "MOTORISTAOPS_SOCIAL_EDITORIAL_FORMAT_LOCK",
-  "version": "3.1",
+  "version": "3.2",
   "effective_date": "2026-10-28",
   "status": "LOCKED",
   "authority": "MotoristaOPS/SOCIAL_EDITORIAL.md",
@@ -106,5 +106,18 @@
     "real_approved_media_required_when_shown": true,
     "ai_generated_current_vehicle_allowed": false,
     "generic_substitution_allowed": false
+  },
+  "production_lock": {
+    "default_engine": "gpt_images",
+    "direct_surface": "ChatGPT",
+    "vector_creation_allowed": false,
+    "canva_creation_allowed": false,
+    "alternate_generators_allowed": false,
+    "magnific": {
+      "allowed": true,
+      "policy": "extraordinary_last_resort_only",
+      "requires_gpt_images_attempt": true,
+      "requires_exception_reason": true
+    }
   }
 }

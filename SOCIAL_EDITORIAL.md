@@ -310,3 +310,29 @@ Antes de qualquer publicação social, resolver `editorial/EDITORIAL_FORMAT_LOCK
 Somente resultado `PASS` autoriza seguir para agendamento/publicação. Resultado `PENDENTE` ou `REPROVADO` bloqueia publicação.
 
 O gate de manifesto complementa, mas não substitui, a inspeção visual de cada render.
+
+
+## 19. Motor de criação visual
+
+Status: **LOCKED / FAIL-CLOSED**.
+
+Para qualquer imagem MotoristaOPS deste sistema editorial:
+- usar **GPT Images diretamente no ChatGPT** como motor padrão e obrigatório;
+- não criar arte vetorial;
+- não usar Canva para criação, composição ou geração;
+- não migrar para outro gerador por conveniência.
+
+**Magnific** é a única exceção técnica admitida e apenas como último recurso extraordinário, depois de uma limitação concreta do GPT Images. A exceção deve ser registrada no manifesto e não altera o canon.
+
+No fluxo normal:
+- `production.engine = "gpt_images"`;
+- `production.vector_creation = false`;
+- `production.canva_creation = false`.
+
+Magnific excepcional:
+- `production.engine = "magnific"`;
+- `production.magnific_exception = true`;
+- `production.gpt_images_attempted = true`;
+- `production.exception_reason` não vazio.
+
+Logo/identidade, Henrico e o Omoda 5 Luxury continuam proibidos de serem inventados ou regenerados. Se o fluxo permitido não preservar fielmente o asset oficial, a peça fica **PENDENTE/BLOCKED**.

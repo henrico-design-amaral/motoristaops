@@ -39,6 +39,14 @@ BASE = {
         "ai_generated": False,
         "generic_substitution": False,
     },
+    "production": {
+        "engine": "gpt_images",
+        "vector_creation": False,
+        "canva_creation": False,
+        "magnific_exception": False,
+        "gpt_images_attempted": False,
+        "exception_reason": "",
+    },
     "single": {
         "has_main_message": True,
         "has_contextual_composition": True,
@@ -96,6 +104,27 @@ def main():
     explicit_override["explicit_format_override"] = True
     explicit_override["override_authorization"] = "Operador autorizou explicitamente Reel apenas nesta tarefa."
     expect_pass(explicit_override, "explicit scoped format override")
+
+    vector = copy.deepcopy(BASE)
+    vector["production"]["vector_creation"] = True
+    expect_fail(vector, "vector creation blocked", "vector creation is forbidden")
+
+    canva = copy.deepcopy(BASE)
+    canva["production"]["canva_creation"] = True
+    expect_fail(canva, "Canva blocked", "Canva creation is forbidden")
+
+    other_engine = copy.deepcopy(BASE)
+    other_engine["production"]["engine"] = "other"
+    expect_fail(other_engine, "alternate generator blocked", "production.engine must be gpt_images")
+
+    magnific = copy.deepcopy(BASE)
+    magnific["production"].update({
+        "engine": "magnific",
+        "magnific_exception": True,
+        "gpt_images_attempted": True,
+        "exception_reason": "GPT Images could not complete the required exceptional transformation.",
+    })
+    expect_pass(magnific, "Magnific extraordinary fallback")
 
     wrong_font = copy.deepcopy(BASE)
     wrong_font["font_family"] = "Inter"

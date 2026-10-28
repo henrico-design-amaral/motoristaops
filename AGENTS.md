@@ -84,6 +84,18 @@ If the active renderer cannot ingest the exact official asset, do not approximat
 
 Starting from a generic/blank template, Canva-like default aesthetic or provider-native style is not an acceptable MotoristaOPS workflow.
 
+### Visual creation engine lock
+
+For MotoristaOPS image creation:
+- use **GPT Images inside ChatGPT** as the default and mandatory creation engine;
+- do not create vector artwork;
+- do not use Canva for image creation, composition or generation;
+- do not switch to alternate image generators by convenience.
+
+**Magnific** is the only admitted fallback and only as an extraordinary last resort after a concrete GPT Images limitation is documented.
+
+Protected assets remain non-generative: logo/crest/wordmark/signature, Henrico and the Omoda 5 Luxury must use approved real assets/references when required. If the allowed route cannot preserve required fidelity, return PENDING/BLOCKED rather than switching tools or inventing a substitute.
+
 ### Point of view
 
 The passenger/service/context is the center of the brand communication. Henrico is the discreet operator behind the experience and should not become the default visual protagonist.

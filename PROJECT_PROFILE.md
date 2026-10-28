@@ -10,17 +10,20 @@
 - Operador: Henrico como presença responsável e discreta.
 
 ## Visual
-- Instrument Sans: base.
-- Bebas Neue: display seletivo.
+- Instrument Sans: única família permitida em produção, em suas variações legítimas.
+- Nenhuma outra família tipográfica é permitida.
 - Lucide: iconografia funcional.
-- Paleta: tokens oficiais.
+- Paleta: tokens oficiais fixos, sem alterar tons; modos claro, escuro ou mesclado usam os valores exatos.
 - Social cotidiano: brasão oficial + MotoristaOPS somente.
+- Logo: somente assets oficiais e variantes oficiais já existentes; horizontal/simplificada apenas quando a fonte canônica fornecer a versão exata. Nunca derivar, redesenhar ou vetorizar.
 - Sem geração de identidade por IA.
 - Sem sombras/degradês como linguagem sistêmica.
 - Mobile-first em social.
+- GPT Images: motor obrigatório para criação de imagens MotoristaOPS diretamente no ChatGPT.
+- Sem criação vetorial e sem Canva; Magnific apenas como exceção extraordinária de último recurso.
 
 ## Realidade operacional
-- Veículo de evidência atual: Hyundai HB20 2019 preto.
+- Veículo oficial e de evidência atual: Omoda 5 Luxury cinza.
 - Não substituir por carro executivo/luxo genérico.
 - Henrico real quando a pessoa precisa aparecer; sem terno/gravata como default e sem alteração corporal/rosto.
 
