@@ -4,6 +4,18 @@ import sys
 from pathlib import Path
 
 ALLOWED = {"carousel_static", "single_static"}
+EXPECTED_PALETTE = {
+    "noite": "#070709",
+    "grafite": "#151518",
+    "champagne": "#C79C5B",
+    "champagne_sombra": "#947546",
+    "marfim": "#F3EFE4",
+    "pedra": "#A6A39E",
+    "ambar_percurso": "#F0B44D",
+}
+ALLOWED_PALETTE_MODES = {"light", "dark", "mixed"}
+CURRENT_VEHICLE_MODEL = "Omoda 5 Luxury"
+CURRENT_VEHICLE_COLOR = "cinza"
 REQUIRED_QA = [
     "facts_verified",
     "official_logo_verified",
@@ -42,6 +54,55 @@ def main():
         errors.append("Instagram-first deve estar confirmado")
     if data.get("microtext") is not False:
         errors.append("microtexto não é permitido")
+
+    identity = data.get("identity", {})
+    if identity.get("official_logo_asset") is not True:
+        errors.append("identity.official_logo_asset must be true")
+    if identity.get("official_existing_variant") is not True:
+        errors.append("identity.official_existing_variant must be true")
+    if identity.get("identity_modified") is not False:
+        errors.append("identity must remain unmodified")
+    if identity.get("vectorized") is not False:
+        errors.append("identity vectorization is forbidden")
+
+    palette = data.get("palette", {})
+    if palette.get("mode") not in ALLOWED_PALETTE_MODES:
+        errors.append("palette.mode must be light, dark or mixed")
+    if palette.get("tones_modified") is not False:
+        errors.append("brand palette tones cannot be modified")
+    if palette.get("tokens") != EXPECTED_PALETTE:
+        errors.append("brand palette tokens must match canonical exact values")
+
+    vehicle = data.get("vehicle", {})
+    if vehicle.get("current_model") != CURRENT_VEHICLE_MODEL:
+        errors.append("current vehicle must be Omoda 5 Luxury")
+    if vehicle.get("current_color") != CURRENT_VEHICLE_COLOR:
+        errors.append("current vehicle color must be cinza")
+    if vehicle.get("current_vehicle_confirmed") is not True:
+        errors.append("current vehicle must be confirmed from canon")
+    if vehicle.get("shown") is True:
+        if vehicle.get("official_real_asset") is not True:
+            errors.append("shown official vehicle requires approved real asset")
+        if vehicle.get("ai_generated") is not False:
+            errors.append("AI-generated official vehicle is forbidden")
+
+    production = data.get("production", {})
+    engine = production.get("engine")
+    if production.get("vector_creation") is not False:
+        errors.append("vector creation is forbidden")
+    if production.get("canva_creation") is not False:
+        errors.append("Canva creation is forbidden")
+    if engine == "gpt_images":
+        pass
+    elif engine == "magnific":
+        if production.get("magnific_exception") is not True:
+            errors.append("Magnific requires magnific_exception=true")
+        if production.get("gpt_images_attempted") is not True:
+            errors.append("Magnific requires a prior GPT Images attempt")
+        if not str(production.get("exception_reason", "")).strip():
+            errors.append("Magnific requires a documented exception_reason")
+    else:
+        errors.append("production.engine must be gpt_images; Magnific is extraordinary fallback only")
 
     qa = data.get("qa", {})
     for key in REQUIRED_QA:
