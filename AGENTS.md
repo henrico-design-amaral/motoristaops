@@ -96,6 +96,15 @@ For MotoristaOPS image creation:
 
 Protected assets remain non-generative: logo/crest/wordmark/signature, Henrico and the Omoda 5 Luxury must use approved real assets/references when required. If the allowed route cannot preserve required fidelity, return PENDING/BLOCKED rather than switching tools or inventing a substitute.
 
+### Final social reference and CTA lock
+
+For MotoristaOPS social/editorial work:
+- seasonal content routes to the same `single_static` or `carousel_static` families; it never creates a third layout family;
+- real São Paulo/destination references must remain recognizably faithful, with only subtle artistic adjustments;
+- WhatsApp icon may appear only next to the phone number; action copy such as “Entre em contato” or “Reserve seu trajeto” is plain editorial text, without WhatsApp icon/button treatment;
+- all future content planned before the 2026-10-28 final lock is invalid until rebuilt in the current system;
+- legacy templates/artwork may exist as historical evidence but must not be used as active creative reference or fallback.
+
 ### Point of view
 
 The passenger/service/context is the center of the brand communication. Henrico is the discreet operator behind the experience and should not become the default visual protagonist.
