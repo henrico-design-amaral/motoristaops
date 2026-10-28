@@ -17,11 +17,47 @@ BASE = {
     "font_family": "Instrument Sans",
     "instagram_first": True,
     "microtext": False,
+    "identity": {
+        "official_logo_asset": True,
+        "official_existing_variant": True,
+        "identity_modified": False,
+        "vectorized": False,
+        "logo_variant": "simplified",
+    },
+    "palette": {
+        "mode": "light",
+        "tones_modified": False,
+        "tokens": {
+            "noite": "#070709",
+            "grafite": "#151518",
+            "champagne": "#C79C5B",
+            "champagne_sombra": "#947546",
+            "marfim": "#F3EFE4",
+            "pedra": "#A6A39E",
+            "ambar_percurso": "#F0B44D",
+        },
+    },
+    "vehicle": {
+        "current_model": "Omoda 5 Luxury",
+        "current_color": "cinza",
+        "shown": False,
+        "current_vehicle_confirmed": True,
+        "official_real_asset": False,
+        "ai_generated": False,
+    },
     "single": {
         "has_main_message": True,
         "has_contextual_composition": True,
         "has_cta": True,
         "has_closing_signature": True,
+    },
+    "production": {
+        "engine": "gpt_images",
+        "vector_creation": False,
+        "canva_creation": False,
+        "magnific_exception": False,
+        "gpt_images_attempted": False,
+        "exception_reason": "",
     },
     "qa": {
         "facts_verified": True,
@@ -71,6 +107,55 @@ def main():
     explicit_override["explicit_format_override"] = True
     explicit_override["override_authorization"] = "Operador autorizou explicitamente Reel apenas nesta tarefa."
     expect_pass(explicit_override, "explicit scoped override")
+
+    vector = copy.deepcopy(BASE)
+    vector["production"]["vector_creation"] = True
+    expect_fail(vector, "vector creation blocked", "vector creation is forbidden")
+
+    canva = copy.deepcopy(BASE)
+    canva["production"]["canva_creation"] = True
+    expect_fail(canva, "Canva blocked", "Canva creation is forbidden")
+
+    other_engine = copy.deepcopy(BASE)
+    other_engine["production"]["engine"] = "other"
+    expect_fail(other_engine, "alternate generator blocked", "production.engine must be gpt_images")
+
+    magnific = copy.deepcopy(BASE)
+    magnific["production"].update({
+        "engine": "magnific",
+        "magnific_exception": True,
+        "gpt_images_attempted": True,
+        "exception_reason": "GPT Images could not complete the required exceptional transformation.",
+    })
+    expect_pass(magnific, "Magnific extraordinary fallback")
+
+    identity_mutation = copy.deepcopy(BASE)
+    identity_mutation["identity"]["identity_modified"] = True
+    expect_fail(identity_mutation, "identity mutation blocked", "identity must remain unmodified")
+
+    derived_logo = copy.deepcopy(BASE)
+    derived_logo["identity"]["official_existing_variant"] = False
+    expect_fail(derived_logo, "derived logo blocked", "official_existing_variant")
+
+    wrong_palette = copy.deepcopy(BASE)
+    wrong_palette["palette"]["tokens"]["champagne"] = "#C89D5C"
+    expect_fail(wrong_palette, "palette drift blocked", "canonical exact values")
+
+    modified_tones = copy.deepcopy(BASE)
+    modified_tones["palette"]["tones_modified"] = True
+    expect_fail(modified_tones, "palette tone modification blocked", "tones cannot be modified")
+
+    old_vehicle = copy.deepcopy(BASE)
+    old_vehicle["vehicle"]["current_model"] = "Hyundai HB20 2019"
+    expect_fail(old_vehicle, "historical vehicle blocked", "Omoda 5 Luxury")
+
+    ai_vehicle = copy.deepcopy(BASE)
+    ai_vehicle["vehicle"].update({
+        "shown": True,
+        "official_real_asset": True,
+        "ai_generated": True,
+    })
+    expect_fail(ai_vehicle, "AI vehicle blocked", "AI-generated official vehicle")
 
     wrong_font = copy.deepcopy(BASE)
     wrong_font["font_family"] = "Inter"
