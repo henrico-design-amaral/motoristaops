@@ -17,6 +17,28 @@ BASE = {
     "font_family": "Instrument Sans",
     "instagram_first": True,
     "microtext": False,
+    "identity": {
+        "official_logo_asset": True,
+        "identity_modified": False,
+        "ai_generated_identity": False,
+        "derived_logo_variant": False,
+        "logo_variant_source": "canonical_asset",
+        "logo_variant": "simplified",
+    },
+    "palette": {
+        "mode": "light",
+        "tokens_exact": True,
+        "derived_brand_tones": False,
+        "brand_colors_used": ["#F3EFE4", "#151518", "#C79C5B"],
+    },
+    "vehicle": {
+        "current_model": "Omoda 5 Luxury",
+        "current_color": "cinza",
+        "shown": False,
+        "official_real_asset": False,
+        "ai_generated": False,
+        "generic_substitution": False,
+    },
     "single": {
         "has_main_message": True,
         "has_contextual_composition": True,
@@ -31,6 +53,9 @@ BASE = {
         "mobile_legibility_verified": True,
         "each_render_inspected": True,
         "protected_real_assets_verified_when_applicable": True,
+        "identity_integrity_verified": True,
+        "palette_exact_verified": True,
+        "current_vehicle_verified_when_shown": True,
     },
 }
 
@@ -70,11 +95,37 @@ def main():
     explicit_override["format"] = "reel"
     explicit_override["explicit_format_override"] = True
     explicit_override["override_authorization"] = "Operador autorizou explicitamente Reel apenas nesta tarefa."
-    expect_pass(explicit_override, "explicit scoped override")
+    expect_pass(explicit_override, "explicit scoped format override")
 
     wrong_font = copy.deepcopy(BASE)
     wrong_font["font_family"] = "Inter"
     expect_fail(wrong_font, "wrong font", "Instrument Sans")
+
+    modified_identity = copy.deepcopy(BASE)
+    modified_identity["identity"]["identity_modified"] = True
+    expect_fail(modified_identity, "identity modification blocked", "não pode ser modificada")
+
+    derived_logo = copy.deepcopy(BASE)
+    derived_logo["identity"]["derived_logo_variant"] = True
+    expect_fail(derived_logo, "derived logo blocked", "derivar nova variante")
+
+    wrong_palette = copy.deepcopy(BASE)
+    wrong_palette["palette"]["brand_colors_used"] = ["#F3EFE4", "#CFA96B"]
+    expect_fail(wrong_palette, "palette drift blocked", "fora dos tokens canônicos")
+
+    derived_tone = copy.deepcopy(BASE)
+    derived_tone["palette"]["derived_brand_tones"] = True
+    expect_fail(derived_tone, "derived palette blocked", "tons derivados")
+
+    stale_vehicle = copy.deepcopy(BASE)
+    stale_vehicle["vehicle"]["current_model"] = "HB20"
+    expect_fail(stale_vehicle, "legacy vehicle blocked", "Omoda 5 Luxury")
+
+    generated_vehicle = copy.deepcopy(BASE)
+    generated_vehicle["vehicle"]["shown"] = True
+    generated_vehicle["vehicle"]["official_real_asset"] = True
+    generated_vehicle["vehicle"]["ai_generated"] = True
+    expect_fail(generated_vehicle, "AI vehicle blocked", "não pode ser gerado por IA")
 
     missing_qa = copy.deepcopy(BASE)
     missing_qa["qa"]["each_render_inspected"] = False
@@ -107,7 +158,7 @@ def main():
     ]
     expect_fail(bad_carousel, "logo on intermediate", "não pode ter logo")
 
-    print("All MotoristaOPS editorial format-lock regression tests passed.")
+    print("All MotoristaOPS editorial identity/format-lock regression tests passed.")
 
 if __name__ == "__main__":
     main()

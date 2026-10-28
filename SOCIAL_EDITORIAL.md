@@ -1,7 +1,7 @@
 # MotoristaOPS — Padrão Editorial Oficial
 
 Status: ACTIVE
-Version: 3.0
+Version: 3.1
 Date: 2026-10-28
 Authority: MotoristaOPS
 Scope: publicações sociais, posts únicos, carrosséis, conteúdo sazonal/comemorativo, campanhas editoriais e peças derivadas
@@ -73,18 +73,18 @@ Exemplos:
 
 ## 3. Tipografia
 
-Para publicações sociais/editoriais MotoristaOPS, usar **somente Instrument Sans**.
+Para toda produção social/editorial MotoristaOPS, usar **somente Instrument Sans**.
 
 Pesos e variações permitidos:
 - Regular;
 - Medium / Semibold;
 - Bold;
 - ExtraBold;
-- variações adequadas da própria família quando disponíveis e compatíveis com legibilidade.
+- variações legítimas da própria família quando disponíveis e compatíveis com legibilidade.
 
 Evitar Light/Thin em conteúdo de leitura.
 
-Bebas Neue, outras famílias de display e substitutas de provedor **não são permitidas nesta superfície editorial**, mesmo que sejam aceitáveis em outras superfícies do sistema visual quando houver autoridade específica.
+Nenhuma outra família tipográfica é permitida. A tipografia incorporada ao arquivo oficial do logo/assinatura é parte do asset protegido e nunca deve ser redigitada, substituída ou usada como justificativa para introduzir outra fonte.
 
 ## 4. Instagram como referência primária
 
@@ -147,7 +147,9 @@ Nos slides intermediários, não repetir logo.
 
 A assinatura social cotidiana preferencial continua sendo a versão oficial reduzida **brasão + MotoristaOPS**, quando essa versão se adequar melhor à composição.
 
-Usar somente arquivos oficiais. Nunca redesenhar, aproximar ou gerar logo, brasão, wordmark ou assinatura por IA.
+Usar somente arquivos oficiais. Nunca redesenhar, aproximar, recortar de forma destrutiva, recompor, recolorir, vetorizar por aproximação ou gerar logo, brasão, wordmark ou assinatura por IA.
+
+A identidade é imutável. Quando houver necessidade de variante, usar apenas uma variante oficial existente na fonte canônica. Versões horizontal e simplificada podem ser usadas quando forem assets oficiais adequados ao contexto; nunca derivar uma nova variante por conta própria. Na ausência do asset exato, marcar PENDENTE em vez de reconstruir.
 
 ## 8. São Paulo como território visual
 
@@ -170,7 +172,7 @@ Na rotina urbana, variar sistematicamente o repertório reconhecível:
 
 A Ponte Estaiada permanece disponível, mas não deve ser recurso repetitivo.
 
-## 9. Cores dos lugares
+## 9. Cores dos lugares e trava de paleta
 
 Não neutralizar o território apenas para forçá-lo à paleta.
 
@@ -183,15 +185,28 @@ Cores reais podem permanecer quando ajudam reconhecimento e narrativa, por exemp
 
 A identidade MotoristaOPS organiza a peça; não apaga o lugar.
 
+Os **tokens de marca são imutáveis** e devem ser usados com seus valores exatos:
+- Noite `#070709`;
+- Grafite `#151518`;
+- Champagne `#C79C5B`;
+- Champagne Sombra `#947546`;
+- Marfim `#F3EFE4`;
+- Pedra `#A6A39E`;
+- Âmbar de Percurso `#F0B44D`.
+
+O sistema pode operar em modo claro, escuro ou mesclado, mas não é permitido clarear, escurecer, aproximar, substituir, deslocar matiz ou criar tintas/sombras derivadas desses tokens. Cores naturais da fotografia/território não contam como alteração da paleta de marca.
+
 ## 10. Veículos e transporte
 
-Carro MotoristaOPS = **HB20 preto enquanto ele for o veículo operacional vigente**.
+Carro MotoristaOPS vigente = **Omoda 5 Luxury cinza**.
 
-Não usar sedã premium genérico nem veículo aleatório como substituto.
+O **HB20 é histórico** e não pode ser usado, inferido ou apresentado como veículo operacional atual.
+
+Não usar sedã premium genérico, Omoda aproximado ou qualquer veículo aleatório como substituto.
 
 Para transporte público, usar referências reconhecíveis de São Paulo quando forem pertinentes. Não inventar ou aproximar identidades oficiais.
 
-Pessoas e veículo MotoristaOPS reais são ativos protegidos: não gerar Henrico ou o veículo oficial por IA. Usar fotografia/filmagem real aprovada quando forem mostrados como evidência da operação.
+Pessoas e veículo MotoristaOPS reais são ativos protegidos: não gerar Henrico nem o Omoda 5 Luxury por IA. Quando o veículo for evidência da operação, usar somente fotografia/filmagem real e aprovada do carro oficial.
 
 ## 11. Escolha entre claro e escuro
 
@@ -269,11 +284,13 @@ Podem ser combinados.
 
 Antes de entregar ou publicar:
 - conferir conteúdo e fatos;
-- conferir logo oficial;
-- conferir Instrument Sans;
-- conferir paleta e cores contextuais;
+- conferir logo oficial e integridade total da identidade;
+- conferir variante oficial do logo quando aplicável;
+- conferir Instrument Sans como única família tipográfica;
+- conferir paleta com tokens exatos, sem tons derivados;
 - conferir proporções, margens e hierarquia;
 - conferir legibilidade mobile;
+- confirmar Omoda 5 Luxury cinza como veículo operacional atual quando houver veículo;
 - conferir veículo e pessoas reais quando aplicável;
 - conferir cada slide/render individualmente;
 - comparar com o sistema editorial aprovado.
