@@ -120,3 +120,15 @@ O proprietário confirmou como realizados: PPF Full interno e externo brilhante;
 - Se asset, fonte, paleta ou mídia real do veículo não puderem ser preservados fielmente, o resultado fica PENDENTE/BLOCKED.
 
 Essas regras prevalecem sobre referências antigas conflitantes sem apagar o histórico.
+
+## Padrão de post simples com evento protagonista — aprovação 29/10/2026
+
+**APPROVED · PROJECT / MotoristaOPS · 2026-10-29**
+
+O operador aprovou o arranjo editorial dos oito exemplos recentes de BTS, GP de São Paulo, FENATRAN e E-MOB (modos claro/escuro), qualificando-o como discreto, limpo, fácil de reproduzir e **um dos padrões oficiais** para posts simples, conteúdo e eventos.
+
+A aprovação é de uma **composição dentro de `single_static`**, não de um formato adicional, de uma identidade nova, nem da substituição dos outros padrões aprovados. O evento ou contexto real é protagonista; o carro não é obrigatório. Quando o carro aparecer, utilizar somente mídia real aprovada do **Omoda 5 Luxury cinza**. Conservar marca, tipografia, paleta e CTA canônicos.
+
+**Fonte operacional:** `SOCIAL_EDITORIAL.md` §6A, `editorial/PADRAO_POST_SIMPLES_EVENTO_2026-10-29.md` e `brand-system-v2/SOCIAL_MEDIA_OPERATING_SYSTEM.md` §14A.
+
+**Limite:** o usuário aprovou a linguagem/composição, mas as imagens geradas contêm camadas que podem não corresponder a arquivos oficiais (logo, letreiros e tipografia); elas não são liberação automática para uso/publicação literal. Cada nova peça deve passar pelo QA oficial e pelo `editorial/EDITORIAL_FORMAT_LOCK.json`. Nenhum conteúdo foi publicado por esta decisão.
