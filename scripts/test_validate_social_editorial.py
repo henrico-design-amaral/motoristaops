@@ -39,6 +39,27 @@ BASE = {
         "ai_generated": False,
         "generic_substitution": False,
     },
+    "reference_fidelity": {
+        "uses_real_place_reference": True,
+        "recognizability_preserved": True,
+        "only_subtle_adjustments": True,
+        "excessive_beautification": False,
+        "strong_reconstruction": False,
+    },
+    "cta": {
+        "has_phone": True,
+        "whatsapp_icon_present": True,
+        "whatsapp_icon_adjacent_to_phone": True,
+        "action_copy_present": True,
+        "action_copy_plain_text": True,
+        "action_copy_button_treatment": False,
+        "action_copy_whatsapp_icon": False,
+    },
+    "legacy": {
+        "active_visual_reference_used": False,
+        "legacy_template_fallback_used": False,
+        "provider_native_format_used": False,
+    },
     "production": {
         "engine": "gpt_images",
         "vector_creation": False,
@@ -64,6 +85,9 @@ BASE = {
         "identity_integrity_verified": True,
         "palette_exact_verified": True,
         "current_vehicle_verified_when_shown": True,
+        "reference_fidelity_verified_when_applicable": True,
+        "cta_whatsapp_rule_verified": True,
+        "legacy_format_reference_absent": True,
     },
 }
 
@@ -95,6 +119,37 @@ def expect_fail(data, name, needle=None):
 def main():
     expect_pass(copy.deepcopy(BASE), "valid single static")
 
+    seasonal = copy.deepcopy(BASE)
+    seasonal["format"] = "seasonal_carousel_static"
+    seasonal.pop("single", None)
+    seasonal["slides"] = [
+        {
+            "role": "opening",
+            "has_introduction": True,
+            "has_cta": True,
+            "has_signature": True,
+            "has_logo": True,
+        },
+        {
+            "role": "content",
+            "has_logo": False,
+            "has_commercial_cta": False,
+        },
+        {
+            "role": "closing",
+            "has_institutional_presentation": True,
+            "has_services": True,
+            "has_cta": True,
+            "has_signature": True,
+            "has_logo": True,
+        },
+    ]
+    expect_pass(seasonal, "valid seasonal carousel")
+
+    seasonal_wrong_count = copy.deepcopy(seasonal)
+    seasonal_wrong_count["slides"] = seasonal_wrong_count["slides"][:2]
+    expect_fail(seasonal_wrong_count, "seasonal slide count blocked", "exatamente 3 slides")
+
     invalid_format = copy.deepcopy(BASE)
     invalid_format["format"] = "reel"
     expect_fail(invalid_format, "reel blocked", "formato fora da whitelist")
@@ -125,6 +180,30 @@ def main():
         "exception_reason": "GPT Images could not complete the required exceptional transformation.",
     })
     expect_pass(magnific, "Magnific extraordinary fallback")
+
+    whatsapp_without_phone = copy.deepcopy(BASE)
+    whatsapp_without_phone["cta"]["has_phone"] = False
+    expect_fail(whatsapp_without_phone, "WhatsApp icon without phone blocked", "só pode aparecer quando houver telefone")
+
+    cta_button = copy.deepcopy(BASE)
+    cta_button["cta"]["action_copy_button_treatment"] = True
+    expect_fail(cta_button, "CTA button treatment blocked", "não pode usar tratamento de botão")
+
+    cta_icon = copy.deepcopy(BASE)
+    cta_icon["cta"]["action_copy_whatsapp_icon"] = True
+    expect_fail(cta_icon, "CTA WhatsApp icon blocked", "CTA textual não pode usar ícone")
+
+    place_rebuild = copy.deepcopy(BASE)
+    place_rebuild["reference_fidelity"]["strong_reconstruction"] = True
+    expect_fail(place_rebuild, "place reconstruction blocked", "reconstrução forte")
+
+    legacy_ref = copy.deepcopy(BASE)
+    legacy_ref["legacy"]["active_visual_reference_used"] = True
+    expect_fail(legacy_ref, "legacy active reference blocked", "referência visual antiga")
+
+    provider_native = copy.deepcopy(BASE)
+    provider_native["legacy"]["provider_native_format_used"] = True
+    expect_fail(provider_native, "provider-native format blocked", "provider-native")
 
     wrong_font = copy.deepcopy(BASE)
     wrong_font["font_family"] = "Inter"
