@@ -48,7 +48,10 @@
     "protected_real_assets_verified_when_applicable": true,
     "identity_integrity_verified": true,
     "palette_exact_verified": true,
-    "current_vehicle_verified_when_shown": true
+    "current_vehicle_verified_when_shown": true,
+    "reference_fidelity_verified_when_applicable": true,
+    "cta_whatsapp_rule_verified": true,
+    "legacy_format_reference_absent": true
   },
   "production": {
     "engine": "gpt_images",
@@ -57,5 +60,26 @@
     "magnific_exception": false,
     "gpt_images_attempted": false,
     "exception_reason": ""
+  },
+  "reference_fidelity": {
+    "uses_real_place_reference": true,
+    "recognizability_preserved": true,
+    "only_subtle_adjustments": true,
+    "excessive_beautification": false,
+    "strong_reconstruction": false
+  },
+  "cta": {
+    "has_phone": true,
+    "whatsapp_icon_present": true,
+    "whatsapp_icon_adjacent_to_phone": true,
+    "action_copy_present": true,
+    "action_copy_plain_text": true,
+    "action_copy_button_treatment": false,
+    "action_copy_whatsapp_icon": false
+  },
+  "legacy": {
+    "active_visual_reference_used": false,
+    "legacy_template_fallback_used": false,
+    "provider_native_format_used": false
   }
 }
