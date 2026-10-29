@@ -3,7 +3,7 @@ import json
 import sys
 from pathlib import Path
 
-ALLOWED = {"carousel_static", "single_static"}
+ALLOWED = {"single_static", "seasonal_carousel_static", "carousel_static"}
 ALLOWED_PALETTE_MODES = {"light", "dark", "mixed"}
 CANONICAL_BRAND_COLORS = {
     "#070709",
@@ -28,6 +28,9 @@ REQUIRED_QA = [
     "identity_integrity_verified",
     "palette_exact_verified",
     "current_vehicle_verified_when_shown",
+    "reference_fidelity_verified_when_applicable",
+    "cta_whatsapp_rule_verified",
+    "legacy_format_reference_absent",
 ]
 
 def verdict(errors):
@@ -97,6 +100,39 @@ def main():
         if vehicle.get("generic_substitution") is not False:
             errors.append("veículo genérico/substituto não é permitido")
 
+    reference_fidelity = data.get("reference_fidelity") or {}
+    if reference_fidelity.get("uses_real_place_reference") is True:
+        if reference_fidelity.get("recognizability_preserved") is not True:
+            errors.append("referência real deve preservar reconhecibilidade")
+        if reference_fidelity.get("only_subtle_adjustments") is not True:
+            errors.append("referência real permite apenas ajustes artísticos sutis")
+        if reference_fidelity.get("excessive_beautification") is not False:
+            errors.append("embelezamento excessivo de local real é proibido")
+        if reference_fidelity.get("strong_reconstruction") is not False:
+            errors.append("reconstrução forte de arquitetura/skyline/paisagem é proibida")
+
+    cta = data.get("cta") or {}
+    if cta.get("whatsapp_icon_present") is True:
+        if cta.get("has_phone") is not True:
+            errors.append("ícone do WhatsApp só pode aparecer quando houver telefone")
+        if cta.get("whatsapp_icon_adjacent_to_phone") is not True:
+            errors.append("ícone do WhatsApp deve ficar imediatamente associado ao telefone")
+    if cta.get("action_copy_present") is True:
+        if cta.get("action_copy_plain_text") is not True:
+            errors.append("CTA textual deve ser texto editorial simples")
+        if cta.get("action_copy_button_treatment") is not False:
+            errors.append("CTA textual não pode usar tratamento de botão/cápsula")
+        if cta.get("action_copy_whatsapp_icon") is not False:
+            errors.append("CTA textual não pode usar ícone do WhatsApp")
+
+    legacy = data.get("legacy") or {}
+    if legacy.get("active_visual_reference_used") is not False:
+        errors.append("referência visual antiga não pode ser usada como referência ativa")
+    if legacy.get("legacy_template_fallback_used") is not False:
+        errors.append("template/formato antigo não pode ser usado como fallback")
+    if legacy.get("provider_native_format_used") is not False:
+        errors.append("formato provider-native concorrente é proibido")
+
     production = data.get("production") or {}
     engine = production.get("engine")
     if production.get("vector_creation") is not False:
@@ -143,6 +179,29 @@ def main():
             for key in ("has_institutional_presentation", "has_services", "has_cta", "has_signature", "has_logo"):
                 if last.get(key) is not True:
                     errors.append(f"último slide deve confirmar {key}=true")
+
+    if fmt == "seasonal_carousel_static":
+        slides = data.get("slides") or []
+        if len(slides) != 3:
+            errors.append("post sazonal deve ter exatamente 3 slides")
+        else:
+            first, middle, last = slides
+            if first.get("role") != "opening":
+                errors.append("slide 1 sazonal deve ter role=opening")
+            for key in ("has_introduction", "has_cta", "has_signature", "has_logo"):
+                if first.get(key) is not True:
+                    errors.append(f"slide 1 sazonal deve confirmar {key}=true")
+            if middle.get("role") != "content":
+                errors.append("slide 2 sazonal deve ter role=content")
+            if middle.get("has_logo") is not False:
+                errors.append("slide 2 sazonal não pode ter logo")
+            if middle.get("has_commercial_cta") is not False:
+                errors.append("slide 2 sazonal não pode ter CTA comercial")
+            if last.get("role") != "closing":
+                errors.append("slide 3 sazonal deve ter role=closing")
+            for key in ("has_institutional_presentation", "has_services", "has_cta", "has_signature", "has_logo"):
+                if last.get(key) is not True:
+                    errors.append(f"slide 3 sazonal deve confirmar {key}=true")
 
     if fmt == "single_static":
         single = data.get("single") or {}
