@@ -1,8 +1,8 @@
 # MotoristaOPS — Padrão Editorial Oficial
 
 Status: ACTIVE
-Version: 3.1
-Date: 2026-10-28
+Version: 3.2
+Date: 2026-10-29
 Authority: MotoristaOPS
 Scope: publicações sociais, posts únicos, carrosséis, conteúdo sazonal/comemorativo, campanhas editoriais e peças derivadas
 Supersedes: Social Editorial Standard v1.0 e decisões parciais anteriores sobre templates eleitorais quando conflitarem com este documento
@@ -150,6 +150,20 @@ Estrutura:
 - assinatura no fechamento.
 
 A quantidade de fotografia, texto, ícones e espaços pode variar conforme a mensagem.
+
+## 6A. Composição oficial de post simples — evento protagonista (aprovada em 29/10/2026)
+
+**Estado:** APPROVED / padrão oficial de composição dentro de `single_static`; não é novo formato, não substitui outros padrões, nem altera o sistema único de modos claro/escuro.
+
+O operador aprovou explicitamente o arranjo editorial limpo, discreto e reproduzível das oito peças de BTS, GP de São Paulo, FENATRAN e E-MOB apresentadas em 29/10/2026. Para posts simples, eventos e conteúdo contextual, esta composição pode ser selecionada pelo roteamento editorial conforme o objetivo e a ocasião.
+
+**Invariantes da composição:** evento/ocasião é protagonista visual; título hierarquizado; data e local somente quando relevantes e verificados; fotografia contextual dominante; mensagem breve de mobilidade; CTA único no fechamento; assinatura social exata e discreta; versão clara/escura contextual; boa leitura no celular; margens e respiro.
+
+**Variações permitidas:** evento, cena autorizada, recorte, proporção foto/texto, tamanho relativo dos blocos, copy, modo claro ou escuro, reflow nativo por canal — respeitando os limites canônicos.
+
+**Travas inalteradas:** somente Instrument Sans, cores exatas, logo/assinatura oficial sem alteração, veículo real Omoda 5 Luxury cinza se for mostrado, nenhum carro por obrigação, nenhum logo de evento fictício, nenhum ícone de WhatsApp sem número associado e nenhuma cápsula/botão de CTA editorial não autorizada. No post único, não duplicar a assinatura automaticamente.
+
+**Referência operacional e proveniência:** [`editorial/PADRAO_POST_SIMPLES_EVENTO_2026-10-29.md`](editorial/PADRAO_POST_SIMPLES_EVENTO_2026-10-29.md). A direção de layout foi aprovada; os renders gerados por IA continuam sujeitos a substituição/validação de camadas de identidade e QA individual. A decisão não representa autorização de publicação.
 
 ## 7. Marca e assinatura
 
