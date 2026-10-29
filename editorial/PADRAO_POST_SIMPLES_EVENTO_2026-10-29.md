@@ -49,6 +49,16 @@ Referência humana: imagens de BTS, GP de São Paulo, FENATRAN e E-MOB nas vers�
 
 As imagens geradas no chat são **referência aprovada de direção/estrutura**, não prova de que seus pixels de logotipo, tipografia, CTA, placas, cartazes de feira ou locais sejam ativos oficiais. O arquivo binário exato desse lote **não está anexado a este registro no repositório**; não declarar que existe master editável ou raster arquivado aqui.
 
+### Arquivo de referências recuperado
+
+Os **oito PNGs exatos** do lote aprovado foram recuperados dos anexos desta conversa e salvos na Biblioteca pessoal do projeto, em:
+
+`/MotoristaOPS/Referencias_Editoriais/2026-10-29_Evento_Protagonista/`
+
+Arquivos: `01_BTS_ESCURO.png`, `02_BTS_CLARO.png`, `03_GP_SAO_PAULO_ESCURO.png`, `04_GP_SAO_PAULO_CLARO.png`, `05_EMOB_ESCURO.png`, `06_FENATRAN_CLARO.png`, `07_FENATRAN_ESCURO.png`, `08_EMOB_CLARO.png`. Todos são 1122 × 1402 pixels. A Biblioteca é um **arquivo de referência**, não repositório de assets de marca aprovados; não substituir este índice pela memória do modelo.
+
+A persistência das imagens na Biblioteca foi confirmada em 2026-10-29 (8 uploads com status `succeeded`). **Esses PNGs continuam `REFERENCE_ONLY` para composição** até a verificação/substituição determinística dos elementos protegidos. Os pixels exatos não foram inseridos no GitHub e não são templates vetoriais/editáveis.
+
 Em novas reproduções:
 - o motor permitido é GPT Images no ChatGPT para as camadas liberadas, conforme `SOCIAL_EDITORIAL.md` §19;
 - a identidade final e a tipografia devem usar **assets oficiais**, sem regeneração de marcas;
