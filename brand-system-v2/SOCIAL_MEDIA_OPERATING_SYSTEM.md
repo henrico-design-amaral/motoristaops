@@ -325,6 +325,20 @@ Para cada canal, decidir:
 - quantidade de texto;
 - ritmo.
 
+## 14A. Roteamento do padrão visual de evento aprovado em 29/10/2026
+
+Para `single_static` de **evento, conteúdo simples ou mobilidade urbana contextual**, a curadoria pode selecionar o padrão oficial **post simples — evento protagonista**. Ele já integra a gramática atual MotoristaOPS e **não introduz novo formato**.
+
+Roteamento:
+1. evento identificado e verificável → imagem reconhecível do evento como protagonista; modo claro/escuro segundo contexto;
+2. sem evento específico ou pauta de rotina urbana → São Paulo e sua mobilidade como contexto visual, com variedade real de locais;
+3. serviço/veículo → retrato da operação somente quando pertinente; Omoda 5 Luxury cinza apenas por foto real aprovada, nunca por IA;
+4. selecionar a composição limpa de título, informação útil, foto, CTA e assinatura discreta; não acrescentar densidade decorativa;
+5. aplicar `SOCIAL_EDITORIAL.md`, `editorial/PADRAO_POST_SIMPLES_EVENTO_2026-10-29.md` e o gate obrigatório de formato e marca;
+6. produzir e inspecionar por canal; só publicar com aprovação/gates requeridos.
+
+O operador aprovou **o arranjo editorial**, não mudanças de identidade, CTA ou recursos fora do canon. Os exemplos renderizados de 29/10 são referências de composição; sua aprovação não equivale a prova de logo/fonte/evento oficial dentro dos pixels gerados.
+
 ## 15. Assinatura social
 
 A assinatura cotidiana é validada primeiro em preview mobile. O alvo perceptivo é equivalente a um controle mobile padrão: aproximadamente **44–48 CSS px de altura a 390 px de largura**. Em exportações 1080, a escala deve ser derivada proporcionalmente; 45 px brutos de canvas não atendem essa regra.
