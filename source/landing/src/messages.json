@@ -914,5 +914,9 @@
   "Motorista particular com hora marcada": {
     "en": "Private driver by appointment",
     "es": "Chofer privado con horario acordado"
+  },
+  "São Paulo e Região": {
+    "en": "São Paulo and surrounding area",
+    "es": "São Paulo y alrededores"
   }
 }

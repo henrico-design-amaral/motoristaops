@@ -146,3 +146,10 @@ O operador solicitou analisar o site atual e adicionar inglês e espanhol. Mante
 **CANONICAL · PROJECT / MotoristaOPS · 2026-11-06 — APROVAÇÃO DE ARQUITETURA, NÃO DE IMAGEM FINAL.** O operador apresentou oito postagens únicas de BTS, GP de São Paulo, Fenatran e E-MOB (quatro pares claro/escuro), um carrossel de três lugares, um post G4 Valley, três painéis comparativos e uma transcrição reforçando “contexto primeiro”. Determinou formalização durável no ecossistema.
 
 Decisão: composições de evento com título forte, fotografia contexto protagonista, informações confirmadas, benefício de deslocamento, CTA em texto simples e assinatura final são **referência prioritária** para `single_static`; carrossel narrativo preserva abertura/conteúdo/fechamento. O sistema continua com somente três famílias e os mesmos locks V2. Imagens geradas e colagens são `REFERENCE_ONLY`, inclusive quando exibirem marca, carro, data, telefone ou venue. Não criar IA para Henrico/Omoda, não usar logos sintetizados, fontes substitutas ou botão/WhatsApp incorreto. Não houve publicação/autorização de novo formato. Evidência: `editorial/REFERENCE_PACK_2026-11-06.md` + inventário SHA-256 em JSON. Mudanças posteriores exigem aprovação explícita e versão registrada.
+
+
+## Header mínimo fixo R02
+
+**APPROVED · SURFACE / landing MotoristaOPS · 2026-11-06**
+
+O operador aprovou a prévia R02 e autorizou publicação. Usar header fixo e escuro, logo oficial e texto São Paulo e Região à esquerda, seletor em cápsula PT/EN/ES à direita. Sem ícone de localização, divisor ou rótulo visível Idioma. Preservar conteúdo, assets e isolamento do dashboard; traduzir a região em cada idioma. Contrato: `source/landing/HEADER.md`.
