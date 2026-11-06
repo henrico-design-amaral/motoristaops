@@ -2,7 +2,7 @@
   "schema": "henricoops.visual-lock.v1",
   "project": "MotoristaOPS",
   "status": "READY",
-  "version": "2.5.0-2026-10-28",
+  "version": "2.5.1-2026-11-06",
   "authority": {
     "sources": [
       "Current explicit operator-approved decision",
@@ -17,7 +17,7 @@
       "design/tokens.json",
       "source/ICONOGRAPHY.md"
     ],
-    "last_reviewed": "2026-10-28",
+    "last_reviewed": "2026-11-06",
     "legacy_note": "No Brand Book V12 exists. Any legacy V12 reference is invalid and has no authority."
   },
   "tokens": {
@@ -184,7 +184,7 @@
       "id": "social_feed",
       "canvas": "channel-native feed",
       "rules": [
-        "FAIL-CLOSED: only carousel_static or single_static without explicit current operator override",
+        "FAIL-CLOSED: only single_static, seasonal_carousel_static or carousel_static without explicit current operator override",
         "validate editorial manifest with scripts/validate_social_editorial.py before schedule/publication",
         "resolve SOCIAL_EDITORIAL.md before production",
         "one canonical editorial system with contextual light/dark modes",
@@ -200,7 +200,8 @@
         "current MotoristaOPS vehicle is Omoda 5 Luxury cinza; HB20 is historical only; real approved media required when shown",
         "no unreadable microcopy",
         "brand palette tokens must use exact approved hex values; no derived tones",
-        "identity assets are immutable; canonical horizontal/simplified variants only when exact official assets exist"
+        "identity assets are immutable; canonical horizontal/simplified variants only when exact official assets exist",
+        "Nov 06 reference pack defines composition hierarchy only; do not promote reference pixels to final brand assets"
       ]
     },
     {
@@ -319,8 +320,9 @@
     "status": "LOCKED_FAIL_CLOSED",
     "authority": "SOCIAL_EDITORIAL.md + editorial/EDITORIAL_FORMAT_LOCK.json",
     "allowed_without_override": [
-      "carousel_static",
-      "single_static"
+      "single_static",
+      "seasonal_carousel_static",
+      "carousel_static"
     ],
     "blocked_without_override": [
       "story",
@@ -368,5 +370,16 @@
       "use_real_approved_assets": true,
       "fail_if_exact_fidelity_cannot_be_preserved": true
     }
+  },
+  "social_editorial_reference_pack": {
+    "id": "motoristaops-editorial-2026-11-06",
+    "authority": "editorial/REFERENCE_PACK_2026-11-06.md",
+    "status": "APPROVED_COMPOSITION_REFERENCE_ONLY",
+    "image_pixels_approved_for_publication": false,
+    "format_families": [
+      "single_static",
+      "seasonal_carousel_static",
+      "carousel_static"
+    ]
   }
 }
