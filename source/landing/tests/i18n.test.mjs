@@ -71,3 +71,12 @@ test('release manifest uses URL paths on Windows and Linux',()=>{
   assert.ok(manifest.files.some(file=>file.path==='en/index.html'));
   assert.ok(manifest.files.some(file=>file.path==='es/index.html'));
 });
+
+test('production deploy uploads both language directories before the root links',()=>{
+  const deploy=fs.readFileSync('../../scripts/deploy-landing.sh','utf8');
+  const root=deploy.indexOf('put -e source/landing/dist/index.html');
+  for(const locale of languages.filter(item=>item.code!=='pt')){
+    const upload=deploy.indexOf(`mirror --reverse --verbose source/landing/dist/${locale.code} "$TARGET/${locale.code}"`);
+    assert.ok(upload>=0&&upload<root,`${locale.code} must be deployed before root HTML`);
+  }
+});
