@@ -1,0 +1,918 @@
+{
+  "Olá, Henrico! Gostaria de solicitar um orçamento para um trajeto particular.": {
+    "en": "Hello, Henrico! I would like to request a quote for a private ride.",
+    "es": "¡Hola, Henrico! Me gustaría solicitar un presupuesto para un traslado privado."
+  },
+  "Solicitar orçamento": {
+    "en": "Request a quote",
+    "es": "Solicitar presupuesto"
+  },
+  "Canais MotoristaOPS": {
+    "en": "MotoristaOPS channels",
+    "es": "Canales de MotoristaOPS"
+  },
+  "Ver avaliações": {
+    "en": "Read reviews",
+    "es": "Ver reseñas"
+  },
+  "Aeroportos e rodoviárias": {
+    "en": "Airports and bus terminals",
+    "es": "Aeropuertos y terminales de autobuses"
+  },
+  "Embarque com planejamento": {
+    "en": "Plan ahead for your departure",
+    "es": "Planifica tu salida"
+  },
+  "Congonhas, Guarulhos, Viracopos e terminais rodoviários. Combinamos horário, ponto de encontro, passageiros e bagagem antes da saída.": {
+    "en": "Congonhas, Guarulhos, Viracopos and bus terminals. We agree on the time, meeting point, passengers and luggage before departure.",
+    "es": "Congonhas, Guarulhos, Viracopos y terminales de autobuses. Acordamos el horario, el punto de encuentro, los pasajeros y el equipaje antes de la salida."
+  },
+  "Planejar meu transfer": {
+    "en": "Plan my airport transfer",
+    "es": "Planificar mi traslado"
+  },
+  "Reuniões e compromissos": {
+    "en": "Meetings and appointments",
+    "es": "Reuniones y compromisos"
+  },
+  "Seu tempo bem cuidado": {
+    "en": "Your time, well looked after",
+    "es": "Tu tiempo, bien cuidado"
+  },
+  "Deslocamentos profissionais com hora marcada, discrição e rota planejada. Para chegar à reunião com tranquilidade e atenção ao que importa.": {
+    "en": "Scheduled business travel with discretion and a planned route. Arrive at your meeting with peace of mind and focus on what matters.",
+    "es": "Traslados profesionales con horario acordado, discreción y ruta planificada. Para llegar a tu reunión con tranquilidad y centrarte en lo que importa."
+  },
+  "Agendar meu compromisso": {
+    "en": "Schedule my ride",
+    "es": "Agendar mi traslado"
+  },
+  "Eventos corporativos e sociais": {
+    "en": "Corporate and social events",
+    "es": "Eventos corporativos y sociales"
+  },
+  "A chegada e a volta combinadas": {
+    "en": "Arrival and return, arranged",
+    "es": "La llegada y el regreso, acordados"
+  },
+  "Feiras, congressos, shows, festivais e encontros. Planejamos os acessos, o embarque e a saída, incluindo retorno quando solicitado.": {
+    "en": "Trade fairs, conferences, concerts, festivals and gatherings. We plan access, pickup and departure, including a return trip when requested.",
+    "es": "Ferias, congresos, conciertos, festivales y encuentros. Planificamos los accesos, la recogida y la salida, incluido el regreso cuando se solicite."
+  },
+  "Organizar meu evento": {
+    "en": "Arrange my event transport",
+    "es": "Organizar mi evento"
+  },
+  "Hotel · evento · aeroporto": {
+    "en": "Hotel · event · airport",
+    "es": "Hotel · evento · aeropuerto"
+  },
+  "Uma agenda, vários destinos": {
+    "en": "One schedule, several destinations",
+    "es": "Una agenda, varios destinos"
+  },
+  "Transporte entre hospedagem, eventos e aeroportos. Atendimento para visitantes e profissionais, com os trechos e horários alinhados.": {
+    "en": "Transport between hotels, events and airports. A service for visitors and professionals, with each leg and time agreed in advance.",
+    "es": "Transporte entre alojamientos, eventos y aeropuertos. Atención a visitantes y profesionales, con los trayectos y horarios acordados."
+  },
+  "Combinar meus traslados": {
+    "en": "Arrange my transfers",
+    "es": "Coordinar mis traslados"
+  },
+  "Consultas e exames": {
+    "en": "Medical appointments and tests",
+    "es": "Consultas y exámenes médicos"
+  },
+  "Cuidado também no trajeto": {
+    "en": "Care along the way, too",
+    "es": "Cuidado también en el trayecto"
+  },
+  "Deslocamento com atenção ao seu ritmo, aos horários e ao embarque. Podemos combinar espera ou retorno conforme a necessidade.": {
+    "en": "Transport that respects your pace, schedule and boarding needs. Waiting time or a return trip can be arranged as needed.",
+    "es": "Traslados con atención a tu ritmo, los horarios y la subida al vehículo. Podemos acordar espera o regreso según lo que necesites."
+  },
+  "Agendar minha consulta": {
+    "en": "Plan my appointment transport",
+    "es": "Agendar mi consulta"
+  },
+  "Viagens e passeios": {
+    "en": "Trips and sightseeing",
+    "es": "Viajes y paseos"
+  },
+  "Além da rotina": {
+    "en": "Beyond the everyday",
+    "es": "Más allá de la rutina"
+  },
+  "Viagens intermunicipais e roteiros em São Paulo. Definimos percurso, paradas, tempo de espera e condições antes de confirmar.": {
+    "en": "Intercity trips and itineraries around São Paulo. We agree on the route, stops, waiting time and terms before confirming.",
+    "es": "Viajes entre ciudades y recorridos por São Paulo. Definimos la ruta, las paradas, el tiempo de espera y las condiciones antes de confirmar."
+  },
+  "Planejar minha viagem": {
+    "en": "Plan my trip",
+    "es": "Planificar mi viaje"
+  },
+  "À disposição por hora": {
+    "en": "Driver by the hour",
+    "es": "Chofer por horas"
+  },
+  "Flexibilidade com organização": {
+    "en": "Flexibility with a plan",
+    "es": "Flexibilidad con organización"
+  },
+  "Um motorista disponível durante o período contratado. Para múltiplos compromissos, reuniões, compras ou uma agenda que pede continuidade.": {
+    "en": "A driver available for your booked period. For multiple appointments, meetings, shopping or a schedule that calls for continuity.",
+    "es": "Un chofer disponible durante el período contratado. Para varios compromisos, reuniones, compras o una agenda que requiere continuidad."
+  },
+  "Consultar disponibilidade": {
+    "en": "Check availability",
+    "es": "Consultar disponibilidad"
+  },
+  "Idosos e acompanhamento": {
+    "en": "Older passengers and extra support",
+    "es": "Personas mayores y acompañamiento"
+  },
+  "Mais tempo e atenção": {
+    "en": "Extra time and attention",
+    "es": "Más tiempo y atención"
+  },
+  "Atenção ao embarque, desembarque e comunicação com a família, quando combinado. Informe antecipadamente as necessidades de mobilidade.": {
+    "en": "Care when boarding and leaving the vehicle, with family updates when agreed. Please tell us about any mobility needs in advance.",
+    "es": "Atención al subir y bajar del vehículo, y comunicación con la familia cuando se acuerde. Informa con antelación de las necesidades de movilidad."
+  },
+  "Combinar o acompanhamento": {
+    "en": "Arrange extra support",
+    "es": "Coordinar el acompañamiento"
+  },
+  "Clima do seu jeito": {
+    "en": "Climate your way",
+    "es": "El clima a tu gusto"
+  },
+  "Ar digital Dual Zone e saída de ar para o banco traseiro.": {
+    "en": "Dual-zone digital air conditioning and a rear-seat air vent.",
+    "es": "Aire acondicionado digital de doble zona y salida de aire para el asiento trasero."
+  },
+  "Conforto no interior": {
+    "en": "Comfort inside",
+    "es": "Confort en el interior"
+  },
+  "Bancos em tecido e material premium sintético.": {
+    "en": "Seats in fabric and premium synthetic material.",
+    "es": "Asientos de tela y material sintético premium."
+  },
+  "Conectividade a bordo": {
+    "en": "Stay connected on board",
+    "es": "Conectividad a bordo"
+  },
+  "Quatro portas USB para os seus dispositivos.": {
+    "en": "Four USB ports for your devices.",
+    "es": "Cuatro puertos USB para tus dispositivos."
+  },
+  "Segurança e tecnologia": {
+    "en": "Safety and technology",
+    "es": "Seguridad y tecnología"
+  },
+  "Sete airbags, câmera 360° e sensores de estacionamento.": {
+    "en": "Seven airbags, a 360° camera and parking sensors.",
+    "es": "Siete airbags, cámara de 360° y sensores de estacionamiento."
+  },
+  "Mais luz, mais conforto": {
+    "en": "More light, more comfort",
+    "es": "Más luz, más confort"
+  },
+  "Teto solar elétrico e vidros dianteiros com isolamento acústico.": {
+    "en": "Electric sunroof and acoustically insulated front windows.",
+    "es": "Techo solar eléctrico y cristales delanteros con aislamiento acústico."
+  },
+  "Bagagem bem planejada": {
+    "en": "Luggage planned ahead",
+    "es": "Equipaje bien planificado"
+  },
+  "Porta-malas de 372 litros. Alinhamos as malas na reserva.": {
+    "en": "372-litre luggage compartment. We discuss your bags when booking.",
+    "es": "Maletero de 372 litros. Coordinamos el equipaje al reservar."
+  },
+  "Vista dianteira": {
+    "en": "Front view",
+    "es": "Vista delantera"
+  },
+  "Design traseiro": {
+    "en": "Rear design",
+    "es": "Diseño trasero"
+  },
+  "Detalhe dos faróis": {
+    "en": "Headlight detail",
+    "es": "Detalle de los faros"
+  },
+  "Painel e cabine": {
+    "en": "Dashboard and cabin",
+    "es": "Panel y cabina"
+  },
+  "Tecnologia integrada ao seu trajeto.": {
+    "en": "Technology integrated into your journey.",
+    "es": "Tecnología integrada en tu trayecto."
+  },
+  "Bancos dianteiros": {
+    "en": "Front seats",
+    "es": "Asientos delanteros"
+  },
+  "Tecido e material premium sintético.": {
+    "en": "Fabric and premium synthetic material.",
+    "es": "Tela y material sintético premium."
+  },
+  "Banco traseiro": {
+    "en": "Rear seat",
+    "es": "Asiento trasero"
+  },
+  "Um espaço para viajar com conforto.": {
+    "en": "Space to travel in comfort.",
+    "es": "Un espacio para viajar con comodidad."
+  },
+  "Teto solar": {
+    "en": "Sunroof",
+    "es": "Techo solar"
+  },
+  "Luz natural a bordo.": {
+    "en": "Natural light on board.",
+    "es": "Luz natural a bordo."
+  },
+  "Interno e externo · brilhante": {
+    "en": "Inside and out · gloss finish",
+    "es": "Interior y exterior · brillante"
+  },
+  "Proteção das superfícies contra riscos e desgastes do dia a dia.": {
+    "en": "Surface protection against everyday scratches and wear.",
+    "es": "Protección de las superficies frente a arañazos y desgaste del día a día."
+  },
+  "Película antivandalismo": {
+    "en": "Anti-vandal window film",
+    "es": "Lámina antivandalismo"
+  },
+  "Maior resistência dos vidros a impactos e retenção de estilhaços em caso de quebra.": {
+    "en": "Greater glass impact resistance and shard retention if broken.",
+    "es": "Mayor resistencia de los cristales a impactos y retención de fragmentos en caso de rotura."
+  },
+  "Nano cerâmica": {
+    "en": "Nano-ceramic window film",
+    "es": "Nanocerámica"
+  },
+  "Privacidade e proteção solar para mais conforto a bordo.": {
+    "en": "Privacy and sun protection for a more comfortable ride.",
+    "es": "Privacidad y protección solar para mayor confort a bordo."
+  },
+  "Vitrificação Full": {
+    "en": "Full ceramic coating",
+    "es": "Recubrimiento cerámico integral"
+  },
+  "Acabamento preservado": {
+    "en": "Preserving the finish",
+    "es": "Acabado protegido"
+  },
+  "Proteção para couros, bancos, plásticos e rodas, facilitando a manutenção.": {
+    "en": "Protection for leather, seats, plastics and wheels, making maintenance easier.",
+    "es": "Protección para cuero, asientos, plásticos y ruedas, facilitando el mantenimiento."
+  },
+  "Cuidado com o para-brisa": {
+    "en": "Windshield care",
+    "es": "Cuidado del parabrisas"
+  },
+  "Proteção adicional para ajudar a prevenir danos no para-brisa.": {
+    "en": "Additional protection to help prevent windshield damage.",
+    "es": "Protección adicional para ayudar a prevenir daños en el parabrisas."
+  },
+  "Como solicito um orçamento?": {
+    "en": "How do I request a quote?",
+    "es": "¿Cómo solicito un presupuesto?"
+  },
+  "Envie pelo WhatsApp a data, o horário, os endereços completos de origem e destino, o número de passageiros e a quantidade de bagagens. Informe também se precisa de paradas, espera ou retorno.": {
+    "en": "Send the date, time, full pickup and destination addresses, number of passengers and amount of luggage via WhatsApp. Let me know if you need stops, waiting time or a return trip.",
+    "es": "Envía por WhatsApp la fecha, la hora, las direcciones completas de origen y destino, el número de pasajeros y la cantidad de equipaje. Indica también si necesitas paradas, espera o regreso."
+  },
+  "Com quanto tempo de antecedência devo agendar?": {
+    "en": "How far ahead should I book?",
+    "es": "¿Con cuánta antelación debo reservar?"
+  },
+  "Entre em contato assim que tiver a data do compromisso. O atendimento depende da disponibilidade da agenda, que será confirmada diretamente na conversa.": {
+    "en": "Get in touch as soon as you know the date of your appointment. The service is subject to availability, which will be confirmed directly in our conversation.",
+    "es": "Ponte en contacto en cuanto sepas la fecha de tu compromiso. El servicio depende de la disponibilidad de la agenda, que se confirmará directamente en la conversación."
+  },
+  "Como funciona o atendimento em aeroportos?": {
+    "en": "How do airport transfers work?",
+    "es": "¿Cómo funcionan los traslados al aeropuerto?"
+  },
+  "Alinhamos aeroporto, terminal, horário, passageiros, bagagens e ponto de encontro. Se houver voo, envie seus dados para organizarmos os detalhes do desembarque.": {
+    "en": "We agree on the airport, terminal, time, passengers, luggage and meeting point. If you have a flight, send the details so we can plan your arrival.",
+    "es": "Acordamos el aeropuerto, la terminal, el horario, los pasajeros, el equipaje y el punto de encuentro. Si tienes un vuelo, envía sus datos para organizar los detalles de tu llegada."
+  },
+  "Posso combinar espera e retorno?": {
+    "en": "Can I arrange waiting time and a return trip?",
+    "es": "¿Puedo acordar espera y regreso?"
+  },
+  "Sim. A espera e o retorno devem ser informados na solicitação, para que o período e as condições sejam incluídos no orçamento.": {
+    "en": "Yes. Include waiting time and the return trip in your request so the time and terms can be included in your quote.",
+    "es": "Sí. Indica la espera y el regreso en la solicitud para que el período y las condiciones se incluyan en el presupuesto."
+  },
+  "É possível fazer paradas adicionais?": {
+    "en": "Can I add extra stops?",
+    "es": "¿Es posible añadir paradas?"
+  },
+  "Sim. Informe as paradas previstas antes de confirmar. Mudanças durante o atendimento dependem da agenda e podem alterar o valor combinado.": {
+    "en": "Yes. Tell me about planned stops before confirming. Changes during the service depend on availability and may affect the agreed price.",
+    "es": "Sí. Indica las paradas previstas antes de confirmar. Los cambios durante el servicio dependen de la agenda y pueden modificar el precio acordado."
+  },
+  "Como funciona o serviço por hora?": {
+    "en": "How does the hourly service work?",
+    "es": "¿Cómo funciona el servicio por horas?"
+  },
+  "Definimos um período, o roteiro estimado e as necessidades da sua agenda. O orçamento considera o tempo de disponibilidade e as condições alinhadas previamente.": {
+    "en": "We agree on a time period, an estimated itinerary and your schedule needs. The quote takes account of the time reserved and the terms agreed in advance.",
+    "es": "Definimos un período, el itinerario estimado y las necesidades de tu agenda. El presupuesto considera el tiempo de disponibilidad y las condiciones acordadas previamente."
+  },
+  "Vocês fazem viagens para outras cidades?": {
+    "en": "Do you offer trips to other cities?",
+    "es": "¿Realizan viajes a otras ciudades?"
+  },
+  "Sim. Atendo São Paulo e região e realizo deslocamentos intermunicipais mediante planejamento e disponibilidade. Envie o itinerário para consultar.": {
+    "en": "Yes. I serve São Paulo and the surrounding area, and offer intercity trips subject to planning and availability. Send your itinerary to enquire.",
+    "es": "Sí. Atiendo São Paulo y alrededores, y realizo viajes entre ciudades según planificación y disponibilidad. Envía el itinerario para consultar."
+  },
+  "Como planejar passageiros e bagagem?": {
+    "en": "How should I plan for passengers and luggage?",
+    "es": "¿Cómo planifico los pasajeros y el equipaje?"
+  },
+  "O veículo tem até quatro lugares para passageiros. Informe quantas pessoas viajam e os tamanhos das malas. A acomodação da bagagem deve ser avaliada antes da confirmação.": {
+    "en": "The vehicle seats up to four passengers. Please tell me how many people are travelling and the sizes of the bags. Luggage capacity must be checked before confirmation.",
+    "es": "El vehículo tiene hasta cuatro plazas para pasajeros. Indica cuántas personas viajan y el tamaño de las maletas. La capacidad para el equipaje debe evaluarse antes de confirmar."
+  },
+  "Como são combinados valor e pagamento?": {
+    "en": "How are the price and payment agreed?",
+    "es": "¿Cómo se acuerdan el precio y el pago?"
+  },
+  "O valor, a forma de pagamento e as condições de reserva são informados diretamente no orçamento, antes da confirmação do atendimento.": {
+    "en": "The price, payment method and booking terms are provided directly in your quote, before the service is confirmed.",
+    "es": "El precio, la forma de pago y las condiciones de reserva se informan directamente en el presupuesto, antes de confirmar el servicio."
+  },
+  "O atendimento inclui assistência médica?": {
+    "en": "Does the service include medical assistance?",
+    "es": "¿El servicio incluye asistencia médica?"
+  },
+  "O serviço é de transporte particular. Para idosos ou pessoas com mobilidade reduzida, alinhamos previamente o apoio no embarque e a necessidade de acompanhante. Não inclui atendimento médico ou veículo adaptado.": {
+    "en": "This is a private transport service. For older passengers or people with reduced mobility, we agree in advance on boarding support and whether a companion is needed. Medical care and an adapted vehicle are not included.",
+    "es": "El servicio es de transporte privado. Para personas mayores o con movilidad reducida, acordamos previamente el apoyo al subir al vehículo y la necesidad de acompañante. No incluye atención médica ni vehículo adaptado."
+  },
+  "Pular para o conteúdo": {
+    "en": "Skip to content",
+    "es": "Saltar al contenido"
+  },
+  "MotoristaOPS — início": {
+    "en": "MotoristaOPS — home",
+    "es": "MotoristaOPS — inicio"
+  },
+  "MotoristaOPS por Henrico Amaral": {
+    "en": "MotoristaOPS by Henrico Amaral",
+    "es": "MotoristaOPS por Henrico Amaral"
+  },
+  "São Paulo e região": {
+    "en": "São Paulo and surrounding area",
+    "es": "São Paulo y alrededores"
+  },
+  "Composição de Henrico Amaral com jaqueta de couro, gravata e suspensórios pretos junto ao Omoda 5 cinza em São Paulo à noite.": {
+    "en": "Brand composition of Henrico Amaral wearing a leather jacket, tie and black suspenders beside the grey Omoda 5 in São Paulo at night.",
+    "es": "Composición de Henrico Amaral con chaqueta de cuero, corbata y tirantes negros junto al Omoda 5 gris en São Paulo de noche."
+  },
+  "Motorista particular · São Paulo": {
+    "en": "Private driver · São Paulo",
+    "es": "Chofer privado · São Paulo"
+  },
+  "Seu compromisso": {
+    "en": "Your journey",
+    "es": "Tu compromiso"
+  },
+  "começa antes": {
+    "en": "starts before",
+    "es": "comienza antes"
+  },
+  "do destino.": {
+    "en": "the destination.",
+    "es": "del destino."
+  },
+  "Do aeroporto à sua rotina, atendimento direto, planejamento e cuidado em cada trajeto.": {
+    "en": "From airport transfers to everyday plans, personal service, planning and care on every journey.",
+    "es": "Del aeropuerto a tu rutina, atención directa, planificación y cuidado en cada trayecto."
+  },
+  "Composição visual da marca": {
+    "en": "Brand visual composition",
+    "es": "Composición visual de la marca"
+  },
+  "Hora marcada": {
+    "en": "Scheduled service",
+    "es": "Horario acordado"
+  },
+  "Seu horário no planejamento": {
+    "en": "Your schedule in the plan",
+    "es": "Tu horario en la planificación"
+  },
+  "Atendimento direto": {
+    "en": "Personal service",
+    "es": "Atención directa"
+  },
+  "Do contato ao desembarque": {
+    "en": "From first contact to drop-off",
+    "es": "Del contacto a la llegada"
+  },
+  "Rota planejada": {
+    "en": "Planned route",
+    "es": "Ruta planificada"
+  },
+  "O trajeto começa antes": {
+    "en": "The journey starts beforehand",
+    "es": "El trayecto empieza antes"
+  },
+  "Discrição": {
+    "en": "Discretion",
+    "es": "Discreción"
+  },
+  "Respeito à sua privacidade": {
+    "en": "Respect for your privacy",
+    "es": "Respeto a tu privacidad"
+  },
+  "O que fazemos": {
+    "en": "What we do",
+    "es": "Qué hacemos"
+  },
+  "Para cada compromisso,": {
+    "en": "For every appointment,",
+    "es": "Para cada compromiso,"
+  },
+  "um trajeto bem cuidado.": {
+    "en": "a journey well cared for.",
+    "es": "un trayecto bien cuidado."
+  },
+  "Há mais por trás de uma corrida. Horário, contexto, bagagem e preferências entram no planejamento desde o primeiro contato.": {
+    "en": "There is more to a ride. Timing, context, luggage and preferences are part of the plan from the first conversation.",
+    "es": "Hay más detrás de un traslado. El horario, el contexto, el equipaje y tus preferencias forman parte de la planificación desde el primer contacto."
+  },
+  "Olá, Henrico! Gostaria de um orçamento para {service}.": {
+    "en": "Hello, Henrico! I would like a quote for {service}.",
+    "es": "¡Hola, Henrico! Me gustaría un presupuesto para {service}."
+  },
+  "Imagens de contexto dos serviços são ilustrativas.": {
+    "en": "Service context images are illustrative.",
+    "es": "Las imágenes de contexto de los servicios son ilustrativas."
+  },
+  "O carro faz parte da experiência": {
+    "en": "The car is part of the experience",
+    "es": "El coche es parte de la experiencia"
+  },
+  "Seu conforto, em detalhe.": {
+    "en": "Your comfort, in detail.",
+    "es": "Tu confort, en detalle."
+  },
+  "Um SUV cinza, adquirido zero quilômetro e preparado com cuidados extras para acompanhar você em cada trajeto.": {
+    "en": "A grey SUV, purchased brand new and prepared with extra care to accompany you on every journey.",
+    "es": "Un SUV gris, adquirido nuevo y preparado con cuidados adicionales para acompañarte en cada trayecto."
+  },
+  "Ampliar vista dianteira do Omoda 5 Luxury": {
+    "en": "Enlarge the front view of the Omoda 5 Luxury",
+    "es": "Ampliar la vista delantera del Omoda 5 Luxury"
+  },
+  "Vista dianteira do Omoda 5 Luxury cinza.": {
+    "en": "Front view of the grey Omoda 5 Luxury.",
+    "es": "Vista delantera del Omoda 5 Luxury gris."
+  },
+  "Ver em detalhe": {
+    "en": "See the details",
+    "es": "Ver en detalle"
+  },
+  "Conheça o conforto por dentro.": {
+    "en": "Discover the comfort inside.",
+    "es": "Conoce el confort por dentro."
+  },
+  "Cabine, bancos e detalhes que fazem parte": {
+    "en": "The cabin, seats and details that shape",
+    "es": "Cabina, asientos y detalles que forman parte"
+  },
+  "da sua experiência a bordo.": {
+    "en": "your experience on board.",
+    "es": "de tu experiencia a bordo."
+  },
+  "Ampliar {title} do Omoda 5 Luxury": {
+    "en": "Enlarge {title} of the Omoda 5 Luxury",
+    "es": "Ampliar {title} del Omoda 5 Luxury"
+  },
+  "{title} do Omoda 5 Luxury, com acabamento interno preto.": {
+    "en": "{title} of the Omoda 5 Luxury, with a black interior.",
+    "es": "{title} del Omoda 5 Luxury, con acabado interior negro."
+  },
+  "Proteções já aplicadas": {
+    "en": "Protection already applied",
+    "es": "Protecciones ya aplicadas"
+  },
+  "Mais cuidado, por dentro e por fora.": {
+    "en": "Extra care, inside and out.",
+    "es": "Más cuidado, por dentro y por fuera."
+  },
+  "Cinco melhorias realizadas para preservar": {
+    "en": "Five completed upgrades to preserve",
+    "es": "Cinco mejoras realizadas para preservar"
+  },
+  "o veículo e cuidar do ambiente a bordo.": {
+    "en": "the vehicle and care for the cabin.",
+    "es": "el vehículo y cuidar del ambiente a bordo."
+  },
+  "Aplicado": {
+    "en": "Applied",
+    "es": "Aplicado"
+  },
+  "Seu jeito de viajar.": {
+    "en": "Your way to travel.",
+    "es": "Tu forma de viajar."
+  },
+  "Água a bordo. Bebidas e snacks personalizados mediante alinhamento.": {
+    "en": "Water on board. Drinks and snacks tailored to your preferences by prior arrangement.",
+    "es": "Agua a bordo. Bebidas y aperitivos personalizados según lo acordado."
+  },
+  "Como o atendimento acontece": {
+    "en": "How the service works",
+    "es": "Cómo funciona el servicio"
+  },
+  "Simples no contato.": {
+    "en": "Easy to arrange.",
+    "es": "Sencillo en el contacto."
+  },
+  "Cuidadoso em cada etapa.": {
+    "en": "Care at every step.",
+    "es": "Cuidado en cada etapa."
+  },
+  "Você conta o que precisa. Eu organizo os detalhes para o trajeto acontecer com clareza, do início ao fim.": {
+    "en": "Tell me what you need. I organise the details so your journey is clearly planned from start to finish.",
+    "es": "Cuéntame lo que necesitas. Organizo los detalles para que el trayecto se desarrolle con claridad, de principio a fin."
+  },
+  "Você me chama": {
+    "en": "Get in touch",
+    "es": "Me contactas"
+  },
+  "Envie data, horário, origem, destino, passageiros e bagagens.": {
+    "en": "Send the date, time, pickup, destination, passengers and luggage.",
+    "es": "Envía fecha, hora, origen, destino, pasajeros y equipaje."
+  },
+  "Alinhamos os detalhes": {
+    "en": "We agree on the details",
+    "es": "Acordamos los detalles"
+  },
+  "Combinamos roteiro, espera, paradas, valor e condições.": {
+    "en": "We agree on the route, waiting time, stops, price and terms.",
+    "es": "Acordamos la ruta, la espera, las paradas, el precio y las condiciones."
+  },
+  "Confirmamos a reserva": {
+    "en": "We confirm your booking",
+    "es": "Confirmamos la reserva"
+  },
+  "Com a disponibilidade verificada, confirmamos o atendimento.": {
+    "en": "Once availability is checked, we confirm the service.",
+    "es": "Tras verificar la disponibilidad, confirmamos el servicio."
+  },
+  "Eu cuido do trajeto": {
+    "en": "I take care of the journey",
+    "es": "Cuido del trayecto"
+  },
+  "No dia combinado, atendimento do embarque ao desembarque.": {
+    "en": "On the agreed day, service from pickup to drop-off.",
+    "es": "El día acordado, atención desde la recogida hasta la llegada."
+  },
+  "Retrato original de Henrico Amaral, com cabeça raspada e barba grisalha, vestindo camisa preta.": {
+    "en": "Original portrait of Henrico Amaral, with a shaved head and grey beard, wearing a black shirt.",
+    "es": "Retrato original de Henrico Amaral, con cabeza rapada y barba canosa, vestido con camisa negra."
+  },
+  "Henrico Amaral · Motorista particular": {
+    "en": "Henrico Amaral · Private driver",
+    "es": "Henrico Amaral · Chofer privado"
+  },
+  "Quem dirige": {
+    "en": "Your driver",
+    "es": "Quién conduce"
+  },
+  "O serviço leva meu nome.": {
+    "en": "The service bears my name.",
+    "es": "El servicio lleva mi nombre."
+  },
+  "A responsabilidade também.": {
+    "en": "So does the responsibility.",
+    "es": "La responsabilidad también."
+  },
+  "Sou Henrico, motorista particular em São Paulo e região. Atendo pessoalmente cada trajeto, com planejamento, pontualidade, discrição e atenção aos detalhes que fazem diferença para você.": {
+    "en": "I am Henrico, a private driver in São Paulo and the surrounding area. I personally handle every journey, with planning, punctuality, discretion and attention to the details that matter to you.",
+    "es": "Soy Henrico, chofer privado en São Paulo y alrededores. Atiendo personalmente cada trayecto, con planificación, puntualidad, discreción y atención a los detalles que marcan la diferencia para ti."
+  },
+  "Do primeiro contato ao destino, você sabe com quem está falando. Seu horário, suas preferências e o contexto do seu compromisso fazem parte do meu trabalho.": {
+    "en": "From the first conversation to your destination, you know who you are speaking to. Your schedule, preferences and the context of your appointment are part of my work.",
+    "es": "Del primer contacto al destino, sabes con quién estás hablando. Tu horario, tus preferencias y el contexto de tu compromiso forman parte de mi trabajo."
+  },
+  "Contato direto comigo": {
+    "en": "Direct contact with me",
+    "es": "Contacto directo conmigo"
+  },
+  "Discrição no atendimento": {
+    "en": "Discreet service",
+    "es": "Discreción en el servicio"
+  },
+  "Levando pessoas. Cuidando de histórias.": {
+    "en": "Taking people places. Caring for their stories.",
+    "es": "Llevando personas. Cuidando historias."
+  },
+  "A experiência de quem já foi": {
+    "en": "Experiences from past passengers",
+    "es": "La experiencia de quienes ya viajaron"
+  },
+  "Confiança construída": {
+    "en": "Trust built",
+    "es": "Confianza construida"
+  },
+  "em cada trajeto.": {
+    "en": "on every journey.",
+    "es": "en cada trayecto."
+  },
+  "Leia as avaliações": {
+    "en": "Read the reviews",
+    "es": "Lee las reseñas"
+  },
+  "no Google": {
+    "en": "on Google",
+    "es": "en Google"
+  },
+  "Bom atendimento, cordialidade e pontualidade, super recomendo de olhos fechados.": {
+    "en": "Good service, friendliness and punctuality. I wholeheartedly recommend him.",
+    "es": "Buena atención, cordialidad y puntualidad. Lo recomiendo con los ojos cerrados."
+  },
+  "Excelente profissional, super pontual e cuidadoso no trânsito.": {
+    "en": "An excellent professional, very punctual and careful on the road.",
+    "es": "Excelente profesional, muy puntual y cuidadoso en el tráfico."
+  },
+  "5 estrelas": {
+    "en": "5 stars",
+    "es": "5 estrellas"
+  },
+  "Avaliação no Google": {
+    "en": "Google review",
+    "es": "Reseña en Google"
+  },
+  "Ver avaliações no Google, incluindo {name}": {
+    "en": "Read Google reviews, including {name}",
+    "es": "Ver reseñas en Google, incluida la de {name}"
+  },
+  "Antes de embarcar": {
+    "en": "Before you travel",
+    "es": "Antes de viajar"
+  },
+  "Perguntas frequentes.": {
+    "en": "Frequently asked questions.",
+    "es": "Preguntas frecuentes."
+  },
+  "Informação clara para planejar melhor. Se a sua dúvida não estiver aqui, é só falar comigo pelo WhatsApp.": {
+    "en": "Clear information to help you plan. If your question is not answered here, just contact me on WhatsApp.",
+    "es": "Información clara para planificar mejor. Si tu duda no está aquí, solo tienes que escribirme por WhatsApp."
+  },
+  "Vamos seguir juntos": {
+    "en": "Let's travel together",
+    "es": "Sigamos juntos"
+  },
+  "Seu próximo trajeto": {
+    "en": "Your next journey",
+    "es": "Tu próximo trayecto"
+  },
+  "começa com": {
+    "en": "starts with",
+    "es": "empieza con"
+  },
+  "uma boa conversa.": {
+    "en": "a good conversation.",
+    "es": "una buena conversación."
+  },
+  "Conte comigo para chegar ao seu compromisso com planejamento, conforto e atenção.": {
+    "en": "Count on me to get you to your appointment with planning, comfort and care.",
+    "es": "Cuenta conmigo para llegar a tu compromiso con planificación, confort y atención."
+  },
+  "Falar no WhatsApp": {
+    "en": "Chat on WhatsApp",
+    "es": "Hablar por WhatsApp"
+  },
+  "Prefere ligar? (11) 98832-9725": {
+    "en": "Prefer to call? +55 (11) 98832-9725",
+    "es": "¿Prefieres llamar? +55 (11) 98832-9725"
+  },
+  "Levando pessoas.": {
+    "en": "Taking people places.",
+    "es": "Llevando personas."
+  },
+  "Cuidando de histórias.": {
+    "en": "Caring for their stories.",
+    "es": "Cuidando historias."
+  },
+  "Motorista particular": {
+    "en": "Private driver",
+    "es": "Chofer privado"
+  },
+  "© 2026 MotoristaOPS · Henrico Amaral": {
+    "en": "© 2026 MotoristaOPS · Henrico Amaral",
+    "es": "© 2026 MotoristaOPS · Henrico Amaral"
+  },
+  "Atendimento com hora marcada · CNPJ 69.099.839/0001-25": {
+    "en": "By appointment · CNPJ (Brazilian business ID) 69.099.839/0001-25",
+    "es": "Atención con cita previa · CNPJ (registro empresarial de Brasil) 69.099.839/0001-25"
+  },
+  "por henrico.works": {
+    "en": "by henrico.works",
+    "es": "por henrico.works"
+  },
+  "Fechar imagem": {
+    "en": "Close image",
+    "es": "Cerrar imagen"
+  },
+  "Imagem anterior": {
+    "en": "Previous image",
+    "es": "Imagen anterior"
+  },
+  "{title} do Omoda 5 Luxury.": {
+    "en": "{title} of the Omoda 5 Luxury.",
+    "es": "{title} del Omoda 5 Luxury."
+  },
+  "{current} de {total}": {
+    "en": "{current} of {total}",
+    "es": "{current} de {total}"
+  },
+  "Próxima imagem": {
+    "en": "Next image",
+    "es": "Imagen siguiente"
+  },
+  "Confira a data do trajeto.": {
+    "en": "Check your journey date.",
+    "es": "Comprueba la fecha del trayecto."
+  },
+  "Confira o horário do trajeto.": {
+    "en": "Check your journey time.",
+    "es": "Comprueba la hora del trayecto."
+  },
+  "Adiante os detalhes": {
+    "en": "Share the details",
+    "es": "Adelanta los detalles"
+  },
+  "Vamos planejar seu trajeto?": {
+    "en": "Shall we plan your journey?",
+    "es": "¿Planificamos tu trayecto?"
+  },
+  "Prepare a mensagem e revise os detalhes antes de abrir o WhatsApp.": {
+    "en": "Prepare your message and review the details before opening WhatsApp.",
+    "es": "Prepara el mensaje y revisa los detalles antes de abrir WhatsApp."
+  },
+  "* Campos obrigatórios": {
+    "en": "* Required fields",
+    "es": "* Campos obligatorios"
+  },
+  "Origem": {
+    "en": "Pickup",
+    "es": "Origen"
+  },
+  "Endereço completo de partida": {
+    "en": "Full pickup address",
+    "es": "Dirección completa de salida"
+  },
+  "Destino": {
+    "en": "Destination",
+    "es": "Destino"
+  },
+  "Endereço completo de chegada": {
+    "en": "Full destination address",
+    "es": "Dirección completa de llegada"
+  },
+  "Data": {
+    "en": "Date",
+    "es": "Fecha"
+  },
+  "(opcional)": {
+    "en": "(optional)",
+    "es": "(opcional)"
+  },
+  "Horário": {
+    "en": "Time",
+    "es": "Hora"
+  },
+  "Passageiros": {
+    "en": "Passengers",
+    "es": "Pasajeros"
+  },
+  "Mais detalhes": {
+    "en": "More details",
+    "es": "Más detalles"
+  },
+  "Malas, paradas, espera ou retorno": {
+    "en": "Luggage, stops, waiting time or return trip",
+    "es": "Equipaje, paradas, espera o regreso"
+  },
+  "Confira os campos indicados para continuar.": {
+    "en": "Check the indicated fields to continue.",
+    "es": "Revisa los campos indicados para continuar."
+  },
+  "Atualizar mensagem": {
+    "en": "Update message",
+    "es": "Actualizar mensaje"
+  },
+  "Preparar mensagem": {
+    "en": "Prepare message",
+    "es": "Preparar mensaje"
+  },
+  "Mensagem preparada": {
+    "en": "Message prepared",
+    "es": "Mensaje preparado"
+  },
+  "Detalhes": {
+    "en": "Details",
+    "es": "Detalles"
+  },
+  "Abrir conversa no WhatsApp": {
+    "en": "Open conversation in WhatsApp",
+    "es": "Abrir conversación en WhatsApp"
+  },
+  "Nada é enviado automaticamente. O atendimento só é reservado após confirmação.": {
+    "en": "Nothing is sent automatically. Your ride is only booked after confirmation.",
+    "es": "No se envía nada automáticamente. El servicio solo se reserva después de la confirmación."
+  },
+  "Selecionar idioma": {
+    "en": "Select language",
+    "es": "Seleccionar idioma"
+  },
+  "Avaliações traduzidas do português.": {
+    "en": "Reviews translated from Portuguese.",
+    "es": "Reseñas traducidas del portugués."
+  },
+  "Solicitar orçamento no WhatsApp": {
+    "en": "Request a quote on WhatsApp",
+    "es": "Solicitar presupuesto por WhatsApp"
+  },
+  "Vamos conversar": {
+    "en": "Let’s talk",
+    "es": "Hablemos"
+  },
+  "Informe o endereço de partida.": {
+    "en": "Enter the pickup address.",
+    "es": "Indica la dirección de salida."
+  },
+  "Informe o endereço de destino.": {
+    "en": "Enter the destination address.",
+    "es": "Indica la dirección de destino."
+  },
+  "Use até 220 caracteres para a origem.": {
+    "en": "Use up to 220 characters for the pickup address.",
+    "es": "Usa hasta 220 caracteres para el origen."
+  },
+  "Use até 220 caracteres para o destino.": {
+    "en": "Use up to 220 characters for the destination.",
+    "es": "Usa hasta 220 caracteres para el destino."
+  },
+  "Escolha hoje ou uma data futura.": {
+    "en": "Choose today or a future date.",
+    "es": "Elige hoy o una fecha futura."
+  },
+  "Informe um horário válido.": {
+    "en": "Enter a valid time.",
+    "es": "Indica una hora válida."
+  },
+  "Selecione de 1 a 4 passageiros.": {
+    "en": "Select 1 to 4 passengers.",
+    "es": "Selecciona de 1 a 4 pasajeros."
+  },
+  "Use até 800 caracteres nos detalhes.": {
+    "en": "Use up to 800 characters for the details.",
+    "es": "Usa hasta 800 caracteres en los detalles."
+  },
+  "A combinar": {
+    "en": "To be agreed",
+    "es": "Por acordar"
+  },
+  "Olá, Henrico! Gostaria de solicitar um orçamento.": {
+    "en": "Hello, Henrico! I would like to request a quote.",
+    "es": "¡Hola, Henrico! Me gustaría solicitar un presupuesto."
+  },
+  "Motorista Particular em São Paulo | MotoristaOPS": {
+    "en": "Private Driver in São Paulo | MotoristaOPS",
+    "es": "Chofer Privado en São Paulo | MotoristaOPS"
+  },
+  "Motorista particular em São Paulo para aeroportos, reuniões, consultas, eventos e viagens, com hora marcada, planejamento, discrição e atendimento direto.": {
+    "en": "Private driver in São Paulo for airports, meetings, medical appointments, events and trips. Scheduled service with planning, discretion and personal attention.",
+    "es": "Chofer privado en São Paulo para aeropuertos, reuniones, consultas, eventos y viajes, con horario acordado, planificación, discreción y atención directa."
+  },
+  "MotoristaOPS | Motorista Particular em São Paulo": {
+    "en": "MotoristaOPS | Private Driver in São Paulo",
+    "es": "MotoristaOPS | Chofer Privado en São Paulo"
+  },
+  "MotoristaOPS — motorista particular em São Paulo. Seu compromisso começa antes do destino.": {
+    "en": "MotoristaOPS — private driver in São Paulo. Your journey starts before the destination.",
+    "es": "MotoristaOPS — chofer privado en São Paulo. Tu compromiso comienza antes del destino."
+  },
+  "Motorista particular em São Paulo": {
+    "en": "Private driver in São Paulo",
+    "es": "Chofer privado en São Paulo"
+  },
+  "Motorista particular com hora marcada": {
+    "en": "Private driver by appointment",
+    "es": "Chofer privado con horario acordado"
+  }
+}
