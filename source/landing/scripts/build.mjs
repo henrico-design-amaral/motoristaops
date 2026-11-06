@@ -8,7 +8,7 @@ import {localizeDocument,sitemap,RELEASE} from './locale-html.mjs';
 await build();
 await build({build:{ssr:'src/entry-server.jsx',outDir:'.server-build',emptyOutDir:true}});
 const {render}=await import(pathToFileURL(path.resolve('.server-build/entry-server.js')));
-const html=fs.readFileSync('dist/index.html','utf8');
+const html=fs.readFileSync('dist/index.html','utf8').replaceAll('\r\n','\n');
 if(!html.includes('<!--app-html-->'))throw Error('Prerender placeholder absent');
 for(const locale of languages){
   const target=path.join('dist',locale.path);
@@ -19,7 +19,7 @@ fs.writeFileSync('dist/robots.txt','User-agent: *\nAllow: /\n\nSitemap: https://
 fs.writeFileSync('dist/sitemap.xml',sitemap());
 fs.copyFileSync('apache.htaccess','dist/.htaccess');
 const files=[];
-const visit=dir=>{for(const n of fs.readdirSync(dir).sort()){const p=path.join(dir,n);if(fs.statSync(p).isDirectory())visit(p);else if(n!=='.htaccess') files.push({path:p.slice(5),bytes:fs.statSync(p).size,sha256:createHash('sha256').update(fs.readFileSync(p)).digest('hex')});}};
+const visit=dir=>{for(const n of fs.readdirSync(dir).sort()){const p=path.join(dir,n);if(fs.statSync(p).isDirectory())visit(p);else if(n!=='.htaccess') files.push({path:p.slice(5).split(path.sep).join('/'),bytes:fs.statSync(p).size,sha256:createHash('sha256').update(fs.readFileSync(p)).digest('hex')});}};
 visit('dist');
 fs.writeFileSync('dist/release-manifest.json',JSON.stringify({release:RELEASE,files},null,2)+'\n');
 fs.rmSync('.server-build',{recursive:true});

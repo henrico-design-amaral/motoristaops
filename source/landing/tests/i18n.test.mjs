@@ -64,3 +64,10 @@ test('sitemap publishes exactly the three language URLs with alternates',()=>{
   assert.equal((xml.match(/xhtml:link/g)||[]).length,12);
   for(const locale of languages)assert.ok(xml.includes(`<loc>https://www.motoristaops.com.br${locale.path}</loc>`));
 });
+
+test('release manifest uses URL paths on Windows and Linux',()=>{
+  const manifest=JSON.parse(fs.readFileSync('dist/release-manifest.json','utf8'));
+  assert.ok(manifest.files.every(file=>!file.path.includes('\\')));
+  assert.ok(manifest.files.some(file=>file.path==='en/index.html'));
+  assert.ok(manifest.files.some(file=>file.path==='es/index.html'));
+});
