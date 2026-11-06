@@ -1,11 +1,13 @@
 import React from 'react';
 import {createRoot,hydrateRoot} from 'react-dom/client';
 import {App} from './App.jsx';
+import {localeFromPath} from './i18n.mjs';
 import './styles.css';
 import './landing.css';
 import './refinements.css';
 import './motion.css';
 import './vehicle.css';
+import './locale.css';
 const root=document.getElementById('root');
-const app=<React.StrictMode><App/></React.StrictMode>;
+const app=<React.StrictMode><App locale={localeFromPath(window.location.pathname)}/></React.StrictMode>;
 if(root.children.length)hydrateRoot(root,app);else createRoot(root).render(app);

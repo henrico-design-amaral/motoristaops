@@ -132,3 +132,10 @@ A aprovação é de uma **composição dentro de `single_static`**, não de um f
 **Fonte operacional:** `SOCIAL_EDITORIAL.md` §6A, `editorial/PADRAO_POST_SIMPLES_EVENTO_2026-10-29.md` e `brand-system-v2/SOCIAL_MEDIA_OPERATING_SYSTEM.md` §14A.
 
 **Limite:** o usuário aprovou a linguagem/composição, mas as imagens geradas contêm camadas que podem não corresponder a arquivos oficiais (logo, letreiros e tipografia); elas não são liberação automática para uso/publicação literal. Cada nova peça deve passar pelo QA oficial e pelo `editorial/EDITORIAL_FORMAT_LOCK.json`. Nenhum conteúdo foi publicado por esta decisão.
+
+
+## Landing multilíngue
+
+**REQUESTED · SURFACE / landing MotoristaOPS · 2026-11-06**
+
+O operador solicitou analisar o site atual e adicionar inglês e espanhol. Manter português em `/` e oferecer `/en/` e `/es/`, com seletor acessível, conteúdo pré-renderizado, SEO e mensagens do WhatsApp no idioma da página. Preservar assets, identidade, fatos comerciais e isolamento do dashboard. A tradução do site não cria promessa de fluência no atendimento. Implementação e evidências: `source/landing/I18N.md`.

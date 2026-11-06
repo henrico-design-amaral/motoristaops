@@ -1,5 +1,6 @@
 import React,{useEffect,useLayoutEffect,useRef,useState} from 'react';
 import {MOTION,animateElement,motionAllowed,serviceDelay} from './motion.mjs';
+import {createTranslator} from './i18n.mjs';
 
 export function usePageMotion(root) {
   useEffect(()=>{
@@ -137,10 +138,11 @@ export function AnimatedFAQ({question,answer,icon}) {
   return <details ref={details} onToggle={()=>{if(!animation.current)intent.current=details.current.open;}}><summary ref={summary} onClick={toggle}>{question}{icon}</summary><div ref={body} className="faq-answer"><p>{answer}</p></div></details>;
 }
 
-export function FloatingContact({visible,href,icon}) {
+export function FloatingContact({visible,href,icon,locale='pt'}) {
+  const t=createTranslator(locale);
   const [focused,setFocused]=useState(false);
   const show=visible||focused;
-  return <a className="floating-wa" href={href} target="_blank" rel="noopener noreferrer" aria-label="Solicitar orçamento no WhatsApp" data-visible={show?'true':'false'} aria-hidden={show?undefined:true} inert={show?undefined:true} tabIndex={show?undefined:-1} onFocus={()=>setFocused(true)} onBlur={()=>setFocused(false)}>{icon}<span>Vamos conversar</span></a>;
+  return <a className="floating-wa" href={href} target="_blank" rel="noopener noreferrer" aria-label={t('Solicitar orçamento no WhatsApp')} data-visible={show?'true':'false'} aria-hidden={show?undefined:true} inert={show?undefined:true} tabIndex={show?undefined:-1} onFocus={()=>setFocused(true)} onBlur={()=>setFocused(false)}>{icon}<span>{t('Vamos conversar')}</span></a>;
 }
 
 export function useMessageMotion(ref,value) {

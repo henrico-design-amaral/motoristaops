@@ -1,8 +1,11 @@
+import {createTranslator,language} from './i18n.mjs';
+
 export function localToday(date = new Date()) {
   return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
 }
 
-export function prepareTripRequest(values, today = localToday()) {
+export function prepareTripRequest(values, today = localToday(), locale='pt') {
+  const t=createTranslator(locale);
   const clean = value => String(value || '').replace(/\s+/g,' ').trim();
   const origem = clean(values.origem), destino = clean(values.destino);
   const data = clean(values.data), horario = clean(values.horario);
@@ -21,8 +24,10 @@ export function prepareTripRequest(values, today = localToday()) {
   if (horario && !/^([01]\d|2[0-3]):[0-5]\d$/.test(horario)) errors.horario = 'Informe um horário válido.';
   if (!['1','2','3','4'].includes(passageiros)) errors.passageiros = 'Selecione de 1 a 4 passageiros.';
   if (detalhes.length > 800) errors.detalhes = 'Use até 800 caracteres nos detalhes.';
-  if (Object.keys(errors).length) return {errors};
-  const formattedDate = data ? data.split('-').reverse().join('/') : 'A combinar';
-  const message = `Olá, Henrico! Gostaria de solicitar um orçamento.\nOrigem: ${origem}\nDestino: ${destino}\nData: ${formattedDate}\nHorário: ${horario || 'A combinar'}\nPassageiros: ${passageiros}\nDetalhes: ${detalhes || 'A combinar'}`;
-  return {errors, message, href:`https://wa.me/5511988329725?text=${encodeURIComponent(message)}`, summary:{origem,destino,data:formattedDate,horario:horario || 'A combinar',passageiros,detalhes}};
+  if (Object.keys(errors).length) return {errors:Object.fromEntries(Object.entries(errors).map(([field,error])=>[field,t(error)]))};
+  const formattedDate = data ? (language(locale).code==='pt'?data.split('-').reverse().join('/'):new Intl.DateTimeFormat(language(locale).lang,{day:'2-digit',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(`${data}T12:00:00Z`))) : t('A combinar');
+  const message = [t('Olá, Henrico! Gostaria de solicitar um orçamento.'),...[
+    ['Origem',origem],['Destino',destino],['Data',formattedDate],['Horário',horario||t('A combinar')],['Passageiros',passageiros],['Detalhes',detalhes||t('A combinar')]
+  ].map(([label,value])=>`${t(label)}: ${value}`)].join('\n');
+  return {errors, message, href:`https://wa.me/5511988329725?text=${encodeURIComponent(message)}`, summary:{origem,destino,data:formattedDate,horario:horario || t('A combinar'),passageiros,detalhes}};
 }
