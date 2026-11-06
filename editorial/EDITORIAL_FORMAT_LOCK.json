@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "lock": "MOTORISTAOPS_SOCIAL_EDITORIAL_FORMAT_LOCK",
-  "version": "3.5",
+  "version": "3.6",
   "effective_date": "2026-10-28",
   "status": "LOCKED",
   "authority": "MotoristaOPS/SOCIAL_EDITORIAL.md",
@@ -188,5 +188,14 @@
       "legacy_template_fallback_used": false,
       "provider_native_format_used": false
     }
+  },
+  "last_amended": "2026-11-06",
+  "composition_reference_pack": {
+    "id": "motoristaops-editorial-2026-11-06",
+    "document": "editorial/REFERENCE_PACK_2026-11-06.md",
+    "purpose": "composition_only",
+    "reference_pixels_approved_for_publication": false,
+    "mandatory_context_first": true,
+    "mandatory_mobile_qa": true
   }
 }
