@@ -1,7 +1,7 @@
 import {createTranslator,language,languages} from '../src/i18n.mjs';
 
 export const BASE='https://www.motoristaops.com.br';
-export const RELEASE='landing-2026-11-06-i18n';
+export const RELEASE='landing-2026-11-06-header-r02';
 const escape=text=>text.replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 
 export function localizeDocument(template,markup,locale) {
