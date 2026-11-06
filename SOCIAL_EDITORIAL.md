@@ -1,8 +1,8 @@
 # MotoristaOPS — Padrão Editorial Oficial
 
 Status: ACTIVE
-Version: 3.2
-Date: 2026-10-29
+Version: 3.3
+Date: 2026-11-06
 Authority: MotoristaOPS
 Scope: publicações sociais, posts únicos, carrosséis, conteúdo sazonal/comemorativo, campanhas editoriais e peças derivadas
 Supersedes: Social Editorial Standard v1.0 e decisões parciais anteriores sobre templates eleitorais quando conflitarem com este documento
@@ -394,3 +394,16 @@ Magnific excepcional:
 - `production.exception_reason` não vazio.
 
 Logo/identidade, Henrico e o Omoda 5 Luxury continuam proibidos de serem inventados ou regenerados. Se o fluxo permitido não preservar fielmente o asset oficial, a peça fica **PENDENTE/BLOCKED**.
+
+
+## 20. Consolidação editorial do reference pack — 06/11/2026
+
+**CANONICAL / PROJECT — direção de composição, não aprovação de pixels.** O operador reforçou expressamente a arquitetura dos oito exemplos BTS, GP de São Paulo, FENATRAN e E-MOB (claros/escuros) e acrescentou um carrossel contextual, a arte G4 Valley e três painéis de composições (13 arquivos ao todo), além de transcrição sobre contexto primeiro. A auditoria e os hashes estão em [`editorial/REFERENCE_PACK_2026-11-06.md`](editorial/REFERENCE_PACK_2026-11-06.md) e [`editorial/REFERENCE_PACK_2026-11-06.json`](editorial/REFERENCE_PACK_2026-11-06.json).
+
+**Hierarquia visual reforçada:** ocasião/tema → título forte em Instrument Sans → imagem contextual dominante e fiel → data/local verificados quando necessários → argumento de mobilidade conciso → CTA editorial em texto simples → assinatura oficial exata. Clareza mobile, margens/respiro, 6 colunas/72 px e gutters de 24 px no baseline quando aplicável. Uma área dominante por peça, sem microtexto. Para eventos, `single_static` com composição de evento protagonista é o padrão preferencial, sem obrigação de mostrar carro.
+
+**Não importar dos exemplos:** tipografia aparentemente condensada não comprovada, logo redesenhado/duplicado, ícones decorativos ou botões falsos, WhatsApp fora do telefone, imagens sintetizadas de Omoda ou Henrico, cenas falsas de locais reais, agenda de 2025/2026 copiada sem verificação, assinatura institucional completa onde a variante social reduzida é a aplicável. A direção estética não derroga nenhuma trava existente.
+
+**Escopo estrutural preservado:** `single_static`, `seasonal_carousel_static` (exatos 3 slides) e `carousel_static` (abertura/conteúdo/fechamento) continuam as únicas três famílias padrão. Colagem, grid ou painel de amostras é curadoria/referência, não um novo formato de publicação. Qualquer Reel, Story, vídeo ou formato diferente exige override explícito e pontual do operador.
+
+**Persistência e mudança:** este padrão é versionado e fail-closed, não literalmente impossível de editar. Apenas nova decisão explícita do operador e sincronização dos espelhos HenricoOPS/Skill podem modificá-lo. Antes de qualquer release, aplicar `editorial/EDITORIAL_FORMAT_LOCK.json`, `scripts/validate_social_editorial.py` e QA visual individual com `APPROVED`; sem isso, `PENDENTE` e sem agendamento/publicação.
