@@ -1,0 +1,175 @@
+{
+  "schema": "motoristaops.editorial-reference-pack.v1",
+  "id": "motoristaops-editorial-2026-11-06",
+  "approved_direction_date": "2026-11-06",
+  "status": "REFERENCE_ARCHITECTURE_CANONICAL_PIXELS_NOT_APPROVED",
+  "format_families": [
+    "single_static",
+    "seasonal_carousel_static",
+    "carousel_static"
+  ],
+  "canonical_doc": "editorial/REFERENCE_PACK_2026-11-06.md",
+  "authority": "SOCIAL_EDITORIAL.md",
+  "legacy_pixels_allowed_as_final_assets": false,
+  "asset_sha256": {
+    "logo-operator-supplied.png": "8c1ff532af4072fe77cc3a87abe2b4dca32d28927d8875d1164adf4628cab31b"
+  },
+  "assets": [
+    {
+      "id": "ref-01",
+      "file_name": "Imagem do ChatGPT 6 de nov. de 2026, 11_22_36-1.png",
+      "subject": "BTS",
+      "mode": "dark",
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "sha256": "50361c375736545929f868d389bcf5359c01e0911929cd36fc6ca9945c50588b",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "ref-02",
+      "file_name": "Imagem do ChatGPT 6 de nov. de 2026, 11_22_39-2.png",
+      "subject": "BTS",
+      "mode": "light",
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "sha256": "99df9c46a348777c857f2c10e444ee648c0ea036f455f1c63b1d96040cb35d34",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "ref-03",
+      "file_name": "Imagem do ChatGPT 6 de nov. de 2026, 11_22_41-3.png",
+      "subject": "GP Sao Paulo",
+      "mode": "dark",
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "sha256": "afd08e8dbf1b635adc373f7ce1d66972f95e4b2764ea2db0f5eaecb5e1ea3ee0",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "ref-04",
+      "file_name": "Imagem do ChatGPT 6 de nov. de 2026, 11_22_43-4.png",
+      "subject": "GP Sao Paulo",
+      "mode": "light",
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "sha256": "cfcf72ba8a64d4955cbd9175126d971bb2f0b56179560c9ecc546ce49d090d5d",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "ref-05",
+      "file_name": "Imagem do ChatGPT 6 de nov. de 2026, 11_22_46-5.png",
+      "subject": "E-MOB",
+      "mode": "dark",
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "sha256": "ffe35d2855cb19b30f34b2539be81b2de9ea19345e73c68aa74f045e7230e4a5",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "ref-06",
+      "file_name": "Imagem do ChatGPT 6 de nov. de 2026, 11_22_48-6.png",
+      "subject": "Fenatran",
+      "mode": "light",
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "sha256": "d76d7bfbf93abd35a45e67c4d4998a001dd853837f48feb5fabd22cb6ab347c1",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "ref-07",
+      "file_name": "Imagem do ChatGPT 6 de nov. de 2026, 11_22_50-7.png",
+      "subject": "Fenatran",
+      "mode": "dark",
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "sha256": "ced89830bdaa9c5e6f069cec35547704222c738f96f26d0b627f3fca351e1429",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "ref-08",
+      "file_name": "Imagem do ChatGPT 6 de nov. de 2026, 11_22_52-8.png",
+      "subject": "E-MOB",
+      "mode": "light",
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "sha256": "63cb6ee88caa43b391f60b2e73d86d05b89c210e59fec49e63fafa6d703de68e",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "ref-09",
+      "file_name": "image(20261106-142348).png",
+      "subject": "three places carousel",
+      "mode": "mixed",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "583012145f3a58ce1488c88619548a17a892e427d4a914ab891c004c019ce736",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "ref-10",
+      "file_name": "G4 Valley sem correria no São Paulo Expo-1.png",
+      "subject": "G4 Valley",
+      "mode": "light",
+      "dimensions": [
+        1122,
+        1402
+      ],
+      "sha256": "a9b889a79cebbc0d5dcebbe3b67cc6bd3004505a7a3b391f985bef9b11d3b8af",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "ref-11",
+      "file_name": "Painel de Eventos MotoristaOPS-2.png",
+      "subject": "event posters index",
+      "mode": "mixed",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "4e90c59d526a33e9e515629ef9de0dd9867f1fc9b916bdca7afd1d6595f0292e",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "ref-12",
+      "file_name": "MotoristaOPS_ Eventos em São Paulo-3.png",
+      "subject": "event posters index",
+      "mode": "mixed",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "de7d2537d3c204c1d229d1efe21f4a3f87d7c35314a20bdcfaa91b63e285986b",
+      "status": "REFERENCE_ONLY"
+    },
+    {
+      "id": "ref-13",
+      "file_name": "Colagem de pôsteres para eventos MotoristaOPS-4.png",
+      "subject": "event posters index",
+      "mode": "mixed",
+      "dimensions": [
+        1536,
+        1024
+      ],
+      "sha256": "0e060ad3ad23a85fabcd21d6e9cc25cfab2bd0433e5666078cc4357e2da61f00",
+      "status": "REFERENCE_ONLY"
+    }
+  ]
+}
