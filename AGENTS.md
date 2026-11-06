@@ -30,7 +30,7 @@ O pedido do operador é literal-first. Não reinterpretar restrições explícit
 
 ### Editorial social routing
 
-Pedidos equivalentes a criação/revisão de post ou carrossel MotoristaOPS e os gatilhos `/carrosselops` / `/postops` devem resolver `SOCIAL_EDITORIAL.md` e a skill canônica HenricoOPS `skills/motoristaops-editorial/SKILL.md`. O contexto da ocasião vem antes do repertório urbano padrão; São Paulo não é cenário automático para feriados, datas comemorativas, destinos ou campanhas temáticas.
+Para qualquer nova arte social, carregar também `editorial/REFERENCE_PACK_2026-11-06.md` como referência máxima de arquitetura (13 anexos; pixels REFERENCE_ONLY), sem usar identidade, fontes, CTA ou veículo gerados presentes nos exemplos. A composição de evento protagonista integra `single_static`; não cria quarto formato. Qualquer conflito é resolvido por `SOCIAL_EDITORIAL.md` e Brand Book V2.\n\nPedidos equivalentes a criação/revisão de post ou carrossel MotoristaOPS e os gatilhos `/carrosselops` / `/postops` devem resolver `SOCIAL_EDITORIAL.md` e a skill canônica HenricoOPS `skills/motoristaops-editorial/SKILL.md`. O contexto da ocasião vem antes do repertório urbano padrão; São Paulo não é cenário automático para feriados, datas comemorativas, destinos ou campanhas temáticas.
 
 
 ### Editorial format lock — fail-closed
