@@ -19,6 +19,9 @@ set net:max-retries 2
 set net:timeout 20
 cls -1 "$TARGET"
 mirror --reverse --verbose source/landing/dist/assets "$TARGET/assets"
+# Publish language pages before exposing their links in the main page.
+mirror --reverse --verbose source/landing/dist/en "$TARGET/en"
+mirror --reverse --verbose source/landing/dist/es "$TARGET/es"
 put source/landing/dist/robots.txt -o "$TARGET/robots.txt"
 put source/landing/dist/sitemap.xml -o "$TARGET/sitemap.xml"
 put source/landing/dist/.htaccess -o "$TARGET/.htaccess"
