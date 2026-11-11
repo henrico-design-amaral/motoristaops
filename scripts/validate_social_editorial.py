@@ -3,7 +3,7 @@ import json
 import sys
 from pathlib import Path
 
-ALLOWED = {"single_static", "seasonal_carousel_static", "carousel_static"}
+ALLOWED = {"single_static", "seasonal_carousel_static", "carousel_static", "reel_short", "story_vertical"}
 ALLOWED_PALETTE_MODES = {"light", "dark", "mixed"}
 CANONICAL_BRAND_COLORS = {
     "#070709",
@@ -32,6 +32,7 @@ REQUIRED_QA = [
     "cta_whatsapp_rule_verified",
     "legacy_format_reference_absent",
     "canonical_inheritance_verified",
+    "video_qa_verified_when_applicable",
 ]
 
 def verdict(errors):
@@ -153,21 +154,41 @@ def main():
 
     production = data.get("production") or {}
     engine = production.get("engine")
+    media_type = production.get("media_type", "static")
     if production.get("vector_creation") is not False:
         errors.append("vector creation is forbidden")
     if production.get("canva_creation") is not False:
         errors.append("Canva creation is forbidden")
-    if engine == "gpt_images":
-        pass
-    elif engine == "magnific":
-        if production.get("magnific_exception") is not True:
-            errors.append("Magnific requires magnific_exception=true")
-        if production.get("gpt_images_attempted") is not True:
-            errors.append("Magnific requires a prior GPT Images attempt")
-        if not str(production.get("exception_reason", "")).strip():
-            errors.append("Magnific requires a documented exception_reason")
+
+    video_format = fmt == "reel_short" or (fmt == "story_vertical" and media_type == "video")
+    if video_format:
+        if media_type != "video":
+            errors.append("formato de vídeo deve declarar production.media_type=video")
+        if not str(production.get("video_engine", "")).strip():
+            errors.append("produção em vídeo deve declarar video_engine")
+        if production.get("video_engine_approved") is not True:
+            errors.append("video_engine precisa estar aprovado para a tarefa")
+        video = data.get("video") or {}
+        for key in ("script_ready", "beat_map_ready", "shot_asset_map_ready", "media_provenance_recorded",
+                    "full_render_with_sound_inspected", "full_render_muted_inspected", "technical_qa_passed"):
+            if video.get(key) is not True:
+                errors.append(f"vídeo deve confirmar {key}=true")
+        if video.get("human_acceptance") != "APPROVED":
+            errors.append("vídeo exige aceite humano APPROVED separado do QA técnico")
     else:
-        errors.append("production.engine must be gpt_images; Magnific is extraordinary fallback only")
+        if media_type != "static":
+            errors.append("formato estático deve declarar production.media_type=static")
+        if engine == "gpt_images":
+            pass
+        elif engine == "magnific":
+            if production.get("magnific_exception") is not True:
+                errors.append("Magnific requires magnific_exception=true")
+            if production.get("gpt_images_attempted") is not True:
+                errors.append("Magnific requires a prior GPT Images attempt")
+            if not str(production.get("exception_reason", "")).strip():
+                errors.append("Magnific requires a documented exception_reason")
+        else:
+            errors.append("produção estática deve usar gpt_images; Magnific é fallback extraordinário")
 
     qa = data.get("qa", {})
     for key in REQUIRED_QA:
@@ -198,6 +219,16 @@ def main():
                 if last.get(key) is not True:
                     errors.append(f"último slide deve confirmar {key}=true")
 
+    if fmt == "carousel_static":
+        cluster = data.get("event_cluster") or {}
+        if cluster.get("enabled") is True:
+            if cluster.get("grouped_by_same_day_or_week") is not True:
+                errors.append("carrossel de eventos deve agrupar eventos do mesmo dia ou da mesma semana")
+            if cluster.get("facts_verified_per_event") is not True:
+                errors.append("cada evento agrupado deve ter fatos verificados")
+            if int(cluster.get("events_count") or 0) < 2:
+                errors.append("carrossel agrupado precisa conter pelo menos 2 eventos")
+
     if fmt == "seasonal_carousel_static":
         slides = data.get("slides") or []
         if len(slides) != 3:
@@ -226,6 +257,18 @@ def main():
         for key in ("has_main_message", "has_contextual_composition", "has_cta", "has_closing_signature"):
             if single.get(key) is not True:
                 errors.append(f"post único deve confirmar {key}=true")
+
+    if fmt == "reel_short":
+        reel = data.get("reel") or {}
+        for key in ("has_hook", "has_development", "has_closing", "has_cta", "on_screen_text_legible"):
+            if reel.get(key) is not True:
+                errors.append(f"Reel deve confirmar {key}=true")
+
+    if fmt == "story_vertical":
+        story = data.get("story") or {}
+        for key in ("has_main_message", "has_contextual_composition", "safe_areas_verified", "has_brand_anchor"):
+            if story.get(key) is not True:
+                errors.append(f"Story deve confirmar {key}=true")
 
     return verdict(errors)
 
