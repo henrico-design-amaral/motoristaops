@@ -1,8 +1,8 @@
 # MotoristaOPS — Padrão Editorial Oficial
 
 Status: ACTIVE
-Version: 3.3
-Date: 2026-11-06
+Version: 3.4
+Date: 2026-11-11
 Authority: MotoristaOPS
 Scope: publicações sociais, posts únicos, carrosséis, conteúdo sazonal/comemorativo, campanhas editoriais e peças derivadas
 Supersedes: Social Editorial Standard v1.0 e decisões parciais anteriores sobre templates eleitorais quando conflitarem com este documento
@@ -47,6 +47,21 @@ Fail-closed:
 A quantidade de slides intermediários pode variar conforme a necessidade de conteúdo. As funções estruturais de abertura, intermediários e fechamento não podem variar.
 
 O modo claro/escuro e a proporção entre fotografia, texto, ícones e espaços são variações internas do sistema e **não** constituem mudança de formato.
+
+## 1B. Trava de herança e não reinvenção
+
+Status: **LOCKED / FAIL-CLOSED**.
+
+Toda nova peça MotoristaOPS deve **herdar** o sistema já aprovado. Novo tema, novo evento, nova data, nova mensagem ou nova campanha **não** autorizam criar uma nova família visual, um novo template, uma nova estrutura de informação, uma nova assinatura, um novo tratamento de CTA, um novo estilo de ícones, um novo veículo ou qualquer solução que já esteja resolvida no canon.
+
+Obrigatório:
+- começar sempre pela família oficial aplicável e pelas referências canônicas vigentes;
+- reutilizar exatamente decisões, assets, tokens, regras e estruturas já documentados quando eles já existirem;
+- variar apenas o que o contexto realmente exige: tema, fotografia autorizada, copy, informação verificada, modo claro/escuro e distribuição permitida dentro da gramática oficial;
+- interpretar pedidos como “crie novos posts de eventos”, “faça novas peças” ou equivalentes como autorização para **novo conteúdo dentro do padrão**, nunca como autorização para inventar outro padrão;
+- se um asset, regra, master ou decisão aprovada necessária não estiver acessível, marcar **PENDENTE/BLOCKED** em vez de recriar, aproximar ou improvisar.
+
+Regra curta: **o que já foi definido não é recriado; é carregado e aplicado.**
 
 ## 2. Princípio-mãe: contexto primeiro
 
@@ -236,13 +251,15 @@ O sistema pode operar em modo claro, escuro ou mesclado, mas não é permitido c
 
 Carro MotoristaOPS vigente = **Omoda 5 Luxury cinza**.
 
+**Regra absoluta de representação:** se qualquer automóvel aparecer em uma peça MotoristaOPS, ele deve ser o **veículo operacional vigente** definido pela fonte canônica naquele momento. Não usar carro genérico como ambientação, substituto, apoio visual ou aproximação. Hoje, isso significa exclusivamente o **Omoda 5 Luxury cinza**.
+
 O **HB20 é histórico** e não pode ser usado, inferido ou apresentado como veículo operacional atual.
 
-Não usar sedã premium genérico, Omoda aproximado ou qualquer veículo aleatório como substituto.
+Não usar sedã premium genérico, SUV aleatório, Omoda aproximado, outro modelo da marca ou qualquer veículo que não seja exatamente o operacional vigente.
+
+Pessoas e veículo MotoristaOPS reais são ativos protegidos: não gerar Henrico nem o Omoda 5 Luxury por IA. Sempre que houver carro, usar somente fotografia/filmagem real e aprovada do veículo oficial vigente. Se essa mídia não estiver disponível para o fluxo, a composição deve ser feita **sem carro** e marcada PENDENTE quando o veículo for requisito do briefing.
 
 Para transporte público, usar referências reconhecíveis de São Paulo quando forem pertinentes. Não inventar ou aproximar identidades oficiais.
-
-Pessoas e veículo MotoristaOPS reais são ativos protegidos: não gerar Henrico nem o Omoda 5 Luxury por IA. Quando o veículo for evidência da operação, usar somente fotografia/filmagem real e aprovada do carro oficial.
 
 ## 11. Escolha entre claro e escuro
 
