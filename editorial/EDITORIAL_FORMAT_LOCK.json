@@ -1,14 +1,16 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "lock": "MOTORISTAOPS_SOCIAL_EDITORIAL_FORMAT_LOCK",
-  "version": "3.7",
+  "version": "3.8",
   "effective_date": "2026-10-28",
   "status": "LOCKED",
   "authority": "MotoristaOPS/SOCIAL_EDITORIAL.md",
   "default_allowed_formats": [
     "single_static",
     "seasonal_carousel_static",
-    "carousel_static"
+    "carousel_static",
+    "reel_short",
+    "story_vertical"
   ],
   "exception_policy": "explicit_current_operator_authorization_only",
   "provider_fallback_allowed": false,
@@ -33,7 +35,17 @@
       "cta",
       "signature",
       "logo"
-    ]
+    ],
+    "event_cluster": {
+      "allowed": true,
+      "grouping_window": [
+        "same_day",
+        "same_week"
+      ],
+      "prefer_one_event_per_content_slide": true,
+      "verified_name_date_venue_per_event": true,
+      "split_when_mobile_legibility_would_degrade": true
+    }
   },
   "single_static": [
     "main_message",
@@ -54,7 +66,8 @@
       "identity_integrity_verified",
       "palette_exact_verified",
       "current_vehicle_verified_when_shown",
-      "canonical_inheritance_verified"
+      "canonical_inheritance_verified",
+      "video_qa_verified_when_applicable"
     ]
   },
   "identity_lock": {
@@ -123,6 +136,13 @@
       "policy": "extraordinary_last_resort_only",
       "requires_gpt_images_attempt": true,
       "requires_exception_reason": true
+    },
+    "video": {
+      "engine_must_be_declared": true,
+      "engine_must_be_approved_for_task": true,
+      "short_form_protocol": "HenricoOPS/governance/protocols/SHORT_FORM_VIDEO_PROTOCOL.md",
+      "full_render_with_sound_and_muted_qa": true,
+      "human_acceptance_separate": true
     }
   },
   "seasonal_routing": {
@@ -202,6 +222,20 @@
     "vehicle": {
       "other_vehicle_visible": false,
       "visible_vehicle_is_current_operational_vehicle": true
+    },
+    "event_cluster": {
+      "grouped_by_same_day_or_week": true,
+      "facts_verified_per_event": true
+    },
+    "video": {
+      "script_ready": true,
+      "beat_map_ready": true,
+      "shot_asset_map_ready": true,
+      "media_provenance_recorded": true,
+      "full_render_with_sound_inspected": true,
+      "full_render_muted_inspected": true,
+      "technical_qa_passed": true,
+      "human_acceptance": "APPROVED"
     }
   },
   "last_amended": "2026-11-11",
@@ -219,5 +253,30 @@
     "approved_elements_must_not_be_recreated": true,
     "missing_canonical_asset_policy": "pending_blocked",
     "new_format_requires_explicit_operator_override": true
+  },
+  "reel_short": {
+    "media_type": "video",
+    "aspect_ratio": "9:16",
+    "one_core_idea": true,
+    "early_hook_required": true,
+    "script_required": true,
+    "beat_map_required": true,
+    "shot_asset_map_required": true,
+    "media_provenance_required": true,
+    "full_render_with_sound_inspection_required": true,
+    "full_render_muted_inspection_required": true,
+    "technical_qa_separate_from_human_acceptance": true,
+    "no_synthetic_operator_or_operational_vehicle": true
+  },
+  "story_vertical": {
+    "aspect_ratio": "9:16",
+    "media_types": [
+      "static",
+      "video"
+    ],
+    "one_main_message": true,
+    "safe_zones_required": true,
+    "mechanical_resize_forbidden": true,
+    "video_inherits_reel_video_qa": true
   }
 }
