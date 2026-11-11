@@ -1,7 +1,7 @@
 # MotoristaOPS — Padrão Editorial Oficial
 
 Status: ACTIVE
-Version: 3.4
+Version: 3.5
 Date: 2026-11-11
 Authority: MotoristaOPS
 Scope: publicações sociais, posts únicos, carrosséis, conteúdo sazonal/comemorativo, campanhas editoriais e peças derivadas
@@ -20,13 +20,17 @@ O que permanece fixo é a gramática editorial e a estrutura dos formatos autori
 
 Status: **LOCKED / FAIL-CLOSED**.
 
-Por padrão, somente três formatos são permitidos para novas publicações sociais MotoristaOPS:
+Por padrão, somente cinco formatos são permitidos para novas publicações sociais MotoristaOPS:
 
 1. **post estático único** (`single_static`);
 2. **post sazonal oficial em 3 imagens** (`seasonal_carousel_static`);
-3. **carrossel estático editorial** (`carousel_static`).
+3. **carrossel estático editorial** (`carousel_static`);
+4. **Reel curto vertical** (`reel_short`);
+5. **Story vertical** (`story_vertical`).
 
-Qualquer outro formato é vetado por padrão. Isso inclui Reel, Story, vídeo, poll, grid, collage, sequência alternativa, pôster com gramática própria, adaptação automática de formato ou qualquer estrutura não prevista neste documento.
+Qualquer outro formato é vetado por padrão. Isso inclui poll, grid, collage, thread, meme, sequência alternativa, pôster com gramática própria, adaptação automática de formato ou qualquer estrutura não prevista neste documento.
+
+**Decisão explícita do operador em 11/11/2026:** Reel e Story deixam de ser exceções e passam a integrar o canon. Essa autorização não libera novas famílias além das cinco acima.
 
 Uma exceção só existe quando o operador autoriza de forma explícita e inequívoca a mudança de formato no pedido atual. A exceção vale apenas para a tarefa autorizada e não altera este canon.
 
@@ -145,7 +149,22 @@ Obrigatório:
 - assinatura/logo;
 - fechamento comercial sem transformar a peça em panfleto.
 
-## 5A. Post sazonal oficial
+## 5A. Agrupamento editorial de eventos
+
+Eventos relevantes que ocorram **no mesmo dia ou na mesma semana** podem e devem ser agrupados em um único `carousel_static` quando isso reduzir repetição, custo de produção e risco de inconsistência sem prejudicar a compreensão.
+
+Regras:
+- abertura apresenta a janela temporal e o motivo do carrossel;
+- cada evento deve ter nome, data e local verificados em fonte atual;
+- por padrão, usar um evento por slide de conteúdo para reduzir densidade e erro;
+- slides de conteúdo seguem sem logo e sem CTA comercial repetido;
+- o último slide fecha com MotoristaOPS, proposta de mobilidade e CTA;
+- não misturar eventos apenas para “encher” o carrossel; o agrupamento precisa ser temporalmente coerente;
+- se a quantidade comprometer leitura mobile, dividir em dois carrosséis em vez de condensar.
+
+Esse agrupamento é uma **variação oficial de `carousel_static`**, não uma nova família visual.
+
+## 5B. Post sazonal oficial
 
 O post sazonal é um formato próprio de **3 imagens**.
 
@@ -179,6 +198,51 @@ O operador aprovou explicitamente o arranjo editorial limpo, discreto e reproduz
 **Travas inalteradas:** somente Instrument Sans, cores exatas, logo/assinatura oficial sem alteração, veículo real Omoda 5 Luxury cinza se for mostrado, nenhum carro por obrigação, nenhum logo de evento fictício, nenhum ícone de WhatsApp sem número associado e nenhuma cápsula/botão de CTA editorial não autorizada. No post único, não duplicar a assinatura automaticamente.
 
 **Referência operacional e proveniência:** [`editorial/PADRAO_POST_SIMPLES_EVENTO_2026-10-29.md`](editorial/PADRAO_POST_SIMPLES_EVENTO_2026-10-29.md). A direção de layout foi aprovada; os renders gerados por IA continuam sujeitos a substituição/validação de camadas de identidade e QA individual. A decisão não representa autorização de publicação.
+
+## 6B. Reel curto vertical
+
+`reel_short` é o formato oficial para vídeo curto MotoristaOPS.
+
+Princípios:
+- 9:16 como composição vertical principal;
+- uma ideia central por Reel;
+- gancho compreensível nos primeiros segundos, sem clickbait;
+- roteiro curto -> mapa de batidas -> mapa de planos/assets -> keyframes quando necessário -> edição -> texto/legendas -> áudio -> render;
+- movimento só quando ajuda hierarquia, continuidade ou narrativa;
+- texto em tela legível em celular e dentro de safe zones;
+- deve funcionar sem som quando o contexto da plataforma tornar isso relevante;
+- CTA simples no encerramento;
+- identidade, tipografia, paleta, veículo e assets seguem exatamente as mesmas travas do sistema estático.
+
+Para vídeo MotoristaOPS é obrigatório registrar:
+- roteiro;
+- mapa de planos;
+- origem e autorização das mídias;
+- engine/pipeline de vídeo usado;
+- inspeção do render completo **com som e sem som**;
+- QA técnico separado do aceite humano de voz/imagem.
+
+Henrico e o Omoda 5 Luxury não podem ser sintetizados por IA. Se aparecerem, usar apenas mídia real aprovada.
+
+## 6C. Story vertical
+
+`story_vertical` é o formato oficial para Story, estático ou em vídeo curto.
+
+Uso preferencial:
+- lembrete de evento;
+- agenda do dia/fim de semana;
+- informação útil;
+- reforço de um post/carrossel já publicado;
+- chamada comercial simples e contextual.
+
+Regras:
+- 9:16;
+- uma mensagem principal por Story;
+- leitura imediata e safe zones preservadas;
+- não transformar Story em mini-panfleto;
+- manter identidade MotoristaOPS, Instrument Sans, tokens, CTA e veículo conforme o canon;
+- Story em vídeo herda integralmente o protocolo de QA de `reel_short`;
+- adaptar composição para vertical; nunca fazer resize mecânico de uma peça 4:5 e chamar isso de versão final.
 
 ## 7. Marca e assinatura
 
@@ -314,6 +378,8 @@ Os gatilhos orientam o formato e o contexto; o briefing livre do operador perman
 
 - `/carrosselops [modificador] [tema] [instruções]`
 - `/postops [modificador] [tema] [instruções]`
+- `/reelops [modificador] [tema] [instruções]`
+- `/storyops [modificador] [tema] [instruções]`
 
 Modificadores:
 - `base`;
@@ -368,6 +434,9 @@ Antes de entregar ou publicar:
 - confirmar Omoda 5 Luxury cinza como veículo operacional atual quando houver veículo;
 - conferir veículo e pessoas reais quando aplicável;
 - conferir cada slide/render individualmente;
+- para vídeo, conferir roteiro, mapa de planos e proveniência das mídias;
+- para vídeo, assistir ao render integral com som e sem som;
+- para vídeo, separar QA técnico do aceite humano de voz/imagem;
 - comparar com o sistema editorial aprovado.
 
 Se fonte, asset oficial, master aplicável ou inspeção final estiverem indisponíveis, marcar **PENDENTE** e declarar o limite. Não chamar a peça de aprovada/publicada sem evidência.
@@ -412,6 +481,15 @@ Magnific excepcional:
 
 Logo/identidade, Henrico e o Omoda 5 Luxury continuam proibidos de serem inventados ou regenerados. Se o fluxo permitido não preservar fielmente o asset oficial, a peça fica **PENDENTE/BLOCKED**.
 
+
+## 19A. Produção de vídeo
+
+Reels e Stories em vídeo usam o **Short-form Video Protocol** do HenricoOPS como protocolo de produção subordinado à identidade MotoristaOPS.
+
+A engine de vídeo não é presumida nem escolhida por conveniência. Cada pipeline deve ser registrado no manifesto e marcado como aprovado para aquela produção. Sem engine/pipeline verificado, o vídeo pode ser desenvolvido até roteiro/keyframes, mas não pode ser liberado para publicação.
+
+Fluxo mínimo:
+`roteiro -> beat map -> mapa de planos/assets -> keyframes -> direção congelada -> edição/produção -> legendas/texto -> mix de áudio -> render -> QA técnico -> aceite humano`.
 
 ## 20. Consolidação editorial do reference pack — 06/11/2026
 
