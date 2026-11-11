@@ -31,6 +31,7 @@ REQUIRED_QA = [
     "reference_fidelity_verified_when_applicable",
     "cta_whatsapp_rule_verified",
     "legacy_format_reference_absent",
+    "canonical_inheritance_verified",
 ]
 
 def verdict(errors):
@@ -87,12 +88,29 @@ def main():
     if invalid:
         errors.append("cores de marca fora dos tokens canônicos: " + ", ".join(invalid))
 
+
+    inheritance = data.get("inheritance") or {}
+    if inheritance.get("current_canon_loaded") is not True:
+        errors.append("fonte canônica atual deve ser carregada antes da criação")
+    if inheritance.get("approved_elements_reused_not_recreated") is not True:
+        errors.append("elementos já aprovados devem ser reutilizados, não recriados")
+    if inheritance.get("new_format_invented") is not False:
+        errors.append("não é permitido inventar novo formato sem override explícito")
+    if inheritance.get("new_visual_family_invented") is not False:
+        errors.append("não é permitido inventar nova família visual")
+    if inheritance.get("missing_asset_improvised") is not False:
+        errors.append("asset canônico ausente não pode ser improvisado ou aproximado")
+
     vehicle = data.get("vehicle") or {}
     if vehicle.get("current_model") != CURRENT_VEHICLE_MODEL:
         errors.append(f"veículo operacional atual deve ser {CURRENT_VEHICLE_MODEL}")
     if str(vehicle.get("current_color", "")).lower() != CURRENT_VEHICLE_COLOR:
         errors.append(f"cor do veículo operacional atual deve ser {CURRENT_VEHICLE_COLOR}")
+    if vehicle.get("other_vehicle_visible") is not False:
+        errors.append("nenhum outro veículo pode aparecer na peça MotoristaOPS")
     if vehicle.get("shown") is True:
+        if vehicle.get("visible_vehicle_is_current_operational_vehicle") is not True:
+            errors.append("todo veículo visível deve ser o veículo operacional vigente")
         if vehicle.get("official_real_asset") is not True:
             errors.append("Omoda mostrado deve usar mídia real/aprovada")
         if vehicle.get("ai_generated") is not False:
