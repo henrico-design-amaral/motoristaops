@@ -22,17 +22,18 @@ type DailyClosing = {
   odometer_end_km?: number | null;
 };
 type PrivateFinance = {
-  status: 'confirmed';
-  period: string;
-  generatedAt: string;
-  bankBalanceTotal: number | null;
-  monthInflows: number | null;
-  monthOutflows: number | null;
-  monthNet: number | null;
-  workIncome: number | null;
-  familySupport: number | null;
-  reserveBalance: number | null;
-  upcomingDues: number | null;
+  competence_month: string;
+  source_as_of: string;
+  data_quality: 'partial' | 'confirmed';
+  source_label: string;
+  bank_balance_total: number | null;
+  month_inflows: number | null;
+  month_outflows: number | null;
+  month_net: number | null;
+  work_income: number | null;
+  family_support: number | null;
+  reserve_balance: number | null;
+  upcoming_dues: number | null;
 };
 const byId = (id: string) => document.getElementById(id);
 const fmtMoney = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -173,38 +174,46 @@ async function loadOperation(userId: string) {
   text('uc-source-driver', 'MotoristaOPS: ' + s.days + ' fechamento(s) obtido(s) da conta autenticada');
   renderTrend(fetchedClosings); renderClosings(fetchedClosings);
 }
-async function loadPrivateFinance(accessToken: string): Promise<boolean> {
-  // Contract: same-origin, server-side auth + authorization + Neon/Banco reconciliation.
-  // Never fetch GitHub snapshots or put database credentials in the browser.
+async function loadPrivateFinance(userId: string): Promise<boolean> {
+  // Authenticated projection only. Banking data never enters the static HTML or public JSON.
   try {
-    const response = await fetch('/api/unified-finance?month=' + encodeURIComponent(month), {
-      headers: { Authorization: 'Bearer ' + accessToken, Accept: 'application/json' },
-      credentials: 'same-origin', cache: 'no-store'
-    });
-    if (!response.ok || !String(response.headers.get('content-type')).includes('application/json'))
-      throw new Error('Endpoint financeiro indisponivel');
-    const data: PrivateFinance = await response.json();
-    if (data.status !== 'confirmed' || data.period !== month) throw new Error('Financeiro sem reconciliacao confirmada');
+    const { data, error } = await supabase.from('finance_monthly_readmodel')
+      .select('competence_month,source_as_of,data_quality,source_label,bank_balance_total,month_inflows,month_outflows,month_net,work_income,family_support,reserve_balance,upcoming_dues')
+      .eq('owner_id', userId).eq('competence_month', month + '-01')
+      .maybeSingle();
+    if (error || !data) throw error ?? new Error('Resumo financeiro nao publicado');
+    const finance = data as PrivateFinance;
+    if (finance.competence_month !== month + '-01'
+      || !['partial','confirmed'].includes(finance.data_quality)) {
+      throw new Error('Periodo ou proveniencia nao validados');
+    }
     const entries: Array<[string, number | null]> = [
-      ['uc-bank-balance', data.bankBalanceTotal],
-      ['uc-bank-inflows', data.monthInflows],
-      ['uc-bank-outflows', data.monthOutflows],
-      ['uc-bank-net', data.monthNet],
-      ['uc-bank-work', data.workIncome],
-      ['uc-bank-family', data.familySupport],
-      ['uc-bank-reserve', data.reserveBalance],
-      ['uc-bank-dues', data.upcomingDues]
+      ['uc-bank-balance',finance.bank_balance_total],
+      ['uc-bank-inflows',finance.month_inflows],
+      ['uc-bank-outflows',finance.month_outflows],
+      ['uc-bank-net',finance.month_net],
+      ['uc-bank-work',finance.work_income],
+      ['uc-bank-family',finance.family_support],
+      ['uc-bank-reserve',finance.reserve_balance],
+      ['uc-bank-dues',finance.upcoming_dues]
     ];
-    for (const [id, value] of entries) privateValue(id, currencyOrDash(numberOrNull(value)));
-    text('uc-bank-state', 'Conciliado');
-    text('uc-bank-balance-note', 'Atualizado em ' + new Date(data.generatedAt).toLocaleString('pt-BR'));
-    text('uc-source-bank', 'Financeiro: API autenticada e periodo confirmado');
+    for (const [id, value] of entries) privateValue(id,currencyOrDash(numberOrNull(value)));
+    const asOf = new Date(finance.source_as_of);
+    const validTime = Number.isFinite(asOf.valueOf());
+    const stale = !validTime || Date.now() - asOf.getTime() > 24 * 60 * 60 * 1000;
+    text('uc-bank-state',stale ? 'Snapshot desatualizado' :
+      finance.data_quality === 'partial' ? 'Dados parciais' : 'Conciliado');
+    text('uc-bank-balance-note',
+      validTime ? 'Leitura de ' + asOf.toLocaleString('pt-BR',{timeZone:'America/Sao_Paulo'}) :
+        'Data da leitura nao confirmada');
+    text('uc-source-bank', 'Financeiro: ' + finance.source_label +
+      ' · ' + (finance.data_quality === 'partial' ? 'classificacao parcial' : 'conciliado'));
     return true;
   } catch {
-    text('uc-bank-state', 'Sem conexao privada');
-    text('uc-source-bank', 'Financeiro: API privada ainda nao configurada');
-    for (const id of ['uc-bank-balance','uc-bank-inflows','uc-bank-outflows','uc-bank-net','uc-bank-work','uc-bank-family','uc-bank-reserve','uc-bank-dues'])
-      privateValue(id, '—');
+    text('uc-bank-state', 'Fonte indisponivel');
+    text('uc-source-bank', 'Financeiro: nenhum resumo autenticado disponivel');
+    for (const id of ['uc-bank-balance','uc-bank-inflows','uc-bank-outflows','uc-bank-net',
+      'uc-bank-work','uc-bank-family','uc-bank-reserve','uc-bank-dues']) privateValue(id,'—');
     return false;
   }
 }
@@ -218,10 +227,9 @@ async function refresh() {
     if (error || !user) { setAuth(false); return; }
     authUserId = user.id;
     setAuth(true);
-    const { data: { session } } = await supabase.auth.getSession();
     await loadOperation(user.id);
-    const financeOK = session?.access_token ? await loadPrivateFinance(session.access_token) : false;
-    text('uc-sync-status', financeOK ? 'Operacao e banco consultados' : 'Operacao consultada · financeiro pendente');
+    const financeOK = await loadPrivateFinance(user.id);
+    text('uc-sync-status', financeOK ? 'Operacao e resumo financeiro consultados' : 'Operacao consultada · financeiro pendente');
   } catch {
     text('uc-sync-status', 'Fonte indisponivel');
     errorMessage('Nao foi possivel confirmar os fechamentos no backend. Nenhum dado foi inferido ou preenchido manualmente.');
