@@ -1,80 +1,61 @@
-# Comando unificado Financeiro + MotoristaOPS — implementacao controlada
+# Comando Unificado Financeiro + MotoristaOPS
 
-Data da auditoria: 11/11/2026
-Estado: codigo de integracao em branch; PRODUCAO BLOQUEADA ate validacao de autenticacao, banco e QA.
+Status auditado em 11/11/2026. Repositório motoristaops, branch de feature e PR #140 draft. SEM DEPLOY.
 
-## Fontes canônicas auditadas
+## Fontes verificadas
 
-1. MotoristaOPS: repo henrico-design-amaral/motoristaops, branch dashboard-stable, dominio dashboard.motoristaops.com.br, Astro estatico. A entrada diaria oficial esta em src/pages/fechamento.astro + src/scripts/day-close.ts. A rotina grava em daily_closings com owner_id + operation_date, quando autenticada no Supabase; offline salva fila local no navegador.
-2. Financeiro: repo privado henrico-design-amaral/henrico-works, branch main, src/pages/dashboard/index.astro e scripts/sync-banco-mcp.mjs. Fonte de extrato: Banco MCP (Nubank/C6); Neon: henrico-finance. A pagina atual e estaticamente gerada e importa bankSnapshot.generated.json.
-3. A versao do dominio MotoristaOPS e publicada por workflow da branch main que faz checkout da branch dashboard-stable. Nenhuma alteracao desta integracao deve disparar restauracao/publicacao sem autorizacao e QA.
+- Operação: Supabase MotoristaOPS restaurado, estado ACTIVE_HEALTHY. Tabela public.daily_closings com 8 fechamentos reais anteriores (julho a setembro), associados a um único usuário. Novos fechamentos usam a chave (owner_id, operation_date).
+- Financeiro: Banco MCP/Open Finance, Nubank e C6, fonte de saldos e transações. Neon henrico-finance conserva dívidas, mas nesta auditoria apresentou 0 contas e 0 transações (13 dívidas). Não tratar Neon como histórico bancário completo.
+- Projeção de leitura no Supabase: public.finance_monthly_readmodel, RLS SELECT por owner_id para authenticated, sem acesso anon e sem escrita pelo cliente. Não substitui fontes canônicas. Novembro/2026 possui 1 linha PARTIAL derivada do Banco MCP. Saldos, recebimentos Uber identificados e apoio familiar identificados são confirmados. Entradas líquidas, despesas classificadas, faturas, reserva e vencimentos ainda não foram conciliados: permanecem NULL.
+- Interface Astro /comando/ lê exclusivamente tabelas autenticadas. Não publica dados privados no HTML/JSON estático.
 
-## Bloqueadores confirmados
+## Writer ChatGPT implementado
 
-- O Supabase zlyqcfvwghjpytpqxtgc associado ao MotoristaOPS consta INACTIVE em 11/11/2026. A consulta as tabelas retornou "Database is possibly not accessible". Nao e possivel afirmar que os fechamentos sao sincronizados.
-- O motor financeiro em henrico-works e estatico e nao possui API autenticada confirmada que possa ser chamada pelo dashboard operacional. O caminho /api/unified-finance nesta branch e um CONTRATO DE CONSUMO, nao um endpoint existente.
-- Autenticacao/ownership cross-provider entre Supabase e Neon nao foram validados. Somente um JWT recebido no navegador nao basta para autorizar consultas ao Neon.
-- O fechamento no ChatGPT ainda nao possui acao de escrita configurada contra a base canonica do painel. Conversa e memoria nao substituem resposta de persistencia.
-- A fonte operacional atual mistura snapshot Excel publico com os registros de daily_closings. Sem revisao de proveniencia, nao mesclar automaticamente os dois totais nem completar dias que estao ausentes.
+- Função privada internal_ops.ingest_chat_daily_close(owner_id, date, payload_jsonb, idempotency_key, expected_revision). Invocável somente via administrador conectado ou serviço autorizado, não anon/authenticated. Executa como invocador, sem bypass voluntário de RLS.
+- Escreve na MESMA tabela public.daily_closings usada pelo formulário /fechamento/, com source=api. Fonte do formulário corrigida para source=manual de acordo com o CHECK da base.
+- Recebe idempotency_key estável no padrão chatgpt:AAAA-MM-DD:v1; repetição igual devolve o mesmo recibo e não duplica. Correção de dia preexistente exige revisão atual e chave v2 ou superior, preservando histórico.
+- Gatilhos registram revisões e snapshots em internal_ops.daily_close_audit. Recibos privados em internal_ops.chat_closing_receipts; retorno inclui status, receipt_id, revision, persisted_at e already_recorded.
+- Teste sintético em transação com ROLLBACK validou primeira escrita, replay idempotente e auditoria. A base permaneceu com os 8 registros originais; nenhum fechamento sintético ficou salvo.
+- Nunca anunciar gravação antes de retorno status=committed e consulta de verificação da linha gravada.
 
-## Implementado nesta branch
+## Dados do fechamento pelo chat
 
-- /comando/: UI para finance + operacao em unica navegacao, carregando apenas dados apos autenticacao.
-- Operacao mensal: consulta filtrada por owner_id e data na tabela daily_closings; calculos com funcao unica summarizeOperation. Nao usa numeros sinteticos.
-- Entrada diaria preservada na pagina /fechamento/ com sua fila local e logica atual; link direto pelo cockpit. Nao existe um segundo formulario concorrente.
-- Dados financeiros indisponiveis por padrao; tela espera apenas JSON de uma API privada autenticada no mesmo origin. Nenhum snapshot real e incorporado no novo HTML.
-- Regras contabilizaveis separadas no modulo src/lib/unified-ledger.mjs e testes de invariantes sem dependencia de rede.
-- Gate de CI: verificacao de rota, teste contabil e revisao visual; producao nao foi acionada.
+Campos numéricos obrigatórios explícitos: hours_online, km_total, trips_uber, trips_99, trips_private, revenue_uber, revenue_99, revenue_private, tips_extras, fuel_cost, food_cost, wash_cost, other_operational_cost. Campo ausente NÃO equivale a zero. Zero somente se confirmado. Datas em America/Sao_Paulo.
 
-## Contrato de leitura financeira (nao implementado no servidor)
+Opcionais: hours_in_ride, km_passenger, fuel_efficiency_km_l, fuel_price_reference, odometer_end_km, fuel_cash_paid, fuel_liters, shift, primary_platform, notes.
 
-GET /api/unified-finance?month=YYYY-MM
-Authorization: Bearer <access_token>
+Particular mensal Diego/escolar: registrar KM e tempo mas NÃO receita mensal no fechamento diário. Receita particular avulsa recebida pode entrar. Abastecimento pago (caixa) e combustível consumido (custo operacional) são valores distintos e não devem ser somados duas vezes.
 
-Obrigacoes do servidor:
-- Validar token na autoridade emissora, expiração e vinculo de titular; autorizar SOMENTE os dados do usuario logado.
-- Consultar Neon/Banco MCP server-side, sem expor credenciais, IDs bancarios, tokens, snapshots ou transacoes no HTML.
-- Responder Cache-Control: private, no-store; negar origem/identidade invalidas; registrar logs sem payload sensivel.
-- Entregar somente quando conciliado; campos nulos sao indisponiveis, nao zero.
-- Retornar application/json com:
-  { "status":"confirmed", "period":"YYYY-MM", "generatedAt":"ISO-8601", "bankBalanceTotal": number|null,
-    "monthInflows": number|null, "monthOutflows":number|null, "monthNet":number|null,
-    "workIncome":number|null, "familySupport":number|null, "reserveBalance":number|null,
-    "upcomingDues":number|null }
-- O cliente rejeita periodo divergente/status nao confirmado e exibe indisponivel.
+## Protocolo de execução em cada fechamento ChatGPT
 
-## Contrato obrigatorio para atualizar pelo ChatGPT (a construir)
+1. Receber os dados do dia, calcular custo estimado apenas com premissas declaradas, validar campos essenciais e identificar fontes e incompletudes.
+2. Pelo MCP Supabase confirmar proprietário do banco (auth.users e registros já existentes). Falhar se identificação ambígua; nunca publicar owner_id ou credenciais.
+3. Invocar internal_ops.ingest_chat_daily_close usando owner_id verificado, data, payload completo, chave idempotente e revision quando for correção.
+4. Confirmar receipt_id, revision, persisted_at; reler public.daily_closings pela mesma data/owner e conferir. Sem recibo, não declarar dashboard atualizado.
+5. Consultar Banco MCP para atualizar projeção financeira somente com valores confirmados. Campos não conciliados como NULL e data_quality=partial. Sem novo snapshot, indicar desatualização.
+6. O painel passa a ler as mesmas tabelas, sem commit de dados financeiros no GitHub.
 
-A mesma fonte persistente do fechamento manual deve receber o fechamento validado feito pelo chat.
-Nao gravar logs diarios em commits GitHub nem em JSON estatico.
+ATENÇÃO: esta gravação acontece quando o ChatGPT realmente executa a ferramenta conectada no fechamento. Não existe monitoramento ou escrita automática de mensagens não processadas. A projeção bancária não possui job contínuo ativo.
 
-Etapas:
-1. No chat, receber data da jornada, horas totais, receita Uber/99, quantidades de viagens, km, consumo, odometro e abastecimento (se informado). Ausencia e NULL, nunca zero inferido.
-2. Distinguir producao operacional, dinheiro recebido, despesas pagas e consumo de combustivel. Particular Diego/escolar mensal: registrar KM/horas/servico do dia, MAS nao contabilizar o valor mensal como recebimento diario.
-3. Validar intervalos, tipos numericos, data America/Sao_Paulo e coerencia da receita/custos. Mostrar campos faltantes quando impedirem a reconciliacao.
-4. Reutilizar identificador estavel de owner e chave unica (owner_id, operation_date) ou event_id de fechamento; upsert idempotente, com versionamento/revisao e origem chatgpt_daily_close. Nao sobrescrever registro anterior sem rastro/auditoria.
-5. A resposta da API de escrita precisa conter receipt_id, persisted_at, revision, status=committed. Somente entao anunciar "dashboard atualizado".
-6. O painel le novamente a mesma tabela e exibe novo dia. Falha de persistencia deve ser comunicada como bloqueio, com dados preservados na conversa para posterior reenvio, sem alegar sincronizacao.
-7. Confrontar pagamento Uber no extrato com producao operacional por data de trabalho, data de repasse e identificador de liquidacao; nao somar a ambos como receitas independentes.
+## Segurança confirmada
 
-### Regras de conciliacao
+- public.daily_closings e public.monthly_financial_summary sem grants de SELECT para anon.
+- View mensal com security_invoker=true; RLS é aplicada à tabela base.
+- public.set_updated_at recebeu search_path fixo.
+- Tabela mensal RLS com SELECT autenticado por owner, sem INSERT/UPDATE para usuários.
+- Schema internal_ops privado. As duas tabelas internas têm RLS sem políticas para usuários, deliberadamente sem acesso; lint INFO é esperado.
+- Auditoria npm/security, teste de regras, TypeScript/Astro e build passaram em GitHub CI após atualização segura do lockfile.
+- WARN Supabase: proteção contra senhas vazadas desativada, configuração de Auth externa pendente de revisão.
 
-- Uber/99 registrado no fechamento: RECEITA PRODUZIDA; repasse bancario da plataforma: ENTRADA DE CAIXA. Sao visoes diferentes do mesmo fluxo.
-- Ajuda familiar e transferencias internas nao sao trabalho. Movimento Nubank <-> C6 nao soma receita nem despesa.
-- Pagamento de fatura de cartao nao deve contar a compra novamente. Investimento/resgate/caixinha nao equivale a gasto.
-- Abastecimento pago e saida de caixa; combustivel consumido e custo operacional, sem dupla soma.
-- Despesas nao associadas diretamente a corrida (parcela BV, seguro, PPF) sao compromissos pessoais/veiculares; sem alocacao diaria automatica que se confunda com pagamento.
-- Regras de percentual das caixinhas MotoristaOPS, se usadas, devem ser versionadas e mantidas no escopo operacional. Reserva provisionada nao e saldo confirmado.
-- Evolucao, variacao e tendencias so quando ha periodos comparaveis reais.
-- Atualizar dashboard nao implica declarar "contas pagas"; status precisa de comprovante/confirmacao bancaria.
+## Critérios pendentes antes do merge
 
-## Sequencia para entrega definitiva
+1. Um fechamento REAL fornecido pelo usuário via ChatGPT precisa resultar em recibo e ser visualizado no painel após login. Não inventar fechamento para cumprir teste.
+2. Validar sessão real e redirect de OTP no navegador, disponibilidade, RLS negativa, fluxo offline e dispositivos mobile.
+3. Implantar sincronização financeira recorrente autenticada ou preservar refresh sob demanda com informação de atualização/staleness. Não afirmar que há sync contínuo.
+4. Integrar detalhes de dívidas/cartões/acordos apenas com conciliação e proteção server-side; histórico bancário Neon ainda incompleto.
+5. Validar CI final e smoke em staging após alterações de UI.
+6. Só então retirar PR do draft e fazer merge em dashboard-stable: a branch de destino aciona deploy automático na Hostinger.
 
-1. Reativar ou migrar com segurança a fonte daily_closings (Supabase atualmente inativo); validar RLS, UPDATE + SELECT e identidade do usuario. Teste com uma conta propria e RLS negativa com outro usuario.
-2. Escolher o backend unico para a versao consolidada (Neon ja ativo para financeiro ou outra arquitetura justificada) e executar migracao dos fechamentos com reconciliacao por data, sem perda nem duplicacao.
-3. Implementar API de leitura financeira autenticada e endpoint/acesso MCP de escrita idempotente para fechamento ChatGPT. Registrar auditoria, erros e receipt.
-4. Conectar o formulario e o ChatGPT ao MESMO writer e validar um fechamento real, comparando no painel e no banco.
-5. Testar staging em desktop/mobile, captura sem dados reais, acessibilidade, autenticacao negada, backend offline, valores nulos, totais, duplicidade, mes de fronteira e integracao Banco MCP.
-6. Somente apos gates de seguranca, aprovar merge/deploy; nao publicar cifras em HTML/JSON estatico.
+Arquivos: src/pages/comando.astro, src/scripts/unified-command.ts, src/lib/unified-ledger.mjs, src/pages/fechamento.astro, src/scripts/day-close.ts, db/*.sql e scripts/test-unified-ledger.mjs.
 
-A branch atual entrega a interface e as regras locais, mas NAO prova unificacao definitiva de dados nem atualizacao automatica por chat.
+Estado: código, banco e writer preparados e parcialmente verificados; deploy final e fechamento real ainda não comprovados.
