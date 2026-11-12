@@ -71,7 +71,11 @@ function preview(){
 function setToday(){
   if(!form)return;
   const field=form.elements.namedItem('operation_date') as HTMLInputElement|null;
-  if(field&&!field.value)field.value=new Date().toISOString().slice(0,10);
+  if(field&&!field.value){
+    const parts = new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date());
+    const date = Object.fromEntries(parts.map(part=>[part.type,part.value]));
+    field.value = `${date.year}-${date.month}-${date.day}`;
+  }
 }
 
 function loadDraft(){
