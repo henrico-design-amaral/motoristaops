@@ -6,6 +6,7 @@ const hrefFor = (path='') => `${cleanBase}${path}`.replace(/\/+/g,'/');
 const relative = current.startsWith(cleanBase) ? current.slice(cleanBase.length) : current.replace(/^\//,'');
 const segment = relative.split('/').filter(Boolean)[0] || '';
 const tabs = [
+  {path:'comando/',label:'Comando unificado',segments:['comando']},
   {path:'',label:'Visão geral',segments:['','painel']},
   {path:'transito/',label:'Trânsito',segments:['transito']},
   {path:'previsao/',label:'Previsão',segments:['previsao']},
