@@ -17,6 +17,9 @@ type DailyClosing = {
   trips_private?: number | null;
   hours_online?: number | null;
   km_total?: number | null;
+  fuel_cash_paid?: number | null;
+  fuel_liters?: number | null;
+  odometer_end_km?: number | null;
 };
 type PrivateFinance = {
   status: 'confirmed';
@@ -137,12 +140,21 @@ function renderClosings(rows: DailyClosing[]) {
 let fetchedClosings: DailyClosing[] = [];
 async function loadOperation(userId: string) {
   const result = await supabase.from('daily_closings')
-    .select('operation_date,source,revenue_uber,revenue_99,revenue_private,tips_extras,fuel_cost,food_cost,wash_cost,other_operational_cost,trips_uber,trips_99,trips_private,hours_online,km_total')
+    .select('operation_date,source,revenue_uber,revenue_99,revenue_private,tips_extras,fuel_cost,food_cost,wash_cost,other_operational_cost,trips_uber,trips_99,trips_private,hours_online,km_total,fuel_cash_paid,fuel_liters,odometer_end_km')
     .eq('owner_id', userId).gte('operation_date', month + '-01').lte('operation_date', today)
     .order('operation_date', { ascending: false });
   if (result.error) throw result.error;
   fetchedClosings = (result.data || []) as DailyClosing[];
   const s = summarizeOperation(fetchedClosings, month);
+  if (s.days === 0) {
+    for (const id of ['uc-ops-gross','uc-ops-profit','uc-ops-uber','uc-ops-trips',
+      'uc-ops-hour','uc-ops-profit-hour','uc-ops-km','uc-ops-private','uc-ops-fuel-cash','uc-ops-odometer']) privateValue(id, '—');
+    text('uc-ops-distance','Nenhum fechamento no periodo');
+    text('uc-source-driver','MotoristaOPS: sem fechamentos completos no periodo');
+    renderTrend([]);
+    renderClosings([]);
+    return;
+  }
   privateValue('uc-ops-gross', currencyOrDash(s.operationalRevenue));
   privateValue('uc-ops-profit', currencyOrDash(s.operationalProfit));
   privateValue('uc-ops-uber', currencyOrDash(s.uber));
@@ -151,6 +163,12 @@ async function loadOperation(userId: string) {
   privateValue('uc-ops-profit-hour', currencyOrDash(s.profitPerHour));
   privateValue('uc-ops-km', currencyOrDash(s.revenuePerKm));
   privateValue('uc-ops-private', currencyOrDash(s.privateProduced));
+  const paidFuelRecords = fetchedClosings.filter(r => r.fuel_cash_paid !== null && r.fuel_cash_paid !== undefined);
+  const paidFuelTotal = paidFuelRecords.reduce((sum, row) => sum + (Number(row.fuel_cash_paid) || 0), 0);
+  privateValue('uc-ops-fuel-cash', paidFuelRecords.length ? fmtMoney.format(paidFuelTotal) : '—');
+  const lastOdometer = [...fetchedClosings].sort((a,b)=>b.operation_date.localeCompare(a.operation_date))
+    .find(r=>r.odometer_end_km !== null && r.odometer_end_km !== undefined);
+  privateValue('uc-ops-odometer', lastOdometer ? fmtNum.format(Number(lastOdometer.odometer_end_km))+' km' : '—');
   text('uc-ops-distance', fmtNum.format(s.hours) + 'h online · ' + fmtNum.format(s.km) + ' km · ' + s.days + ' dia(s)');
   text('uc-source-driver', 'MotoristaOPS: ' + s.days + ' fechamento(s) obtido(s) da conta autenticada');
   renderTrend(fetchedClosings); renderClosings(fetchedClosings);
