@@ -21,6 +21,9 @@ type ClosingPayload = {
   other_operational_cost:number;
   fuel_efficiency_km_l:number|null;
   fuel_price_reference:number|null;
+  fuel_cash_paid:number|null;
+  fuel_liters:number|null;
+  odometer_end_km:number|null;
   notes:string;
   source:string;
 };
@@ -121,6 +124,9 @@ function payload():ClosingPayload|null{
     other_operational_cost:num('other_operational_cost'),
     fuel_efficiency_km_l:num('fuel_efficiency_km_l')||null,
     fuel_price_reference:num('fuel_price_reference')||null,
+    fuel_cash_paid:num('fuel_cash_paid')||null,
+    fuel_liters:num('fuel_liters')||null,
+    odometer_end_km:num('odometer_end_km')||null,
     notes:String(data.get('notes')||''),
     source:'manual'
   };
