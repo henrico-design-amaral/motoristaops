@@ -122,7 +122,7 @@ function payload():ClosingPayload|null{
     fuel_efficiency_km_l:num('fuel_efficiency_km_l')||null,
     fuel_price_reference:num('fuel_price_reference')||null,
     notes:String(data.get('notes')||''),
-    source:'dashboard_day_close'
+    source:'manual'
   };
 }
 
@@ -157,7 +157,7 @@ function queueLocal(p:ClosingPayload,lastError?:string){
   const rows=readQueue().filter(row=>row.operation_date!==p.operation_date);
   rows.push({
     operation_date:p.operation_date,
-    payload:{...p,source:'dashboard_day_close_offline'},
+    payload:{...p,source:'manual'},
     queuedAt:new Date().toISOString(),
     ...(lastError?{lastError}: {})
   });
@@ -208,7 +208,7 @@ async function syncQueue(showFeedback=true){
   syncing=true;
   if(syncButton)syncButton.disabled=true;
   try{
-    const records=rows.map(row=>({...row.payload,owner_id:userId,source:'dashboard_day_close_sync'}));
+    const records=rows.map(row=>({...row.payload,owner_id:userId,source:'manual'}));
     const {error}=await supabase.from('daily_closings').upsert(records,{onConflict:'owner_id,operation_date'});
     if(error)throw error;
     writeQueue([]);
