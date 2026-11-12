@@ -13,7 +13,8 @@
     "sync:data": "node scripts/sync-data.mjs",
     "validate:data": "node scripts/validate-data.mjs",
     "quality": "npm run validate:data && npm run check && npm run build",
-    "security": "npm audit --omit=dev"
+    "security": "npm audit --omit=dev",
+    "test:unified": "node scripts/test-unified-ledger.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.4",
