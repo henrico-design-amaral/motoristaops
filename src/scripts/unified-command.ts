@@ -54,7 +54,7 @@ function privateValue(id: string, value: string) {
   text(id, masked ? '••••' : value);
 }
 function numberOrNull(value: unknown): number | null {
-  return typeof value === 'number' && Number.isFinite(value) && value >= 0 ? value : null;
+  return typeof value === 'number' && Number.isFinite(value) ? value : null;
 }
 function currencyOrDash(value: number | null | undefined) { return value === null || value === undefined ? '—' : fmtMoney.format(value); }
 function errorMessage(message: string) {
@@ -155,7 +155,7 @@ async function loadOperation(userId: string) {
   text('uc-source-driver', 'MotoristaOPS: ' + s.days + ' fechamento(s) obtido(s) da conta autenticada');
   renderTrend(fetchedClosings); renderClosings(fetchedClosings);
 }
-async function loadPrivateFinance(accessToken: string) {
+async function loadPrivateFinance(accessToken: string): Promise<boolean> {
   // Contract: same-origin, server-side auth + authorization + Neon/Banco reconciliation.
   // Never fetch GitHub snapshots or put database credentials in the browser.
   try {
@@ -181,11 +181,13 @@ async function loadPrivateFinance(accessToken: string) {
     text('uc-bank-state', 'Conciliado');
     text('uc-bank-balance-note', 'Atualizado em ' + new Date(data.generatedAt).toLocaleString('pt-BR'));
     text('uc-source-bank', 'Financeiro: API autenticada e periodo confirmado');
+    return true;
   } catch {
     text('uc-bank-state', 'Sem conexao privada');
     text('uc-source-bank', 'Financeiro: API privada ainda nao configurada');
     for (const id of ['uc-bank-balance','uc-bank-inflows','uc-bank-outflows','uc-bank-net','uc-bank-work','uc-bank-family','uc-bank-reserve','uc-bank-dues'])
       privateValue(id, '—');
+    return false;
   }
 }
 async function refresh() {
@@ -200,8 +202,8 @@ async function refresh() {
     setAuth(true);
     const { data: { session } } = await supabase.auth.getSession();
     await loadOperation(user.id);
-    if (session?.access_token) await loadPrivateFinance(session.access_token);
-    text('uc-sync-status', 'Operacao consultada · financeiro pendente');
+    const financeOK = session?.access_token ? await loadPrivateFinance(session.access_token) : false;
+    text('uc-sync-status', financeOK ? 'Operacao e banco consultados' : 'Operacao consultada · financeiro pendente');
   } catch {
     text('uc-sync-status', 'Fonte indisponivel');
     errorMessage('Nao foi possivel confirmar os fechamentos no backend. Nenhum dado foi inferido ou preenchido manualmente.');
