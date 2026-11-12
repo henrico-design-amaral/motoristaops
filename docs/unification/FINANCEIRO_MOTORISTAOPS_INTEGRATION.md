@@ -59,3 +59,11 @@ ATENÇÃO: esta gravação acontece quando o ChatGPT realmente executa a ferrame
 Arquivos: src/pages/comando.astro, src/scripts/unified-command.ts, src/lib/unified-ledger.mjs, src/pages/fechamento.astro, src/scripts/day-close.ts, db/*.sql e scripts/test-unified-ledger.mjs.
 
 Estado: código, banco e writer preparados e parcialmente verificados; deploy final e fechamento real ainda não comprovados.
+
+## Entrada simplificada verificada (sem copiar owner_id)
+
+Uma função SQL privada adicional resolve o titular apenas quando existe exatamente UM usuário autenticado e UM titular dos registros anteriores, e bloqueia ambiguidades. A chamada conectada via MCP Supabase pode usar internal_ops.ingest_single_owner_chat_daily_close(data, jsonb_do_fechamento, chave_idempotente, revisao_esperada). O usuário não precisa informar o UUID. Esta função foi validada com teste sintético transacional e rollback, sem salvar fechamento fictício.
+
+A credencial da ferramenta MCP é distinta do login do navegador. Não expor a função pelo Data API pública; sua permissão foi revogada para anon e authenticated. Usar a mesma chave para tentativa repetida e exigir revisão para correções.
+
+Para a projeção bancária, a sincronização sob demanda busca dados recentes no Banco MCP, usa somente informações validadas e grava o espelho com qualidade PARTIAL ou CONFIRMED; a tabela não aceita edição pelo navegador do usuário.
