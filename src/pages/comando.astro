@@ -59,10 +59,10 @@ import '../styles/unified-command.css';
 
         <div class="uc-panels">
           <section class="uc-panel" id="uc-finance" aria-labelledby="uc-finance-title">
-            <div class="uc-panel-head"><div><p class="uc-eyebrow">Caixa pessoal</p><h2 id="uc-finance-title">Financeiro</h2></div><span class="uc-tag uc-tag-muted" id="uc-bank-state">Aguardando integracao</span></div>
-            <p class="uc-panel-sub">Saldo, entradas, saidas, compromissos, cartoes e reservas exigem uma API privada. O snapshot bancario do GitHub nao e usado nesta pagina.</p>
+            <div class="uc-panel-head"><div><p class="uc-eyebrow">Caixa pessoal</p><h2 id="uc-finance-title">Financeiro</h2></div><span class="uc-tag uc-tag-muted" id="uc-bank-state">Fonte financeira privada</span></div>
+            <p class="uc-panel-sub">O resumo financeiro vem de uma tabela privada com acesso restrito ao titular. Valores pendentes ou nao conciliados aparecem como indisponiveis; extratos detalhados nao entram no HTML estatico.</p>
             <dl class="uc-data-list">
-              <div><dt>Receita de trabalho recebida</dt><dd id="uc-bank-work" data-private-value>—</dd></div>
+              <div><dt>Uber recebido no banco (identificado)</dt><dd id="uc-bank-work" data-private-value>—</dd></div>
               <div><dt>Apoio familiar</dt><dd id="uc-bank-family" data-private-value>—</dd></div>
               <div><dt>Reserva identificada</dt><dd id="uc-bank-reserve" data-private-value>—</dd></div>
               <div><dt>Compromissos proximos</dt><dd id="uc-bank-dues" data-private-value>—</dd></div>
@@ -92,7 +92,7 @@ import '../styles/unified-command.css';
         </section>
         <section class="uc-source" aria-label="Estado das fontes">
           <span id="uc-source-driver">MotoristaOPS: fonte nao verificada</span>
-          <span id="uc-source-bank">Financeiro: API segura pendente</span>
+          <span id="uc-source-bank">Financeiro: leitura autorizada em validacao</span>
           <span>Periodo operacional nao e somado ao extrato bancario</span>
         </section>
       </div>
