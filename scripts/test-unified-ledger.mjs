@@ -24,4 +24,4 @@ assert.equal(classifyBankMovement({familySupport:true}),'family_support');
 assert.equal(classifyBankMovement({workIncome:true}),'work_receipt');
 assert.throws(()=>summarizeOperation([rows[0],rows[0]],'2026-11'),/duplicado/);
 assert.throws(()=>summarizeOperation([{operation_date:'2026-11-11',revenue_uber:-1}],'2026-11'),/invalido/);
-console.log('unified-ledger: 15 assertions OK');
+console.log('unified-ledger: assertions passed');
