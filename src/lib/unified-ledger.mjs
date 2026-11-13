@@ -51,3 +51,14 @@ export function classifyBankMovement(row) {
   if (row.workIncome === true) return 'work_receipt';
   return 'other_cash_movement';
 }
+
+// The 24/11/35/30 rule is a scenario, never a booked transfer or bank balance.
+export function modelAllocations(confirmedRevenue) {
+  const total = amount(confirmedRevenue);
+  const car = round(total * 0.24);
+  const ppf = round(total * 0.11);
+  const other = round(total * 0.35);
+  // The remainder absorbs rounding so the scenario always reconciles exactly.
+  const free = round(total - car - ppf - other);
+  return { car, ppf, other, free, total };
+}
