@@ -31,6 +31,9 @@ jobs:
       - name: Static analysis
         run: npm run check
 
+      - name: Verify unified accounting rules
+        run: npm run test:unified
+
       - name: Security gate
         run: npm run security
 
@@ -61,6 +64,7 @@ jobs:
           test -f dist-dashboard/inteligencia/index.html
           test -f dist-dashboard/contexto/index.html
           test -f dist-dashboard/fechamento/index.html
+          test -f dist-dashboard/comando/index.html
           test -f dist-dashboard/importar-uber/index.html
           test -f dist-dashboard/copiloto/index.html
           test -f dist-dashboard/fontes-contexto/index.html

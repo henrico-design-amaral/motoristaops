@@ -47,6 +47,8 @@ jobs:
           test -f dist-dashboard/index.html
           test -f dist-dashboard/transito/index.html
           test -f dist-dashboard/fechamento/index.html
+          test -f dist-dashboard/comando/index.html
+          grep -qF 'comando-main' dist-dashboard/comando/index.html
           test -f dist-dashboard/data/motoristaops.json
           test ! -e dist-dashboard/motorista
           grep -qF 'Plano operacional' dist-dashboard/index.html
@@ -94,7 +96,8 @@ jobs:
           for attempt in 1 2 3 4 5 6; do
             dashboard_home="$(curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 https://dashboard.motoristaops.com.br/ || true)"
             dashboard_close="$(curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 https://dashboard.motoristaops.com.br/fechamento/ || true)"
-            if grep -qF 'Plano operacional' <<<"$dashboard_home" && grep -qF 'Fechamento do dia' <<<"$dashboard_close"; then
+            dashboard_comando="$(curl --fail --silent --show-error --location --connect-timeout 10 --max-time 30 https://dashboard.motoristaops.com.br/comando/ || true)"
+            if grep -qF 'Plano operacional' <<<"$dashboard_home" && grep -qF 'Fechamento do dia' <<<"$dashboard_close" && grep -qF 'comando-main' <<<"$dashboard_comando"; then
               echo "Dashboard restored and verified on attempt $attempt."
               exit 0
             fi

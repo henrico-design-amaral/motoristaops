@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   screenshots:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -59,7 +59,7 @@ jobs:
           const { chromium } = require('playwright');
           (async () => {
             const base = 'http://127.0.0.1:4173/motoristaops';
-            const routes = ['', 'transito/', 'previsao/', 'inteligencia/', 'contexto/', 'fechamento/', 'importar-uber/', 'copiloto/', 'fontes-contexto/'];
+            const routes = ['', 'comando/', 'transito/', 'previsao/', 'inteligencia/', 'contexto/', 'fechamento/', 'importar-uber/', 'copiloto/', 'fontes-contexto/'];
             const browser = await chromium.launch({ headless: true });
             const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
             for (const route of routes) {

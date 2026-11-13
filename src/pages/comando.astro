@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/unified-command.css';
+---
+<BaseLayout title="Comando unificado · Financeiro + MotoristaOPS">
+  <main class="uc-layout" id="comando-main">
+    <aside class="uc-side" aria-label="Navegacao do comando">
+      <a class="uc-side-brand" href="/comando/"><span>MO</span><span><b>MotoristaOPS</b><small>Financeiro + operacao</small></span></a>
+      <p class="uc-side-caption">COMANDO UNIFICADO</p>
+      <nav class="uc-side-nav">
+        <a href="#uc-overview" aria-current="page">Visao geral</a>
+        <a href="#uc-operation">Operacao</a>
+        <a href="#uc-finance">Financeiro</a>
+        <a href="#uc-activity">Fechamentos</a>
+        <a href="/fechamento/">Registrar o dia</a>
+        <a href="/previsao/">Planejamento</a>
+      </nav>
+      <p class="uc-side-note">Informacoes privadas nao sao gravadas no HTML. Fontes incompletas permanecem indisponiveis.</p>
+    </aside>
+    <div class="uc-content">
+      <header class="uc-header" id="uc-overview">
+        <div>
+          <p class="uc-eyebrow">Painel de decisao / pessoal</p>
+          <h1>Financeiro <span>+</span> MotoristaOPS</h1>
+          <p>Um unico ponto de controle para caixa, trabalho, custos e fechamento diario.</p>
+        </div>
+        <div class="uc-header-actions">
+          <span id="uc-period" class="uc-period">Periodo em verificacao</span>
+          <button type="button" id="uc-refresh" class="uc-button uc-button-quiet" disabled>Atualizar</button>
+          <button type="button" id="uc-privacy" class="uc-button uc-button-quiet" hidden>Ocultar valores</button>
+          <span class="uc-status" id="uc-sync-status" role="status" aria-live="polite">Verificando acesso</span>
+        </div>
+      </header>
+
+      <section class="uc-auth" id="uc-auth-panel" aria-labelledby="uc-auth-title">
+        <div><p class="uc-eyebrow">Acesso privado</p><h2 id="uc-auth-title">Entre para consultar o comando.</h2><p>Os indicadores nao sao renderizados no servidor estatico. O acesso requer autenticacao e permissao na fonte de dados.</p></div>
+        <form id="uc-login-form">
+          <label for="uc-email">E-mail da conta MotoristaOPS</label>
+          <div><input id="uc-email" name="email" type="email" autocomplete="email" required placeholder="seu@email.com" /><button type="submit" class="uc-button">Enviar link</button></div>
+        </form>
+      </section>
+
+      <div id="uc-private" hidden>
+        <section aria-labelledby="uc-kpi-title" class="uc-section">
+          <div class="uc-section-head"><h2 id="uc-kpi-title">Situacao do periodo</h2><span>Operacao e banco em trilhas separadas</span></div>
+          <div class="uc-kpi-grid">
+            <article class="uc-kpi uc-kpi-bank"><span>Saldo bancario confirmado</span><strong id="uc-bank-balance" data-private-value>—</strong><small id="uc-bank-balance-note">Fonte bancaria pendente</small></article>
+            <article class="uc-kpi uc-kpi-bank"><span>Entradas bancarias validas</span><strong id="uc-bank-inflows" data-private-value>—</strong><small>Sem transferencias internas como renda</small></article>
+            <article class="uc-kpi uc-kpi-bank"><span>Saidas bancarias classificadas</span><strong id="uc-bank-outflows" data-private-value>—</strong><small>Saldo e despesas nao sao equivalentes</small></article>
+            <article class="uc-kpi uc-kpi-bank"><span>Resultado do caixa</span><strong id="uc-bank-net" data-private-value>—</strong><small>Exclusivo de conciliacao bancaria</small></article>
+          </div>
+          <div class="uc-kpi-grid uc-kpi-ops" id="uc-operation">
+            <article class="uc-kpi"><span>Producao operacional</span><strong id="uc-ops-gross" data-private-value>—</strong><small>Uber, 99, particular produzido e extras</small></article>
+            <article class="uc-kpi"><span>Resultado operacional</span><strong id="uc-ops-profit" data-private-value>—</strong><small>Receita menos custos da operacao</small></article>
+            <article class="uc-kpi"><span>Uber realizado</span><strong id="uc-ops-uber" data-private-value>—</strong><small>Fechamentos completos registrados</small></article>
+            <article class="uc-kpi"><span>Viagens / horas / km</span><strong id="uc-ops-trips" data-private-value>—</strong><small id="uc-ops-distance">Somente jornadas registradas</small></article>
+          </div>
+        </section>
+
+        <div class="uc-panels">
+          <section class="uc-panel" id="uc-finance" aria-labelledby="uc-finance-title">
+            <div class="uc-panel-head"><div><p class="uc-eyebrow">Caixa pessoal</p><h2 id="uc-finance-title">Financeiro</h2></div><span class="uc-tag uc-tag-muted" id="uc-bank-state">Fonte financeira privada</span></div>
+            <p class="uc-panel-sub">O resumo financeiro vem de uma tabela privada com acesso restrito ao titular. Valores pendentes ou nao conciliados aparecem como indisponiveis; extratos detalhados nao entram no HTML estatico.</p>
+            <dl class="uc-data-list">
+              <div><dt>Uber recebido no banco (identificado)</dt><dd id="uc-bank-work" data-private-value>—</dd></div>
+              <div><dt>Apoio familiar</dt><dd id="uc-bank-family" data-private-value>—</dd></div>
+              <div><dt>Reserva identificada</dt><dd id="uc-bank-reserve" data-private-value>—</dd></div>
+              <div><dt>Compromissos proximos</dt><dd id="uc-bank-dues" data-private-value>—</dd></div>
+            </dl>
+            <p class="uc-help">Transferencias proprias, resgates de aplicacoes e pagamentos de fatura nao representam nova renda. Os compromissos permanecem sem status ate confirmacao.</p>
+          </section>
+          <section class="uc-panel" aria-labelledby="uc-econ-title">
+            <div class="uc-panel-head"><div><p class="uc-eyebrow">MotoristaOPS</p><h2 id="uc-econ-title">Economia da operacao</h2></div><span class="uc-tag">Fechamentos completos</span></div>
+            <dl class="uc-data-list">
+              <div><dt>Receita por hora</dt><dd id="uc-ops-hour" data-private-value>—</dd></div>
+              <div><dt>Resultado por hora</dt><dd id="uc-ops-profit-hour" data-private-value>—</dd></div>
+              <div><dt>Receita por km</dt><dd id="uc-ops-km" data-private-value>—</dd></div>
+              <div><dt>Particular produzido</dt><dd id="uc-ops-private" data-private-value>—</dd></div>
+              <div><dt>Abastecimento pago (caixa)</dt><dd id="uc-ops-fuel-cash" data-private-value>—</dd></div>
+              <div><dt>Odômetro final mais recente</dt><dd id="uc-ops-odometer" data-private-value>—</dd></div>
+            </dl>
+            <p class="uc-help">Particular mensal e producao operacional; so vira entrada de caixa quando o pagamento efetivamente entrar. Abastecimento pago e custo de consumo nao devem ser duplicados.</p>
+          </section>
+        </div>
+
+        <section class="uc-panel uc-allocations" id="uc-allocations" aria-labelledby="uc-allocations-title">
+          <div class="uc-panel-head"><div><p class="uc-eyebrow">Planejamento, não saldo bancário</p><h2 id="uc-allocations-title">Distribuição de receita</h2></div><span class="uc-tag uc-tag-muted">Regra operacional</span></div>
+          <p class="uc-panel-sub">Simulação de provisões com base exclusivamente na receita operacional confirmada do período. Não representa dinheiro guardado, contas pagas ou movimentações bancárias automáticas.</p>
+          <div class="uc-kpi-grid">
+            <article class="uc-kpi"><span>Carro · 24%</span><strong id="uc-alloc-car" data-private-value>—</strong><small>Provisão teórica para parcela BV</small></article>
+            <article class="uc-kpi"><span>PPF · 11%</span><strong id="uc-alloc-ppf" data-private-value>—</strong><small>Provisão teórica para insulfilm/PPF</small></article>
+            <article class="uc-kpi"><span>Outros · 35%</span><strong id="uc-alloc-other" data-private-value>—</strong><small>25 p.p. despesas e 10 p.p. reserva</small></article>
+            <article class="uc-kpi"><span>Caixa livre · 30%</span><strong id="uc-alloc-free" data-private-value>—</strong><small>Disponibilidade projetada, não saldo real</small></article>
+          </div>
+        </section>
+        <section class="uc-panel uc-activity" id="uc-activity" aria-labelledby="uc-activity-title">
+          <div class="uc-panel-head"><div><p class="uc-eyebrow">Rotina diaria</p><h2 id="uc-activity-title">Fechamentos e atualizacoes</h2></div><a class="uc-button" href="/fechamento/">+ Registrar fechamento</a></div>
+          <p class="uc-panel-sub">A entrada manual continua no formulario oficial do MotoristaOPS, com calculo antes de salvar, fila local quando offline e sincronizacao mediante acesso ao backend.</p>
+          <div class="uc-trend" id="uc-trend" aria-label="Receita por fechamento do periodo"></div>
+          <div class="uc-table-wrap"><table><thead><tr><th scope="col">Data</th><th scope="col">Fonte</th><th scope="col">Viagens</th><th scope="col">Receita</th><th scope="col">Custo operacional</th><th scope="col">Resultado</th></tr></thead><tbody id="uc-close-rows"><tr><td colspan="6">Carregando fechamentos autorizados...</td></tr></tbody></table></div>
+          <div class="uc-footer-links"><a href="/importar-uber/">Importar historico Uber</a><a href="/inteligencia/">Inteligencia operacional</a><a href="/fontes-contexto/">Fontes e cobertura</a></div>
+        </section>
+        <section class="uc-source" aria-label="Estado das fontes">
+          <span id="uc-source-driver">MotoristaOPS: fonte nao verificada</span>
+          <span id="uc-source-bank">Financeiro: leitura autorizada em validacao</span>
+          <span>Periodo operacional nao e somado ao extrato bancario</span>
+        </section>
+      </div>
+      <p id="uc-error" class="uc-error" hidden role="alert"></p>
+    </div>
+  </main>
+  <script>import '../scripts/unified-command.ts';</script>
+</BaseLayout>
