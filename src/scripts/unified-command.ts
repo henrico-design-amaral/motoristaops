@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import { summarizeOperation } from '../lib/unified-ledger.mjs';
+import { summarizeOperation, modelAllocations } from '../lib/unified-ledger.mjs';
 
 type DailyClosing = {
   operation_date: string;
@@ -166,9 +166,10 @@ async function loadOperation(userId: string) {
   privateValue('uc-ops-profit-hour', currencyOrDash(s.profitPerHour));
   privateValue('uc-ops-km', currencyOrDash(s.revenuePerKm));
   privateValue('uc-ops-private', currencyOrDash(s.privateProduced));
-  const allocs: Array<[string, number]> = [['uc-alloc-car',0.24],['uc-alloc-ppf',0.11],
-    ['uc-alloc-other',0.35],['uc-alloc-free',0.30]];
-  for (const [id, share] of allocs) privateValue(id,currencyOrDash(Math.round(s.operationalRevenue * share * 100)/100));
+  const budget = modelAllocations(s.operationalRevenue);
+  const allocs: Array<[string, number]> = [['uc-alloc-car',budget.car],['uc-alloc-ppf',budget.ppf],
+    ['uc-alloc-other',budget.other],['uc-alloc-free',budget.free]];
+  for (const [id, value] of allocs) privateValue(id,currencyOrDash(value));
   const paidFuelRecords = fetchedClosings.filter(r => r.fuel_cash_paid !== null && r.fuel_cash_paid !== undefined);
   const paidFuelTotal = paidFuelRecords.reduce((sum, row) => sum + (Number(row.fuel_cash_paid) || 0), 0);
   privateValue('uc-ops-fuel-cash', paidFuelRecords.length ? fmtMoney.format(paidFuelTotal) : '—');
