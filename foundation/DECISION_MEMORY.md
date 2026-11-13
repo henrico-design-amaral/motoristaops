@@ -169,7 +169,7 @@ Catálogo: o operador autorizou incluir diferentes veículos disponíveis com pa
 
 Preservados: logo e variantes oficiais, Instrument Sans, tokens, aparência de Henrico e Omoda 5 Luxury cinza como veículo atual de Henrico. Não alterar categoria ou lettering dentro do asset oficial; usar descritor executivo nos textos editáveis.
 
-Supera: prioridade antiga de LinkedIn como primeiro canal de aquisição e comunicação centrada no trabalho por aplicativo. Não revoga fatos, formatos editoriais ou gates de publicação. O novo briefing registra separadamente propostas ainda não aprovadas: cinco serviços principais, CTA na abertura, nova arquitetura e copy, plano de mídia e catálogo de categorias específicas.
+Supera: prioridade editorial/profissional anterior de LinkedIn na lista de superfícies e a orientação de comunicação centrada no trabalho por aplicativo descrita pelo operador. Não revoga fatos, formatos editoriais ou gates de publicação. O novo briefing registra separadamente propostas ainda não aprovadas: cinco serviços principais, CTA na abertura, nova arquitetura e copy, plano de mídia e catálogo de categorias específicas.
 
 Autoridade e evidências: `strategy/EXECUTIVE_REPOSITIONING_2026-11-13.md` e `strategy/EXECUTIVE_REFERENCE_PACK_2026-11-13.json`. Persistência documental não significa site redesenhado/publicado, WhatsApp configurado, fotos produzidas, crachá entregue ou anúncios ativados.
 
