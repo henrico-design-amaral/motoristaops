@@ -13,3 +13,7 @@ export declare function classifyBankMovement(row: {
   internalTransfer?: boolean; assetTransfer?: boolean; cardPayment?: boolean;
   familySupport?: boolean; workIncome?: boolean
 }): string;
+
+export declare function modelAllocations(confirmedRevenue: number): {
+  car:number; ppf:number; other:number; free:number; total:number;
+};
