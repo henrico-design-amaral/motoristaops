@@ -83,6 +83,16 @@ import '../styles/unified-command.css';
           </section>
         </div>
 
+        <section class="uc-panel uc-allocations" id="uc-allocations" aria-labelledby="uc-allocations-title">
+          <div class="uc-panel-head"><div><p class="uc-eyebrow">Planejamento, não saldo bancário</p><h2 id="uc-allocations-title">Distribuição de receita</h2></div><span class="uc-tag uc-tag-muted">Regra operacional</span></div>
+          <p class="uc-panel-sub">Simulação de provisões com base exclusivamente na receita operacional confirmada do período. Não representa dinheiro guardado, contas pagas ou movimentações bancárias automáticas.</p>
+          <div class="uc-kpi-grid">
+            <article class="uc-kpi"><span>Carro · 24%</span><strong id="uc-alloc-car" data-private-value>—</strong><small>Provisão teórica para parcela BV</small></article>
+            <article class="uc-kpi"><span>PPF · 11%</span><strong id="uc-alloc-ppf" data-private-value>—</strong><small>Provisão teórica para insulfilm/PPF</small></article>
+            <article class="uc-kpi"><span>Outros · 35%</span><strong id="uc-alloc-other" data-private-value>—</strong><small>25 p.p. despesas e 10 p.p. reserva</small></article>
+            <article class="uc-kpi"><span>Caixa livre · 30%</span><strong id="uc-alloc-free" data-private-value>—</strong><small>Disponibilidade projetada, não saldo real</small></article>
+          </div>
+        </section>
         <section class="uc-panel uc-activity" id="uc-activity" aria-labelledby="uc-activity-title">
           <div class="uc-panel-head"><div><p class="uc-eyebrow">Rotina diaria</p><h2 id="uc-activity-title">Fechamentos e atualizacoes</h2></div><a class="uc-button" href="/fechamento/">+ Registrar fechamento</a></div>
           <p class="uc-panel-sub">A entrada manual continua no formulario oficial do MotoristaOPS, com calculo antes de salvar, fila local quando offline e sincronizacao mediante acesso ao backend.</p>
