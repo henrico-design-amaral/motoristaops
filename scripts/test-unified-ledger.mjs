@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { summarizeOperation, classifyBankMovement } from '../src/lib/unified-ledger.mjs';
+import { summarizeOperation, classifyBankMovement, modelAllocations } from '../src/lib/unified-ledger.mjs';
 
 const rows = [
   { operation_date:'2026-11-09', revenue_uber:100, revenue_99:20, revenue_private:50, tips_extras:5, fuel_cost:15, food_cost:10, wash_cost:0, other_operational_cost:0, hours_online:5, km_total:80, trips_uber:5, trips_99:1, trips_private:1 },
@@ -24,4 +24,9 @@ assert.equal(classifyBankMovement({familySupport:true}),'family_support');
 assert.equal(classifyBankMovement({workIncome:true}),'work_receipt');
 assert.throws(()=>summarizeOperation([rows[0],rows[0]],'2026-11'),/duplicado/);
 assert.throws(()=>summarizeOperation([{operation_date:'2026-11-11',revenue_uber:-1}],'2026-11'),/invalido/);
+const allocations = modelAllocations(255);
+assert.deepEqual(allocations, {car:61.2,ppf:28.05,other:89.25,free:76.5,total:255});
+const cents = modelAllocations(0.01);
+assert.equal(cents.car + cents.ppf + cents.other + cents.free,0.01);
+assert.throws(()=>modelAllocations(-1),/invalido/);
 console.log('unified-ledger: assertions passed');
