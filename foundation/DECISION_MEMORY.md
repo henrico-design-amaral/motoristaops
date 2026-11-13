@@ -153,3 +153,24 @@ Decisão: composições de evento com título forte, fotografia contexto protago
 **APPROVED · SURFACE / landing MotoristaOPS · 2026-11-06**
 
 O operador aprovou a prévia R02 e autorizou publicação. Usar header fixo e escuro, logo oficial e texto São Paulo e Região à esquerda, seletor em cápsula PT/EN/ES à direita. Sem ícone de localização, divisor ou rótulo visível Idioma. Preservar conteúdo, assets e isolamento do dashboard; traduzir a região em cada idioma. Contrato: `source/landing/HEADER.md`.
+
+
+## Reposicionamento executivo e transição comercial
+
+**CANONICAL · PROJECT / MotoristaOPS · 2026-11-13**
+
+Origem: decisão explícita de Henrico Amaral após sua mentoria, no pedido “Reposicionamento da marca”, acompanhado de oito URLs de referência e dos gatilhos HENRICOOPS::REF, SYNC e CALIBRATE.
+
+Decisão: comunicar e operar progressivamente como motorista/transporte executivo; preservar a marca e tornar a comunicação mais minimalista, objetiva e premium; evoluir primeiro o site, depois WhatsApp Business e demais comunicações; priorizar Google/Perfil da Empresa e avaliar anúncios na busca, mantendo Instagram profissional e LinkedIn em relacionamento seletivo.
+
+Experiência: retirar organizador na operação executiva; durante a transição ele pode continuar no trabalho por aplicativo. Manter água e itens de bordo necessários ao atendimento. Produzir fotos próprias do carro e retrato mais cordial, sem alterar identidade humana por IA. Preparar identificação digital com nome, foto real, veículo, placa confirmada e contato de quem conduzirá.
+
+Catálogo: o operador autorizou incluir diferentes veículos disponíveis com parceiros. Exceção de escopo SURFACE / catálogo WhatsApp: outras categorias podem aparecer quando houver parceiro e veículo reais confirmados, fotografia autorizada, identificação de operação parceira e disponibilidade sob consulta. Não interpretar como frota própria, substituição visual do Omoda, blindagem ou disponibilidade garantida. Extensão futura à landing exige o mesmo lastro e revisão da versão.
+
+Preservados: logo e variantes oficiais, Instrument Sans, tokens, aparência de Henrico e Omoda 5 Luxury cinza como veículo atual de Henrico. Não alterar categoria ou lettering dentro do asset oficial; usar descritor executivo nos textos editáveis.
+
+Supera: prioridade antiga de LinkedIn como primeiro canal de aquisição e comunicação centrada no trabalho por aplicativo. Não revoga fatos, formatos editoriais ou gates de publicação. O novo briefing registra separadamente propostas ainda não aprovadas: cinco serviços principais, CTA na abertura, nova arquitetura e copy, plano de mídia e catálogo de categorias específicas.
+
+Autoridade e evidências: `strategy/EXECUTIVE_REPOSITIONING_2026-11-13.md` e `strategy/EXECUTIVE_REFERENCE_PACK_2026-11-13.json`. Persistência documental não significa site redesenhado/publicado, WhatsApp configurado, fotos produzidas, crachá entregue ou anúncios ativados.
+
+Propagação: PROJECT + SURFACE, ecosystem-visible por autoridade versionada. Não transformar preferências da MotoristaOPS ou hipóteses de canal em regra global de outros projetos. Revisão: novas decisões do operador e resultados reais de atendimentos/campanhas.

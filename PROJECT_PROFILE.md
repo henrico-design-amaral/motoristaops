@@ -31,11 +31,12 @@
 - Landing pública.
 - Brand System V2.
 - Dashboard isolado.
-- LinkedIn: prioridade editorial/profissional.
-- Instagram: visual/social secundário.
-- Facebook: presença/distribuição.
-- Google Business: factual/local.
-- WhatsApp Business: atendimento/conversão.
+- Google Search + Perfil da Empresa: prioridade de aquisição local e por intenção, com origem e resultado a medir.
+- Google Ads: canal prioritário de experimento, condicionado a oferta, atendimento, medição e orçamento aprovado; retorno ainda não demonstrado.
+- WhatsApp Business: atendimento, catálogo e conversão.
+- LinkedIn: relacionamento profissional e prospecção corporativa seletiva.
+- Instagram: prova do serviço, presença profissional e apoio à confiança.
+- TikTok/Facebook: presença secundária conforme capacidade de produção.
 
 ## Infraestrutura
 - GitHub: `henrico-design-amaral/motoristaops`.
@@ -53,3 +54,17 @@
 - Iconografia: `source/ICONOGRAPHY.md`.
 - QA recorrente: `foundation/QUALITY_GATES.md`.
 - Falhas conhecidas: `foundation/FAILURE_MEMORY.md`.
+
+## Posicionamento executivo — decisão de 2026-11-13
+
+**CANONICAL · PROJECT**
+
+A comunicação comercial passa a se posicionar como transporte executivo, com menos informação, objetividade, cordialidade e serviço premium demonstrado por evidência. Preservar identidade MotoristaOPS, Instrument Sans, assets e tokens. Descritores editáveis podem dizer transporte/motorista executivo; a decisão não autoriza redesenhar logo nem alterar lettering incorporado.
+
+Transição progressiva: site -> WhatsApp Business -> comunicação; reforço do Google/Perfil da Empresa e teste de publicidade na busca sem promessa de resultado.
+
+Organizador: pode continuar no trabalho por aplicativo durante a transição; retirar na operação executiva. Manter água e itens pertinentes ao atendimento. Produzir fotos próprias do Omoda e retrato cordial sem IA alterando a aparência.
+
+Veículos de parceiros podem integrar o catálogo quando confirmados, com indicação explícita de operação parceira, mídia real autorizada e disponibilidade sob consulta. Isso não substitui o Omoda 5 Luxury cinza como veículo conduzido por Henrico nem autoriza usar veículos genéricos como prova da operação própria.
+
+Fonte detalhada: `strategy/EXECUTIVE_REPOSITIONING_2026-11-13.md`. Arquitetura final da landing, novos CTAs, textos finais, valores, parceiros, placa, imagens e campanhas não são aprovados automaticamente por esta diretriz.

@@ -231,3 +231,14 @@ A MotoristaOPS visual artifact passes only when:
 - composition reflects service/passenger-first logic;
 - format transformation is authorized;
 - applicable visual QA passes.
+
+
+## Posicionamento e catálogo executivo — 2026-11-13
+
+Decisão explícita atual do operador: aplicar comunicação executiva mais objetiva e com menor densidade, preservando toda a identidade. Resolver `strategy/EXECUTIVE_REPOSITIONING_2026-11-13.md` antes de novos materiais comerciais.
+
+A identidade incorporada aos arquivos de logo permanece intacta. O descritor executivo pertence ao texto editável, não a uma nova variante de marca.
+
+Exceção aprovada e restrita ao catálogo comercial do WhatsApp: veículos reais de parceiros podem ser apresentados quando a operação parceira for identificada e houver mídia autorizada, características e disponibilidade confirmadas. A exceção não transforma esses veículos no carro de Henrico e não libera veículos genéricos/gerados em outras composições. Omoda 5 Luxury cinza continua sendo a evidência da operação própria.
+
+Novos textos, CTA, composição da landing, imagens e peças finais continuam sujeitos à validação da nova versão. Não tratar a pesquisa de referências como aceite visual ou comprovação de conversão.

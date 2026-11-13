@@ -1,0 +1,282 @@
+{
+  "schema": "motoristaops.executive-reference-pack.v1",
+  "reference_pack_id": "motoristaops-executive-2026-11-13",
+  "date": "2026-11-13",
+  "mode": "EXECUTION",
+  "execution_stage": "strategy_and_copy_draft",
+  "context_signature": {
+    "project": "MotoristaOPS",
+    "artifact_family": "executive-positioning",
+    "surface_or_channel": [
+      "landing",
+      "whatsapp-business",
+      "social",
+      "local-search"
+    ],
+    "objective": "Posicionamento executivo com identidade preservada e implantação progressiva",
+    "audience": "Passageiros executivos e potenciais compradores corporativos; segmentação e canais ainda a validar",
+    "lifecycle_stage": "define",
+    "modality": "written",
+    "authority_status": "current_project_and_operator_decisions_resolved",
+    "visual_lock_status": "READY_for_brand_tokens_and_report; no_social_release",
+    "freshness_need": "current_competitor_homepages_and_official_platform_docs",
+    "reference_depth": "DEEP"
+  },
+  "authority_revisions": [
+    {
+      "path": "DESIGN.md",
+      "sha": "84923c5b714c98d30fdfd1d3d6a3ece01ab753c5"
+    },
+    {
+      "path": "VISUAL_LOCK.json",
+      "sha": "9de8828b5b4e68c091299f76e1e54b9d1d2a4165"
+    },
+    {
+      "path": "design/tokens.json",
+      "sha": "80b0172c8f40939dcad6b74e2bc40ee7359673fb"
+    },
+    {
+      "path": "foundation/DECISION_MEMORY.md",
+      "sha": "9509a4b963873fe7383cc9da9490864235b6e45e"
+    }
+  ],
+  "sources": [
+    {
+      "id": "R1",
+      "url": "https://claude-transfervip.vercel.app/",
+      "last_checked": "2026-11-13",
+      "scope": "homepage_desktop_content_and_screenshot",
+      "claims_audit": false,
+      "adoption_status": "provenance_only"
+    },
+    {
+      "id": "R2",
+      "url": "https://www.chamevans.com.br/",
+      "last_checked": "2026-11-13",
+      "scope": "homepage_desktop_content_and_screenshot",
+      "claims_audit": false,
+      "adoption_status": "provenance_only"
+    },
+    {
+      "id": "R3",
+      "url": "https://blintaxi.com/",
+      "last_checked": "2026-11-13",
+      "scope": "homepage_desktop_content_and_screenshot",
+      "claims_audit": false,
+      "adoption_status": "provenance_only"
+    },
+    {
+      "id": "R4",
+      "url": "https://santorini-brazil.com.br/",
+      "last_checked": "2026-11-13",
+      "scope": "homepage_desktop_content_and_screenshot",
+      "claims_audit": false,
+      "adoption_status": "provenance_only"
+    },
+    {
+      "id": "R5",
+      "url": "https://www.goclasseexecutive.com.br/",
+      "last_checked": "2026-11-13",
+      "scope": "homepage_desktop_content_and_screenshot",
+      "claims_audit": false,
+      "adoption_status": "provenance_only"
+    },
+    {
+      "id": "R6",
+      "url": "https://maestriamobilidade.com/",
+      "last_checked": "2026-11-13",
+      "scope": "homepage_desktop_content_and_screenshot",
+      "claims_audit": false,
+      "adoption_status": "provenance_only"
+    },
+    {
+      "id": "R7",
+      "url": "https://www.executivepremium.com.br/",
+      "last_checked": "2026-11-13",
+      "scope": "homepage_desktop_content_and_screenshot",
+      "claims_audit": false,
+      "adoption_status": "provenance_only"
+    },
+    {
+      "id": "R8",
+      "url": "https://www.driverpremium.com.br/",
+      "last_checked": "2026-11-13",
+      "scope": "homepage_desktop_content_and_screenshot",
+      "claims_audit": false,
+      "adoption_status": "provenance_only"
+    },
+    {
+      "id": "R9",
+      "url": "https://motoristaops.com.br/",
+      "last_checked": "2026-11-13",
+      "scope": "homepage_desktop_content_and_screenshot",
+      "claims_audit": false,
+      "adoption_status": "provenance_only"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "MOPS_EXECUTIVE_CLEAR_OFFER",
+      "name": "Oferta por necessidade",
+      "state": "PROPOSED_FOR_PILOT",
+      "mechanism": "Dizer serviço, região e próximo passo antes de características",
+      "application": "Cinco entradas principais e chamada para orçamento na proposta de landing",
+      "constraints": [
+        "não remover serviços reais silenciosamente",
+        "não afirmar ganho de conversão"
+      ],
+      "validation": [
+        "entendimento da oferta",
+        "clareza do contato",
+        "testar versão mobile"
+      ],
+      "derived_from": [
+        "R2",
+        "R5",
+        "R7"
+      ]
+    },
+    {
+      "id": "MOPS_EXECUTIVE_VERIFIABLE_TRUST",
+      "name": "Confiança por evidência",
+      "state": "CANONICAL_EXISTING_PRINCIPLE",
+      "mechanism": "Veículo e motorista reais, processo claro e avaliações rastreáveis",
+      "application": "Fotos próprias e identificação pré-embarque",
+      "constraints": [
+        "sem métricas/copiar testemunhos externos",
+        "sem IA alterando Henrico/Omoda"
+      ],
+      "validation": [
+        "origem das fotos",
+        "identificação corresponde ao atendimento"
+      ],
+      "derived_from": [
+        "R3",
+        "R4",
+        "R8",
+        "DESIGN.md"
+      ]
+    },
+    {
+      "id": "MOPS_EXECUTIVE_QUIET_HIERARCHY",
+      "name": "Hierarquia com menor densidade",
+      "state": "CANONICAL_OPERATOR_DIRECTION",
+      "mechanism": "Uma mensagem dominante, espaço e informação necessária",
+      "application": "Landing e comunicação premium com Instrument Sans e tokens atuais",
+      "constraints": [
+        "não copiar fonte/paleta/identidade externa",
+        "não confundir preto-dourado com premium",
+        "não aprovar layout final nesta fase"
+      ],
+      "validation": [
+        "legibilidade",
+        "densidade",
+        "hierarquia do serviço"
+      ],
+      "derived_from": [
+        "R3",
+        "R6",
+        "current_operator_request"
+      ]
+    },
+    {
+      "id": "MOPS_EXECUTIVE_PARTNER_TRUTH",
+      "name": "Oferta parceira identificada",
+      "state": "CANONICAL_OPERATOR_DIRECTION_WITH_DEPENDENCIES",
+      "mechanism": "Aumentar capacidade comercial somente com disponibilidade e responsabilidade verificáveis",
+      "application": "Catálogo WhatsApp com veículos reais de parceiros",
+      "constraints": [
+        "parceiros ainda não verificados",
+        "sem chamar de frota própria",
+        "mídia real autorizada",
+        "exceção não generaliza para todos os carros nas redes"
+      ],
+      "validation": [
+        "parceiro confirmado",
+        "categoria e condições",
+        "motorista/veículo/placa reais"
+      ],
+      "derived_from": [
+        "current_operator_request"
+      ]
+    },
+    {
+      "id": "MOPS_EXECUTIVE_BOOKING_MEASUREMENT",
+      "name": "Medição até a reserva",
+      "state": "PROPOSED_FOR_PILOT",
+      "mechanism": "Distinguir clique, contato qualificado e reserva",
+      "application": "Piloto de busca após estrutura de atendimento e orçamento",
+      "constraints": [
+        "sem campanha/gasto sem verba definida",
+        "sem promessa de ROI",
+        "atribuição não demonstrada nesta sessão"
+      ],
+      "validation": [
+        "registro de origem",
+        "reservas confirmadas",
+        "custo e contribuição"
+      ],
+      "derived_from": [
+        "https://support.google.com/google-ads/answer/11459091"
+      ]
+    }
+  ],
+  "graph": [
+    {
+      "from": "MOPS_EXECUTIVE_CLEAR_OFFER",
+      "relation": "APPLIES_TO",
+      "to": "landing"
+    },
+    {
+      "from": "MOPS_EXECUTIVE_QUIET_HIERARCHY",
+      "relation": "REQUIRES",
+      "to": "Brand Book V2"
+    },
+    {
+      "from": "MOPS_EXECUTIVE_VERIFIABLE_TRUST",
+      "relation": "APPLIES_TO",
+      "to": "digital-identification"
+    },
+    {
+      "from": "MOPS_EXECUTIVE_PARTNER_TRUTH",
+      "relation": "APPLIES_TO",
+      "to": "whatsapp-catalog"
+    },
+    {
+      "from": "MOPS_EXECUTIVE_BOOKING_MEASUREMENT",
+      "relation": "VALIDATED_BY",
+      "to": "actual_bookings_and_costs"
+    }
+  ],
+  "gaps": [
+    "Sem acesso/configuração das contas WhatsApp Business, Perfil da Empresa ou Ads nesta análise",
+    "Sem placa confirmada",
+    "Sem parceiros confirmados",
+    "Sem novo ensaio",
+    "Sem dados de custo, busca ou retorno",
+    "Conflito preexistente: SOCIAL_EDITORIAL.md §20 e AGENTS.md citam três formatos; EDITORIAL_FORMAT_LOCK.json v3.8 e espelho HenricoOPS atualizado em 2026-11-11 permitem cinco. Nenhuma liberação social nesta sessão."
+  ],
+  "publication_status": "not_published",
+  "generated_assets": [
+    "strategy and copy draft",
+    "branded PDF report"
+  ],
+  "prohibited_conclusions": [
+    "canal campeão comprovado",
+    "site implantado",
+    "WhatsApp configurado",
+    "crachá finalizado",
+    "parceiros homologados",
+    "campanha ativada",
+    "runtime inteiro do ecossistema calibrado"
+  ],
+  "propagation": {
+    "scope": [
+      "PROJECT",
+      "SURFACE"
+    ],
+    "visibility": "canonical_project_documentation",
+    "global_rule_promotion": false,
+    "reason": "Preferências e hipóteses específicas de MotoristaOPS; nenhum resultado empírico autoriza generalização"
+  }
+}
