@@ -87,6 +87,7 @@ function renderTrend(rows: DailyClosing[]) {
   const root = byId('uc-trend');
   if (!root) return;
   root.replaceChildren();
+  if (masked) { root.textContent = 'Gráfico oculto por privacidade.'; return; }
   const days = [...rows].sort((a, b) => a.operation_date.localeCompare(b.operation_date)).slice(-10);
   const gross = (row: DailyClosing) =>
     (Number(row.revenue_uber) || 0) + (Number(row.revenue_99) || 0) +
@@ -149,7 +150,8 @@ async function loadOperation(userId: string) {
   const s = summarizeOperation(fetchedClosings, month);
   if (s.days === 0) {
     for (const id of ['uc-ops-gross','uc-ops-profit','uc-ops-uber','uc-ops-trips',
-      'uc-ops-hour','uc-ops-profit-hour','uc-ops-km','uc-ops-private','uc-ops-fuel-cash','uc-ops-odometer']) privateValue(id, '—');
+      'uc-ops-hour','uc-ops-profit-hour','uc-ops-km','uc-ops-private','uc-ops-fuel-cash','uc-ops-odometer',
+      'uc-alloc-car','uc-alloc-ppf','uc-alloc-other','uc-alloc-free']) privateValue(id, '—');
     text('uc-ops-distance','Nenhum fechamento no periodo');
     text('uc-source-driver','MotoristaOPS: sem fechamentos completos no periodo');
     renderTrend([]);
@@ -164,6 +166,9 @@ async function loadOperation(userId: string) {
   privateValue('uc-ops-profit-hour', currencyOrDash(s.profitPerHour));
   privateValue('uc-ops-km', currencyOrDash(s.revenuePerKm));
   privateValue('uc-ops-private', currencyOrDash(s.privateProduced));
+  const allocs: Array<[string, number]> = [['uc-alloc-car',0.24],['uc-alloc-ppf',0.11],
+    ['uc-alloc-other',0.35],['uc-alloc-free',0.30]];
+  for (const [id, share] of allocs) privateValue(id,currencyOrDash(Math.round(s.operationalRevenue * share * 100)/100));
   const paidFuelRecords = fetchedClosings.filter(r => r.fuel_cash_paid !== null && r.fuel_cash_paid !== undefined);
   const paidFuelTotal = paidFuelRecords.reduce((sum, row) => sum + (Number(row.fuel_cash_paid) || 0), 0);
   privateValue('uc-ops-fuel-cash', paidFuelRecords.length ? fmtMoney.format(paidFuelTotal) : '—');
@@ -243,6 +248,7 @@ byId('uc-privacy')?.addEventListener('click', () => {
   text('uc-privacy', masked ? 'Mostrar valores' : 'Ocultar valores');
   for (const [id, value] of values.entries()) text(id, masked ? '••••' : value);
   renderClosings(fetchedClosings);
+  renderTrend(fetchedClosings);
 });
 byId('uc-login-form')?.addEventListener('submit', async (event) => {
   event.preventDefault();
