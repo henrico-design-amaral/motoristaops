@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - 'v2/index.html'
+      - 'v2/.htaccess'
+      - '.github/workflows/deploy-v2-hostinger.yml'
   workflow_dispatch:
 concurrency:
   group: motoristaops-v2-preview
@@ -57,7 +59,9 @@ jobs:
           set sftp:auto-confirm yes
           set net:max-retries 2
           set net:timeout 25
-          mkdir -p "$TARGET/v2"
+          # Directory already exists; querying it avoids mkdir failures on SFTP hosts
+          # that reject creating an already existing directory.
+          cls -1 "$TARGET/v2"
           put -e v2/.htaccess -o "$TARGET/v2/.htaccess"
           put -e v2/index.html -o "$TARGET/v2/index.html"
           bye
