@@ -74,5 +74,6 @@ jobs:
           grep -qF 'data-screen="8"' /tmp/motoristaops-v2.html
           grep -qF 'noindex,nofollow,noarchive' /tmp/motoristaops-v2.html
           grep -qF 'id="orcamento"' /tmp/motoristaops-v2.html
-          curl -4 -fsSL --retry 2 --connect-timeout 20 --max-time 50 https://www.motoristaops.com.br/ | grep -qF 'Seu compromisso' 
+          curl -4 -fsSL --retry 2 --connect-timeout 20 --max-time 50 https://www.motoristaops.com.br/ -o /tmp/motoristaops-home.html
+          grep -qF 'Seu compromisso' /tmp/motoristaops-home.html 
           echo "V2 reachable; public homepage still intact."
