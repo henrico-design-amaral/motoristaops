@@ -1,0 +1,74 @@
+name: Deploy MotoristaOPS isolated /v2 preview
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'v2/index.html'
+  workflow_dispatch:
+concurrency:
+  group: motoristaops-v2-preview
+  cancel-in-progress: false
+permissions:
+  contents: read
+jobs:
+  deploy-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate staging-only page and inline JavaScript
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import vm from 'node:vm';
+          const html=fs.readFileSync('v2/index.html','utf8');
+          const script=html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
+          if(!script)throw Error('Inline script not found');
+          new vm.Script(script);
+          const folds=[...html.matchAll(/data-screen="(\d)"/g)].map(m=>+m[1]);
+          if(folds.join(',')!=='1,2,3,4,5,6,7,8')throw Error('Expected exactly eight ordered folds');
+          for(const phrase of ['noindex,nofollow,noarchive','id="servicos"','id="veiculos"','id="faq"','id="orcamento"','data-lang="en"','data-lang="es"','height:100svh']) {
+            if(!html.includes(phrase))throw Error('Missing required marker: '+phrase);
+          }
+          if(!html.includes('data:image/webp;base64,'))throw Error('Approved compact signature missing');
+          console.log('V2 isolated HTML and JS preflight passed.');
+          NODE
+      - name: Install SFTP client
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Upload only the staging /v2 directory
+        env:
+          HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
+          HOSTINGER_USERNAME: ${{ secrets.HOSTINGER_USERNAME }}
+          HOSTINGER_PASSWORD: ${{ secrets.HOSTINGER_PASSWORD }}
+          HOSTINGER_PORT: ${{ secrets.HOSTINGER_PORT }}
+          HOSTINGER_PUBLIC_TARGET_DIR: ${{ secrets.HOSTINGER_PUBLIC_TARGET_DIR }}
+        run: |
+          set -euo pipefail
+          for name in HOSTINGER_HOST HOSTINGER_USERNAME HOSTINGER_PASSWORD HOSTINGER_PORT HOSTINGER_PUBLIC_TARGET_DIR; do
+            test -n "${!name:-}" || { echo "Missing secret: $name" >&2; exit 1; }
+          done
+          TARGET="${HOSTINGER_PUBLIC_TARGET_DIR%/}"
+          if [[ ! "$TARGET" =~ ^[A-Za-z0-9_./-]+$ ]] || [[ "$TARGET" == '/' || "$TARGET" == '.' || "$TARGET" == *'..'* || "${TARGET##*/}" != 'public_html' ]]; then
+            echo "Unsafe Hostinger target, refusing." >&2; exit 1
+          fi
+          test -s v2/index.html
+          lftp -u "$HOSTINGER_USERNAME,$HOSTINGER_PASSWORD" -p "$HOSTINGER_PORT" "sftp://$HOSTINGER_HOST" <<LFTP
+          set cmd:fail-exit yes
+          set sftp:auto-confirm yes
+          set net:max-retries 2
+          set net:timeout 25
+          mkdir -p "$TARGET/v2"
+          put -e v2/.htaccess -o "$TARGET/v2/.htaccess"
+          put -e v2/index.html -o "$TARGET/v2/index.html"
+          bye
+          LFTP
+      - name: Verify /v2 without changing main website
+        run: |
+          set -euo pipefail
+          url="https://www.motoristaops.com.br/v2/?audit=${GITHUB_SHA}"
+          curl -4 -fsSL --retry 3 --retry-all-errors --retry-delay 3 --connect-timeout 20 --max-time 75 "$url" -o /tmp/motoristaops-v2.html
+          grep -qF 'data-screen="8"' /tmp/motoristaops-v2.html
+          grep -qF 'noindex,nofollow,noarchive' /tmp/motoristaops-v2.html
+          grep -qF 'id="orcamento"' /tmp/motoristaops-v2.html
+          curl -4 -fsSL --retry 2 --connect-timeout 20 --max-time 50 https://www.motoristaops.com.br/ | grep -qF 'Seu compromisso' 
+          echo "V2 reachable; public homepage still intact."
