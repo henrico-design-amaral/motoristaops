@@ -242,3 +242,11 @@ A identidade incorporada aos arquivos de logo permanece intacta. O descritor exe
 Exceção aprovada e restrita ao catálogo comercial do WhatsApp: veículos reais de parceiros podem ser apresentados quando a operação parceira for identificada e houver mídia autorizada, características e disponibilidade confirmadas. A exceção não transforma esses veículos no carro de Henrico e não libera veículos genéricos/gerados em outras composições. Omoda 5 Luxury cinza continua sendo a evidência da operação própria.
 
 Novos textos, CTA, composição da landing, imagens e peças finais continuam sujeitos à validação da nova versão. Não tratar a pesquisa de referências como aceite visual ou comprovação de conversão.
+
+
+## Assinaturas simplificadas — decisão de 2026-11-14
+
+O operador aprovou três composições-base da identidade, mantendo escudo, lettering e assinatura originais e retirando estrada e `MOTORISTA PARTICULAR`: **01 horizontal principal, 02 vertical institucional, 03 horizontal compacto**. A preferência para o header da nova landing é **03 horizontal compacto**. Também são permitidas as versões reduzidas **escudo isolado** e **escudo + MotoristaOPS**. A expressão `Chauffeur & Transporte Executivo` entra na comunicação comercial/SEO, não na composição do logo.
+
+**Escopo da exceção explícita:** esta decisão modifica a seleção/composição das variantes e suprime os elementos citados; **não** altera o design do escudo, letras, fonte embutida, cores nem autoriza geração/reconstrução por IA. Aplicações definitivas exigem master derivado fiel, registrado em pasta oficial, QA visual e aceite antes de publicação. As composições estão aprovadas como sistema; os arquivos visuais existentes ainda requerem verificação de fidelidade técnica. Resolução e rastreabilidade: [strategy/LOGO_APPLICATIONS_2026-11-14.md](strategy/LOGO_APPLICATIONS_2026-11-14.md). Essa decisão de 14/11 supera, neste escopo estrito, a imutabilidade do lockup descrita no reposicionamento de 13/11.
+
