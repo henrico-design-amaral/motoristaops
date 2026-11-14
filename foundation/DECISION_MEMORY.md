@@ -174,3 +174,10 @@ Supera: prioridade editorial/profissional anterior de LinkedIn na lista de super
 Autoridade e evidências: `strategy/EXECUTIVE_REPOSITIONING_2026-11-13.md` e `strategy/EXECUTIVE_REFERENCE_PACK_2026-11-13.json`. Persistência documental não significa site redesenhado/publicado, WhatsApp configurado, fotos produzidas, crachá entregue ou anúncios ativados.
 
 Propagação: PROJECT + SURFACE, ecosystem-visible por autoridade versionada. Não transformar preferências da MotoristaOPS ou hipóteses de canal em regra global de outros projetos. Revisão: novas decisões do operador e resultados reais de atendimentos/campanhas.
+
+
+## Nova tabela de preços e Link de Pagamento
+
+**CANONICAL · PROJECT / MotoristaOPS · 2026-11-14**
+
+Novos orçamentos comerciais passam a usar como referência principal a planilha de projeto `Preço - KM2.xlsx`, conforme regras registradas em `foundation/COMMERCIAL_PRICING_PAYMENT_2026-11-14.md`. Para contratação direta, o canal padrão de pagamento passa a ser Mercado Pago / ecossistema Mercado Livre Empresas, principalmente por Link de Pagamento. Plataformas terceiras continuam sujeitas às próprias regras de comissão e pagamento; não contornar o canal. Taxas de processamento são variáveis e devem ser verificadas na fonte oficial no momento do orçamento.
