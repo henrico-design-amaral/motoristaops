@@ -29,7 +29,7 @@ jobs:
           new vm.Script(script);
           const folds=[...html.matchAll(/data-screen="(\d)"/g)].map(m=>+m[1]);
           if(folds.join(',')!=='1,2,3,4,5,6,7,8')throw Error('Expected exactly eight ordered folds');
-          for(const phrase of ['noindex,nofollow,noarchive','id="servicos"','id="veiculos"','id="faq"','id="orcamento"','data-lang="en"','data-lang="es"','height:100svh']) {
+          for(const phrase of ['noindex,nofollow,noarchive','id="servicos"','id="veiculos"','id="faq"','id="orcamento"','data-lang="en"','data-lang="es"','height:100svh','src="/assets/hero-v4-3.webp"']) {
             if(!html.includes(phrase))throw Error('Missing required marker: '+phrase);
           }
           if(!html.includes('data:image/webp;base64,'))throw Error('Approved compact signature missing');
@@ -74,6 +74,7 @@ jobs:
           grep -qF 'data-screen="8"' /tmp/motoristaops-v2.html
           grep -qF 'noindex,nofollow,noarchive' /tmp/motoristaops-v2.html
           grep -qF 'id="orcamento"' /tmp/motoristaops-v2.html
+          grep -qF 'src="/assets/hero-v4-3.webp"' /tmp/motoristaops-v2.html
           curl -4 -fsSL --retry 2 --connect-timeout 20 --max-time 50 https://www.motoristaops.com.br/ -o /tmp/motoristaops-home.html
           grep -qF 'Seu compromisso' /tmp/motoristaops-home.html 
           echo "V2 reachable; public homepage still intact."

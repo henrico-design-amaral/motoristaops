@@ -2,8 +2,8 @@
 
 **Data:** 2026-11-14 · **Destino:** https://www.motoristaops.com.br/v2/
 
-**Status técnico:** IMPLANTADO / PASS (deploy isolado e verificações automatizadas).  
-**Status de aceite visual/comercial:** PENDENTE de comparação humana com a referência e confirmação de mídia dos parceiros.  
+**Status técnico:** PASS LOCAL; publicação desta revisão PENDENTE.
+**Status de aceite visual/comercial:** PASS de comparação técnica; aceite humano do operador e confirmação de mídia dos parceiros permanecem PENDENTES.
 **Produção na raiz:** NÃO ALTERADA.
 
 ## Insumos e evidências
@@ -13,6 +13,8 @@
 - Código corrigido: commit `11a936d7303a6449f6b7f1486e9e60510d100fe6`.
 - Workflow corrigido: commits `9ec3252ac9285426eea9128f3a58900d982525f0`, `360dd218bc9b244621d9e2ab6444365caaf4f68b`.
 - GitHub Actions concluído com **success**: run ID `43636565989`, URL https://github.com/henrico-design-amaral/motoristaops/actions/runs/43636565989 .
+- Hero desta revisão: asset canônico `source/landing/public/assets/hero-v4-3.webp`, documentado como composição aprovada.
+- Evidências locais desta revisão: `v2/qa/hero-desktop-1440x900.png`, `v2/qa/hero-mobile-390x844.png`, `v2/qa/faq-desktop-1440x900.png` e `v2/qa/form-desktop-1440x900.png`.
 
 ## Auditoria dos defeitos e reparos
 
@@ -24,6 +26,7 @@
 | P1 | Na dobra 'Como funciona' havia sobreposição de assinatura, título e etapas | Assinatura no fluxo do grid; mobile com grid explícito para número, título e texto |
 | P1 | Segundo depoimento sumia no mobile | Avaliações alteradas para carrossel horizontal navegável por toque/arraste |
 | P2 | Hero subutilizava a imagem e o CTA não reproduzia a prioridade da referência | Hero mais ampla, texto de maior hierarquia; CTA de orçamento e acesso direto ao WhatsApp |
+| P1 | A hero publicada em `/v2` não continha a persona real solicitada e divergia da cena da prancha | Substituída pelo asset canônico aprovado com Henrico, Omoda 5 e Ponte Estaiada; pessoa mantida à direita e texto à esquerda |
 | P2 | Botão flutuante não usava o símbolo correto do serviço | Trocado caractere improvisado pelo asset oficial `/assets/whatsapp.svg` |
 | P2 | Formulário usava propriedade de nome implícito em `HTMLFormElement` | Acesso explícito a `elements.namedItem('phone')`; validação testada |
 | P2 | Oito seções aparentavam miolo estreito com excesso de áreas vazias | Distribuição editorial revista em todas as dobras sem agrupar seções |
@@ -42,7 +45,7 @@ CSS: `100svh` por seção e `scroll-snap-align: start`. Em telas muito baixas (a
 
 ## Verificação realizada
 
-- Chromium/Playwright local via carregamento do HTML: **8 × 100svh** confirmados nos viewports 1440×900, 1920×1080, 390×844, 390×680; nenhuma largura excedeu a viewport.
+- Chromium/Playwright local via carregamento do HTML: **8 × 100svh** confirmados nos viewports 1440×900, 1920×1080, 390×844, 390×680; nenhuma largura excedeu a viewport. Na revisão atual, 390×844 foi medido novamente: oito dobras com 844 px, `scroll-snap-align:start`, `scroll-snap-stop:always` e zero overflow horizontal.
 - Testes de comportamento: seleção PT/EN/ES mantém a quebra de linha corretamente; menu mobile expande; FAQ abre; formulário vazio apresenta erro em vez de enviar; nenhum erro JavaScript observado no teste local.
 - Pré-publicação no GitHub Actions: validação estática das oito seções e sintaxe do JavaScript: **PASS**.
 - Publicação Hostinger `/v2`: **HTTP 200**, conteúdo atualizado contém os marcadores `data-i18n-html="servicesTitle"`, `class="wa-logo"` e regras de sprite corrigidas. `noindex,nofollow,noarchive` presente.
@@ -50,10 +53,10 @@ CSS: `100svh` por seção e `scroll-snap-align: start`. Em telas muito baixas (a
 
 ## Diferenças intencionais e pendências
 
-1. A pessoa fictícia e as avaliações/estrelas com nomes inventados no desenho não foram transferidas como evidência real. A hero conserva mídia conceitual sem pessoa falsa; avaliações usam relatos já disponibilizados na página anterior e link de origem.
+1. A pessoa fictícia do desenho foi substituída por Henrico usando a composição aprovada do projeto. Avaliações/estrelas com nomes inventados no desenho não foram transferidas como evidência real; a seção usa relatos já disponibilizados na página anterior e link de origem.
 2. A fonte do desenho tem aparência serifada; a implementação conserva **Instrument Sans**, única fonte aprovada no Brand Book V2. Não se declara fidelidade tipográfica pixel a pixel.
 3. Imagens das cinco categorias são ilustrações. **Não comprovam disponibilidade, quantidade de assentos, bagagens, modelo ou frota própria.** Fotos reais de parceiros e dados operacionais precisam de confirmação antes do release comercial final.
-4. Testes locais de imagem usaram temporariamente recortes das capturas do operador para conferir geometria sem acessar os assets remotos. Por isso não equivalem a QA visual do render final carregado ao vivo em todos os breakpoints.
-5. QA humano final dos oito folds em browser real, fonte efetivamente carregada, contraste e fidelidade da hero permanece **PENDENTE**.
+4. A fidelidade é estrutural e editorial, não uma rasterização da prancha: HTML, navegação, acessibilidade, responsividade e formulário permanecem reais e editáveis.
+5. O render final desta revisão foi inspecionado localmente em desktop e mobile; a verificação pública ao vivo permanece **PENDENTE** até a conclusão do workflow.
 
-**Veredito:** PASS técnico de publicação de teste e interação estrutural; **aceite visual final PENDENTE**. A V2 permanece ambiente de hipótese, separado da homepage.
+**Veredito desta revisão:** PASS técnico local e de fidelidade estrutural; publicação e aceite humano final PENDENTES. A V2 permanece ambiente de hipótese, separado da homepage.
