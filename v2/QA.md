@@ -11,7 +11,10 @@ Status: **PASSED**
 - Navigation anchors: tested.
 - Form fields: tested locally.
 - Console errors: none.
-- Public validation: pending the GitHub Actions deployment of this revision.
+- Public validation: PASS in workflow run `43663091601`.
+- `https://www.motoristaops.com.br/v2/`: HTTP 200, literal asset marker present, `noindex,nofollow,noarchive` present.
+- `https://www.motoristaops.com.br/`: HTTP 200 and unchanged by the isolated V2 deploy.
+- `https://dashboard.motoristaops.com.br/`: HTTP 200 and isolated from the V2 deploy.
 
 Evidence:
 
