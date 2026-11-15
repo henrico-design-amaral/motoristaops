@@ -65,7 +65,7 @@ jobs:
           # Directory already exists; querying it avoids mkdir failures on SFTP hosts
           # that reject creating an already existing directory.
           cls -1 "$TARGET/v2"
-          mkdir -p "$TARGET/v2/assets"
+          cls -1 "$TARGET/v2/assets"
           put -e v2/.htaccess -o "$TARGET/v2/.htaccess"
           put -e v2/index.html -o "$TARGET/v2/index.html"
           put -e v2/assets/motoristaops-v2-reference.png -o "$TARGET/v2/assets/motoristaops-v2-reference.png"
