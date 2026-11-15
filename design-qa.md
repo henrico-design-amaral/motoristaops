@@ -45,4 +45,5 @@ Aplicadas as sete intervenções autorizadas, descritas em `source/landing/MOTIO
 - Interações verificadas sem envio: FAQ abre, PT/EN funciona, menu mobile expande e formulário vazio permanece bloqueado pela validação nativa. JavaScript inline passou por compilação sintática.
 - Evidências: `v2/qa/hero-desktop-1440x900.png`, `v2/qa/hero-mobile-390x844.png`, `v2/qa/faq-desktop-1440x900.png` e `v2/qa/form-desktop-1440x900.png`.
 - Diferenças deliberadas: Instrument Sans e textos/evidências reais seguem o Brand Book V2; nomes, estrelas e capacidades inventados na prancha não foram promovidos como fatos.
-- Status: **PASS TÉCNICO LOCAL**. Publicação pública desta revisão e aceite humano final ainda pendentes.
+- A primeira publicação revelou, por medição ao vivo, 770 px de conteúdo na dobra de veículos em uma viewport de 720 px. O breakpoint de altura curta foi ampliado para 760 px; a nova medição confirmou 720 px de altura e `scrollHeight` em todas as oito dobras.
+- Status: **PUBLICADO / PASS TÉCNICO** no commit `ef2346d0a533e914fc95a0c407c5cc3b0852e88d`, workflow `43660737348`. Hero, oito dobras, `noindex` e homepage raiz preservada foram observados no domínio público. Aceite humano final ainda pendente.
