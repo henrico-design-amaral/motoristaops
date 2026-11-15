@@ -36,7 +36,7 @@ No separate crop was required after the full artboard was verified at native 1:1
 - Fonts and typography: exact source pixels; no HTML type is visible in the initial state.
 - Spacing and layout rhythm: exact source pixels at the 1086 × 1448 reference viewport; proportional scaling at other widths.
 - Colors and visual tokens: exact source pixels; the page background is `#151518` only outside the artboard.
-- Image quality and asset fidelity: the original 2,690,284-byte PNG is deployed without conversion; CI locks its SHA-256 and 1086 × 1448 dimensions.
+- Image quality and asset fidelity: CI locks the original 2,690,284-byte PNG by SHA-256 and 1086 × 1448 dimensions before upload. Hostinger rewrites lossless PNG metadata, so the public gate compares decoded pixels and requires PSNR `average:inf` (zero pixel difference).
 - Copy and content: exact source pixels; accessible labels mirror the visible controls.
 - Interactions: internal section anchors update the hash; the local form fields accept input; the form prepares a WhatsApp message; no console errors were found.
 
@@ -60,5 +60,6 @@ No separate crop was required after the full artboard was verified at native 1:1
 - [x] Navigation and local form input tested.
 - [x] Browser console checked: no errors.
 - [x] CI checks source dimensions and SHA-256.
+- [x] Public CDN image verified by decoded pixel identity.
 
 final result: passed
