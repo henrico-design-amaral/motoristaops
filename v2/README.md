@@ -12,4 +12,4 @@ This isolated preview follows the operator's current explicit decision: the atta
 
 ## Verification
 
-The deploy workflow refuses an altered source asset by checking both SHA-256 and PNG dimensions before upload. Browser evidence and the iteration history are recorded in `../design-qa.md`.
+The deploy workflow refuses an altered source asset by checking SHA-256 and PNG dimensions before upload. Because Hostinger may rewrite lossless PNG metadata, the post-CDN gate decodes both files and requires zero pixel difference. Browser evidence and the iteration history are recorded in `../design-qa.md`.

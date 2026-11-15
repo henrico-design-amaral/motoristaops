@@ -5,7 +5,8 @@ Status: **PASSED**
 - Visual authority: `assets/motoristaops-v2-reference.png`.
 - Native comparison viewport: 1086 × 1448.
 - Source and rendered composition: identical visible raster at native size.
-- CI asset lock: SHA-256 `BC85DEA5D68EF5959A28A9ECCDD6494919E7AD69D3E41C5D14E594DF2FDD19A1` and dimensions 1086 × 1448.
+- CI source lock: SHA-256 `BC85DEA5D68EF5959A28A9ECCDD6494919E7AD69D3E41C5D14E594DF2FDD19A1` and dimensions 1086 × 1448.
+- Public CDN pixel check: PSNR `average:inf`; Hostinger's lossless metadata rewrite does not alter any pixel.
 - HTML visible drift: none in the initial state.
 - Navigation anchors: tested.
 - Form fields: tested locally.

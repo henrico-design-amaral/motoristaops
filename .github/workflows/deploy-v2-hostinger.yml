@@ -82,7 +82,13 @@ jobs:
           curl -4 -fsSL --retry 3 --retry-all-errors --retry-delay 3 --connect-timeout 20 --max-time 75 \
             "https://www.motoristaops.com.br/v2/assets/motoristaops-v2-reference.png?audit=${GITHUB_SHA}" \
             -o /tmp/motoristaops-v2-reference.png
-          echo 'BC85DEA5D68EF5959A28A9ECCDD6494919E7AD69D3E41C5D14E594DF2FDD19A1  /tmp/motoristaops-v2-reference.png' | sha256sum -c -
+          # Hostinger may rewrite lossless PNG metadata, so verify decoded pixels,
+          # not the post-CDN file hash. The source hash remains locked pre-upload.
+          ffmpeg -hide_banner \
+            -i v2/assets/motoristaops-v2-reference.png \
+            -i /tmp/motoristaops-v2-reference.png \
+            -lavfi '[0:v][1:v]psnr' -f null - 2> /tmp/motoristaops-v2-psnr.log
+          grep -qF 'average:inf' /tmp/motoristaops-v2-psnr.log
           curl -4 -fsSL --retry 2 --connect-timeout 20 --max-time 50 https://www.motoristaops.com.br/ -o /tmp/motoristaops-home.html
           grep -qF 'Seu compromisso' /tmp/motoristaops-home.html 
           echo "V2 reachable; public homepage still intact."
