@@ -11,4 +11,4 @@ Imagens: a hero aproxima a geometria da prancha com Henrico, Omoda 5 e Ponte Est
 Comercial: capacidade, bagagem, motorista, disponibilidade e condições sob confirmação. Nada é enviado automaticamente do formulário. Dados de avaliações foram obtidos da landing atual e requerem reconfirmação humana pré-release.
 SEO: noindex, nofollow; `.htaccess` limita cache e aplica X-Robots-Tag quando disponível.
 Deploy: workflow dedicado apenas a `$HOSTINGER_PUBLIC_TARGET_DIR/v2/`, sem mirror-delete e sem tocar `public_html/index.html`.
-QA local: lint sintático, oito dobras, hero desktop/mobile, FAQ independente, formulário independente, idiomas, menu mobile e validação sem envio testados. Evidências em `v2/qa/`; aceite humano final continua separado do PASS técnico.
+QA: lint sintático, oito dobras, hero desktop/mobile, FAQ independente, formulário independente, idiomas, menu mobile e validação sem envio testados. Deploy Hostinger e medição pública em 1280×720 passaram no commit `ef2346d`; evidências visuais em `v2/qa/`. Aceite humano final continua separado do PASS técnico.
