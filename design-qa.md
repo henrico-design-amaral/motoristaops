@@ -61,5 +61,6 @@ No separate crop was required after the full artboard was verified at native 1:1
 - [x] Browser console checked: no errors.
 - [x] CI checks source dimensions and SHA-256.
 - [x] Public CDN image verified by decoded pixel identity.
+- [x] Public `/v2/`, homepage, and dashboard returned HTTP 200 after workflow run `43663091601`.
 
 final result: passed
