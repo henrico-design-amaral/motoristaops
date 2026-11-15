@@ -36,3 +36,13 @@ Aplicadas as sete intervenções autorizadas, descritas em `source/landing/MOTIO
 - Desktop: quatro fotos internas abertas com Enter, Escape fecha e devolve o foco ao botão acionado; navegação da última imagem para a primeira aprovada. No celular: ampliação do banco traseiro e Escape aprovados; fotos em duas colunas e proteções em uma.
 - Origem das fotos e confirmação das proteções documentadas em `source/landing/VEHICLE.md` e `foundation/DECISION_MEMORY.md`.
 - Publicado pelo commit `1e76e16817fe63b9883029cad7e4768203c9e21f`. Deploy `40493192216` e verificação independente `40493324321`: sucesso. Confirmados 29 arquivos públicos byte a byte, dashboard e Brand System intactos. QA pública em Edge (largura útil observada de 355 px) e Chrome desktop: quatro fotos carregadas, galeria e retorno de foco aprovados. Evidência em `ops/publication-evidence/vehicle-published-2026-10-27.jpg`.
+
+## Prévia `/v2` fiel à prancha — 14/11/2026
+
+- Referência: `C:\Users\henri\AppData\Local\Temp\codex-clipboard-ff262f4d-cc9c-4750-8815-69b4bcdde498.png` (1086×1448). Implementação: `v2/index.html`.
+- A hero foi comparada lado a lado com a prancha e passou a usar `hero-v4-3.webp`, composição aprovada com Henrico, Omoda 5 e Ponte Estaiada. O enquadramento preserva texto à esquerda e persona à direita em desktop; o recorte mobile mantém Henrico visível sem sobrepor a leitura principal.
+- Estrutura: oito seções independentes em `100svh`; FAQ é a dobra 6 e formulário a dobra 7. Em 390×844, todas mediram 844 px, com `scroll-snap-align:start`, `scroll-snap-stop:always` e sem overflow horizontal.
+- Interações verificadas sem envio: FAQ abre, PT/EN funciona, menu mobile expande e formulário vazio permanece bloqueado pela validação nativa. JavaScript inline passou por compilação sintática.
+- Evidências: `v2/qa/hero-desktop-1440x900.png`, `v2/qa/hero-mobile-390x844.png`, `v2/qa/faq-desktop-1440x900.png` e `v2/qa/form-desktop-1440x900.png`.
+- Diferenças deliberadas: Instrument Sans e textos/evidências reais seguem o Brand Book V2; nomes, estrelas e capacidades inventados na prancha não foram promovidos como fatos.
+- Status: **PASS TÉCNICO LOCAL**. Publicação pública desta revisão e aceite humano final ainda pendentes.
