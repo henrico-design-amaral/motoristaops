@@ -5,6 +5,7 @@ on:
     paths:
       - 'v2/index.html'
       - 'v2/.htaccess'
+      - 'v2/assets/motoristaops-v2-reference.png'
       - '.github/workflows/deploy-v2-hostinger.yml'
   workflow_dispatch:
 concurrency:
@@ -18,22 +19,24 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Validate staging-only page and inline JavaScript
+      - name: Validate literal reference page and inline JavaScript
         run: |
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
           import vm from 'node:vm';
+          import crypto from 'node:crypto';
           const html=fs.readFileSync('v2/index.html','utf8');
           const script=html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
           if(!script)throw Error('Inline script not found');
           new vm.Script(script);
-          const folds=[...html.matchAll(/data-screen="(\d)"/g)].map(m=>+m[1]);
-          if(folds.join(',')!=='1,2,3,4,5,6,7,8')throw Error('Expected exactly eight ordered folds');
-          for(const phrase of ['noindex,nofollow,noarchive','id="servicos"','id="veiculos"','id="faq"','id="orcamento"','data-lang="en"','data-lang="es"','height:100svh','src="/assets/hero-v4-3.webp"']) {
+          for(const phrase of ['noindex,nofollow,noarchive','id="servicos"','id="veiculos"','id="como-funciona"','id="avaliacoes"','id="orcamento"','assets/motoristaops-v2-reference.png']) {
             if(!html.includes(phrase))throw Error('Missing required marker: '+phrase);
           }
-          if(!html.includes('data:image/webp;base64,'))throw Error('Approved compact signature missing');
-          console.log('V2 isolated HTML and JS preflight passed.');
+          const image=fs.readFileSync('v2/assets/motoristaops-v2-reference.png');
+          const hash=crypto.createHash('sha256').update(image).digest('hex').toUpperCase();
+          if(hash!=='BC85DEA5D68EF5959A28A9ECCDD6494919E7AD69D3E41C5D14E594DF2FDD19A1')throw Error('Reference image hash mismatch');
+          if(image.readUInt32BE(16)!==1086||image.readUInt32BE(20)!==1448)throw Error('Reference image dimensions mismatch');
+          console.log('Literal V2 reference, HTML and JavaScript preflight passed.');
           NODE
       - name: Install SFTP client
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
@@ -62,8 +65,10 @@ jobs:
           # Directory already exists; querying it avoids mkdir failures on SFTP hosts
           # that reject creating an already existing directory.
           cls -1 "$TARGET/v2"
+          mkdir -p "$TARGET/v2/assets"
           put -e v2/.htaccess -o "$TARGET/v2/.htaccess"
           put -e v2/index.html -o "$TARGET/v2/index.html"
+          put -e v2/assets/motoristaops-v2-reference.png -o "$TARGET/v2/assets/motoristaops-v2-reference.png"
           bye
           LFTP
       - name: Verify /v2 without changing main website
@@ -71,10 +76,13 @@ jobs:
           set -euo pipefail
           url="https://www.motoristaops.com.br/v2/?audit=${GITHUB_SHA}"
           curl -4 -fsSL --retry 3 --retry-all-errors --retry-delay 3 --connect-timeout 20 --max-time 75 "$url" -o /tmp/motoristaops-v2.html
-          grep -qF 'data-screen="8"' /tmp/motoristaops-v2.html
           grep -qF 'noindex,nofollow,noarchive' /tmp/motoristaops-v2.html
           grep -qF 'id="orcamento"' /tmp/motoristaops-v2.html
-          grep -qF 'src="/assets/hero-v4-3.webp"' /tmp/motoristaops-v2.html
+          grep -qF 'assets/motoristaops-v2-reference.png' /tmp/motoristaops-v2.html
+          curl -4 -fsSL --retry 3 --retry-all-errors --retry-delay 3 --connect-timeout 20 --max-time 75 \
+            "https://www.motoristaops.com.br/v2/assets/motoristaops-v2-reference.png?audit=${GITHUB_SHA}" \
+            -o /tmp/motoristaops-v2-reference.png
+          echo 'BC85DEA5D68EF5959A28A9ECCDD6494919E7AD69D3E41C5D14E594DF2FDD19A1  /tmp/motoristaops-v2-reference.png' | sha256sum -c -
           curl -4 -fsSL --retry 2 --connect-timeout 20 --max-time 50 https://www.motoristaops.com.br/ -o /tmp/motoristaops-home.html
           grep -qF 'Seu compromisso' /tmp/motoristaops-home.html 
           echo "V2 reachable; public homepage still intact."

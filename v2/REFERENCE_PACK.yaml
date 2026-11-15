@@ -1,122 +1,19 @@
-reference_pack_id: HOPS-REF-20261114-motoristaops-v2-fidelity
-mode: VALIDATION
-status: READY
-project: motoristaops
-artifact_family: landing-page
-surface_or_channel: web-v2-preview
-objective: >-
-  Reproduzir em HTML a prancha executiva aprovada, com uma seção por dobra,
-  persona de Henrico na hero e FAQ/formulário em dobras independentes.
-context_signature:
-  lifecycle_stage: validate
-  modality: interactive
-  audience: clientes de transporte executivo em São Paulo
-  freshness_need: FRESH_REQUIRED
-  reference_depth: DEEP
-authority_inputs:
-  - id: 00_PROJECT_CORE/CREATIVE_PRODUCTION_BRIEF.md
-    role: product
-  - id: DESIGN.md
-    role: visual
-  - id: VISUAL_LOCK.md
-    role: visual
-  - id: source/landing/README.md
-    role: technical
-  - id: source/landing/public/assets/hero-v4-3.webp
-    role: visual
-  - id: operator-reference-ff262f4d
-    role: visual
-protected_decisions:
-  - Uma seção por dobra em oito telas; FAQ é a dobra 6 e formulário a dobra 7.
-  - A hero usa a composição aprovada de Henrico, não uma persona fictícia.
-  - Instrument Sans e tokens V2 continuam canônicos.
-  - Avaliações, capacidades e disponibilidade não podem ser inventadas a partir da prancha.
-  - A publicação fica isolada em /v2; a homepage da raiz não é alterada.
-selected_patterns:
-  - pattern_id: pattern:visual-lock
-    summary: Preservar identidade, assets e linguagem visual aprovados.
-    intended_application: Composição, paleta, assinatura e hero da landing V2.
-    constraints: Não criar uma segunda identidade nem substituir assets oficiais por aproximações.
-    validation: Render comparado com a prancha e com o Visual Lock do projeto.
-  - pattern_id: pattern:interaction-fidelity-gate
-    summary: Validar comportamento real, não apenas semelhança estática.
-    intended_application: Scroll snap, menu, idiomas, FAQ e validação do formulário.
-    constraints: Nenhuma mensagem é enviada durante o QA.
-    validation: Interações executadas em navegador e registradas no QA.
-  - pattern_id: pattern:role-scoped-rhythm-contract
-    summary: Separar ritmos tipográfico, espacial e responsivo por função.
-    intended_application: Hierarquia da hero, grids de cinco cartões e dobras editoriais.
-    constraints: Não comprimir todas as seções em uma única grade uniforme.
-    validation: Cada dobra mantém hierarquia própria sem vazar para a adjacente.
-  - pattern_id: pattern:canonical-design-token-authority-preservation-gate
-    summary: Manter a autoridade dos tokens canônicos existentes.
-    intended_application: Instrument Sans, cores e estados de interação V2.
-    constraints: A fonte serifada da prancha é referência visual, não nova autoridade tipográfica.
-    validation: Nenhuma nova fonte ou paleta paralela adicionada.
-  - pattern_id: pattern:observed-outcome-verification-contract
-    summary: Declarar sucesso somente depois de observar o estado final.
-    intended_application: QA local, workflow Hostinger e verificação HTTP pós-deploy.
-    constraints: Build local não prova publicação.
-    validation: Workflow verde, /v2 com a hero nova e homepage original intacta.
-negative_patterns:
-  - pattern: generic-saas-drift
-    scope: project
-    reason: A peça deve manter a linguagem executiva/editorial da MotoristaOPS.
-  - pattern: poster-compression
-    scope: artifact-family
-    reason: O operador exige uma seção por dobra, não a prancha inteira comprimida em uma tela.
-  - pattern: invented-commercial-proof
-    scope: project
-    reason: Nomes, estrelas, frota e capacidades da prancha não são evidência factual.
-source_plan:
-  internal_tags:
-    - web-layout
-    - typography
-    - photography
-    - ux-flow
-    - growth-conversion
-  source_family_ids:
-    - github
-    - w3c
-    - mdn
-  search_questions:
-    - Como garantir uma dobra por seção sem ocultar conteúdo em viewports baixas?
-    - Como verificar scroll snap e responsividade com evidência observada?
-source_provenance:
-  - source_id: operator-reference-ff262f4d
-    url_or_artifact: C:/Users/henri/AppData/Local/Temp/codex-clipboard-ff262f4d-cc9c-4750-8815-69b4bcdde498.png
-    observed_at: 2026-11-14
-    role: precedent
-    adoption_state: adopted
-  - source_id: github
-    url_or_artifact: https://github.com/henrico-design-amaral/motoristaops
-    observed_at: 2026-11-14
-    role: implementation
-    adoption_state: adopted
-  - source_id: w3c-css-scroll-snap
-    url_or_artifact: https://www.w3.org/TR/css-scroll-snap-1/
-    observed_at: 2026-11-14
-    role: evidence
-    adoption_state: provenance-only
-  - source_id: mdn-scroll-snap-stop
-    url_or_artifact: https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scroll-snap-stop
-    observed_at: 2026-11-14
-    role: evidence
-    adoption_state: provenance-only
-rights_constraints:
-  - A prancha do operador é referência de comparação; não é servida como uma imagem de página.
-  - A composição de Henrico permanece identificada como visual de marca, não fotografia documental.
-  - Assets de terceiros e fotos de parceiros exigem autorização antes de uso comercial definitivo.
-consumer_agents:
-  - henrico-master-orchestrator
-  - henrico-developer
-  - henrico-visual-qa
-  - henrico-memory-archivist
-validation_criteria:
-  - Oito dobras ordenadas, cada uma com 100svh e snap start/always.
-  - Hero desktop e mobile mantém Henrico à direita e leitura à esquerda.
-  - FAQ e formulário ocupam dobras distintas.
-  - Não há overflow horizontal nos viewports verificados.
-  - Workflow de deploy limita mutação a public_html/v2 e preserva a homepage.
-  - QA visual e técnico é separado do aceite humano.
-handoff_target: hostinger-v2-deploy-and-human-acceptance
+schema: motoristaops.v2.literal-reference.v1
+status: ACTIVE
+authority: current_explicit_operator_decision
+decision_date: 2026-11-14
+rule: "The attached image is the complete visual truth for /v2; do not reinterpret it."
+source:
+  file: assets/motoristaops-v2-reference.png
+  width_px: 1086
+  height_px: 1448
+  sha256: BC85DEA5D68EF5959A28A9ECCDD6494919E7AD69D3E41C5D14E594DF2FDD19A1
+implementation:
+  visible_layer: exact_source_raster
+  semantic_layer: transparent_html_hotspots_and_form_controls
+  scaling: proportional
+  search_indexing: blocked
+qa:
+  report: ../design-qa.md
+  comparison: qa/comparison-literal-1086x1448.png
+  final_result: passed
