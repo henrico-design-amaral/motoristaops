@@ -38,8 +38,8 @@ jobs:
           if(image.readUInt32BE(16)!==1086||image.readUInt32BE(20)!==1448)throw Error('Reference image dimensions mismatch');
           console.log('Literal V2 reference, HTML and JavaScript preflight passed.');
           NODE
-      - name: Install SFTP client
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Install SFTP client and pixel validator
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp ffmpeg
       - name: Upload only the staging /v2 directory
         env:
           HOSTINGER_HOST: ${{ secrets.HOSTINGER_HOST }}
