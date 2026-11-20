@@ -5,9 +5,9 @@ import {createHash} from 'node:crypto';
 const html=fs.readFileSync('dist/index.html','utf8');
 const manifest=JSON.parse(fs.readFileSync('dist/release-manifest.json','utf8'));
 test('indexable HTML includes the complete approved page before JavaScript',()=>{
- for(const text of ['Seu compromisso','Perguntas frequentes.','id="o-carro"','id="quem-dirige"','id="orcamento"','Preparar mensagem','O serviço leva meu nome.'])assert.ok(html.includes(text),text);
+ for(const text of ['Sua agenda merece','Veículos de parceiros','id="veiculos"','id="privacidade"','Perguntas frequentes.','id="o-carro"','id="quem-dirige"','id="orcamento"','Preparar mensagem','O serviço leva meu nome.'])assert.ok(html.includes(text),text);
  assert.equal((html.match(/<h1[ >]/g)||[]).length,1);
- assert.equal((html.match(/<details>/g)||[]).length,10);
+ assert.equal((html.split('class="faq-grid"')[1].split('</section>')[0].match(/<details>/g)||[]).length,10);
  assert.ok(html.includes('name="robots" content="index,follow'));
  assert.ok(html.includes('rel="canonical" href="https://www.motoristaops.com.br/"'));
  for(const bad of ['noindex','/temp/','landing-v3','fonts.googleapis.com','5511953970704','henrico.driver.amaral'])assert.ok(!html.includes(bad),bad);

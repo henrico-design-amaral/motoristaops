@@ -22,12 +22,13 @@ export function prepareTripRequest(values, today = localToday(), locale='pt') {
     else if (data < today) errors.data = 'Escolha hoje ou uma data futura.';
   }
   if (horario && !/^([01]\d|2[0-3]):[0-5]\d$/.test(horario)) errors.horario = 'Informe um horário válido.';
-  if (!['1','2','3','4'].includes(passageiros)) errors.passageiros = 'Selecione de 1 a 4 passageiros.';
+  if (!['1','2','3','4','5+'].includes(passageiros)) errors.passageiros = 'Selecione de 1 a 4 passageiros.';
   if (detalhes.length > 800) errors.detalhes = 'Use até 800 caracteres nos detalhes.';
   if (Object.keys(errors).length) return {errors:Object.fromEntries(Object.entries(errors).map(([field,error])=>[field,t(error)]))};
   const formattedDate = data ? (language(locale).code==='pt'?data.split('-').reverse().join('/'):new Intl.DateTimeFormat(language(locale).lang,{day:'2-digit',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(`${data}T12:00:00Z`))) : t('A combinar');
+  const partySize = passageiros === '5+' ? t('5 ou mais (sob consulta)') : passageiros;
   const message = [t('Olá, Henrico! Gostaria de solicitar um orçamento.'),...[
-    ['Origem',origem],['Destino',destino],['Data',formattedDate],['Horário',horario||t('A combinar')],['Passageiros',passageiros],['Detalhes',detalhes||t('A combinar')]
+    ['Origem',origem],['Destino',destino],['Data',formattedDate],['Horário',horario||t('A combinar')],['Passageiros',partySize],['Detalhes',detalhes||t('A combinar')]
   ].map(([label,value])=>`${t(label)}: ${value}`)].join('\n');
-  return {errors, message, href:`https://wa.me/5511988329725?text=${encodeURIComponent(message)}`, summary:{origem,destino,data:formattedDate,horario:horario || t('A combinar'),passageiros,detalhes}};
+  return {errors, message, href:`https://wa.me/5511988329725?text=${encodeURIComponent(message)}`, summary:{origem,destino,data:formattedDate,horario:horario || t('A combinar'),passageiros:partySize,detalhes}};
 }

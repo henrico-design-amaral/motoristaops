@@ -918,5 +918,137 @@
   "São Paulo e Região": {
     "en": "São Paulo and surrounding area",
     "es": "São Paulo y alrededores"
+  },
+  "Navegação principal": {
+    "en": "Main navigation",
+    "es": "Navegación principal"
+  },
+  "Serviços": {
+    "en": "Services",
+    "es": "Servicios"
+  },
+  "Veículos": {
+    "en": "Vehicles",
+    "es": "Vehículos"
+  },
+  "Quem atende": {
+    "en": "Your contact",
+    "es": "Quién te atiende"
+  },
+  "Avaliações": {
+    "en": "Reviews",
+    "es": "Opiniones"
+  },
+  "Dúvidas": {
+    "en": "FAQ",
+    "es": "Preguntas"
+  },
+  "Orçamento": {
+    "en": "Quote",
+    "es": "Presupuesto"
+  },
+  "Como funciona": {
+    "en": "How it works",
+    "es": "Cómo funciona"
+  },
+  "Sua agenda merece": {
+    "en": "Your schedule deserves",
+    "es": "Tu agenda merece"
+  },
+  "uma condução à altura.": {
+    "en": "the right ride.",
+    "es": "un traslado a su altura."
+  },
+  "Chauffeur & Transporte Executivo": {
+    "en": "Chauffeur & Executive Transport",
+    "es": "Chófer y transporte ejecutivo"
+  },
+  "Transporte executivo em São Paulo para aeroportos, compromissos e viagens programadas. Combine seu trajeto diretamente com Henrico Amaral.": {
+    "en": "Executive transport in São Paulo for airport transfers, appointments and planned trips. Arrange your journey directly with Henrico Amaral.",
+    "es": "Transporte ejecutivo en São Paulo para aeropuertos, reuniones y viajes programados. Organiza tu traslado directamente con Henrico Amaral."
+  },
+  "Veículos para o seu trajeto.": {
+    "en": "Vehicles for your journey.",
+    "es": "Vehículos para tu traslado."
+  },
+  "O número de passageiros e a bagagem orientam a escolha. Antes do embarque, você recebe a confirmação do veículo e de quem vai dirigir.": {
+    "en": "Your party size and luggage guide the choice. Before pickup, we confirm your vehicle and who will be driving.",
+    "es": "El número de pasajeros y el equipaje orientan la elección. Antes de la recogida, confirmamos el vehículo y quién conducirá."
+  },
+  "SUV da operação": {
+    "en": "Our SUV",
+    "es": "SUV de la operación"
+  },
+  "Até quatro passageiros. Informe o tamanho e a quantidade das malas para combinarmos o embarque.": {
+    "en": "Up to four passengers. Tell us the number and size of your bags so we can plan your pickup.",
+    "es": "Hasta cuatro pasajeros. Indícanos la cantidad y el tamaño de las maletas para organizar la recogida."
+  },
+  "Veículos de parceiros": {
+    "en": "Partner vehicles",
+    "es": "Vehículos de colaboradores"
+  },
+  "Precisa de um sedã executivo, sedã premium, minivan ou van? Henrico consulta os parceiros e confirma a categoria, os lugares e o espaço para malas no orçamento.": {
+    "en": "Need an executive sedan, premium sedan, minivan or van? Henrico checks with partners and confirms the category, seating and luggage space in your quote.",
+    "es": "¿Necesitas un sedán ejecutivo, sedán prémium, miniván o van? Henrico consulta a sus colaboradores y confirma la categoría, las plazas y el espacio para equipaje en el presupuesto."
+  },
+  "Consultar um veículo": {
+    "en": "Ask about a vehicle",
+    "es": "Consultar un vehículo"
+  },
+  "Henrico Amaral · MotoristaOPS": {
+    "en": "Henrico Amaral · MotoristaOPS",
+    "es": "Henrico Amaral · MotoristaOPS"
+  },
+  "Você combina o trajeto diretamente comigo. Organizo o atendimento com o veículo da MotoristaOPS ou com um motorista parceiro, conforme a sua agenda e a disponibilidade.": {
+    "en": "You arrange the trip directly with me. I coordinate your journey with the MotoristaOPS vehicle or a partner driver, depending on your schedule and availability.",
+    "es": "Organizas el traslado directamente conmigo. Coordino el servicio con el vehículo de MotoristaOPS o con un conductor colaborador, según tu agenda y la disponibilidad."
+  },
+  "O Omoda acomoda até quatro passageiros. Para grupos maiores, informe o total de pessoas e as malas para consultarmos um veículo parceiro.": {
+    "en": "The Omoda seats up to four passengers. For larger groups, tell us your party size and luggage so we can check partner vehicles.",
+    "es": "El Omoda admite hasta cuatro pasajeros. Para grupos mayores, indícanos el número de personas y las maletas para consultar un vehículo de un colaborador."
+  },
+  "5 ou mais (sob consulta)": {
+    "en": "5 or more (on request)",
+    "es": "5 o más (bajo consulta)"
+  },
+  "Privacidade e medição": {
+    "en": "Privacy and analytics",
+    "es": "Privacidad y medición"
+  },
+  "Ao abrir o WhatsApp, os dados do trajeto seguem para esse serviço para preparar a conversa. Você revisa e envia a mensagem. Para falar sobre seus dados, use o contato de Henrico nesta página.": {
+    "en": "Opening WhatsApp shares the trip details with that service to prepare the conversation. You review and send the message. Contact Henrico on this page about your data.",
+    "es": "Al abrir WhatsApp, los datos del traslado se comparten con ese servicio para preparar la conversación. Tú revisas y envías el mensaje. Para consultar sobre tus datos, contacta con Henrico desde esta página."
+  },
+  "Permitir cookies de medição do Google Analytics": {
+    "en": "Allow Google Analytics cookies",
+    "es": "Permitir cookies de medición de Google Analytics"
+  },
+  "Com sua autorização, medimos visitas e aberturas do WhatsApp. Os campos do orçamento ficam fora desses eventos. Você pode mudar sua escolha aqui.": {
+    "en": "With your permission, we measure visits and WhatsApp openings. Quote form fields are excluded from these events. You can change your choice here.",
+    "es": "Con tu autorización, medimos visitas y aperturas de WhatsApp. Los campos del presupuesto quedan fuera de estos eventos. Puedes cambiar tu elección aquí."
+  },
+  "Transporte Executivo em São Paulo | MotoristaOPS": {
+    "en": "Executive Transport in São Paulo | MotoristaOPS",
+    "es": "Transporte ejecutivo en São Paulo | MotoristaOPS"
+  },
+  "MotoristaOPS | Transporte Executivo em São Paulo": {
+    "en": "MotoristaOPS | Executive Transport in São Paulo",
+    "es": "MotoristaOPS | Transporte ejecutivo en São Paulo"
+  },
+  "Transporte executivo em São Paulo para aeroportos, compromissos e viagens programadas. Solicite seu orçamento diretamente com Henrico Amaral.": {
+    "en": "Executive transport in São Paulo for airport transfers, appointments and planned trips. Request a quote directly from Henrico Amaral.",
+    "es": "Transporte ejecutivo en São Paulo para aeropuertos, reuniones y viajes programados. Solicita tu presupuesto directamente a Henrico Amaral."
+  },
+  "Transporte executivo em São Paulo": {
+    "en": "Executive transport in São Paulo",
+    "es": "Transporte ejecutivo en São Paulo"
+  },
+  "Transporte executivo com hora marcada": {
+    "en": "Scheduled executive transport",
+    "es": "Transporte ejecutivo con reserva"
+  },
+  "Menu": {
+    "en": "Menu",
+    "es": "Menú"
   }
 }

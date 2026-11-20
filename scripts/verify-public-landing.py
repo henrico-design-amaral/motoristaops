@@ -12,7 +12,7 @@ def get(url):
 def verify():
     raw,_,_=get(BASE+'release-manifest.json?verify='+str(time.time_ns()))
     manifest=json.loads(raw)
-    assert manifest['release']=='landing-2026-11-06-header-r02'
+    assert manifest['release']=='landing-2026-11-20-executivo'
     if EXPECTED: assert manifest==EXPECTED,'Public manifest differs from build'
     def check(f):
         body,headers,_=get(BASE+f['path']+'?verify='+f['sha256'][:12]+'-'+str(time.time_ns()))
@@ -22,23 +22,25 @@ def verify():
     with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool: checked=list(pool.map(check,manifest['files']))
     html,headers,_=get(BASE+'?verify='+str(time.time_ns()));html=html.decode()
     assert 'noindex' not in headers.get('X-Robots-Tag','').lower()
-    for text in ['name="motoristaops-release" content="landing-2026-11-06-header-r02"','rel="canonical" href="'+BASE+'"','Seu compromisso','id="o-carro"','id="quem-dirige"','Perguntas frequentes.','Preparar mensagem','Nada é enviado automaticamente.']:
+    for text in ['name="motoristaops-release" content="landing-2026-11-20-executivo"','rel="canonical" href="'+BASE+'"','Sua agenda merece','id="o-carro"','id="quem-dirige"','Perguntas frequentes.','Preparar mensagem','Nada é enviado automaticamente.']:
         assert text in html,text
     for bad in ['noindex','/temp/','landing-v3','fonts.googleapis.com']:assert bad not in html,bad
-    for path,lang,marker,form in [('','pt-BR','Seu compromisso','Preparar mensagem'),('en/','en','Your journey','Prepare message'),('es/','es','Tu compromiso','Preparar mensaje')]:
+    for path,lang,marker,form in [('','pt-BR','Sua agenda merece','Preparar mensagem'),('en/','en','Your schedule deserves','Prepare message'),('es/','es','Tu agenda merece','Preparar mensaje')]:
         body,locale_headers,_=get(BASE+path+'?verify='+str(time.time_ns()));body=body.decode()
         for text in [f'<html lang="{lang}">',f'rel="canonical" href="{BASE+path}"',marker,form,'class="language-selector"']:
             assert text in body,(path,text)
         for target,target_lang in [('', 'pt-BR'),('en/','en'),('es/','es')]:
             assert f'hreflang="{target_lang}" href="{BASE+target}"' in body,(path,target)
         header=re.search(r'<header\b[\s\S]*?</header>',body).group(0)
-        assert 'data-header-revision="2026-11-06-r02"' in header,path
+        assert 'data-header-revision="2026-11-20-nav"' in header,path
         assert 'class="header-brand"' in header and 'class="header-location"' in header,path
         assert '<svg' not in header and 'header-divider' not in header,path
         assert 'noindex' not in body and 'noindex' not in locale_headers.get('X-Robots-Tag','').lower(),path
-    vehicle=re.search(r'<section[^>]*id="o-carro"[\s\S]*?</section>',html).group(0)
-    for text in ['data-vehicle-revision="2026-10-27"','Conheça o conforto por dentro.','Proteções já aplicadas','PPF Full','PS20','G5 / G20','Vitrificação Full','Anti-Trinco','omoda-luxury-cabin.webp','omoda-luxury-front-seats.webp','omoda-luxury-rear-seats.webp','omoda-luxury-sunroof.webp']:assert text in vehicle,text
-    for bad in ['previstos na preparação','Consultar ficha técnica','Imagens conceituais','vehicle-footnote']:assert bad not in vehicle,bad
+    vehicle=re.search(r'<section[^>]*id="veiculos"[\s\S]*?</section>',html).group(0)
+    for marker in ['Omoda 5 Luxury','SUV da operação','Veículos de parceiros','Consultar um veículo','omoda-front.webp']:
+        assert marker in vehicle,marker
+    for marker in ['href="#veiculos"','href="#orcamento"','id="privacidade"']:
+        assert marker in html,marker
     for name in ['hero-claude.avif','hero-omoda-56c0068f8b55.avif','logo-claude.avif','service-cards.webp','henrico-profile.webp']:
         try:get(BASE+'assets/'+name+'?verify='+str(time.time_ns()))
         except urllib.error.HTTPError as error:assert error.code in [404,410],(name,error.code)

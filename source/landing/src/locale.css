@@ -24,3 +24,45 @@ html{scroll-padding-top:calc(104px + env(safe-area-inset-top,0px))}
 }
 @media(max-width:359px){.header-inner{width:calc(100% - 32px);gap:8px}.header-brand{width:132px;max-width:calc(100% - 154px)}.header-logo{width:132px}}
 @media print{.header{position:absolute}}
+
+/* Section navigation shares the header with the existing language selector. */
+.site-menu {margin-left:auto; color:var(--ivory); font-size:14px}
+.site-menu .desktop-links {display:flex; align-items:center; gap:clamp(12px,1.3vw,24px)}
+.site-menu a, .site-menu summary {display:flex; align-items:center; min-height:44px}
+.site-menu a:hover, .site-menu summary:hover {color:var(--gold)}
+.site-menu a[href="#orcamento"] {color:var(--gold); font-weight:600}
+.site-menu details {display:none}
+.site-menu summary {cursor:pointer; list-style:none; padding:0 10px}
+.site-menu summary::-webkit-details-marker {display:none}
+.site-menu summary::after {content:"⌄"; margin-left:6px; color:var(--gold)}
+.site-menu details[open] summary::after {transform:rotate(180deg)}
+@media(max-width:1279px) {
+  .site-menu .desktop-links {display:none}
+  .site-menu details {display:block}
+  .mobile-links {position:absolute; top:100%; right:0; left:0; max-height:65vh; overflow:auto; background:var(--night); padding:8px max(24px,6vw) 16px; border-block:1px solid var(--graphite)}
+  .mobile-links a {border-bottom:1px solid var(--graphite)}
+}
+@media(max-width:760px) {
+  .header-inner {gap:6px}
+  .header-brand {width:auto; max-width:none; flex:1; min-width:0}
+  .header-logo,.header-logo-link {max-width:100%; width:min(150px,100%)}
+  .site-menu summary {padding-inline:6px}
+  .header-language .language-selector {padding:2px; gap:0}
+}
+.hero h1 .hero-line {max-width:100%}
+.hero-content > .button {margin-top:12px}
+.fleet-layout {display:grid; grid-template-columns:1.2fr 1fr; gap:clamp(28px,5vw,80px); align-items:center}
+.vehicle .fleet-layout .car-main {height:auto; min-height:0; width:100%}
+.vehicle .fleet-layout .car-main>img {width:100%; height:auto}
+.fleet-copy {display:grid; gap:24px}
+.fleet-copy>div+div {padding-top:20px; border-top:1px solid var(--shade)}
+.fleet-copy .eyebrow {margin-bottom:6px}
+.fleet-copy h3 {font-size:clamp(23px,2vw,32px); margin-bottom:8px}
+.fleet-copy p:not(.eyebrow) {max-width:52ch; color:var(--stone)}
+.fleet-copy .text-link, .privacy-link {color:var(--gold)}
+.privacy-link {display:inline-flex; align-items:center; min-height:44px; text-decoration:underline}
+.privacy-notice {padding-block:28px; border-top:1px solid var(--graphite)}
+.privacy-notice p {max-width:85ch; color:var(--stone); font-size:14px; margin-top:8px}
+.privacy-notice label {min-height:44px; display:flex; align-items:center; gap:10px; cursor:pointer; font-size:14px}
+.privacy-notice input {width:18px; height:18px; accent-color:var(--gold)}
+@media(max-width:760px) {.fleet-layout {grid-template-columns:1fr}}

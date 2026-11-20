@@ -21,7 +21,7 @@ for(const locale of languages)test(`${locale.code}: complete indexable page, rec
   assert.ok(html.includes(`<html lang="${locale.lang}">`));
   assert.ok(html.includes(`rel="canonical" href="https://www.motoristaops.com.br${locale.path}"`));
   assert.equal((html.match(/class="service"/g)||[]).length,8);
-  assert.equal((html.match(/<details>/g)||[]).length,10);
+  assert.equal((html.split('class="faq-grid"')[1].split('</section>')[0].match(/<details>/g)||[]).length,10);
   assert.equal((html.match(/class="review"/g)||[]).length,2);
   assert.ok(html.includes(t('Nada é enviado automaticamente. O atendimento só é reservado após confirmação.')));
   assert.ok(html.includes('69.099.839/0001-25'));assert.ok(html.includes('/assets/hero-v4-3.webp'));
