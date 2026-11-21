@@ -1,0 +1,224 @@
+{
+  "schema": "henricoops.seo-chatgpt-baseline.v1",
+  "project": "MotoristaOPS",
+  "date_brt": "2026-11-20",
+  "executor": "ChatGPT connected / Firecrawl",
+  "not_claude_code_plugin": true,
+  "scope": {
+    "sitemap_url": "https://www.motoristaops.com.br/sitemap.xml",
+    "sitemap_status": 200,
+    "sitemap_loc_count": 7,
+    "robots_url": "https://www.motoristaops.com.br/robots.txt",
+    "robots_status": 200,
+    "robots_allows_all": true,
+    "site_pages": 7
+  },
+  "pages": [
+    {
+      "path": "/",
+      "lang": "pt-BR",
+      "status": 200,
+      "title": "Transporte Executivo em São Paulo | MotoristaOPS",
+      "h1": "Sua agenda merece uma condução à altura.",
+      "schema_types": [
+        "ImageObject",
+        "WebSite",
+        "WebPage",
+        "Service",
+        "Person"
+      ],
+      "images": 24,
+      "empty_alt": 19,
+      "service_link_count": 0,
+      "alternates": 4,
+      "url": "https://www.motoristaops.com.br/",
+      "canonical_declared": "https://www.motoristaops.com.br/",
+      "has_meta_description": true,
+      "h1_count": 1,
+      "json_ld_parseable": true
+    },
+    {
+      "path": "/en/",
+      "lang": "en",
+      "status": 200,
+      "title": "Executive Transport in São Paulo | MotoristaOPS",
+      "h1": "Your schedule deserves the right ride.",
+      "schema_types": [
+        "ImageObject",
+        "WebSite",
+        "WebPage",
+        "Service",
+        "Person"
+      ],
+      "images": 24,
+      "empty_alt": 19,
+      "service_link_count": 0,
+      "alternates": 4,
+      "url": "https://www.motoristaops.com.br/en/",
+      "canonical_declared": "https://www.motoristaops.com.br/en/",
+      "has_meta_description": true,
+      "h1_count": 1,
+      "json_ld_parseable": true
+    },
+    {
+      "path": "/es/",
+      "lang": "es",
+      "status": 200,
+      "title": "Transporte ejecutivo en São Paulo | MotoristaOPS",
+      "h1": "Tu agenda merece un traslado a su altura.",
+      "schema_types": [
+        "ImageObject",
+        "WebSite",
+        "WebPage",
+        "Service",
+        "Person"
+      ],
+      "images": 24,
+      "empty_alt": 19,
+      "service_link_count": 0,
+      "alternates": 4,
+      "url": "https://www.motoristaops.com.br/es/",
+      "canonical_declared": "https://www.motoristaops.com.br/es/",
+      "has_meta_description": true,
+      "h1_count": 1,
+      "json_ld_parseable": true
+    },
+    {
+      "path": "/servicos/transfer-aeroportos/",
+      "lang": "pt-BR",
+      "status": 200,
+      "title": "Transfer para Aeroportos em São Paulo | MotoristaOPS",
+      "h1": "Transfer para aeroportos em São Paulo",
+      "schema_types": [
+        "Organization",
+        "Service",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "images": 2,
+      "empty_alt": 0,
+      "service_link_count": 3,
+      "alternates": 0,
+      "url": "https://www.motoristaops.com.br/servicos/transfer-aeroportos/",
+      "canonical_declared": "https://www.motoristaops.com.br/servicos/transfer-aeroportos/",
+      "has_meta_description": true,
+      "h1_count": 1,
+      "json_ld_parseable": true
+    },
+    {
+      "path": "/servicos/transporte-corporativo/",
+      "lang": "pt-BR",
+      "status": 200,
+      "title": "Transporte Executivo Corporativo | MotoristaOPS",
+      "h1": "Transporte executivo corporativo em São Paulo",
+      "schema_types": [
+        "Organization",
+        "Service",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "images": 2,
+      "empty_alt": 0,
+      "service_link_count": 3,
+      "alternates": 0,
+      "url": "https://www.motoristaops.com.br/servicos/transporte-corporativo/",
+      "canonical_declared": "https://www.motoristaops.com.br/servicos/transporte-corporativo/",
+      "has_meta_description": true,
+      "h1_count": 1,
+      "json_ld_parseable": true
+    },
+    {
+      "path": "/servicos/motorista-por-hora/",
+      "lang": "pt-BR",
+      "status": 200,
+      "title": "Motorista à Disposição por Hora | MotoristaOPS",
+      "h1": "Motorista à disposição por hora em São Paulo",
+      "schema_types": [
+        "Organization",
+        "Service",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "images": 2,
+      "empty_alt": 0,
+      "service_link_count": 3,
+      "alternates": 0,
+      "url": "https://www.motoristaops.com.br/servicos/motorista-por-hora/",
+      "canonical_declared": "https://www.motoristaops.com.br/servicos/motorista-por-hora/",
+      "has_meta_description": true,
+      "h1_count": 1,
+      "json_ld_parseable": true
+    },
+    {
+      "path": "/servicos/transporte-eventos/",
+      "lang": "pt-BR",
+      "status": 200,
+      "title": "Transporte para Eventos em São Paulo | MotoristaOPS",
+      "h1": "Transporte para eventos em São Paulo",
+      "schema_types": [
+        "Organization",
+        "Service",
+        "WebPage",
+        "BreadcrumbList"
+      ],
+      "images": 2,
+      "empty_alt": 0,
+      "service_link_count": 3,
+      "alternates": 0,
+      "url": "https://www.motoristaops.com.br/servicos/transporte-eventos/",
+      "canonical_declared": "https://www.motoristaops.com.br/servicos/transporte-eventos/",
+      "has_meta_description": true,
+      "h1_count": 1,
+      "json_ld_parseable": true
+    }
+  ],
+  "supplementary_checks": [
+    {
+      "url": "https://dashboard.motoristaops.com.br/",
+      "status": 200,
+      "robots_meta_observed": false,
+      "canonical_observed": false,
+      "note": "operational surface; noindex/auth policy requires owner review; indexing unverified"
+    },
+    {
+      "url": "https://dashboard.motoristaops.com.br/robots.txt",
+      "status": 404
+    },
+    {
+      "url": "https://www.motoristaops.com.br/servicos/track.js",
+      "status": 200
+    },
+    {
+      "url": "https://www.motoristaops.com.br/servicos/unknown-seo-page/",
+      "status": 404
+    },
+    {
+      "url": "https://www.googleapis.com/pagespeedonline/v5/runPagespeed?strategy=mobile",
+      "status": 429,
+      "reason": "QUOTA_EXHAUSTED"
+    }
+  ],
+  "metrics_unknown": [
+    "Google index coverage",
+    "Search Console impressions and rankings",
+    "Core Web Vitals",
+    "GA4 event delivery",
+    "GBP official status and reviews",
+    "AI assistant citation frequency",
+    "backlinks"
+  ],
+  "guard": {
+    "homepage_unmodified": true,
+    "dashboard_unmodified": true,
+    "no_ad_spend": true
+  },
+  "finding_ids": [
+    "P1-homepage-service-link-gap",
+    "P1-dashboard-indexation-review",
+    "P1-whatsapp-analytics-verification",
+    "P1-search-console-gbp-access",
+    "P2-schema-entity-consistency",
+    "P2-mobile-cwv-unknown",
+    "P2-ai-citability-unmeasured"
+  ]
+}
