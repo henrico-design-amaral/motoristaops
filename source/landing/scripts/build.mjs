@@ -31,7 +31,7 @@ for(const page of legalPages){
   fs.writeFileSync(path.join(target,'index.html'),renderLegalPage(page,cssMatch));
 }
 fs.copyFileSync('scripts/service-tracking.js','dist/servicos/track.js');
-fs.copyFileSync('scripts/site-preferences.js','dist/assets/site-preferences.js');
+fs.copyFileSync('scripts/cookie-consent.js','dist/assets/site-preferences.js');
 fs.copyFileSync('scripts/cookie-consent.css','dist/assets/cookie-consent.css');
 fs.writeFileSync('dist/robots.txt','User-agent: *\nAllow: /\n\nSitemap: https://www.motoristaops.com.br/sitemap.xml\n');
 fs.writeFileSync('dist/sitemap.xml',sitemap());
