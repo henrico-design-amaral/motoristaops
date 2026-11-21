@@ -1,0 +1,23 @@
+.mops-cookie-panel{position:fixed;z-index:1100;left:50%;bottom:max(16px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(740px,calc(100% - 32px));max-height:calc(100dvh - 32px);overflow-y:auto;box-sizing:border-box;background:#151518;color:#F3EFE4;border:1px solid #947546;border-radius:4px;font-family:'Instrument Sans',sans-serif;font-size:14px;line-height:1.5}
+.mops-cookie-panel[hidden],.mops-cookie-panel [hidden]{display:none!important}
+.mops-cookie-panel *{box-sizing:border-box}
+.mops-cookie-content{padding:20px 24px}
+.mops-cookie-title{font-size:17px;line-height:1.35;font-weight:600;margin:0 0 6px;color:#F3EFE4}
+.mops-cookie-description{font-size:13px;line-height:1.55;color:#F3EFE4;margin:0}
+.mops-cookie-legal{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:10px;font-size:12px}
+.mops-cookie-legal a{color:#F3EFE4;text-decoration:underline;text-underline-offset:3px}
+.mops-cookie-actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px;margin-top:16px}
+.mops-cookie-panel button{font:inherit;cursor:pointer;min-height:44px;padding:9px 14px;border:1px solid #C79C5B;border-radius:4px;text-align:center}
+.mops-cookie-primary{background:#C79C5B;color:#070709;font-weight:650}
+.mops-cookie-secondary{background:#151518;color:#F3EFE4;font-weight:650}
+.mops-cookie-text{background:transparent;color:#F3EFE4;border-color:transparent!important;text-decoration:underline;text-underline-offset:3px}
+.mops-cookie-panel button:focus-visible,.mops-cookie-panel a:focus-visible,.mops-cookie-panel input:focus-visible,[data-cookie-settings]:focus-visible{outline:3px solid #C79C5B;outline-offset:3px}
+.mops-cookie-preferences{border-top:1px solid #947546;padding-top:14px;margin-top:16px;display:grid;gap:10px}
+.mops-cookie-option{display:flex;align-items:center;justify-content:space-between;gap:18px;color:#F3EFE4}
+.mops-cookie-option strong{display:block;font-size:13px}
+.mops-cookie-option small{display:block;color:#F3EFE4;font-size:12px;line-height:1.5;margin-top:3px}
+.mops-cookie-option span{font-size:11px;white-space:nowrap;color:#F3EFE4}
+.mops-cookie-option input{flex:none;width:22px;height:22px;accent-color:#C79C5B;cursor:pointer}
+.mops-cookie-settings-trigger{font:inherit;background:transparent;border:1px solid #947546;border-radius:4px;color:inherit;min-height:44px;padding:8px 12px;cursor:pointer}
+@media(max-width:600px){.mops-cookie-panel{width:calc(100% - 16px);bottom:max(8px,env(safe-area-inset-bottom,0px))}.mops-cookie-content{padding:16px}.mops-cookie-actions{display:grid;grid-template-columns:1fr 1fr}.mops-cookie-actions button{width:100%;font-size:12px;padding-inline:7px}.mops-cookie-actions [data-cookie-action="customize"],.mops-cookie-actions [data-cookie-action="back"]{grid-column:1/-1;order:3}}
+@media(prefers-reduced-motion:reduce){.mops-cookie-panel *{animation:none!important;transition:none!important}}
