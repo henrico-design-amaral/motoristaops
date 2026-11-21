@@ -22,7 +22,11 @@ test('service pages render indexable, unique HTML with consistent brand and real
     assert.ok(html.includes('name="robots" content="index,follow'));
     assert.ok(html.includes('src="/assets/logo-horizontal.webp"'));
     assert.ok(html.includes('href="/assets/app/index-test.css"'));
-    assert.ok(html.includes('id="seo-analytics-consent"'));
+    assert.ok(html.includes('data-cookie-settings'));
+    assert.ok(html.includes('href="/privacidade/"'));
+    assert.ok(html.includes('href="/termos-de-uso/"'));
+    assert.ok(html.includes('src="/assets/cookie-consent.js"'));
+    assert.ok(html.includes('href="/assets/cookie-consent.css"'));
     assert.ok(html.includes('src="/servicos/track.js"'));
     assert.equal((html.match(/<h1>/g)||[]).length,1);
     assert.ok(!html.includes('fonts.googleapis.com'));
@@ -42,14 +46,14 @@ test('service pages render indexable, unique HTML with consistent brand and real
   }
 });
 
-test('XML sitemap keeps all three home language URLs and includes only real additional service pages', () => {
+test('XML sitemap keeps all three home language URLs, service pages and two legal pages', () => {
   const xml=sitemap();
   for (const locale of ['/','/en/','/es/']) assert.ok(xml.includes('<loc>'+BASE+locale+'</loc>'));
   for (const page of seoPages) {
     assert.ok(xml.includes('<loc>'+BASE+page.path+'</loc>'),page.path);
     assert.ok(!xml.includes('<loc>'+BASE+page.path.slice(0,-1)+'</loc>'));
   }
-  assert.equal((xml.match(/<url>/g)||[]).length,7);
+  assert.equal((xml.match(/<url>/g)||[]).length,9);
 });
 
 test('the production build emits four independent pages and one consented click tracker', () => {
