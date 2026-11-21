@@ -1,6 +1,6 @@
 # MotoristaOPS — páginas de aquisição SEO (2026-11-20)
 
-Status: IMPLEMENTADO NA BRANCH; produção depende de merge e verificação pública.
+Status: PUBLICADO COM QA TÉCNICO PASS; QA VISUAL E ANALYTICS REAL PENDENTES.
 
 ## Autoridade e limites
 - Direção: posicionamento executivo aprovado, Brand Book V2, DESIGN.md, VISUAL_LOCK.json e estratégia de 13/11/2026.
@@ -21,7 +21,7 @@ Cada página tem intenção de busca própria, conteúdo verificável, URL canô
 - Rastreamento nas páginas adicionais: `source/landing/scripts/service-tracking.js`.
 - `npm run build` pré-renderiza as quatro páginas em `dist/servicos/...`, as inclui no manifesto SHA-256 e atualiza sitemap.xml, preservando o SSR existente da home PT/EN/ES.
 - O deploy Hostinger copia `dist/servicos/` antes de publicar sitemap; sem delete remoto nessa pasta. O verificador atual confere arquivos do manifesto publicados por SHA-256.
-- `seo-pages-ci.yml` compila/testa a branch sem deploy; o workflow canônico de publicação continua sendo `deploy-landing-hostinger.yml` ao integrar `main`.
+- `seo-pages-ci.yml` e os workflows existentes rodaram no PR #151 com sucesso; o deploy canônico continuou em `deploy-landing-hostinger.yml` ao integrar `main`.
 
 ## Medição e limites
 - A homepage já possui GA4 `G-ZQZ76XPPLP` e evento consentido `whatsapp_click`; fontes atuais de `App.jsx`, `TripForm.jsx`, `Privacy.jsx` e `analytics.mjs` ficam intocadas.
@@ -30,8 +30,16 @@ Cada página tem intenção de busca própria, conteúdo verificável, URL canô
 - Sem instalação de tag Google Ads, sem alteração de `ad_storage` nem autorização silenciosa de finalidade publicitária. Vincular GA4 a Google Ads, confirmar a conta, configurar conversões e validar em Tag Assistant/DebugView dependem de acesso autenticado e aceite do plano de mídia.
 - Google Ads conta informada pelo operador: 679-367-7323. Existência, acesso e campanhas não foram verificados nesta execução.
 
-## Validação pendente
-- Testes GitHub Actions em pull request; teste de entrega pública após merge.
-- Search Console: indexação das páginas, sitemap, consultas, impressões, cliques.
-- Google Ads: confirmar a conta e evitar campanha duplicada antes de ativar. Orçamento/publicação de anúncios condicionados à aprovação do valor.
-- QA visual das quatro páginas em mobile/desktop e teste consentido do clique no navegador.
+## Evidências de publicação e aceitação técnica
+- Pull request #151 integrado à main: commit `6fca066e01c9ea8116268b2160f7f72ea057fc5f`.
+- CI no PR: MotoristaOPS Foundation Gate, Validate MotoristaOPS landing e Verify MotoristaOPS SEO service pages com resultado success. 25 testes da landing passaram após ajuste aditivo do teste do sitemap.
+- Publicação: GitHub Actions `Deploy MotoristaOPS landing only` run #62 (44855122065), job deploy-landing status success, inclusive instalação, build, testes, cópia SFTP e verificação pós-publicação por hash.
+- Verificação independente pós-publicação: quatro URLs de `/servicos/` responderam HTTP 200 com title/H1/canonical próprios, links de contato e JSON-LD; sitemap.xml respondeu HTTP 200 com sete URLs; a home respondeu HTTP 200 com o H1 e canonical anteriores.
+- `source/landing/index.html`, `src/App.jsx`, `src/Privacy.jsx`, `src/TripForm.jsx` e `src/analytics.mjs` não foram alterados na PR; gate CI confirmou.
+- O sucesso técnico não substitui inspeção visual detalhada em dispositivos nem comprova disparo real da tag no Google Analytics.
+
+## Pendências
+- QA visual das quatro páginas em mobile e desktop: captura disponível para consulta, mas render não inspecionado integralmente nesta execução. Estado PENDENTE.
+- Validar em navegador/Tag Assistant/GA4 DebugView o evento consentido do botão de WhatsApp. PENDENTE.
+- Search Console: confirmar indexação das páginas, enviar sitemap atualizado, medir consultas, impressões e cliques. PENDENTE.
+- Google Ads: conectar a fonte de dados e confirmar a conta 679-367-7323, analisar campanha inteligente existente antes de criar outra. Orçamento/veiculação condicionados à aprovação específica. PENDENTE.
