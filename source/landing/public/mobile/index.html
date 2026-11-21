@@ -7,6 +7,8 @@
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="description" content="Transporte executivo em São Paulo para aeroportos, compromissos, eventos e viagens programadas. Solicite orçamento diretamente à MotoristaOPS.">
 <title>Transporte Executivo em São Paulo | MotoristaOPS</title>
+<link rel="stylesheet" href="/assets/cookie-consent.css">
+<script defer src="/assets/site-preferences.js"></script>
 <!-- MotoristaOPS: pagina inicial mobile oficial, mesma canonical da versao desktop. -->
 
 <style>
@@ -262,7 +264,7 @@ h2{font-size:29px;line-height:1.14;font-weight:600;letter-spacing:-.05em;margin:
 </form>
 </section>
 </main>
-<footer class="foot"><strong>MotoristaOPS</strong><p>Transporte executivo em São Paulo. Atendimento coordenado por Henrico Amaral, com veículos da operação ou de parceiros conforme disponibilidade.</p><p><a href="/privacidade/">Privacidade</a> · <a href="/termos-de-uso/">Termos de uso</a></p></footer>
+<footer class="foot"><strong>MotoristaOPS</strong><p>Transporte executivo em São Paulo. Atendimento coordenado por Henrico Amaral, com veículos da operação ou de parceiros conforme disponibilidade.</p><p><a href="/privacidade/">Privacidade</a> · <a href="/termos-de-uso/">Termos de uso</a></p><p><button type="button" class="mops-cookie-settings-trigger" data-cookie-settings>Preferências de privacidade</button></p></footer>
 </div>
 <script>
 (function(){
@@ -335,6 +337,15 @@ h2{font-size:29px;line-height:1.14;font-weight:600;letter-spacing:-.05em;margin:
  });
 
 })();
+</script>
+<script type="module">
+import {savedPermission,setPermission,observeContacts} from '/assets/mobile-analytics.js';
+// Reuse the approved desktop consent state and measure only consented contact clicks.
+observeContacts(document);
+setPermission(savedPermission(),false);
+window.addEventListener('motoristaops:consent-changed',event=>{
+  setPermission(Boolean(event.detail?.analytics),false);
+});
 </script>
 </body>
 </html>
