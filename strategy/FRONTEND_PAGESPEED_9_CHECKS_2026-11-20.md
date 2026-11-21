@@ -30,6 +30,7 @@ Relatórios da interface oficial Google em 20/11/2026; o sistema exibiu `Nov 20,
 | Home — Mobile | 99 | 96 | 100 | 100 | 1,3 s | 1,9 s | 0 ms | 0 | 2,8 s |
 | Home — Desktop | 100 | 96 | 100 | 100 | 0,2 s | 0,4 s | 0 ms | 0,004 | 0,5 s |
 | Transfer aeroportos — Mobile, **antes da correção** | 100 | 95 | 100 | 100 | 0,8 s | 0,8 s | 0 ms | 0 | Não coletado |
+| Transfer aeroportos — Mobile, **depois da correção** | 100 | 100 | 100 | 100 | Não coletado nesta leitura | Não coletado nesta leitura | Não coletado nesta leitura | 0 | Não coletado |
 
 **Dados de campo:** indisponíveis no relatório consultado; não foi atribuído INP de campo. Uma nova execução pode variar com rede, CPU e local de teste. Nenhum score foi inventado.
 
@@ -65,12 +66,12 @@ Relatórios da interface oficial Google em 20/11/2026; o sistema exibiu `Nov 20,
 - Foi adicionado `source/landing/tests/seo-contrast.test.mjs`, com teste de contraste AA e verificação dos quatro serviços.
 - **Três checks concluídos com sucesso:** Foundation Gate, Validate MotoristaOPS landing (build+test) e Verify MotoristaOPS SEO service pages (build+test e guard de integridade da home).
 - A `source/landing/src/App.jsx` da homepage conserva o SHA `8120f460cfd2ec0b8f6a0f2ba9c534160aae3b0e`.
-- O deploy de produção deve ser **verificado separadamente** após o merge. A auditoria não declara publicação automática só porque a PR foi incorporada.
-- A reexecução do PageSpeed do transfer após deploy é necessária para comprovar melhora efetiva na pontuação 95; mudança de código + CI não equivale a resultado Lighthouse.
+- **Deploy confirmado por nova coleta externa:** as quatro páginas de serviço responderam HTTP 200 e exibiram no CSS computável tanto `.seo-light .seo-kicker` quanto `.seo-point .seo-number` em `rgb(21, 21, 24)` (cor oficial `#151518`). Merge e produção foram observados separadamente.
+- **PageSpeed pós-deploy confirmado:** nova execução móvel oficial para `/servicos/transfer-aeroportos/`, timestamp na interface Google `Nov 20, 2026, 10:13:09 PM`, retornou **Performance 100, Acessibilidade 100, Boas práticas 100, SEO 100, CLS 0**. A auditoria `color-contrast` passou. Pontuação anterior de Acessibilidade do template = **95** na execução `10:06:15 PM`; evolução observada de 95 para 100 entre duas medições de laboratório, não garantia para todos os dispositivos.
 
 ## 4. Próximas correções com base em dados
 
-1. **P1 — Validar produção do PR #156:** comparar CSS publicado por URL nos quatro serviços (`.seo-light .seo-kicker` e `.seo-point .seo-number`), reexecutar Lighthouse móvel para confirmar melhora em contraste sem regressão.
+1. **CONCLUÍDO — Contraste das páginas de serviço:** CSS publicado confirmado em quatro URLs, teste regressivo incorporado e Google Lighthouse oficial reexecutado no transfer com Acessibilidade 100/100. Manter monitoramento nas quatro páginas.
 2. **P1 — ARIA da homepage:** corrigir `div.stars[aria-label]` com semântica válida, por exemplo `role="img"` apropriado para o agrupamento de estrelas, e testar com leitor de tela/Lighthouse. **BLOQUEADO** pela instrução literal de não editar a home; registrar como correção condicionada a nova autorização específica.
 3. **P2 — Imagens de serviços na homepage:** criar variantes WebP responsivas/comprimidas a partir de arquivos aprovados, usando `srcset/sizes` apropriado para dimensões exibidas, preservando enquadramento, identidade e texto. **BLOQUEADO** para edição da home; nunca otimizar logo oficial ou imagens de Henrico/Omoda por transformação sem autorização canônica.
 4. **P2 — Cache:** aumentar TTL apenas dos assets com hash e política de invalidação segura; imagens estáticas sem hash exigem versionamento. Revisar `source/landing/apache.htaccess` e cache da Hostinger sem quebrar releases; TTL 7d registrado.
@@ -91,3 +92,12 @@ Relatórios da interface oficial Google em 20/11/2026; o sistema exibiu `Nov 20,
 - https://developers.google.com/search/docs/appearance/core-web-vitals
 - https://web.dev/articles/optimize-cls
 - https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing
+
+## 6. Fechamento pós-deploy — evidência de execução
+
+- PR #156 integrado à `main` no commit `2e52cdaa15900a7a9112448984dd921c96d1c7a8`.
+- Testes GitHub Actions da branch: `Verify MotoristaOPS SEO service pages`, `Validate MotoristaOPS landing` e `MotoristaOPS Foundation Gate` concluídos com `success`.
+- Verificação externa pública das quatro páginas de serviço por Firecrawl com `maxAge:0`: todas HTTP 200 e ambas as cores alteradas já aplicadas no HTML/CSS produzido.
+- Google PageSpeed Insights Mobile do transfer reexecutado depois de publicação: 100/100/100/100 e `color-contrast` em **Passed audits**, com timestamp Nov 20 2026 10:13:09 PM, verificado diretamente no texto DOM do relatório.
+- A home `App.jsx` e assets oficiais permaneceram intactos na revisão do commit principal.
+- **Não resolvido:** oportunidade de reduzir WebPs grandes no grid home, erro ARIA `div.stars[aria-label]` da home, TTL de cache, CSS bloqueante, JavaScript em desuso, preferência de primeira interação de analytics e alinhamento de `Person/Organization`. Esses itens dependem de mudanças na homepage ou análise de cache/consentimento; proteção literal da página principal mantida.
