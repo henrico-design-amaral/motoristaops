@@ -15,6 +15,12 @@ test('official mobile page is indexable and has no redundant site button',()=>{
  assert.ok(html.includes('.compact-section{padding:30px 0 16px;background:var(--noite);border-top:0;}'));
  assert.ok(html.includes('/assets/app/instrument-sans-normal-')&&html.includes('/assets/app/instrument-sans-italic-'));
  for(const asset of ['mops-mobile-hero.webp','mops-mobile-frota-sedan.webp','mops-mobile-frota-van.webp'])assert.ok(fs.existsSync('dist/assets/'+asset),asset);
+ for(const marker of ['site-preferences.js','cookie-consent.css','mobile-analytics.js','data-cookie-settings','motoristaops:consent-changed'])assert.ok(html.includes(marker),marker);
+ const analytic=fs.readFileSync('dist/assets/mobile-analytics.js','utf8');
+ assert.ok(analytic.includes('recordContact') && analytic.includes('savedPermission'));
+ assert.ok(analytic.includes('whatsapp_click'));
+ assert.ok(analytic.includes('https://www.googletagmanager.com/gtag/js?id='));
+
 });
 
 test('the root URL uses the cache-safe PHP router for both device variants',()=>{
