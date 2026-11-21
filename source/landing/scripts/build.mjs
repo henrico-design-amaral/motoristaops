@@ -17,10 +17,10 @@ for(const locale of languages){
   fs.writeFileSync(path.join(target,'index.html'),localizeDocument(html,render(locale.code),locale.code));
 }
 // Supplementary SEO pages: prerendered and published without altering home markup.
-const cssMatch=[...html.matchAll(/<link\\b[^>]*href="([^"]+\\.css)"[^>]*>/g)].map(item=>item[1]).find(href=>href.startsWith('/assets/'));
+const cssMatch=html.split('<link').slice(1).map(chunk=>chunk.split('>')[0]).map(tag=>tag.match(/href="([^"]+)"/)?.[1]).find(href=>href?.startsWith('/assets/')&&href.endsWith('.css'));
 if(!cssMatch)throw Error('Production stylesheet missing; service pages require official Instrument Sans');
 for(const page of seoPages){
-  const target=path.join('dist',page.path.replace(/^\\/|\\/$/g,''));
+  const target=path.join('dist',page.path.split('/').filter(Boolean).join('/'));
   fs.mkdirSync(target,{recursive:true});
   fs.writeFileSync(path.join(target,'index.html'),renderSeoPage(page,cssMatch));
 }
