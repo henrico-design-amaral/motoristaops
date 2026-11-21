@@ -44,8 +44,13 @@ def verify():
         assert marker in phone,('mobile',marker)
     for invalid in ['noindex','Visitar o site oficial','fonts.googleapis.com','Bio Executiva']:
         assert invalid not in phone,('mobile',invalid)
-    assert 'user-agent' in phone_headers.get('Vary','').lower(),'Mobile response must vary by User-Agent'
+    phone_vary=phone_headers.get('Vary','').lower()
+    phone_cache=phone_headers.get('Cache-Control','').lower()
+    assert 'user-agent' in phone_vary or 'no-store' in phone_cache,('Mobile response must either Vary or be non-cacheable',phone_vary,phone_cache)
     assert 'mobile-oficial-2026-11-21' not in html,'Desktop must remain distinct'
+    desktop_vary=headers.get('Vary','').lower()
+    desktop_cache=headers.get('Cache-Control','').lower()
+    assert 'user-agent' in desktop_vary or 'no-store' in desktop_cache,('Desktop response must either Vary or be non-cacheable',desktop_vary,desktop_cache)
     vehicle=re.search(r'<section[^>]*id="veiculos"[\s\S]*?</section>',html).group(0)
     for marker in ['Omoda 5 Luxury','SUV da operação','Veículos de parceiros','Consultar um veículo','omoda-front.webp']:
         assert marker in vehicle,marker
