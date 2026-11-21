@@ -1,0 +1,38 @@
+name: Verify MotoristaOPS SEO service pages
+on:
+  pull_request:
+    paths:
+      - 'source/landing/**'
+      - 'scripts/deploy-landing.sh'
+      - '.github/workflows/seo-pages-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: source/landing/package-lock.json
+      - name: Ensure current homepage and consent implementation are unchanged
+        if: github.event_name == 'pull_request'
+        run: |
+          test -z "$(git diff --name-only origin/main...HEAD -- source/landing/index.html source/landing/src/App.jsx source/landing/src/Privacy.jsx source/landing/src/TripForm.jsx source/landing/src/analytics.mjs)"
+      - name: Check approved foundation
+        run: bash scripts/validate-foundation.sh
+      - name: Install locked dependencies
+        working-directory: source/landing
+        run: npm ci
+      - name: Prerender public HTML
+        working-directory: source/landing
+        run: npm run build
+      - name: Test service pages and existing landing contracts
+        working-directory: source/landing
+        run: npm test
