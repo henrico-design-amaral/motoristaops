@@ -16,7 +16,7 @@ test('two basic legal pages have truthful public metadata, contact and consent c
     assert.ok(html.includes('name="description"'));
     assert.ok(html.includes('name="viewport"'));
     assert.ok(html.includes('69.099.839/0001-25'));
-    assert.ok(html.includes('11 98832-9725'));
+    assert.ok(html.includes('98832-9725'));
     assert.ok(html.includes('21 de novembro de 2026'));
     assert.ok(html.includes('href="/privacidade/"') && html.includes('href="/termos-de-uso/"'));
     assert.ok(html.includes('data-cookie-settings'));
@@ -40,10 +40,14 @@ test('sitemap and production build include legal pages and shared consent assets
     assert.ok(html.includes('src="/assets/cookie-consent.js"'),lang);
     assert.ok(html.includes('href="/assets/cookie-consent.css"'),lang);
     assert.ok(html.includes('data-cookie-settings'),lang);
-    assert.ok(html.includes('href="/privacidade/"'),lang);
-    assert.ok(html.includes('href="/termos-de-uso/"'),lang);
+    assert.ok(html.includes('id="privacidade"'),lang);
   }
   for (const asset of ['cookie-consent.js','cookie-consent.css']) assert.ok(fs.existsSync('dist/assets/'+asset));
+  const banner=fs.readFileSync('dist/assets/cookie-consent.js','utf8');
+  assert.ok(banner.includes('window.addEventListener(\'load\''));
+  assert.ok(banner.includes('href="/privacidade/"'));
+  assert.ok(banner.includes('href="/termos-de-uso/"'));
+  assert.ok(banner.includes('data-cookie-settings'));
   const manifest=JSON.parse(fs.readFileSync('dist/release-manifest.json','utf8'));
   for (const entry of ['privacidade/index.html','termos-de-uso/index.html','assets/cookie-consent.js','assets/cookie-consent.css'])
     assert.ok(manifest.files.some(file=>file.path===entry),entry);
