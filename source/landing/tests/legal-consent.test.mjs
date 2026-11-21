@@ -55,7 +55,7 @@ test('sitemap and production build include legal pages and shared consent assets
     assert.ok(deploy.includes('mirror --reverse --verbose source/landing/dist/'+directory));
 });
 test('shared banner initially rejects optional analytics and can explicitly accept or revoke', () => {
-  const source=fs.readFileSync('scripts/site-preferences.js','utf8');
+  const source=fs.readFileSync('scripts/cookie-consent.js','utf8');
   new vm.Script(source);
   const store=new Map(),handlers={};
   const controls=Object.fromEntries(['reject','accept','customize','save','back'].map(name=>[name,{
