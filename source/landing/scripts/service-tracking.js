@@ -2,12 +2,9 @@
   'use strict';
   const ID = 'G-ZQZ76XPPLP';
   const pref = 'motoristaops.analytics';
-  const input = document.getElementById('seo-analytics-consent');
-  if (!input) return;
   let enabled = false;
   let initialized = false;
   try { enabled = localStorage.getItem(pref) === 'yes'; } catch {}
-  input.checked = enabled;
   function gtag() { (window.dataLayer ??= []).push(arguments); }
   function begin() {
     if (initialized || !enabled) return;
@@ -37,13 +34,13 @@
     document.head.appendChild(script);
   }
   if (enabled) begin();
-  input.addEventListener('change', function () {
-    enabled = input.checked;
-    try { localStorage.setItem(pref, enabled ? 'yes' : 'no'); } catch {}
+  window.addEventListener('motoristaops:consent-changed', function (event) {
+    enabled = event.detail?.analytics === true;
+    window['ga-disable-' + ID] = !enabled;
     if (enabled) begin();
-    else {
-      window['ga-disable-' + ID] = true;
-      if (initialized) location.reload();
+    else if (initialized) {
+      gtag('consent','update',{analytics_storage:'denied'});
+      location.reload();
     }
   });
   document.addEventListener('click', function (event) {
