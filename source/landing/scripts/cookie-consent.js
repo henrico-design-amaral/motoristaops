@@ -130,14 +130,15 @@
     panel.hidden = readChoice() !== null;
   });
   // Keep the approved homepage footer intact; enhance it without changing React's SSR subtree.
-  const homeFooter = document.getElementById('privacidade');
-  if (homeFooter && !homeFooter.querySelector('.mops-legal-links')) {
+  window.addEventListener('load', () => {
+    const homeFooter = document.getElementById('privacidade');
+    if (!homeFooter || homeFooter.querySelector('.mops-legal-links')) return;
     const links = document.createElement('nav');
     links.className = 'mops-legal-links';
     links.setAttribute('aria-label', t.label);
     links.innerHTML = '<a href="/privacidade/">' + t.privacy + '</a><a href="/termos-de-uso/">' + t.terms + '</a><button type="button" class="mops-cookie-settings-trigger" data-cookie-settings>' + t.customize + '</button>';
     homeFooter.appendChild(links);
-  }
+  });
   document.addEventListener('change', event => {
     if (event.target.matches?.('#privacidade input[type="checkbox"]')) panel.hidden = readChoice() !== null;
   });
