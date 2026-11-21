@@ -15,6 +15,9 @@ test('official mobile page has SEO, destinations and no redundant site link',()=
  for(const asset of ['mops-mobile-hero.webp','mops-mobile-frota-sedan.webp','mops-mobile-frota-van.webp'])assert.ok(fs.existsSync('dist/assets/'+asset),asset);
 });
 test('Apache selects a mobile document on the same URL and preserves the desktop',()=>{
- for(const value of ['RewriteCond %{REQUEST_URI} ^/$','Android.*Mobile','iPhone','RewriteRule ^$ mobile/index.html [L]','Header always merge Vary User-Agent'])assert.ok(rule.includes(value),value);
+ for(const value of ['RewriteCond %{REQUEST_URI} ^/$','Android.*Mobile','iPhone','RewriteRule ^$ mobile/router.php [L]','Header always merge Vary User-Agent'])assert.ok(rule.includes(value),value);
  assert.ok(deploy.includes('mirror --reverse --verbose source/landing/dist/mobile'));
+ assert.ok(deploy.includes('put source/landing/scripts/mobile-router.php'));
+ const router=fs.readFileSync('scripts/mobile-router.php','utf8');
+ for(const requirement of ["header('Vary: User-Agent')",'no-store','HTTP_USER_AGENT','Googlebot-Smartphone',"dirname(__DIR__) . '/index.html'"])assert.ok(router.includes(requirement),requirement);
 });
