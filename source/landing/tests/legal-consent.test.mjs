@@ -21,7 +21,7 @@ test('two basic legal pages have truthful public metadata, contact and consent c
     assert.ok(html.includes('href="/privacidade/"') && html.includes('href="/termos-de-uso/"'));
     assert.ok(html.includes('data-cookie-settings'));
     assert.ok(html.includes('src="/assets/cookie-consent.js"'));
-    assert.ok(html.includes('src="/servicos/track.js"'));
+    assert.ok(html.includes('src="/servicos/track.js?v=20261121"'));
     assert.ok(!html.includes('cookies são obrigatórios para continuar'));
     const schema=JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]+?)<\/script>/)[1]);
     assert.equal(schema['@type'],'WebPage');
