@@ -24,6 +24,8 @@ mirror --reverse --verbose source/landing/dist/en "$TARGET/en"
 mirror --reverse --verbose source/landing/dist/es "$TARGET/es"
 # Publish mobile before the root rewrite can point to it.
 mirror --reverse --verbose source/landing/dist/mobile "$TARGET/mobile"
+# PHP responder is not part of the public build manifest; deploy after static variants.
+put source/landing/scripts/mobile-router.php -o "$TARGET/mobile/router.php"
 # Additional service pages are additive; never delete other public directories.
 mirror --reverse --verbose source/landing/dist/servicos "$TARGET/servicos"
 # Legal pages must be published before the home links and sitemap become visible.
