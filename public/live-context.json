@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "collectedAt": "2026-11-21T00:17:01.886Z",
+  "collectedAt": "2026-11-21T07:19:42.102Z",
   "expectedRefreshMinutes": 5,
   "status": "live",
   "traffic": {
@@ -14,58 +14,58 @@
     "zones": [
       {
         "name": "Norte",
-        "slowKm": 9,
-        "sharePct": 20
+        "slowKm": 4,
+        "sharePct": 33
       },
       {
         "name": "Oeste",
-        "slowKm": 5,
-        "sharePct": 11
+        "slowKm": 4,
+        "sharePct": 33
       },
       {
         "name": "Centro",
-        "slowKm": 9,
-        "sharePct": 20
+        "slowKm": 4,
+        "sharePct": 33
       },
       {
         "name": "Leste",
-        "slowKm": 18,
-        "sharePct": 39
+        "slowKm": 2,
+        "sharePct": 17
       },
       {
         "name": "Sul",
-        "slowKm": 12,
-        "sharePct": 26
+        "slowKm": 2,
+        "sharePct": 17
       }
     ],
     "busCorridorSpeed": {
-      "centroBairroKmh": 24,
-      "bairroCentroKmh": 25
+      "centroBairroKmh": 32,
+      "bairroCentroKmh": 35
     },
     "derived": {
-      "totalSlowKm": 53,
-      "worstZone": "Leste",
+      "totalSlowKm": 16,
+      "worstZone": "Norte",
       "pressure": "baixo"
     },
     "error": null
   },
   "weather": {
-    "status": "unavailable",
+    "status": "live",
     "source": {
       "id": "open-meteo",
       "label": "Open-Meteo · São Paulo",
       "url": "https://open-meteo.com/",
       "kind": "weather-api"
     },
-    "observedAt": null,
-    "temperatureC": null,
-    "humidityPct": null,
-    "precipitationMm": null,
-    "rainMm": null,
-    "weatherCode": null,
-    "windKmh": null,
-    "raining": null,
-    "error": "fetch failed"
+    "observedAt": "2026-11-21T04:15",
+    "temperatureC": 20.2,
+    "humidityPct": 96,
+    "precipitationMm": 0.1,
+    "rainMm": 0.1,
+    "weatherCode": 51,
+    "windKmh": 4,
+    "raining": true,
+    "error": null
   },
   "airport": {
     "status": "source-live",
