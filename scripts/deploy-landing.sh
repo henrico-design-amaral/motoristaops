@@ -22,6 +22,8 @@ mirror --reverse --verbose source/landing/dist/assets "$TARGET/assets"
 # Publish language pages before exposing their links in the main page.
 mirror --reverse --verbose source/landing/dist/en "$TARGET/en"
 mirror --reverse --verbose source/landing/dist/es "$TARGET/es"
+# Additional service pages are additive; never delete other public directories.
+mirror --reverse --verbose source/landing/dist/servicos "$TARGET/servicos"
 put source/landing/dist/robots.txt -o "$TARGET/robots.txt"
 put source/landing/dist/sitemap.xml -o "$TARGET/sitemap.xml"
 put source/landing/dist/.htaccess -o "$TARGET/.htaccess"
