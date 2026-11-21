@@ -36,6 +36,19 @@ fs.copyFileSync('scripts/cookie-consent.css','dist/assets/cookie-consent.css');
 fs.writeFileSync('dist/robots.txt','User-agent: *\nAllow: /\n\nSitemap: https://www.motoristaops.com.br/sitemap.xml\n');
 fs.writeFileSync('dist/sitemap.xml',sitemap());
 fs.copyFileSync('apache.htaccess','dist/.htaccess');
+// Replace mobile placeholders with the actual hashed, self-hosted Instrument Sans files.
+const mobilePath='dist/mobile/index.html';
+const fontEntries=fs.readdirSync('dist/assets/app');
+const fontPath=(style)=>{
+ const file=fontEntries.find(name=>name.startsWith('instrument-sans-'+style+'-')&&name.endsWith('.woff2'));
+ if(!file)throw Error('Official Instrument Sans '+style+' missing');
+ return '/assets/app/'+file;
+};
+const mobileHtml=fs.readFileSync(mobilePath,'utf8')
+ .replaceAll('__MOPS_FONT_NORMAL__',fontPath('normal'))
+ .replaceAll('__MOPS_FONT_ITALIC__',fontPath('italic'));
+if(mobileHtml.includes('__MOPS_FONT_')||mobileHtml.includes('noindex'))throw Error('Mobile SEO/font release gate failed');
+fs.writeFileSync(mobilePath,mobileHtml);
 const files=[];
 const visit=dir=>{for(const n of fs.readdirSync(dir).sort()){const p=path.join(dir,n);if(fs.statSync(p).isDirectory())visit(p);else if(n!=='.htaccess') files.push({path:p.slice(5).split(path.sep).join('/'),bytes:fs.statSync(p).size,sha256:createHash('sha256').update(fs.readFileSync(p)).digest('hex')});}};
 visit('dist');

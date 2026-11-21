@@ -22,6 +22,8 @@ mirror --reverse --verbose source/landing/dist/assets "$TARGET/assets"
 # Publish language pages before exposing their links in the main page.
 mirror --reverse --verbose source/landing/dist/en "$TARGET/en"
 mirror --reverse --verbose source/landing/dist/es "$TARGET/es"
+# Publish mobile before the root rewrite can point to it.
+mirror --reverse --verbose source/landing/dist/mobile "$TARGET/mobile"
 # Additional service pages are additive; never delete other public directories.
 mirror --reverse --verbose source/landing/dist/servicos "$TARGET/servicos"
 # Legal pages must be published before the home links and sitemap become visible.

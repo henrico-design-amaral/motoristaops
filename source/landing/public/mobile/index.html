@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070709">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+<meta name="description" content="Transporte executivo em São Paulo para aeroportos, compromissos, eventos e viagens programadas. Solicite orçamento diretamente à MotoristaOPS.">
+<title>Transporte Executivo em São Paulo | MotoristaOPS</title>
+<!-- MotoristaOPS: pagina inicial mobile oficial, mesma canonical da versao desktop. -->
+
+<style>
+@font-face{font-family:'Instrument Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url('__MOPS_FONT_NORMAL__') format('woff2')}
+@font-face{font-family:'Instrument Sans';font-style:italic;font-weight:400 700;font-display:swap;src:url('__MOPS_FONT_ITALIC__') format('woff2')}
+:root{
+ --noite:#070709;--grafite:#151518;--champagne:#C79C5B;--sombra:#947546;--marfim:#F3EFE4;--pedra:#A6A39E;
+ font-family:'Instrument Sans',sans-serif;color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:var(--grafite);color:var(--marfim);font-family:'Instrument Sans',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}button{cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--champagne);outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip{position:absolute;top:-100px;left:10px;z-index:40;background:var(--marfim);color:var(--noite);padding:12px}
+.skip:focus{top:10px}
+.page{width:100%;max-width:440px;min-height:100svh;margin:0 auto;overflow:clip;background:var(--noite);padding-bottom:0}
+.top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;padding:17px 23px 13px;gap:10px;background:var(--noite)}
+.brand{display:flex;align-items:center;min-width:0}.brand img{display:block;width:174px;max-width:100%;height:auto;aspect-ratio:906/246;object-fit:contain}
+.region{text-align:right;font-size:9px;letter-spacing:.14em;line-height:1.55;font-weight:600;text-transform:uppercase;color:var(--pedra);white-space:nowrap}.region strong{display:block;font-weight:600;color:var(--champagne)}
+.hero{position:relative;height:298px;isolation:isolate}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:53% 45%;z-index:-2}
+.hero:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 0%,rgba(7,7,9,.2) 17%,rgba(7,7,9,.77) 59%,var(--noite) 100%)}
+.hero-content{position:absolute;left:24px;right:24px;bottom:6px}
+.eyebrow{display:flex;gap:10px;align-items:center;color:var(--champagne);font-size:10px;font-weight:700;letter-spacing:.19em;text-transform:uppercase}
+.eyebrow::before{content:"";width:23px;height:1px;background:var(--champagne);flex:none}
+h1,h2,h3,p{margin-top:0}
+h1{font-size:clamp(32px,8.3vw,39px);font-weight:500;letter-spacing:-.055em;line-height:1.09;margin:15px 0 12px;text-wrap:balance}
+h1 em{font-weight:400;font-style:italic;color:var(--champagne)}
+.hero-desc{font-size:13px;line-height:1.55;color:var(--marfim);max-width:345px;margin:0}
+.actions{padding:10px 22px 0;display:grid;gap:8px}
+.action{min-height:66px;padding:12px 14px 12px 17px;display:flex;gap:13px;align-items:center;justify-content:space-between;border-radius:13px;transition:transform .15s ease;border:1px solid transparent}
+.action:active,.social:active{transform:scale(.985)}
+.action.main{background:var(--champagne);color:var(--noite)}
+.action.form-action{background:var(--marfim);color:var(--noite)}
+.action.site-action{background:var(--grafite);border-color:var(--sombra);color:var(--marfim)}
+.action-text{display:flex;flex-direction:column;gap:3px;min-width:0}
+.action-name{font-size:15px;font-weight:700;line-height:1.2;letter-spacing:-.01em}
+.action-detail{font-size:11px;font-weight:400;line-height:1.4;opacity:.86}
+.action-icon{display:inline-flex;align-items:center;justify-content:center;flex:none;width:35px;height:35px;border:1px solid currentColor;border-radius:50%}
+.action-icon svg{width:17px;height:17px}
+.action .arrow{flex:none;font-size:22px;font-weight:400;line-height:1}
+.action .brand-icon{flex:none;width:24px;height:24px;fill:currentColor}
+.channels{padding:18px 23px 0}
+.channels-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:12px}
+.kicker{font-size:10px;letter-spacing:.19em;text-transform:uppercase;font-weight:700;color:var(--champagne);margin:0}
+.channels-head span{font-size:11px;color:var(--pedra)}
+.social-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.social{display:flex;flex-direction:column;gap:11px;min-height:98px;padding:15px 13px 13px;border-radius:12px;background:var(--grafite);border:1px solid var(--sombra);transition:transform .15s ease}
+.social .social-line{display:flex;justify-content:space-between;align-items:center}
+.social .social-line svg{width:21px;height:21px;fill:none;stroke:var(--champagne);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.social .social-line .external{color:var(--pedra);font-size:19px}
+.social b{font-size:14px;font-weight:600;display:block;line-height:1.2}
+.social small{display:block;font-size:11px;color:var(--pedra);margin-top:4px}
+.service-line{margin:23px 23px 0;display:flex;flex-wrap:wrap;column-gap:11px;row-gap:7px;font-size:11px;line-height:1.4;color:var(--pedra)}
+.service-line span::before{content:"·";color:var(--champagne);margin-right:7px}
+.quote{background:var(--marfim);color:var(--noite);margin-top:29px;padding:33px 23px 42px;scroll-margin-top:0;color-scheme:light}
+.quote .kicker{color:var(--sombra)}
+h2{font-size:29px;line-height:1.14;font-weight:600;letter-spacing:-.05em;margin:12px 0 11px;text-wrap:balance}
+.lead{font-size:13px;line-height:1.55;color:var(--grafite);margin:0 0 25px}
+.form-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:15px 11px}
+.field{display:flex;flex-direction:column;min-width:0;gap:7px}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;font-weight:600;color:var(--grafite);line-height:1.25}
+.field label .optional{font-weight:400;color:var(--grafite)}
+.field input,.field select,.field textarea{width:100%;min-width:0;min-height:49px;padding:12px 12px;font-size:16px;line-height:1.3;color:var(--noite);border:1px solid var(--pedra);background:var(--marfim);border-radius:9px;appearance:none;-webkit-appearance:none}
+.field select{appearance:auto;-webkit-appearance:menulist;padding-right:6px}
+.field textarea{min-height:78px;resize:vertical}
+.field input::placeholder,.field textarea::placeholder{color:var(--grafite);opacity:.75}
+.form-submit{margin-top:22px;background:var(--noite);border:1px solid var(--noite);width:100%;min-height:55px;border-radius:11px;padding:12px 15px;display:flex;align-items:center;justify-content:space-between;color:var(--marfim);font-size:15px;font-weight:700;gap:10px}
+.form-submit span:last-child{font-size:21px;color:var(--champagne)}
+.privacy{font-size:11px;line-height:1.6;color:var(--grafite);margin:12px 1px 0}
+.form-status{min-height:1.1rem;font-size:12px;margin:8px 0 0;color:var(--grafite)}
+#preview{margin-top:18px;border:1px solid var(--sombra);border-radius:12px;padding:18px 15px;color:var(--noite)}
+#preview[hidden]{display:none}
+#preview h3{font-size:16px;font-weight:700;margin:0 0 7px}
+#preview p{font-size:12px;line-height:1.55;margin:0 0 12px}
+#preview pre{font-family:'Instrument Sans',sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.55;font-size:12px;margin:12px 0 16px;color:var(--grafite)}
+#open-whatsapp{display:flex;align-items:center;justify-content:center;background:var(--noite);color:var(--marfim);border-radius:10px;min-height:53px;font-size:14px;font-weight:700;padding:12px;text-align:center}
+#edit-message{border:0;background:none;padding:12px 0 0;color:var(--noite);text-decoration:underline;font-size:12px;cursor:pointer}
+.foot{padding:27px 24px 10px;text-align:center;background:var(--noite)}
+.foot strong{display:block;font-size:14px;font-weight:700;letter-spacing:.01em}
+.foot p{font-size:11px;line-height:1.5;color:var(--pedra);margin:8px auto 0;max-width:305px}
+@media(min-width:441px){.page{box-shadow:0 18px 85px rgba(0,0,0,.28);border-left:1px solid var(--grafite);border-right:1px solid var(--grafite)}}
+@media(max-width:360px){.top{padding:19px 17px 13px}.brand img{width:160px}.hero-content{left:19px;right:19px}.actions{padding-left:17px;padding-right:17px}.channels{padding-left:18px;padding-right:18px}.quote{padding-left:18px;padding-right:18px}.hero{height:308px}.action-name{font-size:14px}.action-detail{font-size:10px}.action{min-height:66px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.action,.social{transition:none}}
+
+/* Bio mobile v3: somente secoes de servicos e frota, mantendo hero/acoes originais. */
+.compact-section{padding:30px 0 16px;background:var(--noite);border-top:0;}
+.compact-header,.compact-intro{margin-left:23px;margin-right:23px}
+.compact-header .kicker{font-size:10px;letter-spacing:.19em}
+.compact-header h2{font-size:clamp(22px,6.2vw,26px);font-weight:600;letter-spacing:-.045em;line-height:1.15;margin:9px 0 8px}
+.compact-intro{font-size:12px;line-height:1.55;color:var(--pedra);margin-top:0;margin-bottom:18px;max-width:340px}
+.compact-rail{display:flex;gap:11px;padding:0 23px 6px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:none;scroll-snap-type:x proximity;scroll-padding-left:23px;-webkit-overflow-scrolling:touch}
+.compact-rail::-webkit-scrollbar{display:none}
+.mini-card{flex:0 0 176px;min-width:0;overflow:hidden;scroll-snap-align:start;display:flex;flex-direction:column;border:1px solid rgba(199,156,91,.36);border-radius:13px;background:var(--grafite);transition:border-color .15s ease,transform .15s ease}
+.mini-card:hover,.mini-card:focus-visible{border-color:var(--champagne)}
+.mini-card:active{transform:scale(.985)}
+.mini-card>img{width:100%;height:106px;object-fit:cover;display:block;background:var(--grafite)}
+.mini-body{padding:11px 12px 13px;flex:1;display:flex;flex-direction:column;justify-content:flex-end;min-height:78px}
+.mini-overline{display:block;color:var(--champagne);font-size:9px;letter-spacing:.07em;line-height:1.25;text-transform:uppercase;margin:0 0 7px}
+.mini-heading{display:flex;gap:6px;align-items:flex-end;justify-content:space-between}
+.mini-heading h3{font-size:13px;line-height:1.25;font-weight:600;letter-spacing:-.025em;margin:0}
+.mini-arrow{flex:none;font-size:15px;line-height:1;color:var(--champagne);margin-bottom:1px}
+.rail-hint{margin:10px 23px 0;text-align:right;font-size:10px;letter-spacing:.01em;color:var(--pedra)}
+.rail-hint span{color:var(--champagne);padding-left:3px}
+.compact-fleet{padding-top:24px;padding-bottom:25px;border-top:0;background:linear-gradient(180deg,var(--noite),var(--grafite))}
+.compact-fleet .mini-card{flex-basis:183px}
+.compact-fleet .mini-card>img{height:112px}
+.compact-fleet .mini-body{min-height:84px;justify-content:flex-start}
+.fleet-spec{display:flex;align-items:center;flex-wrap:wrap;column-gap:5px;row-gap:2px;font-size:10px;line-height:1.45;color:var(--pedra);margin-top:9px}
+.fleet-spec span{color:var(--champagne)}
+.fleet-disclaimer{font-size:10px;line-height:1.55;margin:14px 23px 0;color:var(--pedra)}
+@media(max-width:360px){.compact-header,.compact-intro{margin-left:18px;margin-right:18px}.compact-rail{padding-left:18px;padding-right:18px;scroll-padding-left:18px}.rail-hint,.fleet-disclaimer{margin-left:18px;margin-right:18px}.mini-card{flex-basis:166px}.compact-fleet .mini-card{flex-basis:175px}}
+@media(prefers-reduced-motion:reduce){.mini-card{transition:none}}
+
+</style>
+<meta name="author" content="Henrico Amaral">
+<meta name="publisher" content="MotoristaOPS">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="canonical" href="https://www.motoristaops.com.br/">
+<link rel="alternate" hreflang="pt-BR" href="https://www.motoristaops.com.br/">
+<link rel="alternate" hreflang="en" href="https://www.motoristaops.com.br/en/">
+<link rel="alternate" hreflang="es" href="https://www.motoristaops.com.br/es/">
+<link rel="alternate" hreflang="x-default" href="https://www.motoristaops.com.br/">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MotoristaOPS">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="MotoristaOPS | Transporte Executivo em São Paulo">
+<meta property="og:description" content="Transporte executivo para aeroportos, compromissos, eventos e viagens programadas em São Paulo. Solicite orçamento.">
+<meta property="og:url" content="https://www.motoristaops.com.br/">
+<meta property="og:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MotoristaOPS | Transporte Executivo em São Paulo">
+<meta name="twitter:description" content="Transporte executivo em São Paulo, com atendimento direto e veículos sob consulta.">
+<meta name="twitter:image" content="https://www.motoristaops.com.br/assets/og-motoristaops.jpg?v=20260916">
+<meta name="motoristaops-mobile-revision" content="mobile-oficial-2026-11-21">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://www.motoristaops.com.br/#website","url":"https://www.motoristaops.com.br/","name":"MotoristaOPS","inLanguage":"pt-BR"},{"@type":"WebPage","@id":"https://www.motoristaops.com.br/#webpage","url":"https://www.motoristaops.com.br/","name":"Transporte Executivo em São Paulo | MotoristaOPS","inLanguage":"pt-BR","isPartOf":{"@id":"https://www.motoristaops.com.br/#website"},"about":{"@id":"https://www.motoristaops.com.br/#service"}},{"@type":"Service","@id":"https://www.motoristaops.com.br/#service","name":"Transporte executivo em São Paulo","serviceType":"Transporte executivo com hora marcada","areaServed":{"@type":"City","name":"São Paulo"},"provider":{"@id":"https://www.motoristaops.com.br/#henrico"}},{"@type":"Person","@id":"https://www.motoristaops.com.br/#henrico","name":"Henrico Amaral","sameAs":["https://www.instagram.com/motoristaops/","https://www.tiktok.com/@motoristaops"]}]}</script>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<div class="page" id="topo">
+<header class="top">
+<a class="brand" href="#topo" aria-label="MotoristaOPS — início"><img src="/assets/logo-horizontal.webp" width="906" height="246" alt="MotoristaOPS por Henrico Amaral"></a>
+<div class="region">Transporte executivo<strong>São Paulo · SP</strong></div>
+</header>
+<main id="conteudo">
+<section class="hero" aria-labelledby="headline">
+<img src="/assets/mops-mobile-hero.webp" alt="" width="1536" height="1024" decoding="async">
+<div class="hero-content">
+<p class="eyebrow">MotoristaOPS</p>
+<h1 id="headline">Mobilidade executiva com conforto, discrição <em>e previsibilidade.</em></h1>
+<p class="hero-desc">Atendimento direto e opções de veículos sob consulta para aeroportos, compromissos, eventos e viagens programadas.</p>
+</div>
+</section>
+<nav class="actions" aria-label="Principais acessos">
+<a class="action main" href="https://wa.me/5511988329725?text=Ol%C3%A1%2C%20conheci%20a%20MotoristaOPS%20pelo%20site%20e%20gostaria%20de%20consultar%20um%20transporte%20executivo." target="_blank" rel="noopener noreferrer" data-event="bio_whatsapp_direct">
+<svg class="brand-icon" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+<span class="action-text"><span class="action-name">Falar pelo WhatsApp</span><span class="action-detail">Contato direto com a MotoristaOPS</span></span><span class="arrow" aria-hidden="true">↗</span>
+</a>
+<a class="action form-action" href="#orcamento" data-event="bio_form_open"><span class="action-icon" aria-hidden="true"><svg fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M8 2v4M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18M8 14h8M8 18h5"/></svg></span><span class="action-text"><span class="action-name">Preencher orçamento</span><span class="action-detail">Informe os detalhes do seu trajeto</span></span><span class="arrow" aria-hidden="true">↓</span></a>
+</nav>
+<section class="channels" aria-label="Redes sociais">
+<div class="channels-head"><h2 class="kicker">Acompanhe a MotoristaOPS</h2><span>Nos canais oficiais</span></div>
+<div class="social-grid">
+<a class="social" href="https://www.instagram.com/motoristaops/" target="_blank" rel="noopener noreferrer" data-event="bio_instagram_click" aria-label="Instagram MotoristaOPS, abre em nova aba">
+<div class="social-line"><svg aria-hidden="true" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.7" r=".8" fill="currentColor" stroke="none"/></svg><span class="external" aria-hidden="true">↗</span></div>
+<div><b>Instagram</b><small>@motoristaops</small></div>
+</a>
+<a class="social" href="https://www.tiktok.com/@motoristaops" target="_blank" rel="noopener noreferrer" data-event="bio_tiktok_click" aria-label="TikTok MotoristaOPS, abre em nova aba">
+<div class="social-line"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8v8l6-4z"/></svg><span class="external" aria-hidden="true">↗</span></div>
+<div><b>TikTok</b><small>@motoristaops</small></div>
+</a>
+</div>
+</section>
+
+<section class="compact-section compact-services" id="servicos" aria-labelledby="services-title">
+<div class="compact-header"><div><p class="kicker">Nossos serviços</p><h2 id="services-title">Uma solução para cada trajeto.</h2></div></div>
+<p class="compact-intro">Aeroportos, compromissos e ocasiões especiais com atendimento coordenado.</p>
+<div class="compact-rail" aria-label="Serviços da MotoristaOPS; deslize para explorar">
+<a class="mini-card service-card" href="#orcamento" data-fill-service="Traslado para aeroporto" aria-label="Solicitar orçamento para Traslados para aeroportos">
+<img src="/assets/mops-mobile-servico-aeroporto.webp" alt="" loading="lazy" decoding="async" width="420" height="260">
+<div class="mini-body"><span class="mini-overline">Aeroportos</span><div class="mini-heading"><h3>Traslados para aeroportos</h3><span class="mini-arrow" aria-hidden="true">↗</span></div></div>
+</a>
+<a class="mini-card service-card" href="#orcamento" data-fill-service="Agenda corporativa" aria-label="Solicitar orçamento para Agenda corporativa">
+<img src="/assets/mops-mobile-servico-corporativo.webp" alt="" loading="lazy" decoding="async" width="420" height="260">
+<div class="mini-body"><span class="mini-overline">Compromissos</span><div class="mini-heading"><h3>Agenda corporativa</h3><span class="mini-arrow" aria-hidden="true">↗</span></div></div>
+</a>
+<a class="mini-card service-card" href="#orcamento" data-fill-service="Motorista à disposição" aria-label="Solicitar orçamento para Motorista à disposição">
+<img src="/assets/mops-mobile-servico-disposicao.webp" alt="" loading="lazy" decoding="async" width="420" height="260">
+<div class="mini-body"><span class="mini-overline">À disposição</span><div class="mini-heading"><h3>Motorista à disposição</h3><span class="mini-arrow" aria-hidden="true">↗</span></div></div>
+</a>
+<a class="mini-card service-card" href="#orcamento" data-fill-service="Eventos e receptivo" aria-label="Solicitar orçamento para Eventos e receptivo">
+<img src="/assets/mops-mobile-servico-eventos.webp" alt="" loading="lazy" decoding="async" width="420" height="260">
+<div class="mini-body"><span class="mini-overline">Eventos</span><div class="mini-heading"><h3>Eventos e receptivo</h3><span class="mini-arrow" aria-hidden="true">↗</span></div></div>
+</a>
+<a class="mini-card service-card" href="#orcamento" data-fill-service="Viagem programada" aria-label="Solicitar orçamento para Viagens programadas">
+<img src="/assets/mops-mobile-servico-viagens.webp" alt="" loading="lazy" decoding="async" width="420" height="260">
+<div class="mini-body"><span class="mini-overline">Viagens</span><div class="mini-heading"><h3>Viagens programadas</h3><span class="mini-arrow" aria-hidden="true">↗</span></div></div>
+</a>
+</div><p class="rail-hint" aria-hidden="true">Deslize para conhecer os serviços <span>→</span></p>
+</section>
+<section class="compact-section compact-fleet" id="veiculos" aria-labelledby="fleet-title">
+<div class="compact-header"><div><p class="kicker">Nossa frota</p><h2 id="fleet-title">O veículo certo para sua agenda.</h2></div></div>
+<p class="compact-intro">Categorias executivas para diferentes necessidades, sempre sob consulta.</p>
+<div class="compact-rail" aria-label="Categorias de veículos; deslize para explorar">
+<a class="mini-card fleet-card" href="#orcamento" data-fill-vehicle="Sedan executivo" aria-label="Consultar disponibilidade de Sedan executivo">
+<img src="/assets/mops-mobile-frota-sedan.webp" alt="Imagem de referência da categoria Sedan executivo" loading="lazy" decoding="async" width="380" height="270">
+<div class="mini-body"><div class="mini-heading"><h3>Sedan executivo</h3><span class="mini-arrow" aria-hidden="true">↗</span></div><div class="fleet-spec">Até 3 passageiros<span aria-hidden="true">·</span>Até 2 malas</div></div>
+</a>
+<a class="mini-card fleet-card" href="#orcamento" data-fill-vehicle="Sedan premium" aria-label="Consultar disponibilidade de Sedan premium">
+<img src="/assets/mops-mobile-frota-sedan-premium.webp" alt="Imagem de referência da categoria Sedan premium" loading="lazy" decoding="async" width="380" height="270">
+<div class="mini-body"><div class="mini-heading"><h3>Sedan premium</h3><span class="mini-arrow" aria-hidden="true">↗</span></div><div class="fleet-spec">Até 3 passageiros<span aria-hidden="true">·</span>Até 2–3 malas</div></div>
+</a>
+<a class="mini-card fleet-card" href="#orcamento" data-fill-vehicle="SUV executivo" aria-label="Consultar disponibilidade de SUV executivo">
+<img src="/assets/mops-mobile-frota-suv.webp" alt="Imagem de referência da categoria SUV executivo" loading="lazy" decoding="async" width="380" height="270">
+<div class="mini-body"><div class="mini-heading"><h3>SUV executivo</h3><span class="mini-arrow" aria-hidden="true">↗</span></div><div class="fleet-spec">Até 5 passageiros<span aria-hidden="true">·</span>Até 4 malas</div></div>
+</a>
+<a class="mini-card fleet-card" href="#orcamento" data-fill-vehicle="Minivan executiva" aria-label="Consultar disponibilidade de Minivan executiva">
+<img src="/assets/mops-mobile-frota-minivan.webp" alt="Imagem de referência da categoria Minivan executiva" loading="lazy" decoding="async" width="380" height="270">
+<div class="mini-body"><div class="mini-heading"><h3>Minivan executiva</h3><span class="mini-arrow" aria-hidden="true">↗</span></div><div class="fleet-spec">Até 6 passageiros<span aria-hidden="true">·</span>Até 6 malas</div></div>
+</a>
+<a class="mini-card fleet-card" href="#orcamento" data-fill-vehicle="Van executiva" aria-label="Consultar disponibilidade de Van executiva">
+<img src="/assets/mops-mobile-frota-van.webp" alt="Imagem de referência da categoria Van executiva" loading="lazy" decoding="async" width="380" height="270">
+<div class="mini-body"><div class="mini-heading"><h3>Van executiva</h3><span class="mini-arrow" aria-hidden="true">↗</span></div><div class="fleet-spec">Até 15 passageiros<span aria-hidden="true">·</span>Até 10 malas</div></div>
+</a>
+</div><p class="rail-hint" aria-hidden="true">Deslize para explorar os veículos <span>→</span></p>
+<p class="fleet-disclaimer">Imagens e capacidades de referência. Modelo, lugares, bagagem e disponibilidade são confirmados na cotação. Atendimento com veículo da operação ou de parceiros.</p>
+</section>
+<section class="quote" id="orcamento" aria-labelledby="quote-title">
+<p class="kicker">Solicitar orçamento</p>
+<h2 id="quote-title">Conte sobre o seu próximo trajeto.</h2>
+<p class="lead">Preencha os dados para preparar sua solicitação. Você poderá revisar a mensagem antes de abrir o WhatsApp.</p>
+<form id="quote-form" novalidate>
+<div class="form-grid">
+<div class="field full"><label for="nome">Seu nome</label><input type="text" name="nome" id="nome" autocomplete="name" maxlength="100" placeholder="Como podemos chamar você?" required></div>
+<div class="field full"><label for="servico">Tipo de serviço</label><select name="servico" id="servico" required><option value="">Selecione um serviço</option><option>Traslado para aeroporto</option><option>Agenda corporativa</option><option>Motorista à disposição</option><option>Eventos e receptivo</option><option>Viagem programada</option><option>Consulta ou compromisso</option><option>Outro serviço</option></select></div>
+<div class="field"><label for="data">Data</label><input type="date" name="data" id="data" required></div>
+<div class="field"><label for="hora">Horário</label><input type="time" name="hora" id="hora" required></div>
+<div class="field full"><label for="origem">Origem</label><input type="text" name="origem" id="origem" maxlength="200" placeholder="Bairro, endereço ou aeroporto" required></div>
+<div class="field full"><label for="destino">Destino</label><input type="text" name="destino" id="destino" maxlength="200" placeholder="Para onde vamos?" required></div>
+<div class="field"><label for="pax">Passageiros</label><input type="number" name="pax" id="pax" min="1" max="99" step="1" inputmode="numeric" placeholder="Ex.: 2" required></div>
+<div class="field"><label for="malas">Malas <span class="optional">(opcional)</span></label><input type="number" name="malas" id="malas" min="0" max="99" step="1" inputmode="numeric" placeholder="Ex.: 2"></div>
+<div class="field full"><label for="veiculo">Preferência de veículo <span class="optional">(opcional)</span></label><select name="veiculo" id="veiculo"><option value="">Preciso de orientação</option><option>Sedan executivo</option><option>Sedan premium</option><option>SUV executivo</option><option>Minivan executiva</option><option>Van executiva</option></select></div>
+<div class="field full"><label for="detalhes">Informações adicionais <span class="optional">(opcional)</span></label><textarea name="detalhes" id="detalhes" maxlength="800" rows="3" placeholder="Bagagem especial, paradas, retorno, referência do local..."></textarea></div>
+</div>
+<button class="form-submit" type="submit"><span>Revisar minha solicitação</span><span aria-hidden="true">→</span></button>
+<p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+<div id="preview" hidden aria-live="polite"><h3>Mensagem preparada</h3><p>Confira os dados antes de abrir a conversa. O envio só acontece quando você confirmar dentro do WhatsApp.</p><pre id="message-preview"></pre><a id="open-whatsapp" href="#" target="_blank" rel="noopener noreferrer" data-event="bio_whatsapp_form">Abrir conversa no WhatsApp ↗</a><button id="edit-message" type="button">Editar meus dados</button></div>
+<p class="privacy">Os dados permanecem nesta página até você abrir a conversa. Nenhuma mensagem é enviada automaticamente. Orçamento e disponibilidade dependem de confirmação.</p>
+</form>
+</section>
+</main>
+<footer class="foot"><strong>MotoristaOPS</strong><p>Transporte executivo em São Paulo. Atendimento coordenado por Henrico Amaral, com veículos da operação ou de parceiros conforme disponibilidade.</p><p><a href="/privacidade/">Privacidade</a> · <a href="/termos-de-uso/">Termos de uso</a></p></footer>
+</div>
+<script>
+(function(){
+ 'use strict';
+ const form=document.getElementById('quote-form');
+ const panel=document.getElementById('preview');
+ const status=document.getElementById('form-status');
+ const pre=document.getElementById('message-preview');
+ const open=document.getElementById('open-whatsapp');
+ const edit=document.getElementById('edit-message');
+ const phone='5511988329725';
+ const dateField=form.elements.data;
+ const now=new Date();
+ dateField.min=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
+ const safe=v=>String(v||'').trim();
+ const displayDate=iso=>{const parts=iso.split('-');return parts.length===3?`${parts[2]}/${parts[1]}/${parts[0]}`:iso;};
+ function invalidate(){if(!panel.hidden){panel.hidden=true;open.removeAttribute('href');status.textContent='Dados alterados. Revise a solicitação novamente.';}}
+ form.addEventListener('input',invalidate);
+ form.addEventListener('change',invalidate);
+ form.addEventListener('submit',function(evt){
+  evt.preventDefault();
+  if(!form.reportValidity()){status.textContent='Preencha os campos obrigatórios para continuar.';return;}
+  const data=Object.fromEntries(new FormData(form));
+  const lines=[
+    'Olá, MotoristaOPS. Quero solicitar um orçamento.',
+    '',
+    `Nome: ${safe(data.nome)}`,
+    `Serviço: ${safe(data.servico)}`,
+    `Data: ${displayDate(safe(data.data))}`,
+    `Horário: ${safe(data.hora)}`,
+    `Origem: ${safe(data.origem)}`,
+    `Destino: ${safe(data.destino)}`,
+    `Passageiros: ${safe(data.pax)}`,
+    `Malas: ${safe(data.malas)||'Não informado'}`,
+    `Veículo: ${safe(data.veiculo)||'Preciso de orientação'}`,
+    ...(safe(data.detalhes)?[`Informações adicionais: ${safe(data.detalhes)}`]:[]),
+    '',
+    'Origem do contato: site oficial MotoristaOPS (mobile)',
+    'Aguardo consulta de disponibilidade e valores.'
+  ];
+  const message=lines.join('\n');
+  pre.textContent=message;
+  open.href=`https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  panel.hidden=false;
+  status.textContent='Mensagem pronta para revisão.';
+  panel.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+ });
+ edit.addEventListener('click',function(){panel.hidden=true;open.removeAttribute('href');status.textContent='Edite os campos e revise novamente.';form.querySelector('#nome').focus();});
+
+ // Mini-cards transportam a escolha para o formulario sem disparar mensagens.
+ document.querySelectorAll('[data-fill-service]').forEach(function(card){
+  card.addEventListener('click',function(){
+   const field=form.elements.servico;
+   const chosen=card.getAttribute('data-fill-service');
+   if(Array.from(field.options).some(o=>o.value===chosen)){
+    field.value=chosen;
+    field.dispatchEvent(new Event('change',{bubbles:true}));
+   }
+  });
+ });
+ document.querySelectorAll('[data-fill-vehicle]').forEach(function(card){
+  card.addEventListener('click',function(){
+   const field=form.elements.veiculo;
+   const chosen=card.getAttribute('data-fill-vehicle');
+   if(Array.from(field.options).some(o=>o.value===chosen)){
+    field.value=chosen;
+    field.dispatchEvent(new Event('change',{bubbles:true}));
+   }
+  });
+ });
+
+})();
+</script>
+</body>
+</html>
