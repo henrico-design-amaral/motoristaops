@@ -36,10 +36,10 @@ A publicação só está concluída após `scripts/verify-public-landing.sh` con
 
 ## Página inicial mobile oficial — 21/11/2026
 
-A home em português mantém a URL `https://www.motoristaops.com.br/`. O Apache reescreve internamente para `/mobile/index.html` quando o User-Agent indica smartphone e envia `Vary: User-Agent`. Desktop preserva a landing React existente. As rotas `/en/` e `/es/` preservam a experiência responsiva traduzida enquanto não houver versão compacta localizada aprovada.
+A home em português mantém a URL `https://www.motoristaops.com.br/`. O Apache reescreve internamente `/` para `/mobile/router.php`. O pequeno responder PHP retorna o HTML mobile para User-Agent de smartphone e o HTML desktop caso contrário. Ele envia `Vary: User-Agent` e `Cache-Control: no-store` para evitar misturar versões em caches. Desktop preserva a landing React existente. As rotas `/en/` e `/es/` preservam a experiência responsiva traduzida enquanto não houver versão compacta localizada aprovada.
 
 Estrutura mobile: WhatsApp, formulário, Instagram/TikTok, cinco serviços, cinco categorias e orçamento no fim. Sem CTA redundante de site, separador abaixo dos canais ou botões fixos. Os cartões de categorias e capacidades são ilustrativos e sujeitos a confirmação por Henrico. Formulário prepara a mensagem; não armazena, reserva nem envia sem ação do visitante.
 
-Imagens são WebP separados e verificáveis no release-manifest.json; o build reutiliza os WOFF2 Instrument Sans do Vite. O deploy publica `dist/mobile` antes do rewrite. Verificação pública compara User-Agent normal/iPhone, cache `Vary`, metadados, canonical, indexação, links e integridade do bundle.
+Imagens são WebP separados e verificáveis no release-manifest.json; o build reutiliza os WOFF2 Instrument Sans do Vite. O deploy publica `dist/mobile` e o roteador PHP antes do rewrite. Verificação pública compara User-Agent normal/iPhone, cache `Vary`, metadados, canonical, indexação, links e integridade do bundle.
 
 **Observação SEO:** o Google usa a versão mobile para indexação e recomenda equivalência de conteúdo principal entre mobile/desktop. As ofertas prioritárias e páginas de serviços continuam acessíveis pelo sitemap; a versão compacta deve ser acompanhada no Search Console.
