@@ -42,6 +42,8 @@ def verify():
     phone=phone.decode()
     for marker in ['motoristaops-mobile-revision','mobile-oficial-2026-11-21','id="servicos"','id="veiculos"','id="orcamento"','Acompanhe a MotoristaOPS','index,follow','rel="canonical" href="'+BASE+'"']:
         assert marker in phone,('mobile',marker)
+    for marker in ['cookie-consent.css','site-preferences.js','mobile-analytics.js','data-cookie-settings']:
+        assert marker in phone,('mobile-consent',marker)
     for invalid in ['noindex','Visitar o site oficial','fonts.googleapis.com','Bio Executiva']:
         assert invalid not in phone,('mobile',invalid)
     phone_vary=phone_headers.get('Vary','').lower()
