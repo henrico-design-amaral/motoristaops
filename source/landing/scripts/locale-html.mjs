@@ -1,5 +1,6 @@
 import {createTranslator,language,languages} from '../src/i18n.mjs';
 import {seoPages} from './seo-pages.mjs';
+import {legalPages} from './legal-pages.mjs';
 
 export const BASE='https://www.motoristaops.com.br';
 export const RELEASE='landing-2026-11-20-executivo';
@@ -32,5 +33,5 @@ export function localizeDocument(template,markup,locale) {
 
 export function sitemap() {
   const links=languages.map(item=>`<xhtml:link rel="alternate" hreflang="${item.lang}" href="${BASE+item.path}"/>`).join('')+`<xhtml:link rel="alternate" hreflang="x-default" href="${BASE}/"/>`;
-  return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'+languages.map(item=>`<url><loc>${BASE+item.path}</loc>${links}</url>`).join('')+seoPages.map(page=>`<url><loc>${BASE+page.path}</loc></url>`).join('')+'</urlset>\n';
+  return '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">'+languages.map(item=>`<url><loc>${BASE+item.path}</loc>${links}</url>`).join('')+seoPages.map(page=>`<url><loc>${BASE+page.path}</loc></url>`).join('')+legalPages.map(page=>`<url><loc>${BASE+page.path}</loc></url>`).join('')+'</urlset>\n';
 }

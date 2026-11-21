@@ -6,10 +6,11 @@ import {build} from 'vite';
 import {languages} from '../src/i18n.mjs';
 import {localizeDocument,sitemap,RELEASE} from './locale-html.mjs';
 import {seoPages,renderSeoPage} from './seo-pages.mjs';
+import {legalPages,renderLegalPage} from './legal-pages.mjs';
 await build();
 await build({build:{ssr:'src/entry-server.jsx',outDir:'.server-build',emptyOutDir:true}});
 const {render}=await import(pathToFileURL(path.resolve('.server-build/entry-server.js')));
-const html=fs.readFileSync('dist/index.html','utf8').replaceAll('\r\n','\n');
+const html=fs.readFileSync('dist/index.html','utf8').replaceAll('\r\n','\n').replace('</head>','<link rel="stylesheet" href="/assets/cookie-consent.css">\n<script defer src="/assets/cookie-consent.js"></script>\n</head>');
 if(!html.includes('<!--app-html-->'))throw Error('Prerender placeholder absent');
 for(const locale of languages){
   const target=path.join('dist',locale.path);
@@ -24,7 +25,14 @@ for(const page of seoPages){
   fs.mkdirSync(target,{recursive:true});
   fs.writeFileSync(path.join(target,'index.html'),renderSeoPage(page,cssMatch));
 }
+for(const page of legalPages){
+  const target=path.join('dist',page.path.split('/').filter(Boolean).join('/'));
+  fs.mkdirSync(target,{recursive:true});
+  fs.writeFileSync(path.join(target,'index.html'),renderLegalPage(page,cssMatch));
+}
 fs.copyFileSync('scripts/service-tracking.js','dist/servicos/track.js');
+fs.copyFileSync('scripts/cookie-consent.js','dist/assets/cookie-consent.js');
+fs.copyFileSync('scripts/cookie-consent.css','dist/assets/cookie-consent.css');
 fs.writeFileSync('dist/robots.txt','User-agent: *\nAllow: /\n\nSitemap: https://www.motoristaops.com.br/sitemap.xml\n');
 fs.writeFileSync('dist/sitemap.xml',sitemap());
 fs.copyFileSync('apache.htaccess','dist/.htaccess');

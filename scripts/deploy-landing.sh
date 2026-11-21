@@ -24,6 +24,9 @@ mirror --reverse --verbose source/landing/dist/en "$TARGET/en"
 mirror --reverse --verbose source/landing/dist/es "$TARGET/es"
 # Additional service pages are additive; never delete other public directories.
 mirror --reverse --verbose source/landing/dist/servicos "$TARGET/servicos"
+# Legal pages must be published before the home links and sitemap become visible.
+mirror --reverse --verbose source/landing/dist/privacidade "$TARGET/privacidade"
+mirror --reverse --verbose source/landing/dist/termos-de-uso "$TARGET/termos-de-uso"
 put source/landing/dist/robots.txt -o "$TARGET/robots.txt"
 put source/landing/dist/sitemap.xml -o "$TARGET/sitemap.xml"
 put source/landing/dist/.htaccess -o "$TARGET/.htaccess"

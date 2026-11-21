@@ -58,9 +58,9 @@ for(const locale of ['en','es'])test(`${locale}: form errors, schedule and Whats
   assert.ok(!result.summary.data.includes('/'),'month name avoids day/month ambiguity');
 });
 
-test('sitemap preserves the three language URLs and adds the four service URLs',()=>{
+test('sitemap preserves the three language URLs, services, and two legal pages',()=>{
   const xml=fs.readFileSync('dist/sitemap.xml','utf8');
-  assert.equal((xml.match(/<loc>/g)||[]).length,7);
+  assert.equal((xml.match(/<loc>/g)||[]).length,9);
   assert.equal((xml.match(/xhtml:link/g)||[]).length,12);
   for(const locale of languages)assert.ok(xml.includes(`<loc>https://www.motoristaops.com.br${locale.path}</loc>`));
 });

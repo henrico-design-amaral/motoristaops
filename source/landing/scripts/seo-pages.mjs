@@ -209,6 +209,7 @@ export function renderSeoPage(page,cssHref) {
 <meta name="twitter:description" content="${esc(page.description)}">
 <meta name="twitter:image" content="${BASE}/assets/og-motoristaops.jpg?v=20260916">
 <link rel="stylesheet" href="${esc(cssHref)}">
+<link rel="stylesheet" href="/assets/cookie-consent.css">
 <style>
 html{scroll-behavior:smooth}body{background:#070709;color:#F3EFE4;margin:0}
 .seo-page{font-family:"Instrument Sans",sans-serif;background:#070709;color:#F3EFE4;min-height:100vh}
@@ -257,7 +258,8 @@ html{scroll-behavior:smooth}body{background:#070709;color:#F3EFE4;margin:0}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 <script type="application/ld+json">${jsonLd}</script>
-<script src="/servicos/track.js" defer></script>
+<script src="/servicos/track.js?v=20261121" defer></script>
+<script src="/assets/cookie-consent.js" defer></script>
 </head>
 <body><div class="seo-page">
 <a class="seo-skip" href="#conteudo-servico">Pular para o conteúdo</a>
@@ -284,8 +286,9 @@ html{scroll-behavior:smooth}body{background:#070709;color:#F3EFE4;margin:0}
 <div><a href="/"><img src="/assets/logo-horizontal.webp" width="908" height="246" loading="lazy" alt="MotoristaOPS por Henrico Amaral"></a><p>Levando pessoas. Cuidando de histórias.</p><p>Atendimento com hora marcada · São Paulo e região.</p><p>© 2026 MotoristaOPS · CNPJ 69.099.839/0001-25</p></div>
 <div><p><a href="tel:+5511988329725">(11) 98832-9725</a> · <a href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener noreferrer">Avaliações no Google</a></p>
 <p>Privacidade: ao abrir a conversa, o WhatsApp recebe o texto previamente preparado. Você decide se deseja enviar a mensagem. Dados do trajeto não são enviados ao Google Analytics.</p>
-<label class="seo-consent"><input id="seo-analytics-consent" type="checkbox">Permitir cookies de medição do Google Analytics.</label>
-<p><small>Com sua permissão, medimos visitas e cliques de intenção no WhatsApp, não mensagens recebidas ou reservas. Você pode alterar a escolha aqui.</small></p></div>
+<p>Links úteis: <a href="/privacidade/">Política de Privacidade</a> · <a href="/termos-de-uso/">Termos de Uso</a>.</p>
+<p><small>O Google Analytics é opcional, mediante consentimento. Cliques de intenção no WhatsApp não representam mensagens ou reservas confirmadas.</small></p>
+<button type="button" class="mops-cookie-settings-trigger" data-cookie-settings>Preferências de cookies</button></div>
 </div></footer>
 </div></body></html>
 `;
