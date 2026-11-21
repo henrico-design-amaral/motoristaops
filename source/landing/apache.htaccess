@@ -2,6 +2,10 @@ RewriteEngine On
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} !^www\.motoristaops\.com\.br$ [NC]
 RewriteRule ^ https://www.motoristaops.com.br%{REQUEST_URI} [R=301,L,NE]
+# Same URL for desktop and mobile. The mobile HTML is an internal rewrite, not a redirect.
+RewriteCond %{REQUEST_URI} ^/$
+RewriteCond %{HTTP_USER_AGENT} "(iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|BB10|webOS|Opera Mini|IEMobile|Mobile.*Safari|Googlebot-Smartphone)" [NC]
+RewriteRule ^$ mobile/index.html [L]
 DirectoryIndex index.html
 AddDefaultCharset UTF-8
 AddType image/webp .webp
@@ -10,6 +14,9 @@ AddType font/woff2 .woff2
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  <FilesMatch "^index\\.html$">
+    Header always merge Vary User-Agent
+  </FilesMatch>
   <Files "og-motoristaops.jpg">
     Header always set Cache-Control "public, max-age=604800, no-transform"
   </Files>

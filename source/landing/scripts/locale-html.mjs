@@ -3,7 +3,7 @@ import {seoPages} from './seo-pages.mjs';
 import {legalPages} from './legal-pages.mjs';
 
 export const BASE='https://www.motoristaops.com.br';
-export const RELEASE='landing-2026-11-20-executivo';
+export const RELEASE='landing-2026-11-21-mobile-oficial';
 const escape=text=>text.replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 
 export function localizeDocument(template,markup,locale) {
