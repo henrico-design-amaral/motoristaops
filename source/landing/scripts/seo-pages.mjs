@@ -231,11 +231,11 @@ html{scroll-behavior:smooth}body{background:#070709;color:#F3EFE4;margin:0}
 .seo-cta:hover{background:#F3EFE4}.seo-secondary{display:inline-flex;align-items:center;min-height:48px;font-size:14px;text-decoration:underline;text-underline-offset:5px}
 .seo-note{font-size:12px;line-height:1.65;color:#A6A39E;margin:14px 0 0}
 .seo-light{background:#F3EFE4;color:#151518;padding:90px 0}
-.seo-light .seo-kicker{color:#947546}
+.seo-light .seo-kicker{color:#151518}
 .seo-section-title{font-size:clamp(30px,3.1vw,45px);line-height:1.13;letter-spacing:-.035em;margin:0 0 40px}
 .seo-points{display:grid;grid-template-columns:1fr 1fr;gap:40px 60px}
 .seo-point{border-top:1px solid #947546;padding-top:22px}
-.seo-point .seo-number{font-size:12px;font-weight:600;color:#947546}
+.seo-point .seo-number{font-size:12px;font-weight:600;color:#151518}
 .seo-point h3{font-size:21px;line-height:1.25;margin:12px 0}
 .seo-point p{color:#151518;font-size:15px;line-height:1.7;margin:0;max-width:500px}
 .seo-faq,.seo-related-block{padding:84px 0;border-bottom:1px solid #947546}
