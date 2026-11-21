@@ -21,3 +21,6 @@
 .mops-cookie-settings-trigger{font:inherit;background:transparent;border:1px solid #947546;border-radius:4px;color:inherit;min-height:44px;padding:8px 12px;cursor:pointer}
 @media(max-width:600px){.mops-cookie-panel{width:calc(100% - 16px);bottom:max(8px,env(safe-area-inset-bottom,0px))}.mops-cookie-content{padding:16px}.mops-cookie-actions{display:grid;grid-template-columns:1fr 1fr}.mops-cookie-actions button{width:100%;font-size:12px;padding-inline:7px}.mops-cookie-actions [data-cookie-action="customize"],.mops-cookie-actions [data-cookie-action="back"]{grid-column:1/-1;order:3}}
 @media(prefers-reduced-motion:reduce){.mops-cookie-panel *{animation:none!important;transition:none!important}}
+
+.mops-legal-links{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin-top:16px}
+.mops-legal-links a{text-decoration:underline;text-underline-offset:4px;color:#F3EFE4;font-size:13px;min-height:44px;display:inline-flex;align-items:center}
