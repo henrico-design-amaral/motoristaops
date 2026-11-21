@@ -132,7 +132,10 @@
   // Keep the approved homepage footer intact; enhance it without changing React's SSR subtree.
   window.addEventListener('load', () => {
     const homeFooter = document.getElementById('privacidade');
-    if (!homeFooter || homeFooter.querySelector('.mops-legal-links')) return;
+    if (!homeFooter) return;
+    // Hide the legacy checkbox only after the new choices are operational.
+    homeFooter.classList.add('mops-cookie-ui-active');
+    if (homeFooter.querySelector('.mops-legal-links')) return;
     const links = document.createElement('nav');
     links.className = 'mops-legal-links';
     links.setAttribute('aria-label', t.label);
