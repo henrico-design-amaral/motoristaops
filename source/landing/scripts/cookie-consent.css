@@ -24,3 +24,5 @@
 
 .mops-legal-links{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin-top:16px}
 .mops-legal-links a{text-decoration:underline;text-underline-offset:4px;color:#F3EFE4;font-size:13px;min-height:44px;display:inline-flex;align-items:center}
+
+.mops-cookie-ui-active > label{display:none!important}
