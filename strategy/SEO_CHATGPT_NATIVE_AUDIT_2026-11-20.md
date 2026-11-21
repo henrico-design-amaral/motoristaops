@@ -68,6 +68,7 @@ Base completa: https://www.motoristaops.com.br/ . As rotas nas linhas acima são
 - **Dependência:** resolver repo/runtime responsável pelo dashboard e o nível de privacidade aprovado.
 - **Sucesso/falha:** inspeção GSC do subdomínio + testes de cabeçalhos/controle de acesso.
 - **Confiança:** alta para ausência de diretiva no HTML e resposta 404 do robots; desconhecida para indexação real e exposição de dados.
+- **Consistência com o produto (observação adicional):** o dashboard público também apresenta a seção `Hyundai HB20 2019`, enquanto o `AGENTS.md` e `PROJECT_PROFILE.md` canônicos identificam o veículo atual como `Omoda 5 Luxury cinza`; avaliar drift de dados publicados **sem alterar o dashboard como efeito colateral desta auditoria**. A presença de dado histórico não comprova acesso indevido a dados privados.
 
 ### P1 — Mensuração até o contato efetivo
 
@@ -79,11 +80,11 @@ Base completa: https://www.motoristaops.com.br/ . As rotas nas linhas acima são
 
 ### P1 — Google Business Profile e primeiro dado de busca
 
-- **Fato:** site liga ao perfil público/avaliações por `https://maps.app.goo.gl/aCAXYqSYsQDSt7teA`. A busca pública por estabelecimentos da categoria não identificou de modo inequívoco o perfil MotoristaOPS, e o link curto não pôde ser inspecionado nesta coleta.
-- **Ação:** confirmar o perfil correto com proprietário, categoria, área de atendimento, nome real, telefone, fotos oficiais, avaliações e URLs de serviços. Configurar área de atendimento como empresa prestadora de serviço, sem inventar vitrine ou endereço aberto ao público.
-- **Dependência:** autenticação GBP e verificação do controle de cada propriedade.
-- **Sucesso/falha:** perfil correto identificado; NAP e categorias verificados; Search Console confirma as novas rotas.
-- **Confiança:** alta para ausência de evidência autenticada; **não afirmar que o perfil não existe**.
+- **Fato — verificação pública adicional em 20/11/2026:** o link de avaliações do site `https://maps.app.goo.gl/aCAXYqSYsQDSt7teA` abriu uma ficha Google Maps intitulada **MotoristaOPS por Henrico Amaral**, HTTP 200. A extração de campos públicos da página reportou categoria `Chauffeur service`, telefone `+55 11 98832-9725`, website cadastrado `http://www.motoristaops.com.br/`, nota `5,0` com `7 avaliações` e horário exibido `05:00–23:00` nos sete dias. Os detalhes são **observação de fonte pública dinâmica via extrator**, não consulta autenticada à conta, não prova de propriedade, de avaliação válida/atual ou de que o horário corresponda à agenda real.
+- **Ação:** verificar no painel do proprietário o perfil correto, nome, categoria, área de atendimento, telefone, avaliações, fotos e horários. Confirmar com a operação o horário público antes de preservá-lo/ajustá-lo. Substituir a URL HTTP pelo canônico `https://www.motoristaops.com.br/` após autenticação e validação. Não criar loja física fictícia.
+- **Dependência:** acesso autorizado ao GBP e verificação operacional de disponibilidade/horários. Search Console necessário para indexação das páginas.
+- **Sucesso/falha:** conta correta confirmada; informações sincronizadas com a operação real e URLs corretas; nenhuma divulgação de endereço não autorizado.
+- **Confiança:** alta para existência da ficha e título; média para campos extraídos de interface dinâmica; não verificado para propriedade/horários atuais.
 - **Fonte:** https://support.google.com/business/answer/3038177
 
 ### P2 — Consistência de entidades do Schema.org
@@ -141,3 +142,16 @@ Base completa: https://www.motoristaops.com.br/ . As rotas nas linhas acima são
 - **Skill ChatGPT:** `henricoops/integrations/claude-seo/chatgpt-skill/SKILL.md`; pacote `skill.zip` validado na sessão, instalação da Skill no perfil do usuário pendente.
 - **Antecessor:** `strategy/SEO_EXTERNAL_AUDIT_2026-11-20.md` (baseline externo anterior).
 - **Sem alteração da home:** registros versionados somente em `strategy/` e `integrations/`.
+
+## 6. Revalidação da Skill HenricoOPS SEO Audit — 20/11/2026
+
+Nova execução `@HenricoOPS SEO Audit www.motoristaops.com.br` após a integração da Skill no ChatGPT. `read-only` para superfícies públicas e fontes operacionais. Releitura ao vivo via `firecrawl_map` e `firecrawl_scrape` (`maxAge:0`) de home PT/EN/ES, quatro páginas de serviços, sitemap, robots, dashboard isolado e robots do dashboard. Resultados documentais coincidem com o baseline anterior: 7/7 URLs 200, títulos e canonicals próprios, hreflang PT/EN/ES, JSON-LD interpretável, ausência de links de home para o cluster `/servicos/`, dashboard sem meta noindex visível no HTML e robots do subdomínio 404. `X-Robots-Tag` por resposta HTTP não foi verificado.
+
+**Verificações adicionais nesta execução:**
+- Ficha do Google Maps vinculada à homepage efetivamente consultada. Dados públicos extraídos descritos acima; a propriedade e o horário operacional permanecem não verificados.
+- `/servicos/track.js` (HTTP 200) contém inicialização condicional por consentimento `motoristaops.analytics` e evento `whatsapp_click`; não foi observado disparo no navegador nem no GA4.
+- Tentativa do PageSpeed Insights móvel devolveu HTTP 429 (`RESOURCE_EXHAUSTED`, quota de projeto esgotada); nenhuma métrica Core Web Vitals ou nota de performance pode ser afirmada.
+- Pesquisa de marca na web retornou resultados sociais e uma listagem na Loqal, mas a página Loqal apresentou intersticial com `noindex` e cookie/JS; o conteúdo da listagem não foi confirmado.
+- Google Search Console, GA4, dados autenticados GBP, métricas de ranking, tráfego e citações efetivas em mecanismos de IA: indisponíveis na sessão. Windsor.ai conectado contém apenas conta `instagram`; os conectores `searchconsole`, `googleanalytics4` e `google_my_business` não estão conectados.
+
+**Mudanças:** somente documentação de auditoria e baseline versionado em GitHub; nenhum arquivo de homepage, site, dashboard, sitemap, tracking ou deploy foi alterado. A execução é nativa ChatGPT, não é instalação/execução do plugin Claude SEO em Claude Code.

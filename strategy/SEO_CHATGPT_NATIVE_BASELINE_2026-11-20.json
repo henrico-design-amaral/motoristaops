@@ -178,7 +178,9 @@
       "status": 200,
       "robots_meta_observed": false,
       "canonical_observed": false,
-      "note": "operational surface; noindex/auth policy requires owner review; indexing unverified"
+      "note": "operational surface; noindex/auth policy requires owner review; indexing unverified",
+      "historical_vehicle_label_observed": "Hyundai HB20 2019",
+      "current_vehicle_authority": "Omoda 5 Luxury cinza per project AGENTS.md"
     },
     {
       "url": "https://dashboard.motoristaops.com.br/robots.txt",
@@ -203,7 +205,7 @@
     "Search Console impressions and rankings",
     "Core Web Vitals",
     "GA4 event delivery",
-    "GBP official status and reviews",
+    "GBP authenticated ownership, operating hours, account data and current review validity",
     "AI assistant citation frequency",
     "backlinks"
   ],
@@ -219,6 +221,38 @@
     "P1-search-console-gbp-access",
     "P2-schema-entity-consistency",
     "P2-mobile-cwv-unknown",
-    "P2-ai-citability-unmeasured"
-  ]
+    "P2-ai-citability-unmeasured",
+    "P2-google-maps-profile-hours-website-confirmation"
+  ],
+  "revalidation": {
+    "source": "@HenricoOPS SEO Audit",
+    "date_brt": "2026-11-20",
+    "observed_git_base": "788dda1ae9a8269399f85b711335996e7d3a445d",
+    "mode": "READ_ONLY_SITE_AND_DASHBOARD; GIT_DOCS_WRITEBACK",
+    "status": "CONFIRMED_SEVEN_INDEXABLE_URLS_AT_HTTP_200_WITH_DECLARED_CANONICALS",
+    "comparison": "NO_CHANGED_TECHNICAL_FINDINGS_ACROSS_SEVEN_MAIN_SITE_PAGES",
+    "performance": "PSI_HTTP_429_QUOTA_EXHAUSTED",
+    "first_party": "WINDSOR_INSTAGRAM_ONLY; GSC_GA4_GBP_NOT_CONNECTED",
+    "header_limit": "DASHBOARD_X_ROBOTS_TAG_UNVERIFIED",
+    "visual_qa": "NOT_EXECUTED"
+  },
+  "google_maps_public_profile": {
+    "url": "https://maps.app.goo.gl/aCAXYqSYsQDSt7teA",
+    "http_status": 200,
+    "page_title": "MotoristaOPS por Henrico Amaral - Google Maps",
+    "public_extraction": {
+      "business_name": "MotoristaOPS por Henrico Amaral",
+      "category": "Chauffeur service",
+      "phone": "+55 11 98832-9725",
+      "website": "http://www.motoristaops.com.br/",
+      "rating": 5,
+      "review_count": 7,
+      "daily_displayed_hours": "05:00-23:00"
+    },
+    "provenance": "Public Google Maps dynamic page via Firecrawl query extraction 2026-11-20; not authenticated Business Profile API",
+    "verified_account_ownership": false,
+    "hours_consistent_with_actual_operation": "UNVERIFIED",
+    "rating_current_accuracy": "DYNAMIC_SNAPSHOT_UNVERIFIED",
+    "canonical_website_recommendation": "https://www.motoristaops.com.br/"
+  }
 }
