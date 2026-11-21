@@ -258,7 +258,7 @@ html{scroll-behavior:smooth}body{background:#070709;color:#F3EFE4;margin:0}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 <script type="application/ld+json">${jsonLd}</script>
-<script src="/servicos/track.js" defer></script>
+<script src="/servicos/track.js?v=20261121" defer></script>
 <script src="/assets/cookie-consent.js" defer></script>
 </head>
 <body><div class="seo-page">
