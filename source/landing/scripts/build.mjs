@@ -5,6 +5,7 @@ import {pathToFileURL} from 'node:url';
 import {build} from 'vite';
 import {languages} from '../src/i18n.mjs';
 import {localizeDocument,sitemap,RELEASE} from './locale-html.mjs';
+import {seoPages,renderSeoPage} from './seo-pages.mjs';
 await build();
 await build({build:{ssr:'src/entry-server.jsx',outDir:'.server-build',emptyOutDir:true}});
 const {render}=await import(pathToFileURL(path.resolve('.server-build/entry-server.js')));
@@ -15,6 +16,15 @@ for(const locale of languages){
   fs.mkdirSync(target,{recursive:true});
   fs.writeFileSync(path.join(target,'index.html'),localizeDocument(html,render(locale.code),locale.code));
 }
+// Supplementary SEO pages: prerendered and published without altering home markup.
+const cssMatch=html.split('<link').slice(1).map(chunk=>chunk.split('>')[0]).map(tag=>tag.match(/href="([^"]+)"/)?.[1]).find(href=>href?.startsWith('/assets/')&&href.endsWith('.css'));
+if(!cssMatch)throw Error('Production stylesheet missing; service pages require official Instrument Sans');
+for(const page of seoPages){
+  const target=path.join('dist',page.path.split('/').filter(Boolean).join('/'));
+  fs.mkdirSync(target,{recursive:true});
+  fs.writeFileSync(path.join(target,'index.html'),renderSeoPage(page,cssMatch));
+}
+fs.copyFileSync('scripts/service-tracking.js','dist/servicos/track.js');
 fs.writeFileSync('dist/robots.txt','User-agent: *\nAllow: /\n\nSitemap: https://www.motoristaops.com.br/sitemap.xml\n');
 fs.writeFileSync('dist/sitemap.xml',sitemap());
 fs.copyFileSync('apache.htaccess','dist/.htaccess');
