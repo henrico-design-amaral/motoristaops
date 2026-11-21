@@ -11,6 +11,7 @@ import './vehicle.css';
 import './locale.css';
 const root=document.getElementById('root');
 observeContacts(root);
+window.addEventListener('motoristaops:consent-changed',event=>setPermission(event.detail?.analytics===true,false));
 setPermission(savedPermission(),false);
 const app=<React.StrictMode><App locale={localeFromPath(window.location.pathname)}/></React.StrictMode>;
 if(root.children.length)hydrateRoot(root,app);else createRoot(root).render(app);
