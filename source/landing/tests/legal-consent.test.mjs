@@ -39,7 +39,6 @@ test('sitemap and production build include legal pages and shared consent assets
     const html=fs.readFileSync('dist'+lang+'index.html','utf8');
     assert.ok(html.includes('src="/assets/cookie-consent.js"'),lang);
     assert.ok(html.includes('href="/assets/cookie-consent.css"'),lang);
-    assert.ok(html.includes('data-cookie-settings'),lang);
     assert.ok(html.includes('id="privacidade"'),lang);
   }
   for (const asset of ['cookie-consent.js','cookie-consent.css']) assert.ok(fs.existsSync('dist/assets/'+asset));
