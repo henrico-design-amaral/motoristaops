@@ -29,7 +29,7 @@
 Segundo tabela de preços Google Maps Platform (USD, global), **Places API (New)**:
 - `Autocomplete Requests`: franquia **10.000 solicitações/mês**, depois **US$ 2,83 por 1.000** até o primeiro nível de volume (100.000).
 - `Place Details Essentials`: franquia **10.000 solicitações/mês**, depois **US$ 5,00 por 1.000** até o primeiro nível de volume.
-- Françuias não significam ausência de necessidade de faturamento; ele é obrigatório. Outras utilizações da conta/projeto podem consumir as franquias.
+- Franquias não significam ausência de necessidade de faturamento; ele é obrigatório. Outras utilizações da conta/projeto podem consumir as franquias.
 - Sessões devem usar token exclusivo por interação/seleção; com encerramento por Place Details Essentials, o Google pode cobrar as **primeiras 12** solicitações de autocomplete de cada sessão e o Place Details separado; não afirmar que a sessão inteira é gratuita.
 - Exemplo **ilustrativo, não demanda real**: 500 solicitações de orçamento completas/mês × 2 campos × 5 pesquisas = **5.000 Autocomplete Requests** e 500 × 2 = **1.000 Place Details Essentials**. Se nenhuma outra demanda consumir as franquias, ambos ficam dentro das respectivas quotas gratuitas; abandono ou várias correções podem aumentar consultas. Não projetar fatura garantida.
 - Alertas de orçamento **não** interrompem cobranças automaticamente; limitar quotas operacionais e verificar custos no Console.
