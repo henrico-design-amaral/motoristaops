@@ -6,8 +6,8 @@ import path from 'node:path';
 import {legalPages,renderLegalPage} from '../scripts/legal-pages.mjs';
 import {sitemap} from '../scripts/locale-html.mjs';
 
-test('two basic legal pages have truthful public metadata, contact and consent controls', () => {
-  assert.deepEqual(legalPages.map(page=>page.path),['/privacidade/','/termos-de-uso/']);
+test('three legal pages have truthful public metadata, contact and consent controls', () => {
+  assert.deepEqual(legalPages.map(page=>page.path),['/privacidade/','/termos-de-uso/','/cancelamento/']);
   for (const page of legalPages) {
     const html=renderLegalPage(page,'/assets/app/index-test.css');
     assert.ok(html.includes('<html lang="pt-BR">'));
@@ -17,11 +17,11 @@ test('two basic legal pages have truthful public metadata, contact and consent c
     assert.ok(html.includes('name="viewport"'));
     assert.ok(html.includes('69.099.839/0001-25'));
     assert.ok(html.includes('98832-9725'));
-    assert.ok(html.includes('21 de novembro de 2026'));
+    assert.ok(html.includes('23 de novembro de 2026'));
     assert.ok(html.includes('href="/privacidade/"') && html.includes('href="/termos-de-uso/"'));
     assert.ok(html.includes('data-cookie-settings'));
-    assert.ok(html.includes('src="/assets/site-preferences.js"'));
-    assert.ok(html.includes('src="/servicos/track.js?v=20261121"'));
+    assert.ok(html.includes('src="/assets/site-preferences.js?v=20261123"'));
+    assert.ok(html.includes('src="/servicos/track.js?v=20261123"'));
     assert.ok(!html.includes('cookies são obrigatórios para continuar'));
     const schema=JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]+?)<\/script>/)[1]);
     assert.equal(schema['@type'],'WebPage');
@@ -37,8 +37,8 @@ test('sitemap and production build include legal pages and shared consent assets
   }
   for(const lang of ['/','/en/','/es/']) {
     const html=fs.readFileSync('dist'+lang+'index.html','utf8');
-    assert.ok(html.includes('src="/assets/site-preferences.js"'),lang);
-    assert.ok(html.includes('href="/assets/cookie-consent.css"'),lang);
+    assert.ok(html.includes('src="/assets/site-preferences.js?v=20261123"'),lang);
+    assert.ok(html.includes('href="/assets/cookie-consent.css?v=20261123"'),lang);
     assert.ok(html.includes('id="privacidade"'),lang);
   }
   for (const asset of ['site-preferences.js','cookie-consent.css']) assert.ok(fs.existsSync('dist/assets/'+asset));
@@ -48,10 +48,10 @@ test('sitemap and production build include legal pages and shared consent assets
   assert.ok(banner.includes('href="/termos-de-uso/"'));
   assert.ok(banner.includes('data-cookie-settings'));
   const manifest=JSON.parse(fs.readFileSync('dist/release-manifest.json','utf8'));
-  for (const entry of ['privacidade/index.html','termos-de-uso/index.html','assets/site-preferences.js','assets/cookie-consent.css'])
+  for (const entry of ['privacidade/index.html','termos-de-uso/index.html','cancelamento/index.html','assets/site-preferences.js','assets/cookie-consent.css'])
     assert.ok(manifest.files.some(file=>file.path===entry),entry);
   const deploy=fs.readFileSync('../../scripts/deploy-landing.sh','utf8');
-  for (const directory of ['privacidade','termos-de-uso'])
+  for (const directory of ['privacidade','termos-de-uso','cancelamento'])
     assert.ok(deploy.includes('mirror --reverse --verbose source/landing/dist/'+directory));
 });
 test('shared banner initially rejects optional analytics and can explicitly accept or revoke', () => {

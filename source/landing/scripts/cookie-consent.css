@@ -26,3 +26,13 @@
 .mops-legal-links a{text-decoration:underline;text-underline-offset:4px;color:#F3EFE4;font-size:13px;min-height:44px;display:inline-flex;align-items:center}
 
 .mops-cookie-ui-active > label{display:none!important}
+
+/* Shared legal metadata and quote disclosure: brand colors, responsive and keyboard accessible. */
+.mops-company-identity{margin-top:20px;padding-top:14px;border-top:1px solid #947546;max-width:920px}
+.mops-company-identity p{font-size:12px;line-height:1.65;overflow-wrap:anywhere;margin:4px 0;color:#F3EFE4}
+.mops-company-identity strong{font-weight:650}
+.mops-company-identity a{color:#F3EFE4;text-decoration:underline;text-underline-offset:3px}
+.mops-form-privacy{margin-top:14px;font-size:13px;line-height:1.55}
+.mops-form-privacy p{font-size:13px;line-height:1.55;margin:0 0 8px}
+.mops-form-privacy a{font-size:13px;display:inline-block;min-height:30px;line-height:30px;text-decoration:underline;text-underline-offset:3px;color:inherit}
+.mops-form-privacy a:focus-visible,.mops-company-identity a:focus-visible{outline:3px solid #947546;outline-offset:3px}

@@ -1,3 +1,4 @@
+import {legalIdentity} from '../src/legal-identity.mjs';
 const ROOT = 'https://www.motoristaops.com.br';
 export const legalPages = [
   {
@@ -7,34 +8,34 @@ export const legalPages = [
     description: 'Entenda como a MotoristaOPS utiliza informações de contato, dados de trajetos e cookies opcionais de medição.',
     sections: [
       ['1. Quem trata os dados', [
-        'A MotoristaOPS é o serviço de transporte executivo coordenado por Henrico Amaral, CNPJ 69.099.839/0001-25. Para dúvidas e solicitações sobre dados pessoais, entre em contato pelo WhatsApp (11) 98832-9725.'
+        `O serviço MotoristaOPS é prestado por ${legalIdentity.registeredName}, CNPJ ${legalIdentity.cnpj}, nome de divulgação MotoristaOPS. Endereço cadastral: ${legalIdentity.address}. Canal de atendimento e privacidade: WhatsApp ${legalIdentity.contactPhone}. O CCMEI informa como atividade principal CNAE ${legalIdentity.cnae} (locação de automóveis com motorista).`
       ]],
       ['2. Quais informações utilizamos', [
-        'Quando você solicita um orçamento ou atendimento, poderá informar nome, contato, data, horário, origem, destino, quantidade de passageiros, bagagens, paradas e outras necessidades do trajeto.',
-        'O formulário do site prepara uma mensagem no seu dispositivo. Ela somente chega ao WhatsApp se você optar por abrir a conversa e enviá-la. A simples preparação da mensagem não confirma nem envia uma reserva.'
+        'O formulário desktop pede origem e destino e permite informar data, horário, passageiros e detalhes. No formulário mobile, também são pedidos nome, tipo de serviço, data, horário e passageiros; há campos opcionais para bagagens, veículo e observações. Na conversa pelo WhatsApp, a própria conta pode fornecer número de telefone, identificação, mensagens e informações adicionais. Não solicitamos CPF ou cartão no formulário público do site.',
+        'Ao preencher e revisar o formulário, o texto é preparado no seu navegador e não é enviado a um banco de orçamentos do site. Ao escolher abrir o WhatsApp, o conteúdo preparado é incluído no endereço de abertura da conversa e pode ser processado pela plataforma WhatsApp antes mesmo de você apertar o botão de enviar. A mensagem ao atendimento só será enviada se você confirmar o envio no WhatsApp. Nenhuma reserva é confirmada automaticamente.'
       ]],
       ['3. Para que usamos as informações', [
-        'Usamos os dados necessários para responder ao contato, preparar orçamentos, confirmar disponibilidade, organizar os trajetos e atender solicitações relacionadas ao serviço. Conforme a finalidade, o tratamento pode ser necessário a medidas pré-contratuais, execução de contrato ou cumprimento de obrigações legais.',
-        'Se você permitir cookies opcionais de estatísticas, usamos Google Analytics para entender visitas e cliques de intenção de contato. Um clique no WhatsApp não significa que uma mensagem foi enviada ou que um serviço foi contratado.'
+        'Utilizamos nome e contato para identificar e responder à solicitação; origem, destino, data, horário, passageiros, bagagem e preferências para avaliar rota, disponibilidade, categoria de veículo, orçamento e execução do transporte; dados de negociação e pagamento para confirmar ou administrar a contratação. Conforme o caso, as bases legais podem incluir procedimentos preliminares e execução do contrato, cumprimento de obrigações legais e legítimos interesses observados os direitos do titular. Informações de saúde não devem ser incluídas no campo livre; necessidades de acessibilidade podem ser informadas apenas quando necessárias ao atendimento.',
+        'Após autorização opcional, usamos Google Analytics 4 (Google) para medir acesso ao site e intenção de contato por eventos de cliques, sem enviar propositalmente campos digitados no formulário. Os eventos próprios não incluem nome, CPF, e-mail ou o texto da solicitação. O GA4 poderá tratar dados técnicos do navegador e da visita segundo suas configurações. Um clique no WhatsApp não demonstra mensagem enviada, orçamento aceito ou reserva. A medição do Google é desativada se a pessoa rejeitar ou revogar a autorização.'
       ]],
       ['4. Com quem as informações podem ser compartilhadas', [
-        'O WhatsApp recebe as informações que você decidir enviar nesse aplicativo, sujeito às condições e políticas do próprio serviço.',
-        'Quando necessário para consultar disponibilidade ou organizar um atendimento, dados essenciais do trajeto podem ser compartilhados com motoristas ou empresas parceiras envolvidos na cotação ou no serviço. Também podem existir prestadores técnicos de hospedagem e medição ligados ao funcionamento do site.'
+        'O WhatsApp/Meta pode receber o texto preparado ao abrir o link da conversa, assim como metadados de acesso à plataforma, e recebe a mensagem quando você decide enviá-la. O uso do WhatsApp está sujeito às políticas dessa empresa. O site é hospedado pela Hostinger, que pode tratar dados técnicos de conexão e registros de acesso necessários à hospedagem.',
+        'Compartilhamos com motoristas ou empresas parceiras somente as informações necessárias à cotação e ao atendimento confirmado, conforme a necessidade. Quando for utilizado Link de Pagamento Mercado Pago, dados de cobrança ou transação informados ao provedor serão tratados por esse serviço nos termos de sua política. Links para Instagram, TikTok e Google Maps levam a serviços de terceiros, mas não significam, por si, instalação de seus pixels de publicidade nesta página. Não afirmamos que exista integração de CRM, e-mail marketing ou inteligência artificial com estes formulários.'
       ]],
       ['5. Cookies e suas escolhas', [
-        'O site utiliza armazenamento local necessário para lembrar sua escolha de privacidade. A medição opcional por Google Analytics só é ativada com sua autorização; é possível recusar sem perder o acesso ao conteúdo ou aos contatos.',
-        'Você pode alterar a escolha a qualquer momento pelo botão “Preferências de cookies” disponível no rodapé. A revogação impede novas medições pelo site, mas não elimina automaticamente informações que eventualmente já tenham sido processadas por terceiros.'
+        'O site registra no armazenamento local do navegador a escolha de permitir ou rejeitar estatísticas sob a chave motoristaops.analytics. A configuração é independente de cadastro e não é obrigatória para navegar, pedir orçamento ou conversar pelo WhatsApp. A tag de Google Analytics não é carregada antes de uma autorização válida. O consentimento concedido é opcional e pode ser recusado sem prejuízo ao serviço.',
+        'Para alterar a escolha, use “Preferências de cookies” no rodapé. O navegador deixa de carregar a tag de medição após a revogação e recarregamento. Essa ação não apaga automaticamente informações que já tenham sido coletadas pelo Google ou por outras plataformas; pedidos de dados devem ser avaliados também conforme as regras aplicáveis aos respectivos fornecedores.'
       ]],
       ['6. Conservação e segurança', [
-        'Conservamos informações pelo tempo necessário às finalidades do atendimento e às obrigações legais ou contratuais aplicáveis. Não há um prazo único para todas as categorias de informação.',
+        'Conservamos dados de conversas, propostas e pagamentos apenas pelo tempo necessário ao atendimento e às obrigações contratuais, fiscais e legais aplicáveis. Os prazos e as cópias em WhatsApp, backups ou serviços de terceiros dependem do sistema e das obrigações correspondentes; não há um prazo único confirmado para todas as categorias. O formulário do site não cria cadastro próprio, mas o histórico de mensagens enviadas pode continuar existindo nos serviços utilizados.',
         'Adotamos cuidados proporcionais para limitar o acesso e o uso das informações, sem garantir que qualquer serviço conectado à internet seja inteiramente livre de riscos.'
       ]],
       ['7. Seus direitos', [
-        'De acordo com a Lei Geral de Proteção de Dados Pessoais (LGPD), você pode solicitar informações sobre o tratamento de seus dados e exercer, quando cabível, direitos como acesso, correção, eliminação, oposição e revogação do consentimento.',
-        'Para fazer um pedido, use o WhatsApp (11) 98832-9725. Poderemos solicitar informações suficientes para confirmar a identidade do solicitante e proteger os dados de terceiros.'
+        'Conforme a Lei Geral de Proteção de Dados Pessoais (LGPD), é possível pedir confirmação do tratamento, acesso, correção, anonimização, bloqueio ou eliminação quando cabível, informação sobre compartilhamentos, oposição e revogação de consentimento. O pedido de exclusão será analisado considerando obrigações legais de guarda e a possibilidade de atender ao pedido nos serviços e operadores envolvidos; não prometemos eliminação automática e imediata de backups de terceiros.',
+        `Para exercer esses direitos, envie uma mensagem ao WhatsApp ${legalIdentity.contactPhone} com o assunto “Privacidade e dados pessoais”. Poderemos confirmar sua identidade com as informações estritamente necessárias, localizar os registros dos sistemas sob nosso controle, corrigir ou excluir o que for cabível e orientar sobre dados mantidos por terceiros. O pedido não exige pagamento.`
       ]],
       ['8. Atualizações', [
-        'Esta política pode ser revista quando houver mudanças nos serviços ou no tratamento de dados. A versão atual permanece disponível nesta página.'
+        'Esta política descreve os fluxos públicos identificados em 23 de novembro de 2026. Alterações materiais no tratamento exigem revisão do texto e dos serviços conectados. Questões sobre retenção de backups, permissões das contas e dados compartilhados com parceiros precisam de verificação periódica e não se consideram comprovadas apenas por esta publicação.'
       ]]
     ]
   },
@@ -48,8 +49,8 @@ export const legalPages = [
         'O site MotoristaOPS apresenta serviços de transporte executivo com hora marcada em São Paulo e região, coordenados por Henrico Amaral. O atendimento pode ocorrer com veículo da operação ou com veículo de parceiro, conforme a necessidade e a disponibilidade confirmadas.'
       ]],
       ['2. Solicitação de orçamento e reserva', [
-        'As informações do site são apresentadas para consulta e solicitação de orçamento. Preencher o formulário, abrir o WhatsApp ou enviar uma mensagem não representa reserva automática.',
-        'Preço, disponibilidade, motorista, veículo, horários, bagagens, paradas, espera, retorno e demais condições são alinhados diretamente antes da confirmação do atendimento.'
+        'O site permite solicitar e revisar um orçamento, mas não vende uma assinatura, não oferece teste grátis e não confirma reserva automaticamente. A mensagem de orçamento só chega ao atendimento após envio pelo usuário dentro do WhatsApp.',
+        'Preço final, veículo, condutor, disponibilidade, horários, roteiro, bagagens, paradas, espera e retorno devem constar da proposta apresentada ao cliente antes do aceite. A confirmação depende da aceitação expressa das condições por mensagem ou outro meio verificável, e de confirmação da operação. Abertura da conversa não constitui aceite contratual.'
       ]],
       ['3. Informações fornecidas pelo cliente', [
         'Para receber uma proposta adequada, informe dados corretos de origem, destino, data, horário, passageiros, bagagens e necessidades específicas. Avise sobre mudanças que possam afetar o planejamento.'
@@ -58,19 +59,55 @@ export const legalPages = [
         'Categorias como sedã, SUV, minivan ou van podem depender de disponibilidade de parceiros. A MotoristaOPS consulta as opções e informa as condições relevantes antes da confirmação. O site não representa toda a rede parceira como frota própria.'
       ]],
       ['5. Pagamentos, alterações e cancelamentos', [
-        'Valores, formas de pagamento e condições de alterações, espera ou cancelamento devem ser informados na proposta específica antes da contratação. O site não estabelece uma tarifa única nem substitui os termos combinados no atendimento.',
-        'Permanecem preservados os direitos aplicáveis previstos na legislação brasileira, inclusive os de proteção do consumidor.'
+        'Valores são apresentados por orçamento, sem tabela pública única. Quando oferecido, o pagamento direto poderá ocorrer por Link de Pagamento Mercado Pago, no valor integral ou com sinal e saldo, conforme a proposta e a disponibilidade do meio. Não existe assinatura, renovação automática ou cobrança recorrente por este site. Antes de pagar, confira a identidade do recebedor e as condições confirmadas na conversa. Pedágios, estacionamento, espera e adicionais devem ser informados no orçamento quando aplicáveis.',
+        'Regras de alteração, cancelamento, reembolso e arrependimento estão na Política de Cancelamento e Reembolso acessível neste site, além das condições específicas informadas antes do aceite. O direito legal de arrependimento em contratações fora do estabelecimento, inclusive o prazo de sete dias do art. 49 do CDC quando aplicável, não será excluído por cláusula de orçamento. Nenhuma disposição limita direitos irrenunciáveis do consumidor.'
       ]],
       ['6. Uso do site e links externos', [
-        'Use este site de maneira lícita, sem tentar comprometer seu funcionamento. Links para WhatsApp, Google Maps e outras plataformas levam a serviços de terceiros, sujeitos a suas próprias políticas.',
-        'As informações exibidas podem ser atualizadas. Se houver dúvida sobre uma condição ou disponibilidade, confirme diretamente antes de planejar o trajeto.'
+        'Use o site de modo lícito, sem comprometer sua operação. O atendimento é de transporte de passageiros; não há prestação de serviços médicos, nem promessa de acessibilidade do veículo não confirmada previamente. Links para WhatsApp, Google Maps, Instagram, TikTok e pagamento externo levam a serviços de terceiros sujeitos às respectivas políticas. A MotoristaOPS não exclui a responsabilidade legal pela prestação de serviços próprios ou por atos de parceiros quando aplicável.',
+        'O site pode ser atualizado e conter imagens ilustrativas de categorias de veículos. O fornecedor deve confirmar as características efetivas, o condutor, as condições e a disponibilidade do serviço contratado. Não são prometidos resultados garantidos, disponibilidade irrestrita ou desempenho específico de veículos. Esta informação não substitui a proposta comercial aceita.'
       ]],
       ['7. Privacidade e contato', [
-        'O tratamento de informações pessoais está descrito na Política de Privacidade disponível neste site.',
-        'Para informações sobre os serviços, orçamentos e solicitações, entre em contato pelo WhatsApp (11) 98832-9725.'
+        'A Política de Privacidade descreve os dados tratados ao solicitar orçamento, usar WhatsApp e realizar pagamentos externos. A Política de Cancelamento e Reembolso explica os procedimentos de alterações e devoluções.',
+        `Para atendimento, dúvidas, cancelamentos e solicitações, entre em contato pelo WhatsApp ${legalIdentity.contactPhone}. O fornecedor é ${legalIdentity.registeredName}, CNPJ ${legalIdentity.cnpj}, com endereço cadastral ${legalIdentity.address}.`
       ]]
     ]
   }
+
+  ,{
+    path: '/cancelamento/',
+    heading: 'Cancelamento e Reembolso',
+    title: 'Cancelamento e Reembolso | MotoristaOPS',
+    description: 'Orientações para cancelar serviços, solicitar reembolso e exercer o direito de arrependimento em contratos com a MotoristaOPS.',
+    sections: [
+      ['1. Como solicitar', [
+        'Para solicitar alteração, cancelamento, esclarecimento sobre cobrança ou reembolso, utilize o WhatsApp (11) 98832-9725, o mesmo canal de orçamento e contratação. Informe os dados suficientes para localizar a proposta ou serviço; não envie documentos pessoais desnecessários.',
+        'O pedido será analisado conforme as informações da proposta aceita, o estágio da prestação do serviço e os direitos garantidos pela legislação brasileira. A solicitação de cancelamento não exige cadastro nem conta no site.'
+      ]],
+      ['2. Antes da confirmação do orçamento', [
+        'Preencher o formulário, preparar uma mensagem ou abrir a conversa não cria uma reserva, não gera cobrança e não exige pedido formal de cancelamento. Uma cotação ainda não aceita pode simplesmente ser encerrada.'
+      ]],
+      ['3. Direito de arrependimento', [
+        'Em contratações de consumo concluídas fora do estabelecimento comercial, especialmente pela internet ou por telefone, o art. 49 do Código de Defesa do Consumidor prevê o direito de desistir no prazo de sete dias, contado da assinatura do contrato ou do recebimento do serviço, conforme a legislação aplicável.',
+        'Quando o direito de arrependimento for aplicável e regularmente exercido, os valores pagos devem ser devolvidos conforme a lei. Situações de serviço solicitado para execução imediata ou já realizado precisam de análise das circunstâncias concretas e da legislação; esta política não anuncia renúncia automática ao direito do consumidor.'
+      ]],
+      ['4. Alterações, ausência no embarque e cancelamento fora do arrependimento', [
+        'Mudanças de data, horário, passageiros, percurso e veículo devem ser solicitadas o quanto antes. Disponibilidade, possíveis ajustes de preço e eventual custo por serviços comprovadamente iniciados devem ser informados e avaliados antes do aceite de condições alteradas.',
+        'Não estabelecemos, por esta página, multas, percentuais ou prazos fictícios de cancelamento. Qualquer condição específica de sinal, espera ou ausência no embarque deve ser previamente comunicada na proposta, observada sua validade jurídica e os direitos do consumidor.'
+      ]],
+      ['5. Pagamento e restituição', [
+        'Se houver pagamento, a operação verificará a transação e a modalidade utilizada, inclusive Link de Pagamento Mercado Pago quando empregado. O estorno deve seguir a legislação aplicável e os procedimentos técnicos do meio de pagamento; o prazo efetivo de disponibilização pode depender do banco ou da administradora.',
+        'Não realizamos cobrança recorrente, renovação automática ou assinatura por meio deste site.'
+      ]],
+      ['6. Serviços prestados por parceiros', [
+        'Quando um veículo de parceiro estiver envolvido, as condições e a identificação da operação deverão ser esclarecidas previamente ao cliente. A existência de parceiros não afasta responsabilidades legais aplicáveis à MotoristaOPS ou ao prestador que efetivamente contratar o serviço.'
+      ]],
+      ['7. Atendimento e resolução', [
+        'Para obter cópia do que foi combinado ou contestar uma cobrança, entre em contato pelo WhatsApp (11) 98832-9725. A equipe analisará a proposta, a confirmação, comprovantes e registros disponíveis, respeitando a legislação de consumo e de proteção de dados.',
+        'Estas orientações não restringem o acesso a órgãos de defesa do consumidor ou ao Poder Judiciário. A aplicação a modalidades específicas de transporte deve ser revisada por profissional jurídico.'
+      ]]
+    ]
+  }
+
 ];
 const esc = value => String(value).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const PAGE_CSS = [
@@ -117,23 +154,23 @@ export function renderLegalPage(page, cssHref) {
     '<meta property="og:description" content="'+esc(page.description)+'">',
     '<meta property="og:url" content="'+url+'">',
     '<meta property="og:image" content="'+ROOT+'/assets/og-motoristaops.jpg?v=20260916">',
-    '<link rel="stylesheet" href="'+esc(cssHref)+'"><link rel="stylesheet" href="/assets/cookie-consent.css">',
+    '<link rel="stylesheet" href="'+esc(cssHref)+'"><link rel="stylesheet" href="/assets/cookie-consent.css?v=20261123">',
     '<style>'+PAGE_CSS+'</style>',
     '<script type="application/ld+json">'+structuredData+'</script>',
-    '<script src="/servicos/track.js?v=20261121" defer></script><script src="/assets/site-preferences.js" defer></script>',
+    '<script src="/servicos/track.js?v=20261123" defer></script><script src="/assets/site-preferences.js?v=20261123" defer></script>',
     '</head><body><div class="legal-page">',
     '<header class="legal-header"><div class="legal-wrap legal-nav">',
     '<a href="/" aria-label="Voltar ao início"><img src="/assets/logo-horizontal.webp" width="908" height="246" class="legal-logo" alt="MotoristaOPS por Henrico Amaral"></a>',
-    '<nav class="legal-links" aria-label="Navegação"><a href="/">Início</a><a href="/privacidade/">Privacidade</a><a href="/termos-de-uso/">Termos de Uso</a></nav>',
+    '<nav class="legal-links" aria-label="Navegação"><a href="/">Início</a><a href="/privacidade/">Privacidade</a><a href="/termos-de-uso/">Termos de Uso</a><a href="/cancelamento/">Cancelamento</a></nav>',
     '</div></header>',
     '<main class="legal-main" id="conteudo"><div class="legal-wrap">',
     '<p class="legal-kicker">MotoristaOPS · São Paulo e região</p>',
-    '<h1>'+esc(page.heading)+'</h1><p class="legal-updated">Última atualização: 21 de novembro de 2026</p>',
+    '<h1>'+esc(page.heading)+'</h1><p class="legal-updated">Última atualização: 23 de novembro de 2026 · Minuta operacional sujeita a revisão jurídica.</p>',
     content,
     '</div></main>',
     '<footer class="legal-footer"><div class="legal-wrap">',
-    '<p>MotoristaOPS por Henrico Amaral · CNPJ 69.099.839/0001-25</p>',
-    '<p>Contato: <a href="https://wa.me/5511988329725" target="_blank" rel="noopener noreferrer">WhatsApp (11) 98832-9725</a> · <a href="/privacidade/">Política de Privacidade</a> · <a href="/termos-de-uso/">Termos de Uso</a></p>',
+    '<p>'+esc(legalIdentity.registeredName)+' · CNPJ '+esc(legalIdentity.cnpj)+'</p><p>Endereço cadastral: '+esc(legalIdentity.address)+'</p>',
+    '<p>Contato: <a href="https://wa.me/5511988329725" target="_blank" rel="noopener noreferrer">WhatsApp (11) 98832-9725</a> · <a href="/privacidade/">Política de Privacidade</a> · <a href="/termos-de-uso/">Termos de Uso</a> · <a href="/cancelamento/">Cancelamento e Reembolso</a></p>',
     '<button class="mops-cookie-settings-trigger" type="button" data-cookie-settings>Preferências de cookies</button>',
     '</div></footer></div></body></html>'
   ].join('\n');

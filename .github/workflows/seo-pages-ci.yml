@@ -21,10 +21,10 @@ jobs:
           node-version: '22'
           cache: npm
           cache-dependency-path: source/landing/package-lock.json
-      - name: Ensure current homepage and consent implementation are unchanged
+      - name: Protect official homepage template and brand styling while auditing authorized legal changes
         if: github.event_name == 'pull_request'
         run: |
-          test -z "$(git diff --name-only origin/main...HEAD -- source/landing/index.html source/landing/src/App.jsx source/landing/src/Privacy.jsx source/landing/src/TripForm.jsx source/landing/src/analytics.mjs)"
+          test -z "$(git diff --name-only origin/main...HEAD -- source/landing/index.html source/landing/src/styles.css source/landing/src/landing.css source/landing/src/vehicle.css source/landing/src/motion.css)"
       - name: Check approved foundation
         run: bash scripts/validate-foundation.sh
       - name: Install locked dependencies

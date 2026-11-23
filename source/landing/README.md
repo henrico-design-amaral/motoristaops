@@ -25,7 +25,7 @@ O formulário trata os dados no navegador. “Preparar mensagem” valida e most
 - Fotos de contexto dos serviços e cidade: geradas e identificadas como ilustrativas na página.
 - Equipamentos Luxury: ficha oficial https://cms.omodajaecoo.com.br/manual/pdf/FichaTecnicaSimplificada_Omoda5.pdf . PPF/película descritos como preparação prevista.
 - Social card: JPEG aprovado preservado byte a byte da página pública anterior, SHA-256 `d92ed571db561a3af3fdf027b9d66b9c6452bb3d3a4fccbc87b4450747661c82`. Favicon oficial preservado.
-- Avaliações atribuídas a Thaís Barbosa e Fernanda Josias: transcritas da página pública anterior, com link para o Google; sem nota agregada inventada.
+- Depoimentos nominais transcritos de versão anterior: removidos da publicação em 2026-11-23 por ausência de URL e origem individuais verificadas nesta auditoria. Permanece o link direto para avaliações públicas no Google, sem reproduzir nomes, estrelas ou textos não comprovados.
 - Lucide React: ícones funcionais de pacote fixado em lockfile; símbolos de plataformas são arquivos SVG locais.
 
 ## Publicação

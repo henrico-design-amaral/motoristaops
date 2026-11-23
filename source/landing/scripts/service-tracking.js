@@ -10,12 +10,20 @@
     if (initialized || !enabled) return;
     initialized = true;
     window['ga-disable-' + ID] = false;
+    // Google Consent Mode v2 - basic: no Google script or network calls before opt-in.
     gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+    gtag('consent', 'update', {
       analytics_storage: 'granted',
       ad_storage: 'denied',
       ad_user_data: 'denied',
       ad_personalization: 'denied'
     });
+    gtag('set','ads_data_redaction',true);
     gtag('js', new Date());
     const current = new URL(location.pathname, location.origin);
     const query = new URLSearchParams(location.search);

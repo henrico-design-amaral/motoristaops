@@ -7,7 +7,7 @@ const rule=fs.readFileSync('dist/.htaccess','utf8');
 const deploy=fs.readFileSync('../../scripts/deploy-landing.sh','utf8');
 
 test('official mobile page is indexable and has no redundant site button',()=>{
- for(const text of ['mobile-oficial-2026-11-21','name="robots" content="index,follow','rel="canonical" href="https://www.motoristaops.com.br/"','Falar pelo WhatsApp','Preencher orçamento','Instagram','TikTok','id="servicos"','id="veiculos"','id="orcamento"','Privacidade','Termos de uso'])assert.ok(html.includes(text),text);
+ for(const text of ['mobile-oficial-2026-11-21','name="robots" content="index,follow','rel="canonical" href="https://www.motoristaops.com.br/"','Falar pelo WhatsApp','Preencher orçamento','Instagram','TikTok','id="servicos"','id="veiculos"','id="orcamento"','Privacidade','Termos de Uso'])assert.ok(html.includes(text),text);
  for(const bad of ['noindex','Visitar o site oficial','fonts.googleapis.com','Bio Executiva','__MOPS_FONT_','class="action site-action"','data:image/'])assert.ok(!html.includes(bad),bad);
  assert.equal((html.match(/<h1[ >]/g)||[]).length,1);
  assert.equal((html.match(/class="mini-card service-card"/g)||[]).length,5);

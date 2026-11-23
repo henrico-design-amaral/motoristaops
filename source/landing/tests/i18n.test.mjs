@@ -22,7 +22,7 @@ for(const locale of languages)test(`${locale.code}: complete indexable page, rec
   assert.ok(html.includes(`rel="canonical" href="https://www.motoristaops.com.br${locale.path}"`));
   assert.equal((html.match(/class="service"/g)||[]).length,8);
   assert.equal((html.split('class="faq-grid"')[1].split('</section>')[0].match(/<details>/g)||[]).length,10);
-  assert.equal((html.match(/class="review"/g)||[]).length,2);
+  assert.equal((html.match(/class="review"/g)||[]).length,0,'unverified quotes excluded from public release');
   assert.ok(html.includes(t('Nada é enviado automaticamente. O atendimento só é reservado após confirmação.')));
   assert.ok(html.includes('69.099.839/0001-25'));assert.ok(html.includes('/assets/hero-v4-3.webp'));
   for(const item of languages){
@@ -32,11 +32,11 @@ for(const locale of languages)test(`${locale.code}: complete indexable page, rec
   const graph=JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
   const webpage=graph['@graph'].find(item=>item['@type']==='WebPage');
   assert.equal(webpage.inLanguage,locale.lang);assert.equal(webpage.url,'https://www.motoristaops.com.br'+locale.path);
-  const links=[...html.matchAll(/href="(https:\/\/wa.me\/[^\"]+)"/g)].map(match=>new URL(match[1]).searchParams.get('text'));
+  const links=[...html.matchAll(/href="(https:\/\/wa.me\/[^\"]+)"/g)].map(match=>new URL(match[1]).searchParams.get('text')).filter(Boolean);
   assert.equal(links.length,18);
   for(const message of links)assert.ok(message.startsWith(locale.code==='en'?'Hello, Henrico!':locale.code==='es'?'¡Hola, Henrico!':'Olá, Henrico!'));
   if(locale.code!=='pt'){
-    assert.ok(html.includes(t('Avaliações traduzidas do português.')));
+    assert.ok(!html.includes('Avaliações traduzidas do português.'));
     for(const source of ['Perguntas frequentes.','Pular para o conteúdo','Adiante os detalhes','Proteções já aplicadas'])assert.ok(!html.includes(source),source);
   }
 });
@@ -58,9 +58,9 @@ for(const locale of ['en','es'])test(`${locale}: form errors, schedule and Whats
   assert.ok(!result.summary.data.includes('/'),'month name avoids day/month ambiguity');
 });
 
-test('sitemap preserves the three language URLs, services, and two legal pages',()=>{
+test('sitemap preserves the three language URLs, services, and three legal pages',()=>{
   const xml=fs.readFileSync('dist/sitemap.xml','utf8');
-  assert.equal((xml.match(/<loc>/g)||[]).length,9);
+  assert.equal((xml.match(/<loc>/g)||[]).length,10);
   assert.equal((xml.match(/xhtml:link/g)||[]).length,12);
   for(const locale of languages)assert.ok(xml.includes(`<loc>https://www.motoristaops.com.br${locale.path}</loc>`));
 });
