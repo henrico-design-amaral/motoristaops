@@ -10,7 +10,7 @@ import {legalPages,renderLegalPage} from './legal-pages.mjs';
 await build();
 await build({build:{ssr:'src/entry-server.jsx',outDir:'.server-build',emptyOutDir:true}});
 const {render}=await import(pathToFileURL(path.resolve('.server-build/entry-server.js')));
-const html=fs.readFileSync('dist/index.html','utf8').replaceAll('\r\n','\n').replace('</head>','<link rel="stylesheet" href="/assets/cookie-consent.css?v=20261123">\n<script defer src="/assets/site-preferences.js?v=20261123"></script>\n</head>');
+const html=fs.readFileSync('dist/index.html','utf8').replaceAll('\r\n','\n').replace('</head>','<link rel="stylesheet" href="/assets/cookie-consent.css?v=20261123b">\n<script defer src="/assets/site-preferences.js?v=20261123"></script>\n</head>');
 if(!html.includes('<!--app-html-->'))throw Error('Prerender placeholder absent');
 for(const locale of languages){
   const target=path.join('dist',locale.path);
