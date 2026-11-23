@@ -1,3 +1,4 @@
+import {legalIdentity} from '../src/legal-identity.mjs';
 export const BASE = "https://www.motoristaops.com.br";
 export const seoPages = [
   {
@@ -176,7 +177,7 @@ export function renderSeoPage(page,cssHref) {
  const url=BASE+page.path;
  const wa="https://wa.me/5511988329725?text="+encodeURIComponent("Olá, Henrico! Gostaria de solicitar um orçamento para "+page.name.toLowerCase()+". Data, horário, origem, destino e passageiros: ");
  const schema={"@context":"https://schema.org","@graph":[
-  {"@type":"Organization","@id":BASE+"/#organization",name:"MotoristaOPS",url:BASE+"/",logo:BASE+"/assets/logo-horizontal.webp",telephone:"+5511988329725",founder:{"@type":"Person",name:"Henrico Amaral"},sameAs:["https://www.instagram.com/motoristaops/","https://maps.app.goo.gl/aCAXYqSYsQDSt7teA"]},
+  {"@type":"Organization","@id":BASE+"/#organization",name:"MotoristaOPS",legalName:legalIdentity.registeredName,taxID:legalIdentity.cnpj,address:{"@type":"PostalAddress",streetAddress:"Rua Mario Latorre, 245, Bloco 40, apto 34",addressLocality:"Taboão da Serra",addressRegion:"SP",postalCode:"06767-230",addressCountry:"BR"},url:BASE+"/",logo:BASE+"/assets/logo-horizontal.webp",telephone:"+5511988329725",founder:{"@type":"Person",name:"Henrico Amaral"},sameAs:["https://www.instagram.com/motoristaops/","https://maps.app.goo.gl/aCAXYqSYsQDSt7teA"]},
   {"@type":"Service","@id":url+"#service",name:page.name,serviceType:page.name,description:page.description,areaServed:{"@type":"City",name:"São Paulo"},provider:{"@id":BASE+"/#organization"},url},
   {"@type":"WebPage","@id":url+"#webpage",url,name:page.title,description:page.description,inLanguage:"pt-BR",isPartOf:{"@id":BASE+"/#website"},about:{"@id":url+"#service"}},
   {"@type":"BreadcrumbList","@id":url+"#breadcrumb",itemListElement:[{"@type":"ListItem",position:1,name:"MotoristaOPS",item:BASE+"/"},{"@type":"ListItem",position:2,name:page.name,item:url}]}
@@ -209,7 +210,7 @@ export function renderSeoPage(page,cssHref) {
 <meta name="twitter:description" content="${esc(page.description)}">
 <meta name="twitter:image" content="${BASE}/assets/og-motoristaops.jpg?v=20260916">
 <link rel="stylesheet" href="${esc(cssHref)}">
-<link rel="stylesheet" href="/assets/cookie-consent.css">
+<link rel="stylesheet" href="/assets/cookie-consent.css?v=20261123">
 <style>
 html{scroll-behavior:smooth}body{background:#070709;color:#F3EFE4;margin:0}
 .seo-page{font-family:"Instrument Sans",sans-serif;background:#070709;color:#F3EFE4;min-height:100vh}
@@ -258,8 +259,8 @@ html{scroll-behavior:smooth}body{background:#070709;color:#F3EFE4;margin:0}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 <script type="application/ld+json">${jsonLd}</script>
-<script src="/servicos/track.js?v=20261121" defer></script>
-<script src="/assets/site-preferences.js" defer></script>
+<script src="/servicos/track.js?v=20261123" defer></script>
+<script src="/assets/site-preferences.js?v=20261123" defer></script>
 </head>
 <body><div class="seo-page">
 <a class="seo-skip" href="#conteudo-servico">Pular para o conteúdo</a>
@@ -283,10 +284,10 @@ html{scroll-behavior:smooth}body{background:#070709;color:#F3EFE4;margin:0}
 <section class="seo-hero" aria-labelledby="cta-final"><div class="seo-wrap"><p class="seo-kicker">Atendimento direto</p><h2 class="seo-section-title" id="cta-final">Fale com Henrico Amaral.</h2><p class="seo-intro">Informe data, horário, origem, destino, passageiros, bagagens e necessidade de espera ou retorno. Se o serviço exigir outro veículo, a opção de parceiro é consultada antes da confirmação.</p><a class="seo-cta" data-whatsapp-service="${esc(page.slug)}" href="${esc(wa)}" target="_blank" rel="noopener noreferrer">Solicitar orçamento</a></div></section>
 </main>
 <footer class="seo-footer"><div class="seo-wrap seo-footer-inner">
-<div><a href="/"><img src="/assets/logo-horizontal.webp" width="908" height="246" loading="lazy" alt="MotoristaOPS por Henrico Amaral"></a><p>Levando pessoas. Cuidando de histórias.</p><p>Atendimento com hora marcada · São Paulo e região.</p><p>© 2026 MotoristaOPS · CNPJ 69.099.839/0001-25</p></div>
+<div><a href="/"><img src="/assets/logo-horizontal.webp" width="908" height="246" loading="lazy" alt="MotoristaOPS por Henrico Amaral"></a><p>Levando pessoas. Cuidando de histórias.</p><p>Atendimento com hora marcada · São Paulo e região.</p><p>© 2026 MotoristaOPS · CNPJ 69.099.839/0001-25</p><p>Nome empresarial: ${esc(legalIdentity.registeredName)}</p><p>Endereço cadastral: ${esc(legalIdentity.address)}</p></div>
 <div><p><a href="tel:+5511988329725">(11) 98832-9725</a> · <a href="https://maps.app.goo.gl/aCAXYqSYsQDSt7teA" target="_blank" rel="noopener noreferrer">Avaliações no Google</a></p>
 <p>Privacidade: ao abrir a conversa, o WhatsApp recebe o texto previamente preparado. Você decide se deseja enviar a mensagem. Dados do trajeto não são enviados ao Google Analytics.</p>
-<p>Links úteis: <a href="/privacidade/">Política de Privacidade</a> · <a href="/termos-de-uso/">Termos de Uso</a>.</p>
+<p>Links úteis: <a href="/privacidade/">Política de Privacidade</a> · <a href="/termos-de-uso/">Termos de Uso</a> · <a href="/cancelamento/">Cancelamento e Reembolso</a>.</p>
 <p><small>O Google Analytics é opcional, mediante consentimento. Cliques de intenção no WhatsApp não representam mensagens ou reservas confirmadas.</small></p>
 <button type="button" class="mops-cookie-settings-trigger" data-cookie-settings>Preferências de cookies</button></div>
 </div></footer>
