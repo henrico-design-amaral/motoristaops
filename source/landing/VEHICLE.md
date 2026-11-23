@@ -1,5 +1,9 @@
 # Seção do Omoda 5 Luxury
 
+## Revisão de direitos de uso — 2026-11-23 (ATUAL)
+
+As quatro fotografias internas originalmente reproduzidas a partir de um anúncio da Personalité Automóveis foram retiradas da galeria e dos assets públicos, pois o histórico comprova a origem, mas não contém licença de publicação. Os itens descritos abaixo permanecem como registro histórico de procedência, **não como autorização de uso**. A galeria pública fica com três composições já aprovadas do próprio projeto até que haja licença documental para fotos internas reais. Nenhuma imagem do automóvel foi gerada novamente para substituir as removidas.
+
 Revisão aprovada em 27/10/2026. Escopo: somente `#o-carro` e o ampliador das suas imagens. Hero, serviços, processo, apresentação, avaliações, FAQ, formulário e demais superfícies são invariantes.
 
 ## Aceite visual
