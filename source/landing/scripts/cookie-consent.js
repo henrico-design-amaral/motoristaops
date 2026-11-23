@@ -8,6 +8,7 @@
       description: 'Usamos armazenamento essencial para lembrar sua escolha. Com sua autorização, o Google Analytics mede visitas e cliques no WhatsApp. Você pode continuar sem autorizar a medição.',
       privacy: 'Política de Privacidade',
       terms: 'Termos de Uso',
+      cancellation: 'Cancelamento e Reembolso',
       reject: 'Rejeitar opcionais',
       accept: 'Aceitar estatísticas',
       customize: 'Preferências',
@@ -25,6 +26,7 @@
       description: 'We use essential storage to remember your choice. With your permission, Google Analytics measures visits and WhatsApp contact clicks. You can continue without analytics.',
       privacy: 'Privacy Policy',
       terms: 'Terms of Use',
+      cancellation: 'Cancellations and Refunds',
       reject: 'Reject optional',
       accept: 'Allow analytics',
       customize: 'Preferences',
@@ -42,6 +44,7 @@
       description: 'Usamos almacenamiento esencial para recordar tu elección. Con tu permiso, Google Analytics mide visitas y clics de contacto por WhatsApp. Puedes continuar sin analítica.',
       privacy: 'Política de Privacidad',
       terms: 'Términos de Uso',
+      cancellation: 'Cancelación y Reembolsos',
       reject: 'Rechazar opcionales',
       accept: 'Aceptar estadísticas',
       customize: 'Preferencias',
@@ -73,7 +76,7 @@
     '<div class="mops-cookie-content">',
     '<p class="mops-cookie-title">' + t.title + '</p>',
     '<p class="mops-cookie-description">' + t.description + '</p>',
-    '<div class="mops-cookie-legal"><a href="/privacidade/">' + t.privacy + '</a><a href="/termos-de-uso/">' + t.terms + '</a></div>',
+    '<div class="mops-cookie-legal"><a href="/privacidade/">' + t.privacy + '</a><a href="/termos-de-uso/">' + t.terms + '</a><a href="/cancelamento/">' + t.cancellation + '</a></div>',
     '<div class="mops-cookie-preferences" hidden>',
     '<div class="mops-cookie-option"><div><strong>' + t.essential + '</strong><small>' + t.essentialDescription + '</small></div><span>' + t.alwaysOn + '</span></div>',
     '<label class="mops-cookie-option"><div><strong>' + t.analytics + '</strong><small>' + t.analyticsDescription + '</small></div><input type="checkbox" class="mops-cookie-analytics"></label>',
@@ -88,6 +91,7 @@
   ].join('');
   const prefBox = panel.querySelector('.mops-cookie-preferences');
   const optionalBox = panel.querySelector('.mops-cookie-analytics');
+  let lastSettingsTrigger=null;
   const actions = Object.fromEntries(['reject','customize','accept','save','back'].map(name => [name,panel.querySelector('[data-cookie-action="'+name+'"]')]));
   function showPreferences(show) {
     prefBox.hidden = !show;
@@ -97,7 +101,8 @@
     actions.save.hidden = !show;
     if (show) optionalBox.checked = readChoice() === 'yes';
   }
-  function openPreferences() {
+  function openPreferences(trigger) {
+    lastSettingsTrigger = trigger || null;
     showPreferences(true);
     panel.hidden = false;
     optionalBox.focus();
@@ -107,20 +112,27 @@
     window.dispatchEvent(new CustomEvent('motoristaops:consent-changed', {detail:{analytics}}));
     panel.hidden = true;
     showPreferences(false);
+    // Return keyboard focus to the settings trigger, or the main content after first choice.
+    if(lastSettingsTrigger?.isConnected)lastSettingsTrigger.focus?.();
+    else document.querySelector?.('main a, main button, main input')?.focus?.();
+    lastSettingsTrigger=null;
   }
   actions.reject.addEventListener('click', () => save(false));
   actions.accept.addEventListener('click', () => save(true));
-  actions.customize.addEventListener('click', () => showPreferences(true));
-  actions.back.addEventListener('click', () => showPreferences(false));
+  actions.customize.addEventListener('click', () => {showPreferences(true);optionalBox.focus();});
+  actions.back.addEventListener('click', () => {showPreferences(false);actions.customize.focus?.();});
   actions.save.addEventListener('click', () => save(optionalBox.checked));
   panel.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && readChoice() !== null) panel.hidden = true;
+    if (event.key === 'Escape' && readChoice() !== null) {
+      panel.hidden = true;
+      if(lastSettingsTrigger?.isConnected)lastSettingsTrigger.focus?.();
+    }
   });
   document.addEventListener('click', event => {
     const trigger = event.target.closest('[data-cookie-settings]');
     if (trigger) {
       event.preventDefault();
-      openPreferences();
+      openPreferences(trigger);
     }
   });
   window.addEventListener('storage', event => {
@@ -139,7 +151,7 @@
     const links = document.createElement('nav');
     links.className = 'mops-legal-links';
     links.setAttribute('aria-label', t.label);
-    links.innerHTML = '<a href="/privacidade/">' + t.privacy + '</a><a href="/termos-de-uso/">' + t.terms + '</a><button type="button" class="mops-cookie-settings-trigger" data-cookie-settings>' + t.customize + '</button>';
+    links.innerHTML = '<a href="/privacidade/">' + t.privacy + '</a><a href="/termos-de-uso/">' + t.terms + '</a><a href="/cancelamento/">' + t.cancellation + '</a><button type="button" class="mops-cookie-settings-trigger" data-cookie-settings>' + t.customize + '</button>';
     homeFooter.appendChild(links);
   });
   document.addEventListener('change', event => {
