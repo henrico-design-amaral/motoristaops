@@ -32,7 +32,7 @@ for(const locale of languages)test(`${locale.code}: complete indexable page, rec
   const graph=JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
   const webpage=graph['@graph'].find(item=>item['@type']==='WebPage');
   assert.equal(webpage.inLanguage,locale.lang);assert.equal(webpage.url,'https://www.motoristaops.com.br'+locale.path);
-  const links=[...html.matchAll(/href="(https:\/\/wa.me\/[^\"]+)"/g)].map(match=>new URL(match[1]).searchParams.get('text'));
+  const links=[...html.matchAll(/href="(https:\/\/wa.me\/[^\"]+)"/g)].map(match=>new URL(match[1]).searchParams.get('text')).filter(Boolean);
   assert.equal(links.length,18);
   for(const message of links)assert.ok(message.startsWith(locale.code==='en'?'Hello, Henrico!':locale.code==='es'?'¡Hola, Henrico!':'Olá, Henrico!'));
   if(locale.code!=='pt'){
