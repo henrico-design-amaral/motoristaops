@@ -210,7 +210,7 @@ export function renderSeoPage(page,cssHref) {
 <meta name="twitter:description" content="${esc(page.description)}">
 <meta name="twitter:image" content="${BASE}/assets/og-motoristaops.jpg?v=20260916">
 <link rel="stylesheet" href="${esc(cssHref)}">
-<link rel="stylesheet" href="/assets/cookie-consent.css?v=20261123">
+<link rel="stylesheet" href="/assets/cookie-consent.css?v=20261123b">
 <style>
 html{scroll-behavior:smooth}body{background:#070709;color:#F3EFE4;margin:0}
 .seo-page{font-family:"Instrument Sans",sans-serif;background:#070709;color:#F3EFE4;min-height:100vh}
