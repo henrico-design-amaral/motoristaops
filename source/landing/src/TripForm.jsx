@@ -51,6 +51,13 @@ export function TripForm({getAsset}) {
       recordContact('formulario');
     }}><img className="brand-icon" src={getAsset('whatsapp.svg')} alt=""/><span>{_("Abrir conversa no WhatsApp")}</span><ArrowRight aria-hidden="true" size={20} strokeWidth={1.75}/></button></section>}
     <p className="form-note">{_("Nada é enviado automaticamente. O atendimento só é reservado após confirmação.")}</p>
-    <a className="privacy-link" href="#privacidade">{_("Privacidade e medição")}</a>
+    <div className="mops-form-privacy" aria-label={locale==='en'?'Personal data and conditions':locale==='es'?'Datos personales y condiciones':'Dados pessoais e condições'}>
+      <p>{locale==='en'?'Purpose: plan and quote your journey. Opening WhatsApp passes the prepared text to that platform, but does not send a message to MotoristaOPS until you confirm.':locale==='es'?'Finalidad: planificar y presupuestar el viaje. Al abrir WhatsApp, el texto preparado llega a la plataforma, pero no se envía al servicio hasta que confirmes.':'Finalidade: planejar e orçar seu trajeto. Ao abrir o WhatsApp, o texto preparado pode ser processado pela plataforma antes do envio; nenhuma reserva é confirmada automaticamente.'}</p>
+      <a className="privacy-link" href="/privacidade/">{locale==='en'?'Privacy Policy':locale==='es'?'Política de Privacidad':'Política de Privacidade'}</a>
+      <span aria-hidden="true"> · </span>
+      <a className="privacy-link" href="/termos-de-uso/">{locale==='en'?'Terms of Use':locale==='es'?'Términos de Uso':'Termos de Uso'}</a>
+      <span aria-hidden="true"> · </span>
+      <a className="privacy-link" href="/cancelamento/">{locale==='en'?'Cancellations':locale==='es'?'Cancelación':'Cancelamento e Reembolso'}</a>
+    </div>
   </form>;
 }
