@@ -29,10 +29,16 @@ export function setPermission(value, persist = true) {
   }
   if (started) return;
   started = true;
+  // Google Consent Mode v2 - basic: the Google tag is still blocked until opt-in.
   tag('consent','default',{
+    analytics_storage:'denied', ad_storage:'denied',
+    ad_user_data:'denied', ad_personalization:'denied'
+  });
+  tag('consent','update',{
     analytics_storage:'granted', ad_storage:'denied',
     ad_user_data:'denied', ad_personalization:'denied'
   });
+  tag('set','ads_data_redaction',true);
   tag('js',new Date());
   const landing = new URL(location.pathname,location.origin);
   const query = new URLSearchParams(location.search);
