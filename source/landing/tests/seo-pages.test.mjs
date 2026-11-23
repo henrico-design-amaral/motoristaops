@@ -26,7 +26,7 @@ test('service pages render indexable, unique HTML with consistent brand and real
     assert.ok(html.includes('href="/privacidade/"'));
     assert.ok(html.includes('href="/termos-de-uso/"'));
     assert.ok(html.includes('src="/assets/site-preferences.js?v=20261123"'));
-    assert.ok(html.includes('href="/assets/cookie-consent.css?v=20261123"'));
+    assert.ok(html.includes('href="/assets/cookie-consent.css?v=20261123b"'));
     assert.ok(html.includes('src="/servicos/track.js?v=20261123"'));
     assert.equal((html.match(/<h1>/g)||[]).length,1);
     assert.ok(!html.includes('fonts.googleapis.com'));

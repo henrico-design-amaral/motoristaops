@@ -154,7 +154,7 @@ export function renderLegalPage(page, cssHref) {
     '<meta property="og:description" content="'+esc(page.description)+'">',
     '<meta property="og:url" content="'+url+'">',
     '<meta property="og:image" content="'+ROOT+'/assets/og-motoristaops.jpg?v=20260916">',
-    '<link rel="stylesheet" href="'+esc(cssHref)+'"><link rel="stylesheet" href="/assets/cookie-consent.css?v=20261123">',
+    '<link rel="stylesheet" href="'+esc(cssHref)+'"><link rel="stylesheet" href="/assets/cookie-consent.css?v=20261123b">',
     '<style>'+PAGE_CSS+'</style>',
     '<script type="application/ld+json">'+structuredData+'</script>',
     '<script src="/servicos/track.js?v=20261123" defer></script><script src="/assets/site-preferences.js?v=20261123" defer></script>',
