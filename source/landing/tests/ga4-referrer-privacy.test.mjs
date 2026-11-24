@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 import {safeAnalyticsReferrer} from '../src/analytics-referrer.mjs';
 import {legalPages,renderLegalPage} from '../scripts/legal-pages.mjs';
+import {seoPages,renderSeoPage} from '../scripts/seo-pages.mjs';
 
 const get = path => fs.readFileSync(path,'utf8');
 
@@ -70,4 +71,13 @@ test('legal pages offer accessible, opt-in, generic privacy and refund requests,
   }
   const terms=renderLegalPage(legalPages.find(page=>page.path==='/termos-de-uso/'),'/assets/app/test.css');
   assert.ok(!terms.includes('class="legal-action"'));
+});
+
+
+test('every service and legal page references the final cache-safe tracker release',()=>{
+  const pages=[...legalPages.map(page=>renderLegalPage(page,'/assets/app/test.css')),...seoPages.map(page=>renderSeoPage(page,'/assets/app/test.css'))];
+  for(const html of pages){
+    assert.ok(html.includes('/servicos/track.js?v=20261124r2'),'new tracker version');
+    assert.ok(!html.includes('/servicos/track.js?v=20261124"'),'stale intermediate tracker cache');
+  }
 });
