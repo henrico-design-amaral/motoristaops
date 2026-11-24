@@ -42,7 +42,7 @@ test('service page tracker never includes raw referrer or sensitive query parame
       head:{appendChild(s){scripts.push(s);}},
       addEventListener(event,cb){events.push(event)}
     },
-    window:{}
+    window:{addEventListener(){}}
   };
   vm.runInNewContext(script,ctx);
   assert.equal(scripts.length,1,'tag loads only after stored explicit opt-in');
