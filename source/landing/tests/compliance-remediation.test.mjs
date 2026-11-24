@@ -82,7 +82,7 @@ test('GA4 basic consent defaults denied and requires explicit opt-in; form PII s
     assert.ok(!source.includes('Origem:'));
   }
   assert.ok(mobile.includes('motoristaops:quote-open'));
-  assert.ok(mobile.includes('/assets/mobile-analytics.js?v=20261123'));
+  assert.ok(mobile.includes('/assets/mobile-analytics.js?v=20261124'));
 });
 
 test('mobile essential controls meet static AA contrast and minimum 12px typography',()=>{
