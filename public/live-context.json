@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "collectedAt": "2026-11-24T05:34:10.504Z",
+  "collectedAt": "2026-11-24T16:18:19.919Z",
   "expectedRefreshMinutes": 5,
   "status": "live",
   "traffic": {
@@ -14,58 +14,58 @@
     "zones": [
       {
         "name": "Norte",
-        "slowKm": 1,
-        "sharePct": 10
+        "slowKm": 89,
+        "sharePct": 18
       },
       {
         "name": "Oeste",
-        "slowKm": 1,
-        "sharePct": 10
+        "slowKm": 144,
+        "sharePct": 29
       },
       {
         "name": "Centro",
-        "slowKm": 1,
-        "sharePct": 10
+        "slowKm": 89,
+        "sharePct": 18
       },
       {
         "name": "Leste",
-        "slowKm": 6,
-        "sharePct": 60
+        "slowKm": 100,
+        "sharePct": 20
       },
       {
         "name": "Sul",
-        "slowKm": 1,
-        "sharePct": 10
+        "slowKm": 104,
+        "sharePct": 21
       }
     ],
     "busCorridorSpeed": {
-      "centroBairroKmh": 35,
-      "bairroCentroKmh": 34
+      "centroBairroKmh": 19,
+      "bairroCentroKmh": 19
     },
     "derived": {
-      "totalSlowKm": 10,
-      "worstZone": "Leste",
-      "pressure": "baixo"
+      "totalSlowKm": 526,
+      "worstZone": "Oeste",
+      "pressure": "muito alto"
     },
     "error": null
   },
   "weather": {
-    "status": "unavailable",
+    "status": "live",
     "source": {
       "id": "open-meteo",
       "label": "Open-Meteo · São Paulo",
       "url": "https://open-meteo.com/",
       "kind": "weather-api"
     },
-    "observedAt": null,
-    "temperatureC": null,
-    "humidityPct": null,
-    "precipitationMm": null,
-    "rainMm": null,
-    "weatherCode": null,
-    "windKmh": null,
-    "raining": null,
-    "error": "fetch failed"
+    "observedAt": "2026-11-24T13:15",
+    "temperatureC": 30.4,
+    "humidityPct": 56,
+    "precipitationMm": 0.1,
+    "rainMm": 0.1,
+    "weatherCode": 51,
+    "windKmh": 11.9,
+    "raining": true,
+    "error": null
   },
   "airport": {
     "status": "source-live",
