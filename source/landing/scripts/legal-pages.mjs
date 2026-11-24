@@ -157,7 +157,7 @@ export function renderLegalPage(page, cssHref) {
     '<link rel="stylesheet" href="'+esc(cssHref)+'"><link rel="stylesheet" href="/assets/cookie-consent.css?v=20261123b">',
     '<style>'+PAGE_CSS+'</style>',
     '<script type="application/ld+json">'+structuredData+'</script>',
-    '<script src="/servicos/track.js?v=20261123" defer></script><script src="/assets/site-preferences.js?v=20261123" defer></script>',
+    '<script src="/servicos/track.js?v=20261124" defer></script><script src="/assets/site-preferences.js?v=20261123" defer></script>',
     '</head><body><div class="legal-page">',
     '<header class="legal-header"><div class="legal-wrap legal-nav">',
     '<a href="/" aria-label="Voltar ao início"><img src="/assets/logo-horizontal.webp" width="908" height="246" class="legal-logo" alt="MotoristaOPS por Henrico Amaral"></a>',
