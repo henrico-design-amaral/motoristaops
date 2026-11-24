@@ -35,6 +35,7 @@ fs.copyFileSync('scripts/cookie-consent.js','dist/assets/site-preferences.js');
 fs.copyFileSync('scripts/cookie-consent.css','dist/assets/cookie-consent.css');
 // Reuse the same consent-gated GA4 implementation as the desktop.
 fs.copyFileSync('src/analytics.mjs','dist/assets/mobile-analytics.js');
+fs.copyFileSync('src/analytics-referrer.mjs','dist/assets/analytics-referrer.mjs');
 fs.writeFileSync('dist/robots.txt','User-agent: *\nAllow: /\n\nSitemap: https://www.motoristaops.com.br/sitemap.xml\n');
 fs.writeFileSync('dist/sitemap.xml',sitemap());
 fs.copyFileSync('apache.htaccess','dist/.htaccess');
