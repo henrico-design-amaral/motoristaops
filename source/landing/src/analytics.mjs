@@ -1,3 +1,5 @@
+import {safeAnalyticsReferrer} from './analytics-referrer.mjs';
+
 // Basic consent mode. The site does not load the Google tag before opt-in.
 const ID = 'G-ZQZ76XPPLP';
 const preference = 'motoristaops.analytics';
@@ -48,7 +50,8 @@ export function setPermission(value, persist = true) {
   }
   tag('config',ID,{
     allow_google_signals:false, allow_ad_personalization_signals:false,
-    page_location:landing.href
+    page_location:landing.href,
+    page_referrer:safeAnalyticsReferrer(document.referrer)
   });
   const script = document.createElement('script');
   script.async=true;
