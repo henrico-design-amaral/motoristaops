@@ -6,6 +6,12 @@
   let initialized = false;
   try { enabled = localStorage.getItem(pref) === 'yes'; } catch {}
   function gtag() { (window.dataLayer ??= []).push(arguments); }
+  function safeReferrer() {
+    try {
+      const url = new URL(document.referrer);
+      return (url.protocol === 'https:' || url.protocol === 'http:') ? url.origin + '/' : '';
+    } catch { return ''; }
+  }
   function begin() {
     if (initialized || !enabled) return;
     initialized = true;
@@ -34,7 +40,8 @@
     gtag('config', ID, {
       allow_google_signals: false,
       allow_ad_personalization_signals: false,
-      page_location: current.href
+      page_location: current.href,
+      page_referrer: safeReferrer()
     });
     const script = document.createElement('script');
     script.async = true;

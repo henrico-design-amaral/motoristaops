@@ -127,6 +127,10 @@ const PAGE_CSS = [
   '.legal-section{border-top:1px solid #947546;padding:24px 0 28px}',
   '.legal-section h2{font-size:21px;line-height:1.3;margin:0 0 12px}',
   '.legal-section p{font-size:15px;line-height:1.75;color:#F3EFE4;margin:0 0 12px}',
+  '.legal-action{padding:24px 0 30px;border-top:1px solid #947546}',
+  '.legal-action h2{font-size:21px;margin:0 0 12px}',
+  '.legal-action a{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;background:#F3EFE4;color:#151518!important;border-radius:7px;text-decoration:none;font-weight:700;font-size:15px}',
+  '.legal-action p{font-size:13px;line-height:1.65;margin:12px 0 0}',
   '.legal-footer{border-top:1px solid #947546;border-bottom:0}',
   '.legal-footer p{font-size:12px;line-height:1.6}',
   '.legal-footer [data-cookie-settings]{margin-top:14px}',
@@ -141,6 +145,14 @@ export function renderLegalPage(page, cssHref) {
     inLanguage:'pt-BR',isPartOf:{'@id':ROOT+'/#website'}
   }).replaceAll('<','\\u003c');
   const content=page.sections.map(([title,paragraphs])=>'<section class="legal-section"><h2>'+esc(title)+'</h2>'+paragraphs.map(p=>'<p>'+esc(p)+'</p>').join('')+'</section>').join('\n');
+  const request = page.path === '/privacidade/'
+    ? {title:'Exercer direitos sobre seus dados',label:'Solicitar acesso, correção ou exclusão',message:'Olá, gostaria de orientações para exercer meus direitos sobre os dados pessoais tratados pela MotoristaOPS.'}
+    : page.path === '/cancelamento/'
+      ? {title:'Cancelar ou consultar reembolso',label:'Solicitar cancelamento ou reembolso',message:'Olá, gostaria de orientações para cancelar um atendimento ou solicitar reembolso pela MotoristaOPS.'}
+      : null;
+  const requestMarkup = request
+    ? '<section class="legal-action" aria-labelledby="legal-action-title"><h2 id="legal-action-title">'+esc(request.title)+'</h2><a href="https://wa.me/5511988329725?text='+encodeURIComponent(request.message)+'" target="_blank" rel="noopener noreferrer">'+esc(request.label)+'</a><p>Abrir o WhatsApp pode compartilhar este texto de solicitação com a plataforma. Nenhuma mensagem será enviada à MotoristaOPS sem sua confirmação no aplicativo. Não inclua CPF, senhas ou documentos antes de receber orientações.</p></section>'
+    : '';
   return [
     '<!doctype html><html lang="pt-BR"><head>',
     '<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">',
@@ -157,7 +169,7 @@ export function renderLegalPage(page, cssHref) {
     '<link rel="stylesheet" href="'+esc(cssHref)+'"><link rel="stylesheet" href="/assets/cookie-consent.css?v=20261123b">',
     '<style>'+PAGE_CSS+'</style>',
     '<script type="application/ld+json">'+structuredData+'</script>',
-    '<script src="/servicos/track.js?v=20261123" defer></script><script src="/assets/site-preferences.js?v=20261123" defer></script>',
+    '<script src="/servicos/track.js?v=20261124" defer></script><script src="/assets/site-preferences.js?v=20261123" defer></script>',
     '</head><body><div class="legal-page">',
     '<header class="legal-header"><div class="legal-wrap legal-nav">',
     '<a href="/" aria-label="Voltar ao início"><img src="/assets/logo-horizontal.webp" width="908" height="246" class="legal-logo" alt="MotoristaOPS por Henrico Amaral"></a>',
@@ -167,6 +179,7 @@ export function renderLegalPage(page, cssHref) {
     '<p class="legal-kicker">MotoristaOPS · São Paulo e região</p>',
     '<h1>'+esc(page.heading)+'</h1><p class="legal-updated">Última atualização: 23 de novembro de 2026 · Minuta operacional sujeita a revisão jurídica.</p>',
     content,
+    requestMarkup,
     '</div></main>',
     '<footer class="legal-footer"><div class="legal-wrap">',
     '<p>'+esc(legalIdentity.registeredName)+' · CNPJ '+esc(legalIdentity.cnpj)+'</p><p>Endereço cadastral: '+esc(legalIdentity.address)+'</p>',
