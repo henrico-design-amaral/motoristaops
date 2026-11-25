@@ -109,7 +109,7 @@ function plainPredictionText(prediction) {
     ? String(prediction.text.toString()).trim() : '';
 }
 
-export function attachPlacesField({input,mount,locale='pt',config,onSelect=()=>{},loader=loadPlacesLibrary}) {
+export function attachPlacesField({input,mount,locale='pt',config,onSelect=()=>{},loader=loadPlacesLibrary,showPrivacy=true}) {
   if (!input || !mount || !isValidPlacesConfig(config)) return ()=>{};
   const t=COPY[languageCode(locale)];
   const id='mops-place-list-'+(++controlSequence);
@@ -133,9 +133,10 @@ export function attachPlacesField({input,mount,locale='pt',config,onSelect=()=>{
   const notice=document.createElement('p');
   notice.className='mops-places-privacy';
   notice.textContent=t.privacy;
+  notice.hidden=!showPrivacy;
   mount.append(box,live,notice);
 
-  let destroyed=false,querySequence=0,timer=null,token=null,options=[],active=-1,composing=false;
+  let destroyed=false,querySequence=0,timer=null,token=null,options=[],active=-1,composing=false,applying=false;
 
   function close() {
     box.hidden=true;
@@ -161,6 +162,7 @@ export function attachPlacesField({input,mount,locale='pt',config,onSelect=()=>{
   async function choose(prediction) {
     if(destroyed)return;
     invalidatePending();
+    const selectionVersion=querySequence;
     // Discard this field's billing token after selection; a new edit starts a new session.
     token=null;
     const original=plainPredictionText(prediction);
@@ -173,12 +175,14 @@ export function attachPlacesField({input,mount,locale='pt',config,onSelect=()=>{
     } catch {
       // The user-selected prediction is still usable as manually editable text.
     }
-    if(destroyed)return;
+    if(destroyed || selectionVersion!==querySequence)return;
     const next=selectionText(original,address,input.maxLength);
     if(!next)return;
+    applying=true;
     input.value=next;
     input.dispatchEvent(new Event('input',{bubbles:true}));
     input.dispatchEvent(new Event('change',{bubbles:true}));
+    applying=false;
     onSelect(input.name,next);
     live.textContent=t.select;
     close();
@@ -215,6 +219,7 @@ export function attachPlacesField({input,mount,locale='pt',config,onSelect=()=>{
   }
   function onInput(){
     invalidatePending();
+    if(applying)return;
     if(composing)return;
     const q=input.value.trim();
     if(q.length<MIN_CHARACTERS){token=null;return;}
@@ -291,6 +296,6 @@ export function attachPlacesField({input,mount,locale='pt',config,onSelect=()=>{
 export async function enhancePlacesFields(fields,{locale='pt',onSelect=()=>{},readConfig=readPlacesConfig,loader=loadPlacesLibrary}={}) {
   const config=await readConfig();
   if(!config)return()=>{};
-  const cleanups=fields.map(field=>attachPlacesField({...field,locale,config,onSelect,loader}));
+  const cleanups=fields.map((field,index)=>attachPlacesField({...field,locale,config,onSelect,loader,showPrivacy:index===0}));
   return ()=>cleanups.forEach(dispose=>dispose());
 }
