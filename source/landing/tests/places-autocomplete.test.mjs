@@ -112,6 +112,11 @@ test('mocked Places (New) prediction completes just one session and emits native
       onSelect:(name,address)=>selected.push({name,address}),loader
     });
     assert.equal(input.getAttribute('role'),'combobox');
+    // Leaving the address field before the debounce must not query Google.
+    input.value='Rua Augusta';input.dispatchEvent(new Event('input'));
+    input.dispatchEvent(new Event('blur'));
+    await new Promise(resolve=>setTimeout(resolve,410));
+    assert.equal(queries.length,0,'blur must cancel the pending Places request');
     input.value='congonhas';input.dispatchEvent(new Event('input'));
     await new Promise(resolve=>setTimeout(resolve,410));
     assert.equal(queries.length,1);
