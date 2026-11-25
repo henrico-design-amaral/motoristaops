@@ -14,7 +14,7 @@
 
 ## Arquitetura e comportamento
 
-- Módulo único `src/places-autocomplete.mjs` e CSS `src/places-autocomplete.css`.
+- Módulo único `src/places-autocomplete.mjs` e CSS `src/places-autocomplete.css`, publicados como `/assets/places-autocomplete.js` e `/assets/places-autocomplete.css` (MIME JS compatível com a hospedagem).
 - Desktop: `src/TripForm.jsx` injeta sugestões nos campos já existentes, com refs e callback para invalidar o orçamento preparado.
 - Mobile: `public/mobile/index.html` injeta o mesmo módulo nos campos já existentes. A mensagem permanece preparada localmente e só abre o WhatsApp em ato do usuário.
 - JavaScript: `AutocompleteSuggestion.fetchAutocompleteSuggestions()` (Places API New), token único por interação/campo, 350 ms de debounce, mínimo 3 caracteres, máximo 5 resultados, `locationBias` aproximado do centro de São Paulo (sem pedir geolocalização), `region: 'br'` como preferência e não restrição.
