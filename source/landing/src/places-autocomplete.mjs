@@ -266,12 +266,16 @@ export function attachPlacesField({input,mount,locale='pt',config,onSelect=()=>{
       void choose(options[active]);
     }
   }
+  function abandonSession(){
+    invalidatePending();
+    token=null; // Don't continue a billable search after focus has left the field.
+  }
   function onOutside(event) {
-    if(event.target!==input && !mount.contains(event.target))close();
+    if(event.target!==input && !mount.contains(event.target))abandonSession();
   }
   function onBlur(){
-    // Pointer selection prevents blur; a real Tab-out closes predictions.
-    setTimeout(()=>{if(!destroyed && document.activeElement!==input)close();},100);
+    // Pointer selection prevents blur; a real Tab-out cancels pending requests.
+    setTimeout(()=>{if(!destroyed && document.activeElement!==input)abandonSession();},100);
   }
   function onCompositionStart(){composing=true;invalidatePending();}
   function onCompositionEnd(){composing=false;onInput();}
