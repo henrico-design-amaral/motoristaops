@@ -4,6 +4,8 @@ import {useLocale} from './Locale.jsx';
 import {ArrowRight,Check} from 'lucide-react';
 import {useMessageMotion} from './Motion.jsx';
 import {prepareTripRequest,localToday} from './trip-request.mjs';
+import {enhancePlacesFields} from './places-autocomplete.mjs';
+import './places-autocomplete.css';
 
 export function TripForm({getAsset}) {
   const {t:_,locale}=useLocale();
@@ -12,6 +14,26 @@ export function TripForm({getAsset}) {
   const [errors,setErrors] = useState({});
   const [prepared,setPrepared] = useState(null);
   const readyHeading = useRef(null),readyCard=useRef(null);
+  const origemInputRef=useRef(null),destinoInputRef=useRef(null);
+  const origemMountRef=useRef(null),destinoMountRef=useRef(null);
+  useEffect(()=>{
+    let disposed=false,cleanup=()=>{};
+    const fields=[
+      {input:origemInputRef.current,mount:origemMountRef.current},
+      {input:destinoInputRef.current,mount:destinoMountRef.current}
+    ];
+    enhancePlacesFields(fields,{
+      locale,
+      onSelect(name){
+        setPrepared(null);
+        setErrors(current=>{
+          if(!current[name])return current;
+          const next={...current};delete next[name];return next;
+        });
+      }
+    }).then(dispose=>{if(disposed)dispose();else cleanup=dispose;}).catch(()=>{});
+    return ()=>{disposed=true;cleanup();};
+  },[locale]);
   useMessageMotion(readyCard,prepared);
   useEffect(()=>{if(prepared)readyHeading.current?.focus();},[prepared]);
   const prepare = event => {
@@ -39,8 +61,8 @@ export function TripForm({getAsset}) {
     <h3>{_("Vamos planejar seu trajeto?")}</h3>
     <p>{_("Prepare a mensagem e revise os detalhes antes de abrir o WhatsApp.")}</p>
     <p className="required-note">{_("* Campos obrigatórios")}</p>
-    <div className="form-field"><label htmlFor="origem">{_("Origem")} <span aria-hidden="true">*</span></label><input id="origem" name="origem" placeholder={_("Endereço completo de partida")} required maxLength="220" enterKeyHint="next" {...a11y('origem')}/>{error('origem')}</div>
-    <div className="form-field"><label htmlFor="destino">{_("Destino")} <span aria-hidden="true">*</span></label><input id="destino" name="destino" placeholder={_("Endereço completo de chegada")} required maxLength="220" enterKeyHint="next" {...a11y('destino')}/>{error('destino')}</div>
+    <div className="form-field"><label htmlFor="origem">{_("Origem")} <span aria-hidden="true">*</span></label><div className="mops-address-anchor"><input ref={origemInputRef} id="origem" name="origem" placeholder={_("Endereço completo de partida")} required maxLength="220" enterKeyHint="next" {...a11y('origem')}/><div className="mops-places-mount" ref={origemMountRef}/></div>{error('origem')}</div>
+    <div className="form-field"><label htmlFor="destino">{_("Destino")} <span aria-hidden="true">*</span></label><div className="mops-address-anchor"><input ref={destinoInputRef} id="destino" name="destino" placeholder={_("Endereço completo de chegada")} required maxLength="220" enterKeyHint="next" {...a11y('destino')}/><div className="mops-places-mount" ref={destinoMountRef}/></div>{error('destino')}</div>
     <div className="form-row"><div className="form-field"><label htmlFor="data">{_("Data")} <span>{_("(opcional)")}</span></label><input id="data" type="date" name="data" min={today} {...a11y('data')}/>{error('data')}</div><div className="form-field"><label htmlFor="horario">{_("Horário")} <span>{_("(opcional)")}</span></label><input id="horario" name="horario" type="time" {...a11y('horario')}/>{error('horario')}</div></div>
     <div className="form-field"><label htmlFor="passageiros">{_("Passageiros")}</label><select id="passageiros" name="passageiros" defaultValue="1" {...a11y('passageiros')}>{[1,2,3,4].map(n=><option key={n}>{n}</option>)}<option value="5+">{_("5 ou mais (sob consulta)")}</option></select>{error('passageiros')}</div>
     <div className="form-field"><label htmlFor="detalhes">{_("Mais detalhes")} <span>{_("(opcional)")}</span></label><textarea id="detalhes" name="detalhes" placeholder={_("Malas, paradas, espera ou retorno")} maxLength="800" rows="2" {...a11y('detalhes')}/>{error('detalhes')}</div>

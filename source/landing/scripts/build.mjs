@@ -35,6 +35,18 @@ fs.copyFileSync('scripts/cookie-consent.js','dist/assets/site-preferences.js');
 fs.copyFileSync('scripts/cookie-consent.css','dist/assets/cookie-consent.css');
 // Reuse the same consent-gated GA4 implementation as the desktop.
 fs.copyFileSync('src/analytics.mjs','dist/assets/mobile-analytics.js');
+fs.copyFileSync('src/places-autocomplete.mjs','dist/assets/places-autocomplete.js');
+fs.copyFileSync('src/places-autocomplete.css','dist/assets/places-autocomplete.css');
+// Browser keys must be restricted by referrer and APIs at Google Cloud.
+// Explicit opt-in flag is mandatory; missing key fails closed at build time.
+const mapsEnabled=process.env.MOPS_PLACES_ENABLED==='true';
+const mapsBrowserKey=(process.env.MOPS_PLACES_BROWSER_KEY||'').trim();
+if(mapsEnabled && !/^AIza[0-9A-Za-z_-]{30,}$/.test(mapsBrowserKey))
+  throw new Error('Places enabled but a valid referrer-restricted browser key was not configured');
+fs.writeFileSync('dist/assets/places-config.json',JSON.stringify({
+  enabled:mapsEnabled,browserKey:mapsEnabled?mapsBrowserKey:''
+})+'\n');
+
 fs.copyFileSync('src/analytics-referrer.mjs','dist/assets/analytics-referrer.mjs');
 fs.writeFileSync('dist/robots.txt','User-agent: *\nAllow: /\n\nSitemap: https://www.motoristaops.com.br/sitemap.xml\n');
 fs.writeFileSync('dist/sitemap.xml',sitemap());
