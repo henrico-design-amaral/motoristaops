@@ -131,6 +131,19 @@ test('mocked Places (New) prediction completes just one session and emits native
     assert.equal(input.getAttribute('aria-expanded'),'false');
     await new Promise(resolve=>setTimeout(resolve,400));
     assert.equal(queries.length,1,'selection must not start another paid search');
+    // Touch selection must work on the same field with a new session.
+    input.value='aeroporto';input.dispatchEvent(new Event('input'));
+    await new Promise(resolve=>setTimeout(resolve,410));
+    assert.equal(queries.length,2);
+    assert.notEqual(queries[0].sessionToken,queries[1].sessionToken);
+    const resultBox=mount.children.find(node=>node.className==='mops-places-results');
+    const firstOption=resultBox?.children?.find(node=>node.dataset?.placeIndex==='0');
+    assert.ok(firstOption);
+    firstOption.dispatchEvent({type:'pointerdown',preventDefault(){}});
+    await new Promise(resolve=>setTimeout(resolve,40));
+    assert.equal(selected.length,2,'pointer selection must fill the address');
+    await new Promise(resolve=>setTimeout(resolve,400));
+    assert.equal(queries.length,2,'pointer selection must not launch a duplicate search');
     cleanup();
     assert.equal(input.getAttribute('role'),null);
     assert.equal(mount.children.length,0);
