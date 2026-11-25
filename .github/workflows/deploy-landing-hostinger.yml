@@ -31,6 +31,11 @@ jobs:
         run: npm ci
       - name: Build indexable production HTML
         working-directory: source/landing
+        # No Google request is activated unless the operator explicitly sets
+        # this variable AND configures the restricted Maps browser key.
+        env:
+          MOPS_PLACES_ENABLED: ${{ vars.MOPS_PLACES_ENABLED || 'false' }}
+          MOPS_PLACES_BROWSER_KEY: ${{ secrets.MOPS_PLACES_BROWSER_KEY }}
         run: npm run build
       - name: Verify source, assets and WhatsApp rules
         working-directory: source/landing
