@@ -38,11 +38,11 @@ test('selection preserves user-readable POI text, normalizes spaces, enforces le
 test('production documents reference both identical suggestion modules and keep both original form fields',()=>{
   const mobile=fs.readFileSync('dist/mobile/index.html','utf8');
   const desktop=fs.readFileSync('src/TripForm.jsx','utf8');
-  for(const selector of ['places-origem-mount','places-destino-mount','/assets/places-autocomplete.mjs','/assets/places-autocomplete.css'])
+  for(const selector of ['places-origem-mount','places-destino-mount','/assets/places-autocomplete.js','/assets/places-autocomplete.css'])
     assert.ok(mobile.includes(selector),selector);
   for(const token of ['enhancePlacesFields','origemInputRef','destinoInputRef','origemMountRef','destinoMountRef'])
     assert.ok(desktop.includes(token),token);
-  for(const asset of ['places-autocomplete.mjs','places-autocomplete.css','places-config.json']){
+  for(const asset of ['places-autocomplete.js','places-autocomplete.css','places-config.json']){
     assert.ok(fs.existsSync('dist/assets/'+asset),asset);
   }
   const config=JSON.parse(fs.readFileSync('dist/assets/places-config.json','utf8'));
