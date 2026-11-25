@@ -40,11 +40,11 @@ def verify():
     iphone='Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1'
     phone,phone_headers,_=get(BASE+'?verify='+str(time.time_ns()),iphone)
     phone=phone.decode()
-    for marker in ['motoristaops-mobile-revision','mobile-oficial-2026-11-21','id="servicos"','id="veiculos"','id="orcamento"','Acompanhe a MotoristaOPS','index,follow','rel="canonical" href="'+BASE+'"']:
+    for marker in ['motoristaops-mobile-revision','mobile-oficial-2026-11-21','id="servicos"','id="veiculos"','id="orcamento"','index,follow','rel="canonical" href="'+BASE+'"']:
         assert marker in phone,('mobile',marker)
     for marker in ['cookie-consent.css','site-preferences.js','mobile-analytics.js','data-cookie-settings']:
         assert marker in phone,('mobile-consent',marker)
-    for invalid in ['noindex','Visitar o site oficial','fonts.googleapis.com','Bio Executiva']:
+    for invalid in ['noindex','Visitar o site oficial','fonts.googleapis.com','Bio Executiva','Acompanhe a MotoristaOPS','Nos canais oficiais','class="social-grid"']:
         assert invalid not in phone,('mobile',invalid)
     phone_vary=phone_headers.get('Vary','').lower()
     phone_cache=phone_headers.get('Cache-Control','').lower()
