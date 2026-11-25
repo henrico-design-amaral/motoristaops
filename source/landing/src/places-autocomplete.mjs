@@ -200,8 +200,13 @@ export function attachPlacesField({input,mount,locale='pt',config,onSelect=()=>{
       row.dataset.placeIndex=String(index);
       row.setAttribute('aria-selected','false');
       row.textContent=plainPredictionText(prediction);
-      row.addEventListener('pointerdown',event=>event.preventDefault());
-      row.addEventListener('click',()=>void choose(prediction));
+      let handledByPointer=false;
+      row.addEventListener('pointerdown',event=>{
+        event.preventDefault(); // Keep input focus during touch/mouse selection.
+        handledByPointer=true;
+        void choose(prediction);
+      });
+      row.addEventListener('click',()=>{if(!handledByPointer)void choose(prediction);});
       box.appendChild(row);
     }
     const attribution=document.createElement('div');
@@ -251,7 +256,8 @@ export function attachPlacesField({input,mount,locale='pt',config,onSelect=()=>{
     if(event.key==='ArrowDown'||event.key==='ArrowUp'){
       event.preventDefault();
       active=event.key==='ArrowDown'
-        ?(active+1)%options.length:(active+options.length-1)%options.length;
+        ?(active+1)%options.length
+        :(active<0?options.length-1:(active+options.length-1)%options.length);
       highlight();
       return;
     }
