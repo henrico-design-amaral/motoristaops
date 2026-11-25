@@ -35,7 +35,7 @@ fs.copyFileSync('scripts/cookie-consent.js','dist/assets/site-preferences.js');
 fs.copyFileSync('scripts/cookie-consent.css','dist/assets/cookie-consent.css');
 // Reuse the same consent-gated GA4 implementation as the desktop.
 fs.copyFileSync('src/analytics.mjs','dist/assets/mobile-analytics.js');
-fs.copyFileSync('src/places-autocomplete.mjs','dist/assets/places-autocomplete.mjs');
+fs.copyFileSync('src/places-autocomplete.mjs','dist/assets/places-autocomplete.js');
 fs.copyFileSync('src/places-autocomplete.css','dist/assets/places-autocomplete.css');
 // Browser keys must be restricted by referrer and APIs at Google Cloud.
 // Explicit opt-in flag is mandatory; missing key fails closed at build time.
