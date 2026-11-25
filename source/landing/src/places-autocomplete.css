@@ -1,0 +1,41 @@
+/* Shared controlled Places suggestions: no visible change if disabled. */
+.mops-address-anchor{position:relative;min-width:0}
+.mops-places-mount{position:relative;min-width:0}
+.mops-places-results{
+  position:absolute;z-index:90;top:0;left:0;right:0;
+  max-height:min(42dvh,295px);overflow-y:auto;overscroll-behavior:contain;
+  background:#F3EFE4;color:#151518;border:1px solid #947546;
+  border-radius:8px;box-shadow:0 8px 22px #0707094d;
+  -webkit-overflow-scrolling:touch;
+}
+.mops-places-results[hidden],.mops-places-privacy[hidden]{display:none!important}
+.mops-places-option{
+  display:flex;align-items:center;min-height:46px;padding:11px 13px;
+  border-bottom:1px solid #e1d9cc;color:#151518;background:#F3EFE4;
+  font-family:'Instrument Sans',sans-serif;font-size:14px;font-weight:400;
+  line-height:1.4;overflow-wrap:anywhere;cursor:pointer;
+}
+.mops-places-option:hover,.mops-places-option[aria-selected="true"]{
+  color:#070709;background:#eadac3;
+}
+.mops-places-attribution{
+  padding:9px 12px;display:flex;align-items:center;justify-content:flex-end;
+  background:#F3EFE4;border-top:1px solid #d6cec2;
+}
+/* Google's required text attribution, used only because the 320px
+   prediction popover has limited room for the official logo. */
+.mops-places-google{
+  font-family:Roboto,Arial,sans-serif!important;font-style:normal;font-weight:400;
+  font-size:12px;letter-spacing:normal;line-height:1.35;white-space:nowrap;
+  color:#5E5E5E;
+}
+.mops-places-privacy{
+  font-size:12px;line-height:1.5;color:#A6A39E;margin:7px 0 2px;
+}
+.mops-places-mount .sr-only{
+  position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+@media(prefers-reduced-motion:reduce){
+  .mops-places-option{scroll-behavior:auto!important}
+}
