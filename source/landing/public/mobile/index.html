@@ -8,6 +8,7 @@
 <meta name="description" content="Transporte executivo em São Paulo para aeroportos, compromissos, eventos e viagens programadas. Solicite orçamento diretamente à MotoristaOPS.">
 <title>Transporte Executivo em São Paulo | MotoristaOPS</title>
 <link rel="stylesheet" href="/assets/cookie-consent.css?v=20261123b">
+<link rel="stylesheet" href="/assets/places-autocomplete.css">
 <script defer src="/assets/site-preferences.js?v=20261123"></script>
 <!-- MotoristaOPS: pagina inicial mobile oficial, mesma canonical da versao desktop. -->
 
@@ -251,8 +252,8 @@ h2{font-size:29px;line-height:1.14;font-weight:600;letter-spacing:-.05em;margin:
 <div class="field full"><label for="servico">Tipo de serviço</label><select name="servico" id="servico" required><option value="">Selecione um serviço</option><option>Traslado para aeroporto</option><option>Agenda corporativa</option><option>Motorista à disposição</option><option>Eventos e receptivo</option><option>Viagem programada</option><option>Consulta ou compromisso</option><option>Outro serviço</option></select></div>
 <div class="field"><label for="data">Data</label><input type="date" name="data" id="data" required></div>
 <div class="field"><label for="hora">Horário</label><input type="time" name="hora" id="hora" required></div>
-<div class="field full"><label for="origem">Origem</label><input type="text" name="origem" id="origem" maxlength="200" placeholder="Bairro, endereço ou aeroporto" required></div>
-<div class="field full"><label for="destino">Destino</label><input type="text" name="destino" id="destino" maxlength="200" placeholder="Para onde vamos?" required></div>
+<div class="field full"><label for="origem">Origem</label><div class="mops-address-anchor"><input type="text" name="origem" id="origem" maxlength="200" placeholder="Bairro, endereço ou aeroporto" required><div class="mops-places-mount" id="places-origem-mount"></div></div></div>
+<div class="field full"><label for="destino">Destino</label><div class="mops-address-anchor"><input type="text" name="destino" id="destino" maxlength="200" placeholder="Para onde vamos?" required><div class="mops-places-mount" id="places-destino-mount"></div></div></div>
 <div class="field"><label for="pax">Passageiros</label><input type="number" name="pax" id="pax" min="1" max="99" step="1" inputmode="numeric" placeholder="Ex.: 2" required></div>
 <div class="field"><label for="malas">Malas <span class="optional">(opcional)</span></label><input type="number" name="malas" id="malas" min="0" max="99" step="1" inputmode="numeric" placeholder="Ex.: 2"></div>
 <div class="field full"><label for="veiculo">Preferência de veículo <span class="optional">(opcional)</span></label><select name="veiculo" id="veiculo"><option value="">Preciso de orientação</option><option>Sedan executivo</option><option>Sedan premium</option><option>SUV executivo</option><option>Minivan executiva</option><option>Van executiva</option></select></div>
@@ -345,6 +346,13 @@ h2{font-size:29px;line-height:1.14;font-weight:600;letter-spacing:-.05em;margin:
  });
 
 })();
+</script>
+<script type="module">
+import {enhancePlacesFields} from '/assets/places-autocomplete.mjs';
+void enhancePlacesFields([
+  {input:document.getElementById('origem'),mount:document.getElementById('places-origem-mount')},
+  {input:document.getElementById('destino'),mount:document.getElementById('places-destino-mount')}
+],{locale:'pt'}).catch(()=>{}); // All failures retain native manual entry.
 </script>
 <script type="module">
 import {savedPermission,setPermission,observeContacts,recordContact} from '/assets/mobile-analytics.js?v=20261124';
